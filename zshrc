@@ -8,7 +8,7 @@ HIST_STAMPS="dd.mm.yyyy"
 ZLE_RPROMPT_INDENT=0
 DEFAULT_USER=$USER
 EDITOR=vim
-DOTFILES_DIR="${HOME}/.envsetup-lite.d"
+DOTFILES_DIR="${HOME}/.dotfiles"
 plugins=(vi-mode git)
 [[ -d "$ZSH/custom/plugins/zsh-syntax-highlighting" ]] && plugins+=(zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
