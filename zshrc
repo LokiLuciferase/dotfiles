@@ -13,13 +13,15 @@ plugins=(vi-mode git)
 [[ -d "$ZSH/custom/plugins/zsh-syntax-highlighting" ]] && plugins+=(zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
-# Dirty hacks 
-# improved highlighting on WSL: make color of other-writable directories less offensive
-[[ ! -f "$HOME/.dircolors" ]] || eval "$(dircolors -b "$HOME/.dircolors" )" && zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
 # load all ZSH-related config files from unified directory
 for config in ${DOTFILES_DIR}/*.zsh ; do
     [[ ! -f "$config" ]] || source "$config"
 done
 
+# Dirty hacks
+# improved highlighting on WSL: make color of other-writable directories less offensive
+if [[ -f "${DOTFILES_DIR}/dircolors" ]]; then
+    eval "$(dircolors -b "${DOTFILES_DIR}/dircolors" )"
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
 cd
