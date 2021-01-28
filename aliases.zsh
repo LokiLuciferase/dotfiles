@@ -14,6 +14,7 @@ alias dush='du -ahd1 | sort -h'
 alias hgrep='history|grep'
 alias trace='tail -f -n100000'
 alias mkdir='mkdir -pv'
+alias tmux="tmux -f ${HOME}/.config/tmux/tmux.conf"
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias svim="${VIM_BIN} -u ~/.SpaceVim/vimrc"
