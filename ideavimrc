@@ -1,0 +1,106 @@
+set ignorecase
+set smartcase
+set scrolloff=3 " 3 lines above/below cursor when scrolling
+
+" Emulated Plugins
+set surround
+
+" Copy to system clipboard as well
+set clipboard+=unnamed
+
+" Use Idea to join lines smartly
+set ideajoin
+
+" Multiple cursors support
+set multiple-cursors
+
+" These settings are from - https://github.com/Valloric/dotfiles/blob/master/intellij/ideavimrc
+
+" let mapleader = ","
+let mapleader = " "
+" let maplocalleader = ","
+
+" Use Q for formatting the current paragraph (or visual selection)
+vmap Q gq
+nmap Q gqap
+
+" These create newlines like o and O but stay in normal mode
+nmap zj o<Esc>k
+nmap zk O<Esc>j
+
+" key bindings for quickly moving between windows
+" h left, l right, k up, j down
+" nmap <leader>h <c-w>h
+" nmap <leader>l <c-w>l
+" nmap <leader>k <c-w>k
+" nmap <leader>j <c-w>j
+
+" Commenting
+nmap <leader>cl <Action>(CommentByLineComment)
+vmap <leader>cl <Action>(CommentByLineComment)
+
+" Closing tabs
+nmap <leader>q <Action>(CloseContent)
+nmap <leader>Q <Action>(ReopenClosedTab)
+
+" To navigate between split panes
+nmap <leader>wo <Action>(NextSplitter)
+nmap <leader>wp <Action>(PrevSplitter)
+nmap <leader>j <Action>(PrevSplitter)
+
+" Splits manipulation
+nmap <leader>ws <Action>(SplitHorizontally)
+nmap <leader>wv <Action>(SplitVertically)
+nmap <leader>wc <Action>(Unsplit)
+nmap <leader>wC <Action>(UnsplitAll)
+nmap <leader>wd <Action>(OpenEditorInOppositeTabGroup)
+nmap <leader><leader> <Action>(VimFilePrevious)
+" nmap <leader>ww <Action>(JumpToLastWindow)
+
+" Navigation
+nmap <leader>h <Action>(Back)
+nmap <leader>l <Action>(Forward)
+nmap <leader>L <Action>(RecentLocations)
+nmap <leader>g <Action>(GotoDeclaration)
+nmap <leader>u <Action>(FindUsages)
+nmap <leader>f <Action>(GotoFile)
+nmap <leader>c <Action>(GotoClass)
+nmap <leader>s <Action>(GotoSymbol)
+" nmap <leader>m <Action>(FileStructurePopup)
+nmap <leader>; <Action>(FileStructurePopup)
+nmap <leader>M <Action>(ActivateStructureToolWindow)
+nmap <leader>d <Action>(ShowErrorDescription)
+nmap <leader>i <Action>(GotoImplementation)
+nmap <leader>I <Action>(SelectIn)
+nmap <leader>e <Action>(RecentFiles)
+nmap <leader>t <Action>(GotoTest)
+nmap <leader>p <Action>(JumpToLastWindow)
+nmap <leader>b <Action>(ShowBookmarks)
+
+" nmap <leader>a <Action>(Switcher)
+nmap <leader>a <Action>(RecentChangedFiles)
+
+" Errors
+nmap <leader>x <Action>(GotoNextError)
+nmap <leader>X <Action>(GotoPreviousError)
+
+" Refactorings
+vmap T <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>rr <Action>(RenameElement)
+nmap <leader>rg <Action>(Generate)
+nmap <leader>rI <Action>(OptimizeImports)
+" Inspection
+nmap <leader>rc <Action>(InspectCode)
+
+" VCS operations
+nmap <leader>gy <Action>(Vcs.Show.Local.Changes)                          
+nmap <leader>gp <Action>(Vcs.QuickListPopupAction)
+nmap <leader>gb <Action>(Annotate)
+nmap <leader>ga <Action>(Annotate)
+nmap <leader>gl <Action>(Vcs.Show.Log)
+nmap <leader>gl <Action>(Vcs.Show.Log)
+nmap <leader>gd <Action>(Compare.LastVersion)
+" nmap <leader>yr <Action>(Git.ResolveConflicts)                          
+
+" Terminal
+nmap <leader>T <Action>(ActivateTerminalToolWindow)
