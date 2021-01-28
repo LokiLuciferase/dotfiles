@@ -20,3 +20,9 @@ function spip {
     fi
 }
 
+function pdot {
+    # pull newest changes to dotfiles
+    cd ${HOME}/.dotfiles || exit 0
+    git pull -v
+    popd
+}
