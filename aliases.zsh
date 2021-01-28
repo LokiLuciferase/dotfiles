@@ -9,6 +9,7 @@ alias lh='ls -lh'
 alias l='ls -lah'
 alias lt='ls -lahtr'
 
+alias :q='exit'
 alias dush='du -ahd1 | sort -h'
 alias hgrep='history|grep'
 alias trace='tail -f -n100000'
