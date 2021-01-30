@@ -20,9 +20,15 @@ function spip {
     fi
 }
 
+function qsplit {
+    # start four-way split tmux session
+    tmux new-session \; split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1 \; attach
+}
+
 function pdot {
     # pull newest changes to dotfiles
     cd ${HOME}/.dotfiles || exit 0
     git pull -v
     popd
 }
+
