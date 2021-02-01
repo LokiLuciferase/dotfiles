@@ -21,6 +21,13 @@ function spip {
     fi
 }
 
+function google {
+    # google search the given terms
+    [[ "$BROWSER" == "" ]] && echo '$BROWSER variable unset.' 1>&2 && return 1
+    QUERY=${@// /%20}
+    nohup ${BROWSER} http://www.google.com/search?q="$QUERY" &> /dev/null &
+}
+
 ## Terminal window management
 function maximize {
     [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
@@ -31,7 +38,6 @@ function minimize {
     [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
     wmctrl -r ${WINDOWNAME} -b remove,maximized_horz && wmctrl -r ${WINDOWNAME} -b remove,maximized_vert
 }
-
 
 ## Tmux automation ##
 function hsplit {
