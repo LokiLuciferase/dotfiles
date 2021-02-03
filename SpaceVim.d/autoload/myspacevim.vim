@@ -6,7 +6,7 @@ function! myspacevim#before() abort
     \ 'args': ['-q', '-', '-S', '-l', '100'],
     \ }
 	let g:neoformat_enabled_python = ['black']
-    set mouse=
+    " set mouse=
     set clipboard=unnamed
     autocmd BufNewFile,BufRead *.config set ft=nextflow
     autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa} set ft=fasta
