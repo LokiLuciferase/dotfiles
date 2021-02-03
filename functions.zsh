@@ -21,6 +21,12 @@ function spip {
     fi
 }
 
+function desktop-run {
+    # run desktop application without blocking CLI
+    nohup "$@" &> /dev/null &
+    disown
+}
+
 function google {
     # google search the given terms
     [[ "$BROWSER" == "" ]] && echo '$BROWSER variable unset.' 1>&2 && return 1

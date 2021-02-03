@@ -11,7 +11,7 @@ alias lt='ls -lahtr'
 
 alias :q='exit'
 alias dush='du -ahd1 | sort -h'
-alias hgrep='history|grep'
+alias hgrep='history | grep'
 alias trace='tail -f -n100000'
 alias mkdir='mkdir -pv'
 alias tmux="tmux -f ${HOME}/.config/tmux/tmux.conf"
