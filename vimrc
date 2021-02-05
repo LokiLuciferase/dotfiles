@@ -58,4 +58,5 @@ set wrap
 set nowrap
 set sidescroll=5
 set listchars+=precedes:<,extends:>
-set colorscheme=industry
+colo industry
+

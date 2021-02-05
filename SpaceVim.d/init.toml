@@ -12,8 +12,11 @@
     bootstrap_before = "myspacevim#before"
     bootstrap_after = "myspacevim#after"
 
-
 # Custom plugins
+[[custom_plugins]]
+name = "ntpeters/vim-better-whitespace"
+merged = false
+
 [[custom_plugins]]
 repo = "Xuyuanp/nerdtree-git-plugin"
 merged = false
