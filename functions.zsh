@@ -31,7 +31,7 @@ function google {
     # google search the given terms
     [[ "$BROWSER" == "" ]] && echo '$BROWSER variable unset.' 1>&2 && return 1
     QUERY=${@// /%20}
-    nohup ${BROWSER} http://www.google.com/search?q="$QUERY" &> /dev/null &
+    desktop-run ${BROWSER} http://www.google.com/search?q="$QUERY"
 }
 
 ## Terminal window management
