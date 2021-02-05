@@ -25,4 +25,4 @@ if [[ -f "${DOTFILES_DIR}/dircolors" ]]; then
     eval "$(dircolors -b "${DOTFILES_DIR}/dircolors" )"
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
-cd
+
