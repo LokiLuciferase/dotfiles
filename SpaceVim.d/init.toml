@@ -77,6 +77,10 @@ name = 'lang#c'
 enable = true
 
 [[layers]]
+name = 'lang#dockerfile'
+enable = true
+
+[[layers]]
 name = 'lang#rust'
 enable = true
 
