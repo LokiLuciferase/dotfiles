@@ -18,10 +18,6 @@ name = "ntpeters/vim-better-whitespace"
 merged = false
 
 [[custom_plugins]]
-repo = "Xuyuanp/nerdtree-git-plugin"
-merged = false
-
-[[custom_plugins]]
 repo = "mechatroner/rainbow_csv"
 merged = false
 
