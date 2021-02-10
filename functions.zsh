@@ -57,7 +57,7 @@ function vsplit {
 function qsplit {
     # start four-way split tmux session
     [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="qsplit"
-    tmux new-session \; split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
+    tmux new-session -s "$SESSNAME" \; split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
 }
 
 function hexsplit {
@@ -65,7 +65,7 @@ function hexsplit {
     # maximize window if possible, makes no sense else
     [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="hexsplit"
     maximize || true
-    tmux new-session -s "$SESSNAME"\; split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
+    tmux new-session -s "$SESSNAME" \; split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
 }
 
 function pdot {
