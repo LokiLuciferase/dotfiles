@@ -1,5 +1,5 @@
 function! myspacevim#before() abort
-    let mapleader=","
+    let g:mapleader=','
     let g:neoformat_python_black = {
     \ 'exe': 'black',
     \ 'stdin': 1,
@@ -14,5 +14,8 @@ endfunction
 
 function! myspacevim#after() abort
     inoremap <S-Tab> <C-d>
+    nnoremap <leader>d "_d
+    xnoremap <leader>d "_d
+    xnoremap <leader>p "_dP
 endfunction
 

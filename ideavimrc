@@ -93,13 +93,13 @@ nmap <leader>rI <Action>(OptimizeImports)
 nmap <leader>rc <Action>(InspectCode)
 
 " VCS operations
-nmap <leader>gy <Action>(Vcs.Show.Local.Changes)                          
+nmap <leader>gy <Action>(Vcs.Show.Local.Changes)
 nmap <leader>gp <Action>(Vcs.QuickListPopupAction)
 nmap <leader>gb <Action>(Annotate)
 nmap <leader>ga <Action>(Annotate)
 nmap <leader>gl <Action>(Vcs.Show.Log)
 nmap <leader>gd <Action>(Compare.LastVersion)
-" nmap <leader>yr <Action>(Git.ResolveConflicts)                          
+" nmap <leader>yr <Action>(Git.ResolveConflicts)
 
 " Terminal
 nmap <leader>T <Action>(ActivateTerminalToolWindow)
