@@ -57,6 +57,9 @@ nmap <leader>wd <Action>(OpenEditorInOppositeTabGroup)
 nmap <leader><leader> <Action>(VimFilePrevious)
 " nmap <leader>ww <Action>(JumpToLastWindow)
 
+" Execution
+nmap <leader>lr <Action>(Run)
+
 " Navigation
 nmap <leader>h <Action>(Back)
 nmap <leader>l <Action>(Forward)
