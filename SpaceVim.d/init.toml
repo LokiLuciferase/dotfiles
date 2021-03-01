@@ -14,6 +14,10 @@
 
 # Custom plugins
 [[custom_plugins]]
+name = "junegunn/vim-peekaboo"
+merged = false
+
+[[custom_plugins]]
 name = "ntpeters/vim-better-whitespace"
 merged = false
 
