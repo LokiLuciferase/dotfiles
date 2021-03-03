@@ -70,7 +70,7 @@ function hexsplit {
 
 function pdot {
     # pull newest changes to dotfiles
-    cd ${HOME}/.dotfiles || exit 0
+    pushd ${HOME}/.dotfiles || exit 0
     git pull -v
     popd
 }
