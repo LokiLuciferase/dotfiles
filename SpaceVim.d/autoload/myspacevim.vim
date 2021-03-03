@@ -10,6 +10,8 @@ function! myspacevim#before() abort
     set clipboard=unnamed
     autocmd BufNewFile,BufRead *.config set ft=nextflow
     autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa} set ft=fasta
+    au FileType markdown setlocal wrap
+    au FileType markdown setlocal spell
 endfunction
 
 function! myspacevim#after() abort
