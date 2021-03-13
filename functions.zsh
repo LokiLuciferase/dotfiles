@@ -1,5 +1,20 @@
 #!/usr/bin/env zsh
 
+
+## make rsync respect .rsyncignore
+function rsync {
+    RSYNC="$(whence -p rsync)"
+    IGNORE_FILES=( ${HOME}/.rsyncignore ./.rsyncignore )
+    EXCLUDE_FROM=""
+    for f in ${IGNORE_FILES[@]}; do
+        if [[ -e $f ]]; then
+            EXCLUDE_FROM="$EXCLUDE_FROM --exclude-from=$f"
+        fi
+    done
+    CMD="$RSYNC $EXCLUDE_FROM $@"
+    /bin/bash -c "$CMD"
+}
+
 ## misc convenience functions ##
 function ytdl {
     youtube-dl "$1" -x --audio-format mp3 --audio-quality 9
