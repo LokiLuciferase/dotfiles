@@ -16,6 +16,7 @@ alias trace='tail -f -n100000'
 alias mkdir='mkdir -pv'
 alias tmux="tmux -f ${HOME}/.config/tmux/tmux.conf"
 alias rsync2="rsync -PrazuL"
+alias dog='highlight -O ansi --force'
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias svim="${VIM_BIN} -u ~/.SpaceVim/vimrc"
