@@ -29,7 +29,7 @@ function spip {
     # Safe pip: refuse to install stuff into the base conda environment.
     CONDA_PREFIX=${CONDA_PREFIX:-'null'}
     CURRENV=$(basename ${CONDA_PREFIX})
-    if [[ "$CURRENV" == "miniconda3" ]]; then
+    if [[ "$CURRENV" == "miniconda3" && "$VIRTUAL_ENV" == "" ]]; then
         echo "Cowardly refusing to mess up base conda environment."
     else
         \pip "$@"
