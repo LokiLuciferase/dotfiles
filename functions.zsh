@@ -83,6 +83,14 @@ function hexsplit {
     tmux new-session -s "$SESSNAME" \; split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
 }
 
+function vhexsplit {
+    # start vertical six-way split tmux session
+    # maximize window if possible, makes no sense else
+    [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="vhexsplit"
+    maximize || true
+    tmux new-session -s "$SESSNAME" \; split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1 \; attach-session -c $PWD
+}
+
 function pdot {
     # pull newest changes to dotfiles
     pushd ${HOME}/.dotfiles || exit 0
