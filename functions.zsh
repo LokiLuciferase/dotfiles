@@ -98,3 +98,14 @@ function pdot {
     popd
 }
 
+function pshell {
+    # pull newest changes to shell
+    pushd ${HOME}/.oh-my-zsh/custom || exit 0
+    for plugin in plugins/*/ themes/*/; do
+        if [ -d "$plugin/.git" ]; then
+            git -C "$plugin" pull
+        fi
+    done
+    popd
+}
+
