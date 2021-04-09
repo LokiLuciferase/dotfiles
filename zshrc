@@ -11,7 +11,14 @@ DEFAULT_USER=$USER
 EDITOR=vim
 DOTFILES_DIR="${HOME}/.dotfiles"
 plugins=(vi-mode git)
-[[ -d "$ZSH/custom/plugins/zsh-syntax-highlighting" ]] && plugins+=(zsh-syntax-highlighting)
+wanted_custom_plugins=(
+    zsh-syntax-highlighting
+    zsh-autosuggestions
+)
+# load all found ZSH plugins
+for wanted_plugin in "${wanted_custom_plugins[@]}"; do
+    [[ -d "$ZSH/custom/plugins/${wanted_plugin}" ]] && plugins+=(${wanted_plugin})
+done
 source $ZSH/oh-my-zsh.sh
 
 # load all ZSH-related config files from unified directory
