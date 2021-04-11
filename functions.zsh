@@ -93,14 +93,14 @@ function vhexsplit {
 
 function pdot {
     # pull newest changes to dotfiles
-    pushd ${HOME}/.dotfiles || exit 0
-    git pull -v
+    pushd ${HOME}/.dotfiles || return 0
+    git pull
     popd
 }
 
 function pshell {
     # pull newest changes to shell
-    pushd ${HOME}/.oh-my-zsh/custom || exit 0
+    pushd ${HOME}/.oh-my-zsh/custom || return 0
     for plugin in plugins/*/ themes/*/; do
         if [ -d "$plugin/.git" ]; then
             git -C "$plugin" pull
@@ -109,3 +109,11 @@ function pshell {
     popd
 }
 
+function pall {
+    # pull all changes of git-dependent software
+    pdot
+    pshell
+    pushd ${HOME}/.SpaceVim || return 0
+    git pull
+    popd
+}
