@@ -20,6 +20,10 @@ function ytdl {
     youtube-dl "$1" -x --audio-format mp3 --audio-quality 9
 }
 
+function ytdl-vid {
+    youtube-dl -f 'bestvideo[height>=720]+bestaudio/best' -ciw -o "%(upload_date)s_%(title)s.%(ext)s" -v --add-metadata $1
+}
+
 function asciinema-upload {
     # Workaround for uploading to asciinema on ubuntu-focal
     curl -v -u $USER:$(cat ~/.config/asciinema/install-id) https://asciinema.org/api/asciicasts -F asciicast=@$1

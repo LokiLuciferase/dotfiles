@@ -32,5 +32,5 @@ alias mansplain='man'
 alias leckmiamoasch='echo "trottl"'
 alias please='sudo '
 alias fucking='sudo '
-alias get-rekt="sudo apt update && sudo apt upgrade --yes"
+alias get-rekt="sudo apt update && sudo apt upgrade --yes && pall"
 
