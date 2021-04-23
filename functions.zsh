@@ -73,6 +73,12 @@ function vsplit {
     tmux new-session \; split-window -v \; attach-session -c $PWD
 }
 
+function svimsh {
+    WD=$(dirname "$@") || WD="$PWD"
+    echo $WD
+    tmux new-session \; attach-session -c "$WD" \; split-window -v -p 20 \; select-pane -t 1 \; send-keys svim Space "$@" Enter
+}
+
 function qsplit {
     # start four-way split tmux session
     [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="qsplit"
