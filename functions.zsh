@@ -24,6 +24,10 @@ function ytdl-vid {
     youtube-dl -f 'bestvideo[height>=720]+bestaudio/best' -ciw -o "%(upload_date)s_%(title)s.%(ext)s" -v --add-metadata $1
 }
 
+function ytdl-stream {
+    youtube-dl -f 'best' -o - "$1" | vlc -
+}
+
 function asciinema-upload {
     # Workaround for uploading to asciinema on ubuntu-focal
     curl -v -u $USER:$(cat ~/.config/asciinema/install-id) https://asciinema.org/api/asciicasts -F asciicast=@$1
@@ -75,7 +79,6 @@ function vsplit {
 
 function svimsh {
     WD=$(dirname "$@") || WD="$PWD"
-    echo $WD
     tmux new-session \; attach-session -c "$WD" \; split-window -v -p 20 \; select-pane -t 1 \; send-keys svim Space "$@" Enter
 }
 
