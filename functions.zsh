@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
 
-
-## make rsync respect .rsyncignore
 function rsync {
+    ## make rsync respect .rsyncignore
     RSYNC="$(whence -p rsync)"
     IGNORE_FILES=( ${HOME}/.rsyncignore ./.rsyncignore )
     EXCLUDE_FROM=""
@@ -78,6 +77,7 @@ function vsplit {
 }
 
 function svimsh {
+    ## run spacevim with a true terminal window at bottom
     WD=$(dirname "$@") || WD="$PWD"
     tmux new-session \; attach-session -c "$WD" \; split-window -v -p 20 \; select-pane -t 1 \; send-keys svim Space "$@" Enter
 }
