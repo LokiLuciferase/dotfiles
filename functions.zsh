@@ -56,6 +56,14 @@ function google {
     desktop-run ${BROWSER} http://www.google.com/search?q="$QUERY"
 }
 
+function sleeptimer {
+    # suspend machine after $1 minutes.
+    MINS="${1:-60}"
+    echo "Will suspend machine after ${MINS} mins. Ctrl+C to abort this."
+    SECS=$(($MINS * 60))
+    sleep "$SECS" && systemctl suspend -i
+}
+
 ## Terminal window management
 function maximize {
     [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
