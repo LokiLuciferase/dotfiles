@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function rsync {
+rsync() {
     ## make rsync respect .rsyncignore
     RSYNC="$(whence -p rsync)"
     IGNORE_FILES=( ${HOME}/.rsyncignore ./.rsyncignore )
@@ -15,24 +15,24 @@ function rsync {
 }
 
 ## misc convenience functions ##
-function ytdl-mp3 {
+ytdl-mp3() {
     youtube-dl "$1" -x --audio-format mp3 --audio-quality 9
 }
 
-function ytdl-vid {
+ytdl-vid() {
     youtube-dl -f 'bestvideo[height>=720]+bestaudio/best' -ciw -o "%(upload_date)s_%(title)s.%(ext)s" -v --add-metadata $1
 }
 
-function ytdl-stream {
+ytdl-stream() {
     youtube-dl -f 'best' -o - "$1" | vlc -
 }
 
-function asciinema-upload {
+asciinema-upload() {
     # Workaround for uploading to asciinema on ubuntu-focal
     curl -v -u $USER:$(cat ~/.config/asciinema/install-id) https://asciinema.org/api/asciicasts -F asciicast=@$1
 }
 
-function spip {
+spip() {
     # Safe pip: refuse to install stuff into the base conda environment.
     CONDA_PREFIX=${CONDA_PREFIX:-'null'}
     CURRENV=$(basename ${CONDA_PREFIX})
@@ -43,20 +43,20 @@ function spip {
     fi
 }
 
-function desktop-run {
+desktop-run() {
     # run desktop application without blocking CLI
     nohup "$@" &> /dev/null &
     disown
 }
 
-function google {
+google() {
     # google search the given terms
     [[ "$BROWSER" == "" ]] && echo '$BROWSER variable unset.' 1>&2 && return 1
     QUERY=${@// /%20}
     desktop-run ${BROWSER} http://www.google.com/search?q="$QUERY"
 }
 
-function sleeptimer {
+sleeptimer() {
     # suspend machine after $1 minutes.
     MINS="${1:-60}"
     echo "Will suspend machine after ${MINS} mins. Ctrl+C to abort this."
@@ -65,38 +65,38 @@ function sleeptimer {
 }
 
 ## Terminal window management
-function maximize {
+maximize() {
     [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
     wmctrl -r ${WINDOWNAME} -b add,maximized_horz && wmctrl -r ${WINDOWNAME} -b add,maximized_vert
 }
 
-function minimize {
+minimize() {
     [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
     wmctrl -r ${WINDOWNAME} -b remove,maximized_horz && wmctrl -r ${WINDOWNAME} -b remove,maximized_vert
 }
 
 ## Tmux automation ##
-function hsplit {
+hsplit() {
     tmux new-session \; split-window -h \; attach-session -c $PWD
 }
 
-function vsplit {
+vsplit() {
     tmux new-session \; split-window -v \; attach-session -c $PWD
 }
 
-function svimsh {
+svimsh() {
     ## run spacevim with a true terminal window at bottom
     WD=$(dirname "$@") || WD="$PWD"
     tmux new-session \; attach-session -c "$WD" \; split-window -v -p 20 \; select-pane -t 1 \; send-keys svim Space "$@" Enter
 }
 
-function qsplit {
+qsplit() {
     # start four-way split tmux session
     [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="qsplit"
     tmux new-session -s "$SESSNAME" \; split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
 }
 
-function hexsplit {
+hexsplit() {
     # start six-way split tmux session
     # maximize window if possible, makes no sense else
     [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="hexsplit"
@@ -104,7 +104,7 @@ function hexsplit {
     tmux new-session -s "$SESSNAME" \; split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
 }
 
-function vhexsplit {
+vhexsplit() {
     # start vertical six-way split tmux session
     # maximize window if possible, makes no sense else
     [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="vhexsplit"
@@ -112,14 +112,14 @@ function vhexsplit {
     tmux new-session -s "$SESSNAME" \; split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1 \; attach-session -c $PWD
 }
 
-function _pdot {
+_pdot() {
     # pull newest changes to dotfiles
     pushd ${HOME}/.dotfiles || return 0
     git pull
     popd
 }
 
-function _pshell {
+_pshell() {
     # pull newest changes to shell
     pushd ${HOME}/.oh-my-zsh/custom || return 0
     for plugin in plugins/*/ themes/*/; do
@@ -130,21 +130,21 @@ function _pshell {
     popd
 }
 
-function _pspacevim {
+_pspacevim() {
     # pull newest changes of SpaceVim
     pushd ${HOME}/.SpaceVim || return 0
     git pull
     popd
 }
 
-function pall {
+pall() {
     # pull all changes of git-dependent software
     _pdot
     _pshell
     _pspacevim
 }
 
-function git-pull-all {
+git-pull-all() {
     for d in */; do
         echo "Updating $d..."
         pushd $d || continue
