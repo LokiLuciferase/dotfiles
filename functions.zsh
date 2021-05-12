@@ -15,7 +15,7 @@ function rsync {
 }
 
 ## misc convenience functions ##
-function ytdl {
+function ytdl-mp3 {
     youtube-dl "$1" -x --audio-format mp3 --audio-quality 9
 }
 
@@ -112,14 +112,14 @@ function vhexsplit {
     tmux new-session -s "$SESSNAME" \; split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1 \; attach-session -c $PWD
 }
 
-function pdot {
+function _pdot {
     # pull newest changes to dotfiles
     pushd ${HOME}/.dotfiles || return 0
     git pull
     popd
 }
 
-function pshell {
+function _pshell {
     # pull newest changes to shell
     pushd ${HOME}/.oh-my-zsh/custom || return 0
     for plugin in plugins/*/ themes/*/; do
@@ -130,11 +130,25 @@ function pshell {
     popd
 }
 
-function pall {
-    # pull all changes of git-dependent software
-    pdot
-    pshell
+function _pspacevim {
+    # pull newest changes of SpaceVim
     pushd ${HOME}/.SpaceVim || return 0
     git pull
     popd
+}
+
+function pall {
+    # pull all changes of git-dependent software
+    _pdot
+    _pshell
+    _pspacevim
+}
+
+function git-pull-all {
+    for d in */; do
+        echo "Updating $d..."
+        pushd $d || continue
+        git pull
+        popd
+    done
 }
