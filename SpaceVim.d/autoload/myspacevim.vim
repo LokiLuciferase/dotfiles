@@ -12,6 +12,10 @@ function! myspacevim#before() abort
     autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa} set ft=fasta
     au FileType markdown setlocal wrap
     au FileType markdown setlocal spell
+    au BufNewFile,BufRead Snakefile set syntax=snakemake
+    au BufNewFile,BufRead *.rules set syntax=snakemake
+    au BufNewFile,BufRead *.snakefile set syntax=snakemake
+    au BufNewFile,BufRead *.snake set syntax=snakemake
 endfunction
 
 function! myspacevim#after() abort

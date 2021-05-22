@@ -38,6 +38,10 @@ repo = "LukeGoodsell/nextflow-vim"
 merged = false
 
 [[custom_plugins]]
+repo = "ShaiberAlon/snakemake-vim"
+merged = false
+
+[[custom_plugins]]
 repo = "psf/black"
 merged = false
 
