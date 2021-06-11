@@ -144,13 +144,13 @@ pall() {
     _pspacevim
 }
 
-git-for-each() {
-    # perform the given git command in each subdirectory
+for-each() {
+    # perform the given command in each subdirectory
     SEP=$(printf %$(tput cols)s | tr " " "#")
     for d in */; do
         echo "\n### $d ###"
         pushd $d || continue
-        git $@
+        $@
         echo "${SEP}"
         popd -q
     done
