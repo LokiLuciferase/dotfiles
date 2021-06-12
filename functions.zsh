@@ -149,7 +149,7 @@ for-each() {
     SEP=$(printf %$(tput cols)s | tr " " "#")
     for d in */; do
         echo "\n### $d ###"
-        pushd $d || continue
+        pushd -q $d || continue
         $@
         echo "${SEP}"
         popd -q
