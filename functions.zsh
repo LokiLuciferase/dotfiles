@@ -76,12 +76,43 @@ minimize() {
 }
 
 ## Tmux automation ##
+_tmux_cmd_in_context() {
+    [[ "$3" != "" ]] && SESSNAME="$3" || SESSNAME="$2"
+    if [[ -n "$TMUX" ]]; then
+        PREF=""
+        SUFF=""
+    else
+        PREF="new-session -s $SESSNAME \;"
+        SUFF="\; attach-session -c $PWD"
+    fi
+    CMD="tmux $PREF $1 $SUFF"
+    eval $CMD
+}
+
 hsplit() {
-    tmux new-session \; split-window -h \; attach-session -c $PWD
+    _tmux_cmd_in_context "split-window -h" hsplit $1
 }
 
 vsplit() {
-    tmux new-session \; split-window -v \; attach-session -c $PWD
+    _tmux_cmd_in_context "split-window -v" vsplit $1
+}
+
+qsplit() {
+    _tmux_cmd_in_context "split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1" qsplit $1
+}
+
+hexsplit() {
+    # start six-way split tmux session
+    # maximize window if possible, makes no sense else
+    maximize || true
+    _tmux_cmd_in_context "split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1" hexsplit $1
+}
+
+vhexsplit() {
+    # start vertical six-way split tmux session
+    # maximize window if possible, makes no sense else
+    maximize || true
+    _tmux_cmd_in_context "split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
 }
 
 svimsh() {
@@ -90,28 +121,7 @@ svimsh() {
     tmux new-session \; attach-session -c "$WD" \; split-window -v -p 20 \; select-pane -t 1 \; send-keys svim Space "$@" Enter
 }
 
-qsplit() {
-    # start four-way split tmux session
-    [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="qsplit"
-    tmux new-session -s "$SESSNAME" \; split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
-}
-
-hexsplit() {
-    # start six-way split tmux session
-    # maximize window if possible, makes no sense else
-    [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="hexsplit"
-    maximize || true
-    tmux new-session -s "$SESSNAME" \; split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1 \; attach-session -c $PWD
-}
-
-vhexsplit() {
-    # start vertical six-way split tmux session
-    # maximize window if possible, makes no sense else
-    [[ "$1" != "" ]] && SESSNAME="$1" || SESSNAME="vhexsplit"
-    maximize || true
-    tmux new-session -s "$SESSNAME" \; split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1 \; attach-session -c $PWD
-}
-
+## Git automation ##
 _pdot() {
     # pull newest changes to dotfiles
     pushd ${HOME}/.dotfiles || return 0
