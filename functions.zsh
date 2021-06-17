@@ -1,19 +1,5 @@
 #!/usr/bin/env zsh
 
-rsync() {
-    ## make rsync respect .rsyncignore
-    RSYNC="$(whence -p rsync)"
-    IGNORE_FILES=( ${HOME}/.rsyncignore ./.rsyncignore )
-    EXCLUDE_FROM=""
-    for f in ${IGNORE_FILES[@]}; do
-        if [[ -e $f ]]; then
-            EXCLUDE_FROM="$EXCLUDE_FROM --exclude-from=$f"
-        fi
-    done
-    CMD="$RSYNC $EXCLUDE_FROM $@"
-    /bin/bash -c "$CMD"
-}
-
 ## misc convenience functions ##
 ytdl-mp3() {
     youtube-dl "$1" -x --audio-format mp3 --audio-quality 9
@@ -64,6 +50,33 @@ sleeptimer() {
     sleep "$SECS" && systemctl suspend -i
 }
 
+for-each() {
+    # perform the given command in each subdirectory
+    SEP=$(printf %$(tput cols)s | tr " " "#")
+    for d in */; do
+        echo "\n### $d ###"
+        pushd -q $d || continue
+        $@
+        echo "${SEP}"
+        popd -q
+    done
+}
+
+rsync() {
+    ## make rsync respect .rsyncignore
+    RSYNC="$(whence -p rsync)"
+    IGNORE_FILES=( ${HOME}/.rsyncignore ./.rsyncignore )
+    EXCLUDE_FROM=""
+    for f in ${IGNORE_FILES[@]}; do
+        if [[ -e $f ]]; then
+            EXCLUDE_FROM="$EXCLUDE_FROM --exclude-from=$f"
+        fi
+    done
+    CMD="$RSYNC $EXCLUDE_FROM $@"
+    /bin/bash -c "$CMD"
+}
+
+
 ## Terminal window management
 maximize() {
     [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
@@ -76,7 +89,9 @@ minimize() {
 }
 
 ## Tmux automation ##
-_tmux_cmd_in_context() {
+_tmux_ctx() {
+    # run tmux command either in new session if not running
+    # or in existing one.
     [[ "$3" != "" ]] && SESSNAME="$3" || SESSNAME="$2"
     if [[ -n "$TMUX" ]]; then
         PREF=""
@@ -90,29 +105,29 @@ _tmux_cmd_in_context() {
 }
 
 hsplit() {
-    _tmux_cmd_in_context "split-window -h" hsplit $1
+    _tmux_ctx "split-window -h" hsplit $1
 }
 
 vsplit() {
-    _tmux_cmd_in_context "split-window -v" vsplit $1
+    _tmux_ctx "split-window -v" vsplit $1
 }
 
 qsplit() {
-    _tmux_cmd_in_context "split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1" qsplit $1
+    _tmux_ctx "split-window -h \; split-window -v \; select-pane -t 1 \; split-window -v \; select-pane -t 1" qsplit $1
 }
 
 hexsplit() {
     # start six-way split tmux session
     # maximize window if possible, makes no sense else
     maximize || true
-    _tmux_cmd_in_context "split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1" hexsplit $1
+    _tmux_ctx "split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1" hexsplit $1
 }
 
 vhexsplit() {
     # start vertical six-way split tmux session
     # maximize window if possible, makes no sense else
     maximize || true
-    _tmux_cmd_in_context "split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
+    _tmux_ctx "split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
 }
 
 svimsh() {
@@ -154,14 +169,3 @@ pall() {
     _pspacevim
 }
 
-for-each() {
-    # perform the given command in each subdirectory
-    SEP=$(printf %$(tput cols)s | tr " " "#")
-    for d in */; do
-        echo "\n### $d ###"
-        pushd -q $d || continue
-        $@
-        echo "${SEP}"
-        popd -q
-    done
-}
