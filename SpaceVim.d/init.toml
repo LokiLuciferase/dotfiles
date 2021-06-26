@@ -8,11 +8,16 @@
     enable_tabline_filetype_icon = true
     default_indent = 4
     enable_statusline_mode = false
-    filemanager = "nerdtree"
+    filemanager = "defx"
+    enable_vimfiler_gitstatus = true
     bootstrap_before = "myspacevim#before"
     bootstrap_after = "myspacevim#after"
 
 # Custom plugins
+[[custom_plugins]]
+name = "nvim-treesitter/nvim-treesitter"
+merged = false
+
 [[custom_plugins]]
 name = "junegunn/vim-peekaboo"
 merged = false
