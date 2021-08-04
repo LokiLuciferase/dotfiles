@@ -50,6 +50,12 @@ sleeptimer() {
     sleep "$SECS" && systemctl suspend -i
 }
 
+get-newest() {
+    # gets the newest directory entry by modification time
+    newest=$(ls -t $1 | head -1)
+    [[ "$newest" != "" ]] && echo "${1}/${newest}"
+}
+
 for-each() {
     # perform the given command in each subdirectory
     SEP=$(printf %$(tput cols)s | tr " " "#")
