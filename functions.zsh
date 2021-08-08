@@ -52,8 +52,9 @@ sleeptimer() {
 
 get-newest() {
     # gets the newest directory entry by modification time
-    newest=$(ls -t $1 | head -1)
-    [[ "$newest" != "" ]] && echo "${1}/${newest}"
+    DIR="${1:-.}"
+    newest=$(ls -lt "$DIR" | awk '{if ($5 != 0) print $9}' | grep -v '^$' | head -1)
+    [[ "$newest" != "" ]] && echo "${DIR}/${newest}"
 }
 
 for-each() {
