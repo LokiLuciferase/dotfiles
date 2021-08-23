@@ -1,16 +1,17 @@
 #!/usr/bin/env zsh
 
 ## misc convenience functions ##
+YTDL_BIN="${YTDL_BIN:-yt-dlp}"
 ytdl-mp3() {
-    youtube-dl "$1" -x --audio-format mp3 --audio-quality 9
+    $YTDL_BIN "$1" -x --audio-format mp3 --audio-quality 9
 }
 
 ytdl-vid() {
-    youtube-dl -f 'bestvideo[height>=720]+bestaudio/best' -ciw -o "%(upload_date)s_%(title)s.%(ext)s" -v --add-metadata $1
+    $YTDL_BIN -f 'bestvideo[height>=720]+bestaudio/best' -ciw -o "%(upload_date)s_%(title)s.%(ext)s" -v --add-metadata $1
 }
 
 ytdl-stream() {
-    youtube-dl -f 'best' -o - "$1" | vlc -
+    $YTDL_BIN -f 'best' -o - "$1" | vlc -
 }
 
 asciinema-upload() {
@@ -175,4 +176,3 @@ pall() {
     _pshell
     _pspacevim
 }
-
