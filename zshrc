@@ -11,7 +11,7 @@ DEFAULT_USER=$USER
 DISABLE_MAGIC_FUNCTIONS=true
 EDITOR=vim
 DOTFILES_DIR="${HOME}/.dotfiles"
-plugins=(vi-mode git)
+plugins=(vi-mode git aws docker samtools bedtools)  # lmao
 wanted_custom_plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
