@@ -7,7 +7,7 @@ function! myspacevim#before() abort
     \ }
 	let g:neoformat_enabled_python = ['black']
     " set mouse=
-    set clipboard=unnamed
+    set clipboard=unnamedplus
     autocmd BufNewFile,BufRead *.config set ft=nextflow
     autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa} set ft=fasta
     au FileType markdown setlocal wrap
