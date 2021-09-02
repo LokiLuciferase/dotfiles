@@ -5,7 +5,7 @@ inoremap <c-^> ^
 
 syntax enable
 set background=dark
-
+set clipboard=unnamedplus
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
