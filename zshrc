@@ -10,9 +10,11 @@ ZLE_RPROMPT_INDENT=0
 DEFAULT_USER=$USER
 DISABLE_MAGIC_FUNCTIONS=true
 EDITOR=vim
+ZVM_CURSOR_STYLE_ENABLED=false
 DOTFILES_DIR="${HOME}/.dotfiles"
 plugins=(vi-mode git aws docker samtools bedtools)  # lmao
 wanted_custom_plugins=(
+    zsh-vi-mode
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
