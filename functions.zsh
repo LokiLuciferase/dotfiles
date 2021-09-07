@@ -51,6 +51,16 @@ sleeptimer() {
     sleep "$SECS" && systemctl suspend -i
 }
 
+cpcd() {
+    # perform the given cp operation; then cd into the parent directory of the target.
+    cp $@
+    if [ -d "${@[-1]}" ]; then
+        cd "${@[-1]}"
+    else
+        cd $(dirname "${@[-1]}")
+    fi
+}
+
 get-newest() {
     # gets the newest directory entry by modification time
     DIR="${1:-.}"
@@ -176,3 +186,4 @@ pall() {
     _pshell
     _pspacevim
 }
+
