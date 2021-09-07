@@ -14,7 +14,6 @@ ZVM_CURSOR_STYLE_ENABLED=false
 DOTFILES_DIR="${HOME}/.dotfiles"
 plugins=(vi-mode git aws docker samtools bedtools)  # lmao
 wanted_custom_plugins=(
-    zsh-vi-mode
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
