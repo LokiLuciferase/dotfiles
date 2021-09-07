@@ -1,5 +1,7 @@
 export PATH=$HOME/.local/bin:/usr/games:$PATH
 export EDITOR=nvim
-# export DISPLAY=localhost:0.0
-# export TMPDIR=/tmp
 
+# bookmarks support
+if [ -d "${HOME}/.local/share/bookmarks" ]; then
+    export CDPATH=".:${HOME}/.local/share/bookmarks"
+fi
