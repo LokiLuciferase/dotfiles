@@ -58,5 +58,5 @@ set wrap
 set nowrap
 set sidescroll=5
 set listchars+=precedes:<,extends:>
-colo industry
+colo delek
 
