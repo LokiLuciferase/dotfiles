@@ -32,15 +32,17 @@ ethernet _first_ {
 }
 
 battery 0 {
-	format = " %status %percentage %remaining %emptytime"
+	format = " %percentage %remaining %emptytime"
 	format_down = "No battery"
 	path = "/sys/class/power_supply/BAT%d/uevent"
-	low_threshold = 10
+	low_threshold = 30
+	last_full_capacity = true
+	integer_battery_capacity = true
 
 }
 
 disk "/" {
-	format = "DISK %percentage_used"
+	format = "  %percentage_used"
 	low_threshold = 5
 }
 
@@ -49,18 +51,18 @@ load {
 }
 
 memory {
-	format = "MEM %percentage_used"
+	format = " %percentage_used"
 	threshold_degraded = "1G"
 	format_degraded = "MEMORY < %available"
 }
 
 cpu_temperature 0 {
-	format = "TEMP %degrees °C"
+	format = "  %degrees °C"
 	path = "/sys/class/thermal/thermal_zone2/temp"
 }
 
 cpu_usage {
-	format = "CPU %usage"
+	format = " %usage"
 	degraded_threshold = 50
 	max_threshold = 80
 }
@@ -70,7 +72,7 @@ tztime local {
 }
 
 volume master {
-        format = "VOL %volume"
+        format = " %volume"
         format_muted = "VOL muted (%volume)"
         device = "default"
 }
