@@ -1,0 +1,76 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+	colors = true
+	interval = 5
+	color_good = "#A6E22E"
+	color_bad = "#F92672"
+}
+
+order += "cpu_usage"
+order += "memory"
+order += "disk /"
+order += "cpu_temperature 0"
+order += "battery 0"
+order += "volume master"
+order += "tztime local"
+
+wireless _first_ {
+	format_up = "W: (%quality at %essid) %ip"
+	format_down = "W: down"
+}
+
+ethernet _first_ {
+	format_up = "E: %ip (%speed)"
+	format_down = ""
+}
+
+battery 0 {
+	format = " %status %percentage %remaining %emptytime"
+	format_down = "No battery"
+	path = "/sys/class/power_supply/BAT%d/uevent"
+	low_threshold = 10
+
+}
+
+disk "/" {
+	format = "DISK %percentage_used"
+	low_threshold = 5
+}
+
+load {
+	format = "LOAD %1min"
+}
+
+memory {
+	format = "MEM %percentage_used"
+	threshold_degraded = "1G"
+	format_degraded = "MEMORY < %available"
+}
+
+cpu_temperature 0 {
+	format = "TEMP %degrees °C"
+	path = "/sys/class/thermal/thermal_zone2/temp"
+}
+
+cpu_usage {
+	format = "CPU %usage"
+	degraded_threshold = 50
+	max_threshold = 80
+}
+
+tztime local {
+	format = "%Y-%m-%d %H:%M:%S"
+}
+
+volume master {
+        format = "VOL %volume"
+        format_muted = "VOL muted (%volume)"
+        device = "default"
+}
