@@ -11,7 +11,7 @@ DEFAULT_USER=$USER
 DISABLE_MAGIC_FUNCTIONS=true
 EDITOR=vim
 ZVM_CURSOR_STYLE_ENABLED=false
-DOTFILES_DIR="${HOME}/.dotfiles"
+DOTFILES_DIR="${HOME}/.dotfiles/zsh"
 plugins=(vi-mode git aws docker samtools bedtools)  # lmao
 wanted_custom_plugins=(
     zsh-syntax-highlighting
