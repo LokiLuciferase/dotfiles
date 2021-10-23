@@ -181,5 +181,5 @@ bar {
 exec --no-startup-id "feh --bg-scale ~/.local/share/wallpapers/515030448_cleaned.png"
 exec "setxkbmap -layout us,de"
 exec --no-startup-id "libinput-gestures-setup start"
-exec --no-startup-id "synclient NaturalScrolling=1 VertScrollDelta=-153"
+exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "blueman-applet"
