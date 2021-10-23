@@ -73,6 +73,6 @@ tztime local {
 
 volume master {
         format = " %volume"
-        format_muted = "VOL muted (%volume)"
+        format_muted = " (%volume)"
         device = "default"
 }
