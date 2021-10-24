@@ -178,9 +178,11 @@ bar {
 		position top
         status_command i3status
 }
+
+bindsym Control+Mod1+l exec --no-startup-id "cinnamon-screensaver-command --lock"
+
 exec --no-startup-id "feh --bg-scale ~/.local/share/backgrounds/background"
 exec --no-startup-id "setxkbmap -layout us,de"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "dex $HOME/.config/autostart/*"
 
-for_window [class="Telegram"] floating enable
