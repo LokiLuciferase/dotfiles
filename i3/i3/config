@@ -46,11 +46,14 @@ floating_modifier $mod
 # start a terminal
 bindsym $mod+Return exec alacritty
 
+# start browser
+bindsym $mod+b exec firefox
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu='dmenu -i -l 30'
 
 # change focus
 bindsym $mod+j focus left
@@ -181,7 +184,7 @@ bar {
 
 bindsym Control+Mod1+l exec --no-startup-id "cinnamon-screensaver-command --lock"
 
-exec --no-startup-id "feh --bg-scale ~/.local/share/backgrounds/background"
+exec --no-startup-id "feh --bg-scale $HOME/.local/share/backgrounds/background"
 exec --no-startup-id "setxkbmap -layout us,de"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "dex $HOME/.config/autostart/*"
