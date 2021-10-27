@@ -19,6 +19,10 @@
 # merged = false
 #
 [[custom_plugins]]
+name = "github/copilot.vim"
+merged = false
+
+[[custom_plugins]]
 name = "junegunn/vim-peekaboo"
 merged = false
 
