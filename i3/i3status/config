@@ -33,12 +33,11 @@ ethernet _first_ {
 
 battery 0 {
 	format = " %percentage %remaining %emptytime"
-	format_down = "No battery"
+	format_down = ""
 	path = "/sys/class/power_supply/BAT%d/uevent"
 	low_threshold = 30
 	last_full_capacity = true
 	integer_battery_capacity = true
-
 }
 
 disk "/" {
@@ -53,12 +52,12 @@ load {
 memory {
 	format = " %percentage_used"
 	threshold_degraded = "1G"
-	format_degraded = "MEMORY < %available"
+	format_degraded = " < %available"
 }
 
 cpu_temperature 0 {
 	format = "  %degrees °C"
-	path = "/sys/class/thermal/thermal_zone2/temp"
+	path = "/sys/class/thermal/thermal_zone*/temp"
 }
 
 cpu_usage {
