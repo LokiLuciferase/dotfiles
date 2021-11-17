@@ -21,11 +21,10 @@ font pango:DejaVu Sans Nerd Font 8
 
 # user specific startup applications
 bindsym Control+Mod1+l exec --no-startup-id "cinnamon-screensaver-command --lock || i3lock -i ~/.local/share/backgrounds/background"
+exec "$HOME/.config/arandr/default.sh ; feh --bg-fill $HOME/.local/share/backgrounds/background"
 exec --no-startup-id "picom"
 exec --no-startup-id "i3-msg gaps outer all set 0"
 exec --no-startup-id "i3-msg gaps inner all set 6"
-exec --no-startup-id "$HOME/.config/arandr/default.sh"
-exec --no-startup-id "feh --bg-fill $HOME/.local/share/backgrounds/background"
 exec --no-startup-id "setxkbmap -layout us,de"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "dex $HOME/.config/autostart/*"
