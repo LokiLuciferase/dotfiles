@@ -94,6 +94,23 @@ rsync() {
     /bin/bash -c "$CMD"
 }
 
+## i3 session management
+apply-i3-layout() {
+    # apply i3 layout and start all to-be-slurped tools
+    LAYOUT="$1"
+    WORKSPACE="${2:-1}"
+    NAMES=($(grep -o '"instance": .*' $LAYOUT | cut -f2 -d' ' | sed -e 's/"^\(.*\)$"/\1/g' | sed 's/\\//g' | tr '\n' ' '))
+    i3-msg "workspace $WORKSPACE; append_layout $LAYOUT"
+    for name in ${NAMES[@]}; do
+        desktop-run $name
+    done
+}
+
+scrotsel(){
+    # scrot select from tmp file
+    FN=$(mktemp -u).png
+    scrot --select -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN
+}
 
 ## Terminal window management
 maximize() {
