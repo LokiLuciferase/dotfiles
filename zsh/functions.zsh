@@ -107,6 +107,38 @@ apply-i3-layout() {
     done
 }
 
+select-i3-layout() {
+    LAYOUT_NAME="$1"
+    WORKSPACE="$2"
+    OUTPUT=$(i3-msg -t get_workspaces | jq -r ".[] | select(.num=="$WORKSPACE") | .output")
+    GEOM=$(xrandr -q | grep ' connected' | sed 's/primary //g' | grep $OUTPUT | cut -f3 -d' ' | cut -f1 -d'+' | tr 'x' ' ')
+    if [ "$GEOM" = "1080 1920" ]; then
+        ALIGN=vert
+        RESOL=FHD
+    elif [ "$GEOM" = "1920 1080" ]; then
+        ALIGN=horz
+        RESOL=FHD
+    elif [ "$GEOM" = "2160 3840" ]; then
+        ALIGN=vert
+        RESOL=4K
+    elif [ "$GEOM" = "3840 2160" ]; then
+        ALIGN=horz
+        RESOL=4K
+    else
+        ALIGN=unknown
+        RESOL=unknown
+        >&2 echo "Unknown resolution: $GEOM"
+        exit 1
+    fi
+    LAYOUT_FILE="$HOME/.config/i3/layouts/$RESOL/$ALIGN/$LAYOUT_NAME.json"
+    if [ -f "$LAYOUT_FILE" ]; then
+        apply-i3-layout $LAYOUT_FILE $WORKSPACE
+    else
+        >&2 echo "Layout not found: $LAYOUT_FILE"
+        exit 1
+    fi
+}
+
 scrotsel(){
     # scrot select from tmp file
     FN=$(mktemp -u).png
