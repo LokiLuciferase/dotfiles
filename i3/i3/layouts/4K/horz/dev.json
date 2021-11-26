@@ -36,7 +36,7 @@
                                "x": 0,
                                "y": 0
                             },
-                            "marks": [],
+                            "marks": ["ff"],
                             "name": "firefox",
                             "percent": 0.5,
                             "swallows": [
@@ -66,7 +66,7 @@
                                        "x": 0,
                                        "y": 0
                                     },
-                                    "marks": [],
+                                    "marks": ["sh"],
                                     "name": "alacritty",
                                     "percent": 0.5,
                                     "swallows": [
@@ -87,7 +87,7 @@
                                        "x": 0,
                                        "y": 0
                                     },
-                                    "marks": [],
+                                    "marks": ["sh"],
                                     "name": "alacritty",
                                     "percent": 0.5,
                                     "swallows": [
@@ -123,7 +123,7 @@
                        "x": 6,
                        "y": 9
                     },
-                    "marks": [],
+                    "marks": ["py"],
                     "name": "pycharm",
                     "percent": 1,
                     "swallows": [

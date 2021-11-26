@@ -27,7 +27,7 @@
                        "x": 0,
                        "y": 0
                     },
-                    "marks": [],
+                    "marks": ["sp"],
                     "name": "spotify",
                     "percent": 0.5,
                     "swallows": [
@@ -58,7 +58,7 @@
                                "x": 3848,
                                "y": 147
                             },
-                            "marks": [],
+                            "marks": ["sl"],
                             "name": "slack",
                             "percent": 0.5,
                             "swallows": [
@@ -90,7 +90,7 @@
                                        "x": 4385,
                                        "y": 147
                                     },
-                                    "marks": [],
+                                    "marks": ["tg"],
                                     "name": "telegram-desktop",
                                     "percent": 0.8,
                                     "swallows": [
@@ -121,7 +121,7 @@
                                                "x": 0,
                                                "y": 0
                                             },
-                                            "marks": [],
+                                            "marks": ["s0"],
                                             "name": "alacritty",
                                             "percent": 1,
                                             "swallows": [
@@ -160,7 +160,7 @@
                        "x": 6,
                        "y": 25
                     },
-                    "marks": [],
+                    "marks": ["ev"],
                     "name": "evolution",
                     "percent": 1,
                     "swallows": [

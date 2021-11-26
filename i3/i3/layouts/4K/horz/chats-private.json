@@ -18,7 +18,7 @@
                "x": 0,
                "y": 0
             },
-            "marks": [],
+            "marks": ["ff"],
             "name": "firefox",
             "percent": 1,
             "swallows": [
@@ -60,7 +60,7 @@
                        "x": 6,
                        "y": 735
                     },
-                    "marks": [],
+                    "marks": ["tg"],
                     "name": "telegram-desktop",
                     "percent": 0.333333333333333,
                     "swallows": [
@@ -81,7 +81,7 @@
                        "x": 6,
                        "y": 25
                     },
-                    "marks": [],
+                    "marks": ["di"],
                     "name": "discord",
                     "percent": 0.333333333333333,
                     "swallows": [
@@ -102,7 +102,7 @@
                        "x": 6,
                        "y": 1092
                     },
-                    "marks": [],
+                    "marks": ["si"],
                     "name": "signal-desktop-beta",
                     "percent": 0.333333333333333,
                     "swallows": [
