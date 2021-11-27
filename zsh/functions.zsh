@@ -226,7 +226,9 @@ _pshell() {
 _pspacevim() {
     # pull newest changes of SpaceVim
     pushd ${HOME}/.SpaceVim || return 0
-    git pull
+	git checkout master
+	git pull
+	git checkout $(git describe --tags --abbrev=0)
     popd
 }
 
