@@ -128,14 +128,14 @@ select-i3-layout() {
         ALIGN=unknown
         RESOL=unknown
         >&2 echo "Unknown resolution: $GEOM"
-        exit 1
+        return 1
     fi
     LAYOUT_FILE="$HOME/.config/i3/layouts/$RESOL/$ALIGN/$LAYOUT_NAME.json"
     if [ -f "$LAYOUT_FILE" ]; then
         apply-i3-layout $LAYOUT_FILE $WORKSPACE
     else
         >&2 echo "Layout not found: $LAYOUT_FILE"
-        exit 1
+        return 1
     fi
 }
 
