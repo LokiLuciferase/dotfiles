@@ -14,12 +14,12 @@
             "floating": "auto_off",
             "layout": "splitv",
             "marks": [],
-            "percent": 0.699473961073119,
+            "percent": 0.6,
             "type": "con",
             "nodes": [
                 {
                     "border": "pixel",
-                    "current_border_width": 2,
+                    "current_border_width": 0,
                     "floating": "auto_off",
                     "geometry": {
                        "height": 600,
@@ -27,7 +27,9 @@
                        "x": 0,
                        "y": 0
                     },
-                    "marks": ["sp"],
+                    "marks": [
+                        "sp"
+                    ],
                     "name": "spotify",
                     "percent": 0.5,
                     "swallows": [
@@ -50,7 +52,7 @@
                     "nodes": [
                         {
                             "border": "pixel",
-                            "current_border_width": 2,
+                            "current_border_width": 0,
                             "floating": "auto_off",
                             "geometry": {
                                "height": 937,
@@ -58,7 +60,9 @@
                                "x": 3848,
                                "y": 147
                             },
-                            "marks": ["sl"],
+                            "marks": [
+                                "sl"
+                            ],
                             "name": "slack",
                             "percent": 0.5,
                             "swallows": [
@@ -90,14 +94,15 @@
                                        "x": 4385,
                                        "y": 147
                                     },
-                                    "marks": ["tg"],
+                                    "marks": [
+                                       "tg"
+                                    ],
                                     "name": "telegram-desktop",
-                                    "percent": 0.8,
+                                    "percent": 0.7,
                                     "swallows": [
                                        {
-                                       // "class": "^TelegramDesktop$",
-                                          "instance": "^telegram\\-desktop$"
-                                       // "title": "^Telegram\\ \\(1\\)$"
+                                          "class": "^TelegramDesktop$",
+                                          "instance": "^Telegram$"
                                        }
                                     ],
                                     "type": "con"
@@ -121,7 +126,9 @@
                                                "x": 0,
                                                "y": 0
                                             },
-                                            "marks": ["s0"],
+                                            "marks": [
+                                                "s0"
+                                            ],
                                             "name": "alacritty",
                                             "percent": 1,
                                             "swallows": [
@@ -147,12 +154,12 @@
             "floating": "auto_off",
             "layout": "splitv",
             "marks": [],
-            "percent": 0.300526038926881,
+            "percent": 0.4,
             "type": "con",
             "nodes": [
                 {
                     "border": "pixel",
-                    "current_border_width": 2,
+                    "current_border_width": 0,
                     "floating": "auto_off",
                     "geometry": {
                        "height": 2125,
@@ -160,7 +167,9 @@
                        "x": 6,
                        "y": 25
                     },
-                    "marks": ["ev"],
+                    "marks": [
+                       "ev"
+                    ],
                     "name": "evolution",
                     "percent": 1,
                     "swallows": [
