@@ -1,3 +1,4 @@
 *.local.zsh
 
 SpaceVim.d/spell/
+tmux/.config/tmux/plugins/*
