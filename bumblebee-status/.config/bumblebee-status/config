@@ -1,9 +1,8 @@
 [core]
-modules = cpu,memory,disk:root,battery,pasink,pasource,brightness,date,time
-theme = gruvbox-powerline-mod
+modules = cpu,memory,disk:root,battery,pasink,pasource,brightness,date,time,dunst
+theme = onedark
 
 [module-parameters]
 memory.format = {percent:.00f}%
 disk.format = {percent:.00f}%
 time.format = %H:%M
-

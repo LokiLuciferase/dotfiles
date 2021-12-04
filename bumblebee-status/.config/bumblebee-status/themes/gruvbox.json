@@ -1,5 +1,5 @@
 {
-	"icons": [ "paxy97", "awesome-fonts-mod" ],
+	"icons": [ "awesome-fonts" ],
 	"defaults": {
 		"warning": {
 			"fg": "#1d2021",
@@ -9,6 +9,7 @@
 			"fg": "#fbf1c7",
 			"bg": "#cc241d"
 		},
+		"separator": "",
 		"default-separators": false,
 		"separator-block-width": 0
 	},
