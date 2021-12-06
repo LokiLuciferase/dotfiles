@@ -3,6 +3,8 @@ modules = cpu,memory,disk:root,battery-autohide,pasink,pasource,brightness-autoh
 theme = onedark
 
 [module-parameters]
+cpu.format = {:.00f}%
 memory.format = {percent:.00f}%
 disk.format = {percent:.00f}%
 time.format = %H:%M
+date.format = %Y/%m/%d
