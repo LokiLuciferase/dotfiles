@@ -1,5 +1,5 @@
 [core]
-modules = cpu,memory,disk:root,battery,pasink,pasource,brightness,date,time,dunst
+modules = cpu,memory,disk:root,battery-autohide,pasink,pasource,brightness-autohide,date,time,dunst
 theme = onedark
 
 [module-parameters]

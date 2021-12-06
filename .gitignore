@@ -2,3 +2,5 @@
 
 spacevim/SpaceVim.d/spell/
 tmux/.config/tmux/plugins/*
+*/__pycache__/*
+*.pyc
