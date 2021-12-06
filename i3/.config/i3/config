@@ -202,5 +202,6 @@ bindsym $mod+r mode "resize"
 bar {
 		font pango:DejaVu Sans Mono 11, DejaVu Sans Mono for Powerline 11, DejaVuSansMono Nerd Font 11
 		position top
+        tray_output Primary
         status_command "bumblebee-status || i3status"
 }
