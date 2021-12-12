@@ -27,7 +27,7 @@
   "apt": { "prefix": "" },
   "pacman": { "prefix": "" },
   "brightness": { "prefix": "" },
-  "brightness-autohide": { "prefix": "" },
+  "brightness_autohide": { "prefix": "" },
   "load": { "prefix": "" },
   "layout": { "prefix": "" },
   "layout-xkb": { "prefix": "" },
@@ -130,7 +130,7 @@
     "unknown-80": { "prefix": "", "suffix": "" },
     "unknown-100": { "prefix": "", "suffix": "" }
   },
-   "battery-autohide": {
+   "battery_autohide": {
     "charged": { "prefix": "", "suffix": "" },
     "AC": { "suffix": "" },
     "charging": {
@@ -202,6 +202,12 @@
   "redshift": {
     "day": { "prefix": "" },
     "night": { "prefix": "" },
+    "transition": { "prefix": "" }
+  },
+ "redshift_aug": {
+    "day": { "prefix": "" },
+    "night": { "prefix": "" },
+	"disabled": { "prefix": "" },
     "transition": { "prefix": "" }
   },
   "docker_ps": {

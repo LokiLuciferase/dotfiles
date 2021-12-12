@@ -54,6 +54,10 @@ class Module(core.module.Module):
                 "xbacklight +{}%".format(step), "xbacklight -{}%".format(step)
             )
 
+    @property
+    def _format(self):
+        return self.parameter("format", "{:.01f}%")
+
     def hidden(self):
         return self.__is_hidden
 
@@ -96,10 +100,9 @@ class Module(core.module.Module):
     def update(self):
         try:
             tmp = self.__readcmd()
-            if isinstance(tmp, str):
-                self.__brightness = tmp
-            else:
-                self.__brightness = "{:3.0f}%".format(float(tmp))
+
+            #  self.__brightness = self.parameter("format", "{:3.0f}%").format(float(tmp))
+            self.__brightness = self.parameter("format", "{:.0f}%").format(float(tmp))
         except:
             self.__is_hidden = True
             self.__brightness = "n/a"
