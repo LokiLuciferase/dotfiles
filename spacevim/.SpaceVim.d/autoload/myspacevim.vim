@@ -20,6 +20,7 @@ endfunction
 
 function! myspacevim#after() abort
     set autochdir
+	set nopaste
     inoremap <S-Tab> <C-d>
     nnoremap <leader>d "_d
     xnoremap <leader>d "_d
