@@ -1,0 +1,13 @@
+! flat gray based theme
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #000000     #000000     #FFFFFF     #000000
+i3wm.window_colors.focused_inactive: #333333     #333333     #FFFFFF     #000000
+i3wm.window_colors.unfocused:        #333333     #333333     #FFFFFF     #333333
+i3wm.bar_colors.focused_workspace:   #282828     #282828     #FFFFFF
+i3wm.bar_colors.inactive_workspace:  #333333     #333333     #AAAAAA
+i3wm.bar_colors.background:          #333333
+i3wm.bar_colors.statusline:          #AAAAAA
+i3wm.bar_colors.icon:                black1
+i3wm.bar_colors.graph:               darkgray     darkslategrey

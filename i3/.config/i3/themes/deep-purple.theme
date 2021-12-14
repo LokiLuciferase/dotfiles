@@ -1,0 +1,17 @@
+! Inspired by the Purple and Default themes. By jcpst <http://jcpst.com>
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #3b1261     #3b1261     #ffffff     #662b9c
+i3wm.window_colors.focused_inactive: #333333     #5f676a     #ffffff     #484e50
+i3wm.window_colors.unfocused:        #222222     #222222     #888888     #292d2e
+i3wm.window_colors.urgent:           #2f343a     #900000     #ffffff     #900000
+i3wm.bar_colors.focused_workspace:   #551a8b     #551a8b     #ffffff
+i3wm.bar_colors.active_workspace:    #333333     #5f676a     #ffffff
+i3wm.bar_colors.inactive_workspace:  #000000     #000000     #888888
+i3wm.bar_colors.urgent_workspace:    #2f343a     #900000     #ffffff
+i3wm.bar_colors.separator:           #666666
+i3wm.bar_colors.background:          #000000
+i3wm.bar_colors.statusline:          #ffffff
+i3wm.bar_colors.icon:                indigo
+i3wm.bar_colors.graph:               gray     black

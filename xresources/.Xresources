@@ -1,0 +1,4 @@
+#include ".config/i3/themes/default.theme"
+xterm*fontSize: 12
+Xcursor.size: 24
+Xcursor.theme: BreezeX-Black

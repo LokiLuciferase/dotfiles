@@ -1,0 +1,17 @@
+! Theme by Valentin Weber inspired by voronianski (https://github.com/voronianski/oceanic-next-color-scheme)
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #6699CC     #6699CC     #1B2B34     #6699CC
+i3wm.window_colors.focused_inactive: #5FB3B3     #5FB3B3     #D8DEE9     #A7ADBA
+i3wm.window_colors.unfocused:        #343D46     #343D46     #D8DEE9     #343D46
+i3wm.window_colors.urgent:           #EC5f67     #EC5f67     #1B2B34     #EC5f67
+i3wm.bar_colors.focused_workspace:   #6699CC     #6699CC     #1B2B34
+i3wm.bar_colors.active_workspace:    #5FB3B3     #5FB3B3     #1B2B34
+i3wm.bar_colors.inactive_workspace:  #343D46     #343D46     #D8DEE9
+i3wm.bar_colors.urgent_workspace:    #EC5f67     #EC5f67     #1B2B34
+i3wm.bar_colors.separator:           #65737E
+i3wm.bar_colors.background:          #1B2B34
+i3wm.bar_colors.statusline:          #D8DEE9
+i3wm.bar_colors.icon:                base0D
+i3wm.bar_colors.graph:               base07     base01

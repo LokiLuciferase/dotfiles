@@ -1,0 +1,17 @@
+! Theme for blending i3 into MATE
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #526532     #526532     #ffffff     #a4cb64
+i3wm.window_colors.focused_inactive: #aea79f     #aea79f     #3c3b37     #aea79f
+i3wm.window_colors.unfocused:        #3c3b37     #3c3b37     #aea79f     #3c3b37
+i3wm.window_colors.urgent:           #FF0000     #FF0000     #ffffff     #FF0000
+i3wm.bar_colors.focused_workspace:   #526532     #526532     #ffffff
+i3wm.bar_colors.active_workspace:    #aea79f     #aea79f     #3c3b37
+i3wm.bar_colors.inactive_workspace:  #3c3b37     #3c3b37     #aea79f
+i3wm.bar_colors.urgent_workspace:    #FF0000     #FF0000     #ffffff
+i3wm.bar_colors.separator:           #ffffff
+i3wm.bar_colors.background:          #3c3b37
+i3wm.bar_colors.statusline:          #ffffff
+i3wm.bar_colors.icon:                green
+i3wm.bar_colors.graph:               lightgrey     darkgrey

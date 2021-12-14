@@ -1,0 +1,17 @@
+! icelines theme by mbfraga
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #00b0ef     #00b0ef     #141414     #ff7066
+i3wm.window_colors.focused_inactive: #141414     #141414     #00b0ef     #472b2a
+i3wm.window_colors.unfocused:        #141414     #141414     #7d7d7d     #141414
+i3wm.window_colors.urgent:           #ff7066     #ff7066     #141414     #ff7066
+i3wm.bar_colors.focused_workspace:   #00b0ef     #141414     #00b0ef
+i3wm.bar_colors.active_workspace:    #141414     #141414     #00b0ef
+i3wm.bar_colors.inactive_workspace:  #141414     #141414     #7d7d7d
+i3wm.bar_colors.urgent_workspace:    #ff7066     #141414     #ff7066
+i3wm.bar_colors.separator:           #7d7d7d
+i3wm.bar_colors.background:          #141414
+i3wm.bar_colors.statusline:          #00b0ef
+i3wm.bar_colors.icon:                darkgray
+i3wm.bar_colors.graph:               gray     darkgray

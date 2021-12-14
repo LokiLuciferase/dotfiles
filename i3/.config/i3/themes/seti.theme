@@ -1,0 +1,17 @@
+! seti theme by Jody Ribton - based on the seti Atom theme at https://atom.io/themes/seti-ui
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #4F99D3     #4F99D3     #151718     #9FCA56
+i3wm.window_colors.focused_inactive: #9FCA56     #9FCA56     #151718     #A074C4
+i3wm.window_colors.unfocused:        #1f2326     #1f2326     #AAAAAA     #A074C4
+i3wm.window_colors.urgent:           #CE4045     #CE4045     #FFFFFF     #DCCD69
+i3wm.bar_colors.focused_workspace:   #9FCA56     #9FCA56     #151718
+i3wm.bar_colors.active_workspace:    #DCCD69     #DCCD69     #151718
+i3wm.bar_colors.inactive_workspace:  #1f2326     #1f2326     #AAAAAA
+i3wm.bar_colors.urgent_workspace:    #CE4045     #CE4045     #FFFFFF
+i3wm.bar_colors.separator:           #AAAAAA
+i3wm.bar_colors.background:          #1f2326
+i3wm.bar_colors.statusline:          #FFFFFF
+i3wm.bar_colors.icon:                green
+i3wm.bar_colors.graph:               dull_white     grey

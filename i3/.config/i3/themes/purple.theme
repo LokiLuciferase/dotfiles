@@ -1,0 +1,17 @@
+! Purple theme by AAlakkad <http://aalakkad.me>
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #664477     #664477     #cccccc     #e7d8b1
+i3wm.window_colors.focused_inactive: #e7d8b1     #e7d8b1     #181715     #A074C4
+i3wm.window_colors.unfocused:        #222133     #222133     #AAAAAA     #A074C4
+i3wm.window_colors.urgent:           #CE4045     #CE4045     #e7d8b1     #DCCD69
+i3wm.bar_colors.focused_workspace:   #664477     #664477     #cccccc
+i3wm.bar_colors.active_workspace:    #DCCD69     #DCCD69     #181715
+i3wm.bar_colors.inactive_workspace:  #222133     #222133     #AAAAAA
+i3wm.bar_colors.urgent_workspace:    #CE4045     #CE4045     #FFFFFF
+i3wm.bar_colors.separator:           #AAAAAA
+i3wm.bar_colors.background:          #222133
+i3wm.bar_colors.statusline:          #FFFFFF
+i3wm.bar_colors.icon:                darkslateblue
+i3wm.bar_colors.graph:               darkgray     black

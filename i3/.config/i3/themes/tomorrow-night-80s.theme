@@ -1,0 +1,17 @@
+! Tomorrow Night 80s theme by jmfurlott <http://jmfurlott.com>
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #99cc99     #99cc99     #000000     #2d2d2d
+i3wm.window_colors.focused_inactive: #393939     #393939     #888888     #292d2e
+i3wm.window_colors.unfocused:        #2d2d2d     #2d2d2d     #999999     #292d2e
+i3wm.window_colors.urgent:           #2f343a     #900000     #ffffff     #900000
+i3wm.bar_colors.focused_workspace:   #99cc99     #99cc99     #000000
+i3wm.bar_colors.active_workspace:    #333333     #333333     #ffffff
+i3wm.bar_colors.inactive_workspace:  #2d2d2d     #2d2d2d     #999999
+i3wm.bar_colors.urgent_workspace:    #f2777a     #f2777a     #ffffff
+i3wm.bar_colors.separator:           #515151
+i3wm.bar_colors.background:          #2d2d2d
+i3wm.bar_colors.statusline:          #cccccc
+i3wm.bar_colors.icon:                green
+i3wm.bar_colors.graph:               comment     background

@@ -121,6 +121,19 @@ bindsym $mod+Shift+minus move scratchpad
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 
+# Load colors from xresources
+set_from_resource $bar_separator_colors          i3wm.bar_colors.separator
+set_from_resource $bar_background_colors         i3wm.bar_colors.background
+set_from_resource $bar_statusline_colors         i3wm.bar_colors.statusline
+set_from_resource $bar_focused_workspace_colors  i3wm.bar_colors.focused_workspace
+set_from_resource $bar_active_workspace_colors   i3wm.bar_colors.active_workspace
+set_from_resource $bar_inactive_workspace_colors i3wm.bar_colors.inactive_workspace
+set_from_resource $bar_urgent_workspace_colors   i3wm.bar_colors.urgent_workspace
+set_from_resource $focused_colors                i3wm.window_colors.focused
+set_from_resource $focused_inactive_colors       i3wm.window_colors.focused_inactive
+set_from_resource $unfocused_colors              i3wm.window_colors.unfocused
+set_from_resource $urgent_colors                 i3wm.window_colors.urgent
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -203,8 +216,23 @@ for_window [window_role="GtkFileChooserDialog"] floating enable
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-		font pango:DejaVu Sans Mono 11, DejaVu Sans Mono for Powerline 11, DejaVuSansMono Nerd Font 11
+    colors {
+        separator          $bar_separator_colors
+        background         $bar_background_colors
+        statusline         $bar_statusline_colors
+        focused_workspace  $bar_focused_workspace_colors
+        active_workspace   $bar_active_workspace_colors
+        inactive_workspace $bar_inactive_workspace_colors
+        urgent_workspace   $bar_urgent_workspace_colors
+    }
+ 		font pango:DejaVu Sans Mono 11, DejaVu Sans Mono for Powerline 11, DejaVuSansMono Nerd Font 11
 		position top
         tray_output Primary
         status_command "bumblebee-status || i3status"
 }
+
+# other colors
+client.focused          $focused_colors
+client.focused_inactive $focused_inactive_colors
+client.unfocused        $unfocused_colors
+client.urgent           $urgent_colors

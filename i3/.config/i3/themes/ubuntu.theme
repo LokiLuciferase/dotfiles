@@ -1,0 +1,17 @@
+! Ubuntu theme by lasers
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #dd4814     #dd4814     #ffffff     #902a07
+i3wm.window_colors.focused_inactive: #5e2750     #5e2750     #aea79f     #5e2750
+i3wm.window_colors.unfocused:        #5e2750     #5e2750     #aea79f     #5e2750
+i3wm.window_colors.urgent:           #77216f     #77216f     #ffffff     #efb73e
+i3wm.bar_colors.focused_workspace:   #dd4814     #dd4814     #ffffff
+i3wm.bar_colors.active_workspace:    #902a07     #902a07     #aea79f
+i3wm.bar_colors.inactive_workspace:  #902a07     #902a07     #aea79f
+i3wm.bar_colors.urgent_workspace:    #77216f     #77216f     #ffffff
+i3wm.bar_colors.separator:           #333333
+i3wm.bar_colors.background:          #2c001e
+i3wm.bar_colors.statusline:          #aea79f
+i3wm.bar_colors.icon:                #dd4814
+i3wm.bar_colors.graph:               #aea79f     #902a07

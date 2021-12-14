@@ -1,0 +1,17 @@
+! Lime theme by wei2912 <http://wei2912.github.io>, based on Archlinux theme by okraits <http://okraits.de>
+! Converted from i3-style yaml theme file to xresources
+!
+!                                    BORDER      BACKGROUND  TEXT        INDICATOR
+i3wm.window_colors.focused:          #4E9C00     #4E9C00     #FFFFFF     #FFFFFF
+i3wm.window_colors.focused_inactive: #1B3600     #1B3600     #888888     #FFFFFF
+i3wm.window_colors.unfocused:        #333333     #333333     #888888     #FFFFFF
+i3wm.window_colors.urgent:           #C20000     #C20000     #FFFFFF     #FFFFFF
+i3wm.bar_colors.focused_workspace:   #4E9C00     #4E9C00     #FFFFFF
+i3wm.bar_colors.active_workspace:    #333333     #333333     #FFFFFF
+i3wm.bar_colors.inactive_workspace:  #333333     #333333     #888888
+i3wm.bar_colors.urgent_workspace:    #C20000     #C20000     #FFFFFF
+i3wm.bar_colors.separator:           #888888
+i3wm.bar_colors.background:          #333333
+i3wm.bar_colors.statusline:          #FFFFFF
+i3wm.bar_colors.icon:                lime
+i3wm.bar_colors.graph:               txt_inactive     black
