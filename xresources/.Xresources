@@ -1,4 +1,9 @@
-#include ".config/i3/themes/default.theme"
 xterm*fontSize: 12
-Xcursor.size: 24
+Xcursor.size: 32
 Xcursor.theme: BreezeX-Black
+
+! include i3 theme colors
+#include ".config/i3/themes/gruvbox.theme"
+
+! override defaults with local settings
+#include ".dotfiles/xresources/.Xresources.local"

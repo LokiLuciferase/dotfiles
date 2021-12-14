@@ -1,5 +1,5 @@
 *.local.zsh
-
+.Xresources.local
 spacevim/SpaceVim.d/spell/
 tmux/.config/tmux/plugins/*
 */__pycache__/*
