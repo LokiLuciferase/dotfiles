@@ -11,7 +11,7 @@ ytdl-vid() {
 }
 
 ytdl-stream() {
-    $YTDL_BIN -f 'best' -o - "$1" | vlc -
+    $YTDL_BIN -f 'best' -o - "$1" | mpv -
 }
 
 asciinema-upload() {
@@ -68,7 +68,7 @@ get-newest() {
     [[ "$newest" != "" ]] && echo "${DIR}/${newest}"
 }
 
-for-each() {
+for-each-dir() {
     # perform the given command in each subdirectory
     SEP=$(printf %$(tput cols)s | tr " " "#")
     for d in */; do
@@ -146,17 +146,6 @@ scrotsel(){
     scrot --select -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN
 }
 
-## Terminal window management
-maximize() {
-    [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
-    wmctrl -r ${WINDOWNAME} -b add,maximized_horz && wmctrl -r ${WINDOWNAME} -b add,maximized_vert
-}
-
-minimize() {
-    [[ "$1" != "" ]] && WINDOWNAME="$1" || WINDOWNAME=":ACTIVE:"
-    wmctrl -r ${WINDOWNAME} -b remove,maximized_horz && wmctrl -r ${WINDOWNAME} -b remove,maximized_vert
-}
-
 ## Tmux automation ##
 _tmux_ctx() {
     # run tmux command either in new session if not running
@@ -187,15 +176,11 @@ qsplit() {
 
 hexsplit() {
     # start six-way split tmux session
-    # maximize window if possible, makes no sense else
-    maximize || true
     _tmux_ctx "split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1" hexsplit $1
 }
 
 vhexsplit() {
     # start vertical six-way split tmux session
-    # maximize window if possible, makes no sense else
-    maximize || true
     _tmux_ctx "split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
 }
 
