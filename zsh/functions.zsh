@@ -198,6 +198,13 @@ _pdot() {
     popd
 }
 
+_pdata() {
+    # pull newest changes to data
+    pushd ${HOME}/.datafiles || return 0
+    git pull
+    popd
+}
+
 _pshell() {
     # pull newest changes to shell
     pushd ${HOME}/.oh-my-zsh/custom || return 0
@@ -221,6 +228,7 @@ _pspacevim() {
 pall() {
     # pull all changes of git-dependent software
     _pdot
+    _pdata
     _pshell
     _pspacevim
 }
