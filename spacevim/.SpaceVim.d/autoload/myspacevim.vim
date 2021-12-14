@@ -25,5 +25,7 @@ function! myspacevim#after() abort
     nnoremap <leader>d "_d
     xnoremap <leader>d "_d
     xnoremap <leader>p "_dP
+    vnoremap J :m '>+1<CR>gv=gv
+    vnoremap K :m '<-2<CR>gv=gv
 endfunction
 
