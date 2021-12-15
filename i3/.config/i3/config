@@ -12,17 +12,17 @@
 set $mod Mod4
 
 # i3-gaps
+gaps inner 7
 for_window [class=".*"] border pixel 0
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMono Nerd Font 10
 
 # user specific startup applications
 bindsym Control+Mod1+l exec --no-startup-id "cinnamon-screensaver-command --lock || i3lock -i ~/.local/share/backgrounds/background"
-exec "$HOME/.config/arandr/default.sh ; feh --bg-fill $HOME/.local/share/backgrounds/background"
+exec "$HOME/.config/arandr/default.sh ; feh --bg-fill --no-fehbg $HOME/.local/share/backgrounds/background"
 exec --no-startup-id "picom"
-exec --no-startup-id "i3-msg gaps outer all set 0"
-exec --no-startup-id "i3-msg gaps inner all set 6"
 exec --no-startup-id "setxkbmap -layout us,de"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "dex $HOME/.config/autostart/*"
