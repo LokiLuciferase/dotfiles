@@ -43,7 +43,10 @@ echo "Is this correct? [y/N]"
 read -r answer
 [[ ! $answer =~ ^([yY][eE][sS]|[yY])$ ]] && echo "Aborting." && exit 1
 for file in "${MIGRATIONS_TO_APPLY[@]}"; do
-    echo "Running '$(basename "$file")'..."
+    echo -n "Running '$(basename "$file")'..."
+    set +e
     bash "$file"
+    [[ "$?" -eq 0 ]] && echo "OK" || echo "Exit code $?"
     cp "$file" "$DONE_MIGRATIONS_DIR"
+    set -e
 done
