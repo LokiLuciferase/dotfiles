@@ -28,6 +28,7 @@ alias svimdiff='svim -d "$@"'
 alias nano="${VIM_BIN}"
 alias vim="${VIM_BIN}"
 alias ed="echo 'fuck off'"
+alias nvidia-settings="nvidia-settings --config=${XDG_CONFIG_HOME}/nvidia/settings"
 
 [[ "$(which spip)" != "" ]] && alias pip=spip
 
