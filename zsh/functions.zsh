@@ -233,3 +233,6 @@ pall() {
     _pspacevim
 }
 
+migrate-dotfiles(){
+    bash ~/.dotfiles/scripts/run_migrations.sh
+}
