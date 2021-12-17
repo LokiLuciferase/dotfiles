@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+# SUMMARY: move various directories to XDG managed locations
 mv ~/.zoom ~/.local/share/zoom
 mkdir -p ~/.config/conda && mv ~/.condarc ~/.config/conda/condarc
 rm -rf .nv/
