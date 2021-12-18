@@ -207,7 +207,7 @@ _pdata() {
 
 _pshell() {
     # pull newest changes to shell
-    pushd ${HOME}/.oh-my-zsh/custom || return 0
+    pushd "${ZSH}/custom" || return 0
     for plugin in plugins/*/ themes/*/; do
         if [ -d "$plugin/.git" ]; then
             git -C "$plugin" pull
@@ -225,6 +225,10 @@ _pspacevim() {
     popd
 }
 
+migrate-dotfiles(){
+    bash ~/.dotfiles/scripts/run_migrations.sh
+}
+
 pall() {
     # pull all changes of git-dependent software
     _pdot
@@ -233,6 +237,3 @@ pall() {
     _pspacevim
 }
 
-migrate-dotfiles(){
-    bash ~/.dotfiles/scripts/run_migrations.sh
-}
