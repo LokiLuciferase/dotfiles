@@ -61,6 +61,23 @@ cpcd() {
     fi
 }
 
+cecho(){
+    # print the given string in the given color to the given destination
+    # cecho [echo flags] <color> <message>
+    local R="\033[0;31m"
+    local G="\033[0;32m"
+    local Y="\033[0;33m"
+    local B="\033[0;34m"
+    local M="\033[0;35m"
+    local C="\033[0;36m"
+    local NC="\033[0m"
+    local COLOR_ARG="${@:(-2):1}"
+    local MSG_ARG="${@:(-1):1}"
+    local ECHO_ARGS=("${@:1:${#}-2}")
+    eval COLOR="\${$COLOR_ARG}"
+    echo -e ${ECHO_ARGS[@]} "${COLOR}${MSG_ARG}${NC}"
+}
+
 get-newest() {
     # gets the newest directory entry by modification time
     DIR="${1:-.}"
@@ -226,6 +243,7 @@ _pspacevim() {
 }
 
 migrate-dotfiles(){
+    echo ''
     bash ~/.dotfiles/scripts/run_migrations.sh
 }
 
