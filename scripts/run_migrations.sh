@@ -27,7 +27,7 @@ get_migration_summary(){
 }
 
 source_env() {
-    source ~/.dotfiles/zsh/{aliases,functions,env_vars}.zsh
+    source ~/.dotfiles/zsh/functions.zsh
 }
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -36,8 +36,8 @@ DONE_MIGRATIONS_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles/done_migratio
 mkdir -p "$DONE_MIGRATIONS_DIR"
 MIGRATIONS_TO_APPLY=($(get_migrations))
 
-[[ ${#MIGRATIONS_TO_APPLY[@]} -eq 0 ]] && echo "No dotfile migrations to apply." && exit 0
 source_env
+[[ ${#MIGRATIONS_TO_APPLY[@]} -eq 0 ]] && cecho G "No dotfile migrations to apply." && exit 0
 echo "Running ${#MIGRATIONS_TO_APPLY[@]} dotfile migration(s):"
 for migration in "${MIGRATIONS_TO_APPLY[@]}"; do
     echo "  $(parse_migration_dt "$migration") - $(basename "$migration") - $(get_migration_summary "$migration")"
@@ -45,12 +45,12 @@ done
 echo ""
 echo "Is this correct? [y/N]"
 read -r answer
-[[ ! $answer =~ ^([yY][eE][sS]|[yY])$ ]] && echo "Aborting." && exit 1
+[[ ! $answer =~ ^([yY][eE][sS]|[yY])$ ]] && cecho R "Aborting." && exit 1
 for file in "${MIGRATIONS_TO_APPLY[@]}"; do
     echo -n "Running '$(basename "$file")'..."
     set +e
     bash "$file"
-    [[ "$?" -eq 0 ]] && echo "OK" || echo "Exit code $?"
+    [[ "$?" -eq 0 ]] && cecho G "OK" || cecho Y "Exit code $?"
     cp "$file" "$DONE_MIGRATIONS_DIR"
     set -e
 done
