@@ -230,10 +230,11 @@ migrate-dotfiles(){
 }
 
 pall() {
-    # pull all changes of git-dependent software
+    # pull all changes of git-dependent software, and apply dotfile migrations
     _pdot
     _pdata
     _pshell
     _pspacevim
+    migrate-dotfiles
 }
 

@@ -36,9 +36,9 @@ DONE_MIGRATIONS_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles/done_migratio
 mkdir -p "$DONE_MIGRATIONS_DIR"
 MIGRATIONS_TO_APPLY=($(get_migrations))
 
-[[ ${#MIGRATIONS_TO_APPLY[@]} -eq 0 ]] && echo "No migrations to apply." && exit 0
+[[ ${#MIGRATIONS_TO_APPLY[@]} -eq 0 ]] && echo "No dotfile migrations to apply." && exit 0
 source_env
-echo "Running ${#MIGRATIONS_TO_APPLY[@]} migration(s):"
+echo "Running ${#MIGRATIONS_TO_APPLY[@]} dotfile migration(s):"
 for migration in "${MIGRATIONS_TO_APPLY[@]}"; do
     echo "  $(parse_migration_dt "$migration") - $(basename "$migration") - $(get_migration_summary "$migration")"
 done
