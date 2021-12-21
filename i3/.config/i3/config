@@ -27,7 +27,6 @@ exec --no-startup-id "setxkbmap -layout us,de"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "dex $HOME/.config/autostart/*"
 
-
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
@@ -52,7 +51,8 @@ floating_modifier $mod
 bindsym $mod+Return exec alacritty
 
 # start browser
-bindsym $mod+b exec firefox
+bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
+bindsym $mod+Shift+b exec "firefox --private-window || brave-browser --incognito"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -176,7 +176,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Session Management' -B 'Power Down' 'systemctl poweroff' -B 'Suspend' 'systemctl suspend' -B 'Logout' 'i3-msg exit'"
 # goto mark
 bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 2 -P 'Goto: '
 # create mark
