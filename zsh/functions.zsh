@@ -227,9 +227,10 @@ _pshell() {
     pushd "${ZSH}/custom" || return 0
     for plugin in plugins/*/ themes/*/; do
         if [ -d "$plugin/.git" ]; then
-            git -C "$plugin" pull
+            git -C "$plugin" pull &
         fi
     done
+    wait
     popd
 }
 

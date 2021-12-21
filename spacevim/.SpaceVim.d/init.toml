@@ -14,10 +14,6 @@
     bootstrap_after = "myspacevim#after"
 
 # Custom plugins
-# [[custom_plugins]]
-# name = "nvim-treesitter/nvim-treesitter"
-# merged = false
-#
 [[custom_plugins]]
 name = "github/copilot.vim"
 merged = false

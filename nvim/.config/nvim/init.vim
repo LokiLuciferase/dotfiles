@@ -58,5 +58,6 @@ set wrap
 set nowrap
 set sidescroll=5
 set listchars+=precedes:<,extends:>
-colo delek
-
+set mouse=a
+" colo delek
+colo delek_mod
