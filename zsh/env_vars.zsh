@@ -9,6 +9,7 @@ fi
 
 export PATH=$HOME/.local/bin:/usr/games:$PATH
 export EDITOR=nvim
+export BROWSER=firefox
 
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME=$HOME/.config

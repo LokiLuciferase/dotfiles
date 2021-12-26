@@ -1,18 +1,17 @@
 # general omz setup
 unsetopt nomatch
 export ZSH="${HOME}/.config/oh-my-zsh"
-DISABLE_UPDATE_PROMPT=true
 ZSH_THEME="powerlevel10k/powerlevel10k"
 TERM='xterm-256color'
+DEFAULT_USER=$USER
+DISABLE_UPDATE_PROMPT=true
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="dd.mm.yyyy"
 ZLE_RPROMPT_INDENT=0
-DEFAULT_USER=$USER
 DISABLE_MAGIC_FUNCTIONS=true
-EDITOR=vim
 ZVM_CURSOR_STYLE_ENABLED=false
 SHELL_DOT_DIR="${HOME}/.dotfiles/zsh"
-plugins=(vi-mode git aws docker samtools bedtools)  # lmao
+plugins=(vi-mode git aws docker)
 wanted_custom_plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
@@ -26,6 +25,11 @@ source $ZSH/oh-my-zsh.sh
 # load all ZSH-related config files from unified directory
 for config in ${SHELL_DOT_DIR}/*.zsh ; do
     source "$config"
+done
+
+# load any local ZSH-related config files
+for local_config in ${SHELL_DOT_DIR}/local/*.zsh ; do
+    source "$local_config"
 done
 
 # Dirty hacks
