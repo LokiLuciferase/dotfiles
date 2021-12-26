@@ -15,6 +15,10 @@
 
 # Custom plugins
 [[custom_plugins]]
+name = "chrisbra/Colorizer"
+merged = false
+
+[[custom_plugins]]
 name = "github/copilot.vim"
 merged = false
 
