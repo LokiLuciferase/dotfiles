@@ -1,0 +1,87 @@
+#! /usr/bin/env python3
+
+"""
+script to swap focus between windows in i3. From: https://github.com/olivierlemoal/i3-swap-focus
+------------------------------------------------------------------------------------------------
+
+MIT License
+
+Copyright (c) 2021 Olivier Le Moal
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
+import os
+import asyncio
+import argparse
+import signal
+import sys
+import atexit
+from i3ipc.aio import Connection
+
+pid_file = '{XDG_RUNTIME_DIR}/swap_focus.pid'.format_map(os.environ)
+window_stack = []
+
+
+async def on_signal(i3):
+    if window_stack:
+        window_id = window_stack.pop()
+        if stay_in_workspace:
+            current_workspace = (await i3.get_tree()).find_focused().workspace().id
+            container = (await i3.get_tree()).find_by_id(window_id)
+            if not container:
+                window_stack.append(window_id)
+                return
+            window_workspace = container.workspace().id
+            if current_workspace != window_workspace:
+                window_stack.append(window_id)
+                return
+        cmd = f'[con_id={window_id}] focus'
+        await i3.command(cmd)
+
+
+def exit_handler():
+    os.remove(pid_file)
+
+
+def on_window(conn, event):
+    if "ignore_focus" in event.container.marks:
+        return
+    if event.change == 'focus':
+        if not window_stack or event.container.id != window_stack[0]:
+            window_stack.insert(0, event.container.id)
+            if len(window_stack) > 2:
+                del window_stack[2:]
+
+
+async def main():
+    with open(pid_file, 'w') as file:
+        file.write(str(os.getpid()))
+    atexit.register(exit_handler)
+
+    i3 = await Connection(auto_reconnect=True).connect()
+
+    loop = asyncio.get_event_loop()
+    loop.add_signal_handler(signal.SIGUSR1, lambda: asyncio.create_task(on_signal(i3)))
+    i3.on('window::focus', on_window)
+    await i3.main()
+
+
+stay_in_workspace = False
+asyncio.run(main())
