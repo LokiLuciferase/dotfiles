@@ -9,5 +9,13 @@ disk.format = {percent:.00f}%
 brightness_autohide.format = {:.00f}%
 time.format = %H:%M
 date.format = %Y/%m/%d
+
 spotify.layout = spotify.song
 spotify.concise_controls = True
+
+date.left-click = evolution -c calendar
+cpu.left-click = alacritty -e htop
+cpu.right-click = alacritty -e bpytop
+memory.left-click = alacritty -e htop
+memory.right-click = alacritty -e bpytop
+spotify.right-click = i3-msg '[class="Spotify"] focus'
