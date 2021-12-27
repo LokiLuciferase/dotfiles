@@ -1,6 +1,6 @@
 [core]
 modules = cpu,memory,disk:root,battery_autohide,pasink,pasource,brightness_autohide,redshift_aug,date,time,dunst
-theme = onedark
+theme = gruvdark
 
 [module-parameters]
 cpu.format = {:.00f}%

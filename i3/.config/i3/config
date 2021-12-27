@@ -54,6 +54,10 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
 bindsym $mod+Shift+b exec "firefox --private-window || brave-browser --incognito"
 
+# screenshot
+bindsym --release $mod+Print exec "FN=$(mktemp -u).png && scrot -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN"
+bindsym --release $mod+Shift+Print exec "FN=$(mktemp -u).png && scrot --select -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN"
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
