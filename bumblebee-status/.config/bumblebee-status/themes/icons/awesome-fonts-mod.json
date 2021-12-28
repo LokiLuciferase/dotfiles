@@ -249,6 +249,13 @@
   "deezer": {
     "prefix": "  "
   },
+  "spotify_silent": {
+    "song": { "prefix": "" },
+    "playing": { "prefix": "" },
+    "paused": { "prefix": "" },
+    "prev": { "prefix": "" },
+    "next": { "prefix": "" }
+  },
   "spotify": {
     "song": { "prefix": "" },
     "playing": { "prefix": "" },
