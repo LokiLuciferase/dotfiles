@@ -1,23 +1,23 @@
 {
-	"icons": [ "awesome-fonts-mod" ],
-	"defaults": {
-		"separator": "",
-		"separator-block-width": 0,
-		"warning":  {"fg": "#282828", "bg": "#E5C07B"},
-		"critical": {"fg": "#282828", "bg": "#E06C75"}
-	},
-	"cycle": [
-		{"fg": "#ABB2BF", "bg": "#4B5263"},
-		{"fg": "#ABB2BF", "bg": "#282828"}
-	],
+    "icons": [ "awesome-fonts-mod" ],
+    "defaults": {
+        "separator": "",
+        "separator-block-width": 0,
+        "warning":  {"fg": "#282828", "bg": "#E5C07B"},
+        "critical": {"fg": "#282828", "bg": "#E06C75"}
+    },
+    "cycle": [
+        {"fg": "#ABB2BF", "bg": "#4B5263"},
+        {"fg": "#ABB2BF", "bg": "#282828"}
+    ],
     "pasink": {
         "muted": {"fg": "#282828", "bg": "#689D6A"}
     },
     "pasource": {
         "muted": {"fg": "#282828", "bg": "#689D6A"}
     },
-	"battery_autohide": {
+    "battery_autohide": {
         "charged": {"fg": "#282828", "bg": "#689D6A"},
         "AC": {"fg": "#282828", "bg": "#689D6A"}
-	}
+    }
 }

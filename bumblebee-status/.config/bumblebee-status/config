@@ -3,7 +3,7 @@ modules = spotify_silent,cpu,memory,disk:root,battery_autohide,pasink,pasource,b
 theme = gruvdark
 
 [module-parameters]
-cpu.format = {:.00f}%
+cpu.format = {:2.0f}%
 memory.format = {percent:.00f}%
 disk.format = {percent:.00f}%
 brightness_autohide.format = {:.00f}%
