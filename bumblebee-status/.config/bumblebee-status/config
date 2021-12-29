@@ -1,5 +1,5 @@
 [core]
-modules = spotify_silent,cpu,memory,disk:root,battery_autohide,pasink,pasource,brightness_autohide,redshift_aug,date,time,dunst
+modules = spotify_silent,cpu,memory,disk:root,battery_autohide,pasink,pasource,brightness_autohide,redshift_aug,datetime,dunst
 theme = gruvdark
 
 [module-parameters]
@@ -7,8 +7,14 @@ cpu.format = {:2.0f}%
 memory.format = {percent:.00f}%
 disk.format = {percent:.00f}%
 brightness_autohide.format = {:.00f}%
-time.format = %H:%M
-date.format = %Y/%m/%d
+datetime.format = %Y/%m/%d %H:%M
+
+datetime.left-click = evolution -c calendar
+cpu.left-click = alacritty -e htop
+cpu.right-click = alacritty -e bpytop
+memory.left-click = alacritty -e htop
+memory.right-click = alacritty -e bpytop
+spotify_silent.right-click = i3-msg '[class="Spotify"] focus'
 
 spotify_silent.layout = spotify.song
 spotify_silent.concise_controls = True
@@ -16,10 +22,3 @@ spotify_silent.scrolling.width = 32
 spotify_silent.scrolling.makewide = False
 spotify_silent.scrolling.bounce = False
 spotify_silent.scrolling.speed = 3
-
-date.left-click = evolution -c calendar
-cpu.left-click = alacritty -e htop
-cpu.right-click = alacritty -e bpytop
-memory.left-click = alacritty -e htop
-memory.right-click = alacritty -e bpytop
-spotify_silent.right-click = i3-msg '[class="Spotify"] focus'
