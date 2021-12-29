@@ -7,7 +7,7 @@
         "critical": {"fg": "#282828", "bg": "#E06C75"}
     },
     "cycle": [
-        {"fg": "#ABB2BF", "bg": "#4B5263"},
+        {"fg": "#ABB2BF", "bg": "#3B414f"},
         {"fg": "#ABB2BF", "bg": "#282828"}
     ],
     "pasink": {
