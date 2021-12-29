@@ -207,6 +207,14 @@ svimsh() {
     tmux new-session \; attach-session -c "$WD" \; split-window -v -p 20 \; select-pane -t 1 \; send-keys svim Space "$@" Enter
 }
 
+term-replace() {
+    # replace current terminal with given one. Per default,
+    # replace with a terminal window with full transparency.
+    local alacritty_flags="${1:--o background_opacity=0.0}"
+    local cmd="desktop-run alacritty ${alacritty_flags}"
+    eval "$cmd" && exit
+}
+
 ## Git automation ##
 _pdot() {
     # pull newest changes to dotfiles
