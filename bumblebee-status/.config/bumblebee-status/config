@@ -12,6 +12,10 @@ date.format = %Y/%m/%d
 
 spotify_silent.layout = spotify.song
 spotify_silent.concise_controls = True
+spotify_silent.scrolling.width = 32
+spotify_silent.scrolling.makewide = False
+spotify_silent.scrolling.bounce = False
+spotify_silent.scrolling.speed = 3
 
 date.left-click = evolution -c calendar
 cpu.left-click = alacritty -e htop
