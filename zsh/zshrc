@@ -1,6 +1,9 @@
 # general omz setup
 unsetopt nomatch
 export ZSH="${HOME}/.config/oh-my-zsh"
+export LC_ALL='en_US.UTF-8'
+export LC_CTYPE='en_US.UTF-8'
+export LANG='en_US.UTF-8'
 ZSH_THEME="powerlevel10k/powerlevel10k"
 TERM='xterm-256color'
 DEFAULT_USER=$USER
@@ -11,7 +14,12 @@ ZLE_RPROMPT_INDENT=0
 DISABLE_MAGIC_FUNCTIONS=true
 ZVM_CURSOR_STYLE_ENABLED=false
 SHELL_DOT_DIR="${HOME}/.dotfiles/zsh"
-plugins=(vi-mode git aws docker)
+plugins=(
+    vi-mode
+    git
+    aws
+    docker
+)
 wanted_custom_plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
