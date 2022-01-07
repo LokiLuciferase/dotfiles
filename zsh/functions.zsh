@@ -248,7 +248,7 @@ _pspacevim() {
 	git checkout master
 	git pull
 	# git checkout $(git describe --tags --abbrev=0)
-    git checkout v1.7.0  # for some reason newer tags broken
+    git checkout v1.8.0  # for some reason newer tags broken
     popd
 }
 
