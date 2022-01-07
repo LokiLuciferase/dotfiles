@@ -247,7 +247,8 @@ _pspacevim() {
     pushd ${HOME}/.SpaceVim || return 0
 	git checkout master
 	git pull
-	git checkout $(git describe --tags --abbrev=0)
+	# git checkout $(git describe --tags --abbrev=0)
+    git checkout v1.7.0  # for some reason newer tags broken
     popd
 }
 

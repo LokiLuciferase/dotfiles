@@ -22,6 +22,8 @@ alias goto='cd -P'
 alias tree="tree -I '.git'"
 alias ta="tree -I '.git' -a"
 alias dr="desktop-run"
+alias gbb="git bisect bad"
+alias gbg="git bisect good"
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias svim="${VIM_BIN} -u ~/.SpaceVim/vimrc"

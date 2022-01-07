@@ -16,6 +16,11 @@ memory.left-click = alacritty -e htop
 memory.right-click = alacritty -e bpytop
 spotify_silent.right-click = i3-msg '[class="Spotify"] focus'
 
+cpu.interval = 3s
+memory.interval = 20s
+disk.interval = 5m
+datetime.interval = 10s
+
 spotify_silent.layout = spotify.song
 spotify_silent.concise_controls = True
 spotify_silent.scrolling.width = 32
