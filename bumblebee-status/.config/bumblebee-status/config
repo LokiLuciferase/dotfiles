@@ -1,5 +1,5 @@
 [core]
-modules = spotify_silent,cpu,memory,disk:root,battery_autohide,pasink,pasource,brightness_autohide,redshift_aug,datetime,dunst
+modules = title,spotify_silent,cpu,memory,disk:root,redshift_aug,brightness_autohide,battery_autohide,pasink,datetime,dunst
 theme = gruvdark
 
 [module-parameters]
@@ -20,6 +20,8 @@ cpu.interval = 3s
 memory.interval = 20s
 disk.interval = 5m
 datetime.interval = 10s
+
+title.max = 32
 
 spotify_silent.layout = spotify.song
 spotify_silent.concise_controls = True
