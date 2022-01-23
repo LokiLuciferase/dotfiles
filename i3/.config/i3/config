@@ -76,6 +76,9 @@ bindsym $mod+Shift+h focus left, split h
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="rofi -theme android_notification 0 -show drun || dmenu -i -l 30"
 bindsym $mod+shift+d exec --no-startup-id i3-dmenu-desktop --dmenu="rofi -theme android_notification 0 -show combi || dmenu -i -l 30"
 
+# reload autorandr/xrandr config
+bindsym $mod+Shift+x exec --no-startup-id autorandr --change
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -224,6 +227,7 @@ floating_maximum_size 1280 x 720
 for_window [class="keepassxc"] floating enable
 for_window [instance="keepassxc"] floating enable
 for_window [title="Reminders"] floating enable
+for_window [instance="blueman-manager"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable
 for_window [title="Welcome to PyCharm"] floating enable
 for_window [instance="cheese"] floating enable
