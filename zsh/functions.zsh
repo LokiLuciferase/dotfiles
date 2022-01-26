@@ -120,7 +120,6 @@ apply-i3-layout() {
     i3-msg "workspace $WORKSPACE; append_layout $LAYOUT"
     for name in ${NAMES[@]}; do
         echo -n "Executing $name: "
-        sleep .5
         desktop-run $name
     done
 }

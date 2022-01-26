@@ -222,6 +222,40 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+mode "swap" {
+    # switch to workspace
+    bindsym $mod+1 workspace $ws1
+    bindsym $mod+2 workspace $ws2
+    bindsym $mod+3 workspace $ws3
+    bindsym $mod+4 workspace $ws4
+    bindsym $mod+5 workspace $ws5
+    bindsym $mod+6 workspace $ws6
+    bindsym $mod+7 workspace $ws7
+    bindsym $mod+8 workspace $ws8
+    bindsym $mod+9 workspace $ws9
+    bindsym $mod+0 workspace $ws10
+
+    # change focus
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # change focus (without mod)
+    bindsym Left focus left
+    bindsym Down focus down
+    bindsym Up focus up
+    bindsym Right focus right
+
+    # enable targeting of existing marks
+    bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 2 -P 'Goto: '
+
+    bindsym Return swap container with mark "swapee"; unmark "swapee"; mode "default";
+    bindsym Escape unmark "swapee"; mode "default";
+}
+
+bindsym $mod+Shift+i mark --add "swapee"; mode "swap"
+
 # define floating window placement
 floating_maximum_size 1280 x 720
 for_window [class="keepassxc"] floating enable
