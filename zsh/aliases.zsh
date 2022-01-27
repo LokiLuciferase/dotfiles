@@ -25,6 +25,7 @@ alias dr="desktop-run"
 alias gbb="git bisect bad"
 alias gbg="git bisect good"
 alias sshb="ssh -f -N"
+alias lo='libreoffice'
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias svim="${VIM_BIN} -u ~/.SpaceVim/vimrc"
