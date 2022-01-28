@@ -175,7 +175,7 @@
                     "swallows": [
                        {
                        // "class": "^Evolution$",
-                          "instance": "^evolution$"
+                          "instance": "^evolution"
                        // "title": "^Unified\\ Sent\\ \\—\\ Evolution$",
                        // "window_role": "^EShellWindow\\-94255381291824$"
                        }
