@@ -23,10 +23,10 @@ for_window [title="to_scratchpad"] move scratchpad
 font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMono Nerd Font 10
 
 # user specific startup applications
-exec "$HOME/.config/arandr/default.sh ; feh --bg-fill --no-fehbg $HOME/.local/share/backgrounds/default"
-exec "$HOME/.config/i3/scripts/i3-swap-focus"
+exec --no-startup-id "$HOME/.config/arandr/default.sh ; feh --bg-fill --no-fehbg $HOME/.local/share/backgrounds/default"
+exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
 exec --no-startup-id "picom"
-exec --no-startup-id "setxkbmap -layout us,de"
+exec --no-startup-id "setxkbmap -layout us,at -variant basic,nodeadkeys -option grp:alt_space_toggle"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "dex $HOME/.config/autostart/*"
 exec --no-startup-id "alacritty --title to_scratchpad"
