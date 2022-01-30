@@ -270,6 +270,9 @@ mode "swap" {
     # enable targeting of existing marks
     bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 2 -P 'Goto: '
 
+    # enable targeting with focus switching
+    bindsym $mod+Tab exec pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
+
     bindsym Return swap container with mark "swapee"; unmark "swapee"; mode "default";
     bindsym Escape unmark "swapee"; mode "default";
 }
