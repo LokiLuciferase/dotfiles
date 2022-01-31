@@ -16,7 +16,7 @@ gaps inner 7
 for_window [class=".*"] border pixel 0
 
 # manage scratchpad: start shell
-for_window [title="to_scratchpad"] move scratchpad
+for_window [title="scratchpad_shell"] move scratchpad
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -29,7 +29,7 @@ exec --no-startup-id "picom"
 exec --no-startup-id "setxkbmap -layout us,at -variant basic,nodeadkeys -option grp:alt_space_toggle"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "dex $HOME/.config/autostart/*"
-exec --no-startup-id "alacritty --title to_scratchpad"
+exec --no-startup-id "alacritty --title scratchpad_shell"
 
 bindsym $mod+Tab exec pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
 bindsym Control+Mod1+l exec --no-startup-id "cinnamon-screensaver-command --lock || i3lock -i ~/.local/share/backgrounds/default"
