@@ -78,6 +78,17 @@ cecho(){
     echo -e ${ECHO_ARGS[@]} "${COLOR}${MSG_ARG}${NC}"
 }
 
+nagme() {
+    # nag me to do something
+    local message="$1"
+    local interval="${2:-5m}"
+    local urgency="${3:-critical}"
+    while true; do
+        notify-send -u "$urgency" "$message"
+        sleep ${interval}
+    done
+}
+
 get-newest() {
     # gets the newest directory entry by modification time
     DIR="${1:-.}"
