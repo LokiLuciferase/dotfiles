@@ -23,26 +23,35 @@ for_window [title="scratchpad_shell"] move scratchpad
 font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMono Nerd Font 10
 
 # user specific startup applications
+# connectivity
+exec --no-startup-id "nm-applet"
+exec --no-startup-id "blueman-applet"
+
+# screen locking
+exec --no-startup-id "xss-lock --transfer-sleep-lock -- i3lock -i ~/.local/share/backgrounds/default --nofork"
+
+# display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; feh --bg-fill --no-fehbg $HOME/.local/share/backgrounds/default"
-exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
 exec --no-startup-id "picom"
+exec --no-startup-id "redshift"
+
+# keyboard and mouse/touchpad setup
 exec --no-startup-id "setxkbmap -layout us,at -variant basic,nodeadkeys -option grp:alt_space_toggle"
 exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
-exec --no-startup-id "dex $HOME/.config/autostart/*"
+exec --no-startup-id "libinput-gestures"
+
+# starting misc applications
+exec --no-startup-id "/usr/libexec/goa-daemon --replace"
+exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
+exec --no-startup-id "keepassxc"
+exec --no-startup-id "env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud"
 exec --no-startup-id "alacritty --title scratchpad_shell"
+
+# starting any .desktop files in $HOME/.config/autostart
+exec --no-startup-id "dex $HOME/.config/autostart/*"
 
 bindsym $mod+Tab exec pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
 bindsym Control+Mod1+l exec --no-startup-id "cinnamon-screensaver-command --lock || i3lock -i ~/.local/share/backgrounds/default"
-
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -i ~/.local/share/backgrounds/default --nofork
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -67,7 +76,7 @@ for_window [instance="blueman-manager"] floating enable
 for_window [window_role="GtkFileChooserDialog"] floating enable
 for_window [title="Welcome to PyCharm"] floating enable
 for_window [instance="cheese"] floating enable
-#
+
 # start a terminal
 bindsym $mod+Return exec alacritty
 
@@ -140,27 +149,11 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
 
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
-
-# Load colors from xresources
-set_from_resource $bar_separator_colors          i3wm.bar_colors.separator
-set_from_resource $bar_background_colors         i3wm.bar_colors.background
-set_from_resource $bar_statusline_colors         i3wm.bar_colors.statusline
-set_from_resource $bar_focused_workspace_colors  i3wm.bar_colors.focused_workspace
-set_from_resource $bar_active_workspace_colors   i3wm.bar_colors.active_workspace
-set_from_resource $bar_inactive_workspace_colors i3wm.bar_colors.inactive_workspace
-set_from_resource $bar_urgent_workspace_colors   i3wm.bar_colors.urgent_workspace
-set_from_resource $focused_colors                i3wm.window_colors.focused
-set_from_resource $focused_inactive_colors       i3wm.window_colors.focused_inactive
-set_from_resource $unfocused_colors              i3wm.window_colors.unfocused
-set_from_resource $urgent_colors                 i3wm.window_colors.urgent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -201,14 +194,19 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Session Management' -B 'Power Down' 'systemctl poweroff' -B 'Suspend' 'systemctl suspend' -B 'Logout' 'i3-msg exit'"
+
 # goto mark
 bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 2 -P 'Goto: '
+
 # create mark
 bindsym $mod+m exec i3-input -F 'mark %s' -l 2 -P 'Mark: '
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -280,6 +278,21 @@ mode "swap" {
 bindsym $mod+Shift+i mark --add "swapee"; mode "swap"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
+# Load colors from xresources
+set_from_resource $bar_separator_colors          i3wm.bar_colors.separator
+set_from_resource $bar_background_colors         i3wm.bar_colors.background
+set_from_resource $bar_statusline_colors         i3wm.bar_colors.statusline
+set_from_resource $bar_focused_workspace_colors  i3wm.bar_colors.focused_workspace
+set_from_resource $bar_active_workspace_colors   i3wm.bar_colors.active_workspace
+set_from_resource $bar_inactive_workspace_colors i3wm.bar_colors.inactive_workspace
+set_from_resource $bar_urgent_workspace_colors   i3wm.bar_colors.urgent_workspace
+set_from_resource $focused_colors                i3wm.window_colors.focused
+set_from_resource $focused_inactive_colors       i3wm.window_colors.focused_inactive
+set_from_resource $unfocused_colors              i3wm.window_colors.unfocused
+set_from_resource $urgent_colors                 i3wm.window_colors.urgent
+
+# define bar
 bar {
     colors {
         separator          $bar_separator_colors
