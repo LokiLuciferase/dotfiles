@@ -69,6 +69,7 @@ floating_modifier $mod
 # define floating window placement
 floating_maximum_size 1280 x 720
 for_window [class="keepassxc"] floating enable
+for_window [instance="zenity"] floating enable
 for_window [instance="keepassxc"] floating enable
 for_window [title="Reminders"] floating enable
 for_window [instance="blueman-manager"] floating enable
