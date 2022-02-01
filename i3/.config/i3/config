@@ -37,7 +37,6 @@ exec --no-startup-id "redshift"
 
 # keyboard and mouse/touchpad setup
 exec --no-startup-id "setxkbmap -layout us,at -variant basic,nodeadkeys -option grp:alt_space_toggle"
-exec --no-startup-id "synclient TapButton3=2 NaturalScrolling=1 VertScrollDelta=-153"
 exec --no-startup-id "libinput-gestures"
 
 # starting misc applications
