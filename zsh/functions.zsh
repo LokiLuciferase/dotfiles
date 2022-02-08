@@ -173,6 +173,13 @@ scrotsel(){
     scrot --select -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN
 }
 
+disable-screen-timeout() {
+    # disable screen timeout
+    xset s off
+    xset -dpms
+    xset s noblank
+}
+
 ## Tmux automation ##
 _tmux_ctx() {
     # run tmux command either in new session if not running
