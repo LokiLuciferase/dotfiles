@@ -14,6 +14,7 @@ Parameters:
 (partially) contributed by `martindoublem <https://github.com/martindoublem>`_ - many thanks!
 """
 
+from pathlib import Path
 import os
 import glob
 import logging
@@ -93,7 +94,11 @@ class BatteryManager(object):
         return "{}W".format(int(consumption) / 1000000)
 
     def charge(self, battery):
-        return self.read(battery, "status", "n/a")
+        hackpath = Path('/tmp/{}_status'.format(battery))
+        if hackpath.is_file():
+            return hackpath.read_text().strip()
+        else:
+            return self.read(battery, "status", "n/a")
 
     def charge_any(self, batteries):
         for battery in batteries:
