@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -e
+
+BATTERY_UEVENT="/sys/class/power_supply/BAT0/uevent"
+MUTE_BIT="${TMPDIR:-/tmp}/battery_warning_muted"
+WARN_THRESHOLD="${1:-10}"
+CHECK_INTERVAL="${2:-60}"
+
+
+main() {
+    [[ -f "${BATTERY_UEVENT}" ]] || return 1
+    [[ -f "${MUTE_BIT}" ]] && return 0
+    local capacity=$(grep 'POWER_SUPPLY_CAPACITY=' "${BATTERY_UEVENT}" | cut -d= -f2 | xargs)
+    local status=$(grep POWER_SUPPLY_STATUS "${BATTERY_UEVENT}" | cut -d= -f2 | xargs)
+    if [[ "${status}" == "Discharging" ]] && [[ "${capacity}" -le "${WARN_THRESHOLD}" ]]; then
+        notify-send -u critical -t 10000 "Battery Low!" "Battery level is ${capacity}%."
+    fi
+}
+
+main-loop() {
+    rm -f "${MUTE_BIT}"
+    while true; do
+        main
+        sleep "${CHECK_INTERVAL}"
+    done
+}
+
+main-loop
