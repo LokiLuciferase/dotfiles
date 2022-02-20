@@ -4,6 +4,7 @@ theme = gruvdark
 
 [module-parameters]
 cpu.format = {:2.0f}%
+cpu.theme.minwidth = 3
 memory.format = {percent:.00f}%
 disk.format = {percent:.00f}%
 brightness_autohide.format = {:.00f}%
