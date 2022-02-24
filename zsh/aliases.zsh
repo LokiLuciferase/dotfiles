@@ -28,6 +28,7 @@ alias sshb="ssh -f -N"
 alias lo='libreoffice'
 alias dps='docker ps'
 alias dls='docker image ls'
+alias shfmt='shfmt -i 2 -sr -w -l'
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias svim="${VIM_BIN} -u ~/.SpaceVim/vimrc"
