@@ -9,6 +9,7 @@ alias lh='ls -lh'
 alias l='ls -lah'
 alias lt='ls -lahtr'
 
+alias c='clear'
 alias :q='exit'
 alias :wq='echo "beep boop...saved" && sleep 1 && exit'
 alias dush='du -ahd1 | sort -h'
