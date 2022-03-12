@@ -1,0 +1,2 @@
+
+ssh pinas "/opt/PiNAS/scripts/04_util/05_toggle_deluge_scheduler.py"

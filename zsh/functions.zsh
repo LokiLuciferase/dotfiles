@@ -11,7 +11,11 @@ ytdl-vid() {
 }
 
 ytdl-stream() {
-    $YTDL_BIN -f 'best' -o - "$1" | mpv -
+    $YTDL_BIN -f b -o - "$1" | mpv -
+}
+
+ytdl-cast() {
+    $YTDL_BIN -f b -o - "$1" | castnow -
 }
 
 asciinema-upload() {

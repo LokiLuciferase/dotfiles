@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/zsh
+source $HOME/.dotfiles/functions.zsh
+COUNTER=0
+MAXCOUNTER=10
+while [ "$COUNTER" -le "$MAXCOUNTER" ]; do
+    scp rpi3:"$(ssh rpi3 "$(typeset -f get-newest); get-newest /tmp/rpicam-*/*")" $TMPDIR/cat_trap_latest.png
+    termux-toast -g bottom "$COUNTER/$MAXCOUNTER"
+    termux-open $TMPDIR/cat_trap_latest.png
+    sleep 3
+    COUNTER=$((COUNTER+1))
+done

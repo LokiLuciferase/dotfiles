@@ -1,0 +1,29 @@
+#!/data/data/com.termux/files/usr/bin/zsh
+
+source ~/.dotfiles/zsh/functions.zsh
+
+
+wat-do() {
+    local url="$1"
+    echo "What should I do with this link?"
+    echo "c: Cast to default Chromecast device using `castnow`"
+    echo "d: Download url with wget"
+    echo "y: Play youtube url locally"
+    echo "any other: cancel operation"
+    local response=$(bash -c "read -n 1 c; echo \$c")
+
+    if [[ "$response" = "d" ]]; then
+        cecho G "Downloading url..."
+        wget --directory-prefix ~/Downloads/ "$url"
+    elif [[ "$response" = "c" ]]; then
+        cecho G "Casting url..."
+        ytdl-cast "$url"
+    elif [[ "$response" = "y" ]]; then
+        cecho G "Playing youtube url locally..."
+        ytdl-vid "$url"
+    else
+        cecho R "Cancelling with unknown option: '$response'"
+    fi
+}
+
+wat-do "$1"
