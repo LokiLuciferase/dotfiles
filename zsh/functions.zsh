@@ -1,21 +1,21 @@
 #!/usr/bin/env zsh
 
 ## misc convenience functions ##
-YTDL_BIN="${YTDL_BIN:-yt-dlp}"
 ytdl-mp3() {
-    $YTDL_BIN "$1" -x --audio-format mp3 --audio-quality 9
+    yt-dlp "$1" -x --audio-format mp3 --audio-quality 9
 }
 
 ytdl-vid() {
-    $YTDL_BIN -f 'bestvideo[height>=720]+bestaudio/best' -ciw -o "%(upload_date)s_%(title)s.%(ext)s" -v --add-metadata $1
+    yt-dlp -f 'bestvideo[height>=720]+bestaudio/best' -ciw -o "%(upload_date)s_%(title)s.%(ext)s" -v --add-metadata $1
 }
 
 ytdl-stream() {
-    $YTDL_BIN -f b -o - "$1" | mpv -
+    yt-dlp -f b -o - "$1" | mpv -
 }
 
 ytdl-cast() {
-    $YTDL_BIN -f b -o - "$1" | castnow -
+    # Cast the downloaded video to chromecast
+    yt-dlp -f b -o - "$1" | castnow --quiet -
 }
 
 asciinema-upload() {
