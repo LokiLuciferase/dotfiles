@@ -65,6 +65,26 @@ cpcd() {
     fi
 }
 
+transpose() {
+    local sep="${2:-\t}"
+    awk '
+    {
+        for (i=1; i<=NF; i++)  {
+            a[NR,i] = $i
+        }
+    }
+    NF>p { p = NF }
+    END {
+        for(j=1; j<=p; j++) {
+            str=a[1,j]
+            for(i=2; i<=NR; i++){
+                str=str" "a[i,j];
+            }
+            print str
+        }
+    }' FS="$sep" "$1"
+}
+
 cecho(){
     # print the given string in the given color to the given destination
     # cecho [echo flags] <color> <message>
