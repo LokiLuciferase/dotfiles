@@ -107,3 +107,9 @@ nmap <leader>gd <Action>(Compare.LastVersion)
 " Terminal
 nmap <leader>T <Action>(ActivateTerminalToolWindow)
 
+" Identation
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
