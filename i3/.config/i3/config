@@ -28,7 +28,7 @@ exec --no-startup-id "nm-applet"
 exec --no-startup-id "blueman-applet"
 
 # screen locking
-exec --no-startup-id "xss-lock --transfer-sleep-lock -- i3lock -i ~/.local/share/backgrounds/default --nofork"
+exec --no-startup-id "xss-lock --transfer-sleep-lock -- $HOME/.config/i3/scripts/i3-lock-screen"
 
 # display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; feh --bg-fill --no-fehbg $HOME/.local/share/backgrounds/default"

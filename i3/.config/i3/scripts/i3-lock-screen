@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+
+if [ ! -z "$(which cinnamon-screensaver-command)" ]; then
+    cinnamon-screensaver-command --lock
+else
+    i3lock -i ~/.local/share/backgrounds/default --nofork
+fi
