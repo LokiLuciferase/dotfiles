@@ -122,17 +122,19 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+set $window-move-amount 150px
+
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+j move left $window-move-amount
+bindsym $mod+Shift+k move down $window-move-amount
+bindsym $mod+Shift+l move up $window-move-amount
+bindsym $mod+Shift+semicolon move right $window-move-amount
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left move left $window-move-amount
+bindsym $mod+Shift+Down move down $window-move-amount
+bindsym $mod+Shift+Up move up $window-move-amount
+bindsym $mod+Shift+Right move right $window-move-amount
 
 # split in horizontal orientation
 bindsym $mod+h split h
