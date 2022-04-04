@@ -121,15 +121,21 @@ get-newest() {
 }
 
 for-each-dir() {
-    # perform the given command in each subdirectory
-    SEP=$(printf %$(tput cols)s | tr " " "#")
+    # perform the given command in each subdirectory in parallel
+    set +o monitor
+    local footer=$(printf %$(tput cols)s | tr " " "#")
     for d in */; do
-        echo "\n### $d ###"
         pushd -q $d || continue
-        $@
-        echo "${SEP}"
+        local header="\n### $d "
+        local header_length=${#header}
+        local sep_length=${#footer}
+        local extra_header_hashes=$(for i in {0..$((sep_length - header_length + 1))}; do echo -n "#"; done)
+        local full_header="${header}${extra_header_hashes}"
+        echo "${full_header}\n$($@ 2>&1)\n${footer}" &
         popd -q
     done
+    wait
+    set -o monitor
 }
 
 rsync() {
