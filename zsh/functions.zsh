@@ -123,18 +123,18 @@ get-newest() {
 for-each-dir() {
     # perform the given command in each subdirectory in parallel
     set +o monitor
-    local footer=$(printf %$(tput cols)s | tr " " "#")
+    local sep_len=$(tput cols)
     for d in */; do
         pushd -q $d || continue
-        local dir_str=" ${d} "
+        local dir_str="   ${d}   "
+        local dir_str_color="$(cecho G "$dir_str")"
         local dir_str_len=${#dir_str}
-        local sep_len=${#footer}
         local header_left_hashes_len=$(( (sep_len / 2) - (dir_str_len / 2) ))
         local header_right_hashes_len=$(( sep_len - (header_left_hashes_len + dir_str_len) ))
         local extra_header_hashes_left=$(for i in {1..${header_left_hashes_len}}; do echo -n "#"; done)
         local extra_header_hashes_right=$(for i in {1..${header_right_hashes_len}}; do echo -n "#"; done)
-        local full_header="\n${extra_header_hashes_left} $(cecho G $d) ${extra_header_hashes_right}"
-        echo "${full_header}\n$($@ 2>&1)\n${footer}" &
+        local full_header="${extra_header_hashes_left}${dir_str_color}${extra_header_hashes_right}"
+        echo "\n${full_header}\n$($@ 2>&1)" &
         popd -q
     done
     wait
