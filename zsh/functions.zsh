@@ -126,11 +126,14 @@ for-each-dir() {
     local footer=$(printf %$(tput cols)s | tr " " "#")
     for d in */; do
         pushd -q $d || continue
-        local header="\n### $d "
-        local header_length=${#header}
-        local sep_length=${#footer}
-        local extra_header_hashes=$(for i in {0..$((sep_length - header_length + 1))}; do echo -n "#"; done)
-        local full_header="${header}${extra_header_hashes}"
+        local dir_str=" ${d} "
+        local dir_str_len=${#dir_str}
+        local sep_len=${#footer}
+        local header_left_hashes_len=$(( (sep_len / 2) - (dir_str_len / 2) ))
+        local header_right_hashes_len=$(( sep_len - (header_left_hashes_len + dir_str_len) ))
+        local extra_header_hashes_left=$(for i in {1..${header_left_hashes_len}}; do echo -n "#"; done)
+        local extra_header_hashes_right=$(for i in {1..${header_right_hashes_len}}; do echo -n "#"; done)
+        local full_header="\n${extra_header_hashes_left} $(cecho G $d) ${extra_header_hashes_right}"
         echo "${full_header}\n$($@ 2>&1)\n${footer}" &
         popd -q
     done
