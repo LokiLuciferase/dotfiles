@@ -47,5 +47,5 @@ alias mansplain='man'
 alias leckmiamoasch='echo "trottl"'
 alias please='sudo '
 alias fucking='sudo '
-alias get-rekt="sudo apt update && sudo apt upgrade --yes && sudo apt autoremove --yes && pall"
+alias get-rekt="sudo apt update && sudo apt upgrade --yes && sudo apt autoremove --yes && _flatpak_upgrade_all_if_exist && pall"
 

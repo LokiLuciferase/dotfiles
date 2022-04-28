@@ -265,6 +265,18 @@ term-replace() {
     eval "$cmd" && exit
 }
 
+## Package management ##
+_apt_upgrade_all() {
+    sudo apt update \
+        && sudo apt upgrade --yes \
+        && sudo apt autoremove --yes
+}
+
+_flatpak_upgrade_all_if_exist() {
+    [ "$(which flatpak)" = "" ] && return 0
+    flatpak update -y
+}
+
 ## Git automation ##
 _pdot() {
     # pull newest changes to dotfiles
