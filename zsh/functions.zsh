@@ -287,7 +287,7 @@ _apt_upgrade_all() {
 }
 
 _flatpak_upgrade_all_if_exist() {
-    [ "$(which flatpak)" = "" ] && return 0
+    which flatpak &> /dev/null || return 0
     flatpak update -y
     flatpak remove --unused
 }
