@@ -1,5 +1,6 @@
 [core]
 modules = title,spotify_silent,cpu,memory,disk:root,redshift_aug,brightness_autohide,battery_autohide,pasink,datetime,dunst
+autohide = cpu,memory,disk
 theme = gruvdark
 
 [module-parameters]
