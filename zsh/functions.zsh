@@ -331,7 +331,7 @@ _pspacevim() {
 
 migrate-dotfiles(){
     echo ''
-    bash ~/.dotfiles/scripts/run_migrations.sh
+    bash ~/.dotfiles/scripts/01_meta/run_migrations.sh
 }
 
 pall() {
