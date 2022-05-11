@@ -36,9 +36,11 @@ for config in ${SHELL_DOT_DIR}/*.zsh ; do
 done
 
 # load any local ZSH-related config files
-for local_config in ${SHELL_DOT_DIR}/local/*.zsh ; do
-    source "$local_config"
-done
+if [[ -d "$SHELL_DOT_DIR/local/" ]]; then
+    for local_config in ${SHELL_DOT_DIR}/local/*.zsh ; do
+        source "$local_config"
+    done
+fi
 
 # run tmux if requested, if exists and if not inside yet
 if [[ "$USE_TMUX_AS_SHELL" = true ]] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
