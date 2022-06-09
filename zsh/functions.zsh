@@ -85,6 +85,14 @@ transpose() {
     }' FS="$sep" "$1"
 }
 
+docker-interactive() {
+    local container="${1:-}"
+    local cmd="${2:-/bin/bash}"
+    local extra_docker_args=("${@:3}")
+    local full_cmd="docker run -u $(id -u):$(id -g) -w $PWD -v $PWD:$PWD ${extra_docker_args} -it ${container} ${cmd}"
+    eval "$full_cmd"
+}    # open a docker container in an interactive shell
+
 cecho(){
     # print the given string in the given color to the given destination
     # cecho [echo flags] <color> <message>
