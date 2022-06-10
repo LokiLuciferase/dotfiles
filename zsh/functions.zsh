@@ -23,6 +23,16 @@ asciinema-upload() {
     curl -v -u $USER:$(cat ~/.config/asciinema/install-id) https://asciinema.org/api/asciicasts -F asciicast=@$1
 }
 
+say() {
+    # read aloud arguments
+    echo "${@}" | gtts-cli - | mpv - &> /dev/null
+}
+
+read-aloud() {
+    # read aloud contents of file
+    cat "$1" | gtts-cli - | mpv - &> /dev/null
+}
+
 spip() {
     # Safe pip: refuse to install stuff into the base conda environment.
     CONDA_PREFIX=${CONDA_PREFIX:-'null'}
