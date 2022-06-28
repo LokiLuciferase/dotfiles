@@ -96,12 +96,26 @@ transpose() {
 }
 
 docker-interactive() {
+    # open a docker container in an interactive shell
     local container="${1:-}"
     local cmd="${2:-/bin/bash}"
     local extra_docker_args=("${@:3}")
     local full_cmd="docker run -u $(id -u):$(id -g) -e ARES_DB_URL -v /tmp/mysql.sock:/tmp/mysql.sock -w $PWD -v $PWD:$PWD ${extra_docker_args} -it ${container} ${cmd}"
     eval "$full_cmd"
-}    # open a docker container in an interactive shell
+}
+
+recursive-glacier-restore() {
+    if [ $1 =~ s3://.* ]; then
+        local arr=($(python3 -c "print('$1'.split('/')[2], '$1'.split('/', 3)[-1])"))
+        local bucket=${arr[1]}
+        local key=${arr[2]}
+    else
+        local bucket=$1
+        local key=$2
+    fi
+    cecho Y "Restoring all objects under s3://${bucket}/${key}..."
+    aws s3 ls s3://${bucket}/${key}/ --recursive | awk '{print substr($0, index($0, $4))}' | xargs -t -I %%% aws s3api restore-object --restore-request '{"Days":1, "GlacierJobParameters":{"Tier":"Expedited"}}' --bucket ${bucket} --key "%%%"
+}
 
 cecho(){
     # print the given string in the given color to the given destination
