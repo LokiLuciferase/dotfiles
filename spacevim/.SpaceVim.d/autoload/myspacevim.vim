@@ -23,6 +23,7 @@ function! myspacevim#after() abort
 	set nopaste
     inoremap <S-Tab> <C-d>
     nnoremap <leader>d "_d
+    nnoremap <F5> :UndotreeToggle<CR>
     xnoremap <leader>d "_d
     xnoremap <leader>p "_dP
     vnoremap J :m '>+1<CR>gv=gv

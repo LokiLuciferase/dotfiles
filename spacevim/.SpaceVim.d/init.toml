@@ -15,11 +15,11 @@
 
 # Custom plugins
 [[custom_plugins]]
-name = "chrisbra/Colorizer"
+name = "mbbill/undotree"
 merged = false
 
 [[custom_plugins]]
-name = "github/copilot.vim"
+name = "chrisbra/Colorizer"
 merged = false
 
 [[custom_plugins]]
