@@ -1,0 +1,23 @@
+{
+    "icons": [ "awesome-fonts-mod" ],
+    "defaults": {
+        "separator": "",
+        "separator-block-width": 0,
+        "warning":  {"fg": "#282828", "bg": "#F92672"},
+        "critical": {"fg": "#282828", "bg": "#F92672"}
+    },
+    "cycle": [
+        {"fg": "#ABB2BF", "bg": "#3B414f"},
+        {"fg": "#ABB2BF", "bg": "#282828"}
+    ],
+    "pasink": {
+        "muted": {"fg": "#282828", "bg": "#8BBB2D"}
+    },
+    "pasource": {
+        "muted": {"fg": "#282828", "bg": "#8BBB2D"}
+    },
+    "battery_autohide": {
+        "charged": {"fg": "#282828", "bg": "#689D6A"},
+        "AC": {"fg": "#282828", "bg": "#689D6A"}
+    }
+}

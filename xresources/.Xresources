@@ -3,7 +3,7 @@ Xcursor.size: 36
 Xcursor.theme: BreezeX-Black
 
 ! include i3 theme colors
-#include ".config/i3/themes/gruvbox.theme"
+#include ".config/i3/themes/monsterkai.theme"
 
 ! override defaults with local settings
 #include ".dotfiles/xresources/.Xresources.local"

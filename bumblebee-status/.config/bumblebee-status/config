@@ -1,7 +1,7 @@
 [core]
 modules = title,spotify_silent,cpu,memory,disk:root,redshift_aug,brightness_autohide,battery_autohide,pasink,datetime,dunst
 autohide = cpu,memory,disk
-theme = gruvdark
+theme = monsterkai
 
 [module-parameters]
 cpu.format = {:2.0f}%
