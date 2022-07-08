@@ -117,6 +117,17 @@ recursive-glacier-restore() {
     aws s3 ls s3://${bucket}/${key}/ --recursive | awk '{print substr($0, index($0, $4))}' | xargs -t -I %%% aws s3api restore-object --restore-request '{"Days":1, "GlacierJobParameters":{"Tier":"Expedited"}}' --bucket ${bucket} --key "%%%"
 }
 
+get-latest-github-release() {
+    if [[ "$#" -eq 0 || "$#" -gt 2 ]] && echo "Usage: get-latest-github-release <user>/<repo> <artifact_regex>" && return 1
+    local repo="$1"
+    local file_pat="${2:-''}"
+    local files=($(curl -SsL "https://api.github.com/repos/${repo}/releases/latest" | jq ".assets[] | select(.name|test(\"${file_pat}\")) | .browser_download_url" -r))
+    for f in ${files[@]}; do
+        echo "Downloading ${f}..."
+        curl -SL $f -o $(basename $f)
+    done
+}
+
 cecho(){
     # print the given string in the given color to the given destination
     # cecho [echo flags] <color> <message>
