@@ -118,7 +118,9 @@ recursive-glacier-restore() {
 }
 
 get-latest-github-release() {
-    if [[ "$#" -eq 0 || "$#" -gt 2 ]] && echo "Usage: get-latest-github-release <user>/<repo> <artifact_regex>" && return 1
+    if [[ "$#" -eq 0 || "$#" -gt 2 ]]; then
+        echo "Usage: get-latest-github-release <user>/<repo> <artifact_regex>" && return 1
+    fi
     local repo="$1"
     local file_pat="${2:-''}"
     local files=($(curl -SsL "https://api.github.com/repos/${repo}/releases/latest" | jq ".assets[] | select(.name|test(\"${file_pat}\")) | .browser_download_url" -r))
