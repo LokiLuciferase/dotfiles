@@ -4,7 +4,7 @@
         "separator": "",
         "separator-block-width": 0,
         "warning":  {"fg": "#282828", "bg": "#F92672"},
-        "critical": {"fg": "#282828", "bg": "#F92672"}
+        "critical": {"fg": "#000000", "bg": "#F92672"}
     },
     "cycle": [
         {"fg": "#ABB2BF", "bg": "#3B414f"},
@@ -17,7 +17,7 @@
         "muted": {"fg": "#282828", "bg": "#8BBB2D"}
     },
     "battery_autohide": {
-        "charged": {"fg": "#282828", "bg": "#689D6A"},
-        "AC": {"fg": "#282828", "bg": "#689D6A"}
+        "charged": {"fg": "#282828", "bg": "#8BBB2D"},
+        "AC": {"fg": "#282828", "bg": "#8BBB2D"}
     }
 }
