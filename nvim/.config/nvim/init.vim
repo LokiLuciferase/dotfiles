@@ -99,6 +99,10 @@ try
     nmap <leader>cl <Plug>NERDCommenterToggle
     vmap <leader>cl <Plug>NERDCommenterToggle
 
+    " enables file explorer
+    Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
+    nmap <F3> :NERDTreeToggle<CR>
+
     " enables syntax highlighting for NF
     Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
     autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
