@@ -127,10 +127,16 @@ try
     nmap <leader>gl :Git log -- %<CR>
     nmap <leader>gL :Git log --<CR>
 
-    " coc.nvim - autocomplete
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    set hidden
-    set updatetime=300
+    " autocomplete
+    " first, check if nodejs is available
+    if executable('node')
+        " coc.nvim - autocomplete
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        set hidden
+        set updatetime=300
+    elseif has('nvim')
+        Plug 'Shougo/deoplete.nvim'
+    endif
 
     inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
