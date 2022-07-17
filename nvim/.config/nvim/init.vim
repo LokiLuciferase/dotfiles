@@ -152,6 +152,10 @@ try
         endfunction
     endif
 
+    " linting - neomake
+    Plug 'neomake/neomake', {'on': 'Neomake'}
+    nmap <leader>l :Neomake<CR>
+
     " vim-better-whitespace - handle whitespace
     Plug 'ntpeters/vim-better-whitespace', {'on': ['StripWhitespace', 'EnableWhitespace']}
     nmap <leader>xdw :StripWhitespace<CR>
@@ -165,7 +169,10 @@ try
     Plug 'joshdick/onedark.vim'
 
     call plug#end()
+
+    " execute the following only if plugin loading worked.
     colorscheme onedark
+
 catch
     echo "Plugins are unavailable."
 endtry
