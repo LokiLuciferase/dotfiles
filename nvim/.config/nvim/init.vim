@@ -153,8 +153,9 @@ try
     endif
 
     " vim-better-whitespace - handle whitespace
-    Plug 'ntpeters/vim-better-whitespace', {'on': 'StripWhitespace'}
+    Plug 'ntpeters/vim-better-whitespace', {'on': ['StripWhitespace', 'EnableWhitespace']}
     nmap <leader>xdw :StripWhitespace<CR>
+    nmap <leader>xds :EnableWhitespace<CR>
 
     " bioSyntax - highlighting for bioinformatics file types
     Plug 'bioSyntax/bioSyntax-vim', {'for': ['fasta']}
