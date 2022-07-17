@@ -8,7 +8,6 @@ filetype indent on  " Load an indent file for the detected file type.
 set fileformats=unix,dos  " which line endings to try when editing a file
 set encoding=utf8  " default file encoding
 set number relativenumber  " Turn on hybrid numbering
-set signcolumn=number  " reuse number column as signcolumn
 set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
 set expandtab  " enable smart tabs
@@ -133,7 +132,6 @@ try
     set hidden
     set updatetime=300
 
-    "set signcolumn=yes
     inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ CheckBackspace() ? "\<TAB>" :
