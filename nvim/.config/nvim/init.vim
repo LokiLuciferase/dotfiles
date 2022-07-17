@@ -91,6 +91,7 @@ map <leader>sa zg
 set statusline=
 set statusline+=%#Title#
 set statusline+=\ %f
+set statusline+=%m%r
 set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\ %y
