@@ -117,8 +117,8 @@ try
     nmap <leader>gA :Git add .<CR>
     nmap <leader>gc :Git commit<CR>
     nmap <leader>gca :Git commit --amend<CR>
-    nmap <leader>gps :Git pull<CR>
-    nmap <leader>gpl :Git push<CR>
+    nmap <leader>gpl :Git pull<CR>
+    nmap <leader>gps :Git push<CR>
     nmap <leader>gb :Git blame<CR>
     nmap <leader>gl :Git log -- %<CR>
     nmap <leader>gL :Git log --<CR>
