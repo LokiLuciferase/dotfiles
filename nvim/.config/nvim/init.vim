@@ -53,7 +53,7 @@ set sidescroll=5  " The minimal number of columns to scroll horizontally.
 au FileType markdown setlocal wrap  " enable line wrapping for md
 au FileType markdown setlocal spell  " enable spelling for md
 
-set listchars+=precedes:<,extends:>
+set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<
 
 let mapleader = ' '  " define leader key
 inoremap <S-Tab> <C-d>
@@ -61,6 +61,7 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nmap <silent> q :q<CR>
 nmap <silent> <ESC> :noh<CR>
+nmap <silent> <leader>sl :set list!<CR>
 
 
 
