@@ -42,7 +42,7 @@ hi Visual     ctermbg=NONE	   cterm=reverse gui=reverse guifg=Grey guibg=fg
 hi WarningMsg ctermfg=DarkRed	   guifg=Red
 hi WildMenu   ctermfg=Black	   ctermbg=Yellow    guibg=Yellow guifg=Black
 hi SpellBad   ctermfg=Black    ctermbg=DarkRed
-
+hi ColorColumn ctermbg=DarkGrey
 " syntax highlighting
 hi Comment    cterm=NONE ctermfg=DarkRed     gui=NONE guifg=red2
 hi Constant   cterm=NONE ctermfg=DarkGreen   gui=NONE guifg=green3

@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General configuration options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -51,10 +51,14 @@ set smartindent  " basic rules for indenting code
 set nowrap  " Disable linewrap and handle sidescrolling
 set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
+au FileType markdown setlocal wrap  " enable line wrapping for md
+au FileType markdown setlocal spell  " enable spelling for md
+
 set listchars+=precedes:<,extends:>
 
 let mapleader = ','  " define leader key
-
+nmap <SPACE> ,
+vmap <SPACE> ,
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -75,3 +79,61 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+try
+    call plug#begin('~/.local/share/nvim/plugins')
+
+    " NERDCommenter - enables block/line comment workflows
+    Plug 'preservim/nerdcommenter'
+    let g:NERDCreateDefaultMappings = 0
+    nmap <leader>cl <Plug>NERDCommenterInvert
+    vmap <leader>cl <Plug>NERDCommenterInvert
+
+    " nextflow-vim - enables syntax highlighting for NF
+    Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
+    autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
+
+    " rainbow_csv - TSV/CSV highlighting
+    Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv']}
+
+    " neoformat - code formatter
+    Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
+    let g:neoformat_python_black = {
+    \ 'exe': 'black',
+    \ 'stdin': 1,
+    \ 'args': ['-q', '-', '-S', '-l', '100'],
+    \ }
+	let g:neoformat_enabled_python = ['black']
+
+    " vim-fugitive - Git plugin
+    Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gdiff']}
+    set diffopt+=vertical
+    nmap <leader>gd :Gdiff<CR>
+    nmap <leader>gs :Git<CR>
+    nmap <leader>ga :Git add %<CR>
+    nmap <leader>gA :Git add .<CR>
+    nmap <leader>gc :Git commit<CR>
+    nmap <leader>gca :Git commit --amend<CR>
+    nmap <leader>gb :Git blame<CR>
+    nmap <leader>gl :Git log -- %<CR>
+    nmap <leader>gL :Git log --<CR>
+
+    " vim-better-whitespace - handle whitespace
+    Plug 'ntpeters/vim-better-whitespace', {'on': 'StripWhitespace'}
+    nmap <leader>xdw :StripWhitespace<CR>
+
+    " bioSyntax - highlighting for bioinformatics file types
+    Plug 'bioSyntax/bioSyntax-vim', {'for': ['fasta']}
+    autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa,fasta} set ft=fasta
+
+    " color scheme
+    Plug 'joshdick/onedark.vim'
+
+    call plug#end()
+catch
+    echo "Plugins are unavailable."
+endtry
+colo onedark
