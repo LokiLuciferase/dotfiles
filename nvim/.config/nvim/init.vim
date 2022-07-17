@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"%""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General configuration options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -107,12 +107,14 @@ try
     \ 'args': ['-q', '-', '-S', '-l', '100'],
     \ }
 	let g:neoformat_enabled_python = ['black']
+    nmap <leader>fmt :Neoformat<CR>
 
     " vim-fugitive - Git plugin
     Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gdiff']}
     set diffopt+=vertical
     nmap <leader>gd :Gdiff<CR>
     nmap <leader>gs :Git<CR>
+    nmap <leader>gr :Git restore %<CR>
     nmap <leader>ga :Git add %<CR>
     nmap <leader>gA :Git add .<CR>
     nmap <leader>gc :Git commit<CR>
@@ -135,7 +137,7 @@ try
     Plug 'joshdick/onedark.vim'
 
     call plug#end()
+    colorscheme onedark
 catch
     echo "Plugins are unavailable."
 endtry
-colo onedark
