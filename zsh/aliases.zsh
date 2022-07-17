@@ -34,7 +34,7 @@ alias assume='source assume'
 alias watch='watch '
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
-alias svim="${VIM_BIN} -u ~/.SpaceVim/vimrc"
+alias svim="${VIM_BIN}" # disable use of spacevim
 alias svimdiff='svim -d "$@"'
 alias nano="${VIM_BIN}"
 alias vim="${VIM_BIN}"
@@ -50,4 +50,3 @@ alias leckmiamoasch='echo "trottl"'
 alias please='sudo '
 alias fucking='sudo '
 alias get-rekt="sudo apt update && sudo apt upgrade --yes && sudo apt autoremove --yes && _flatpak_upgrade_all_if_exist && pall"
-

@@ -18,6 +18,7 @@ set clipboard=unnamedplus  " sync unnamed register with system clipboard
 set backspace=eol,start,indent  " allow to backspace over everything
 set whichwrap+=<,>  " allow these characters to move to next line of first/last char in line reached"
 
+set history=1000  " Set the commands to save in history default number is 20.
 set showmatch  " show matching brackets
 set matchtime=2  " Tenths of a second to show the matching paren, when 'showmatch' is set.
 
@@ -30,7 +31,6 @@ set wildmenu  " allow tabbing through file matches
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.flv,*.img,*.xlsx,.git/  " exclude these from file matches
 
 set showmode  " Show current mode in statusline
-set history=1000  " Set the commands to save in history default number is 20.
 
 set lazyredraw  " do not redraw screen while running macros
 set magic  " enable regex in search patterns
@@ -93,21 +93,21 @@ endif
 try
     call plug#begin('~/.local/share/nvim/plugins')
 
-    " NERDCommenter - enables block/line comment workflows
+    " enables block/line comment workflows
     Plug 'preservim/nerdcommenter'
     let g:NERDCreateDefaultMappings = 0
     nmap <leader>cl <Plug>NERDCommenterToggle
     vmap <leader>cl <Plug>NERDCommenterToggle
 
-    " nextflow-vim - enables syntax highlighting for NF
+    " enables syntax highlighting for NF
     Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
     autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
 
-    " rainbow_csv - TSV/CSV highlighting
+    " TSV/CSV highlighting
     Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv']}
     autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
 
-    " neoformat - code formatter
+    " code formatting
     Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
     let g:neoformat_python_black = {
     \ 'exe': 'black',
@@ -117,7 +117,7 @@ try
 	let g:neoformat_enabled_python = ['black']
     nmap <leader>fmt :Neoformat<CR>
 
-    " vim-fugitive - Git plugin
+    " Git plugin
     Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gdiff']}
     set diffopt+=vertical
     nmap <leader>gd :Gdiff<CR>
@@ -134,9 +134,7 @@ try
     nmap <leader>gL :Git log --<CR>
 
     " autocomplete
-    " first, check if nodejs is available
     if executable('node')
-        " coc.nvim - autocomplete
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         set hidden
         set updatetime=300
@@ -152,17 +150,17 @@ try
           return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
     endif
-
-    " linting - neomake
+    
+    " linting
     Plug 'neomake/neomake', {'on': 'Neomake'}
     nmap <leader>l :Neomake<CR>
 
-    " vim-better-whitespace - handle whitespace
+    " handle trailing whitespace
     Plug 'ntpeters/vim-better-whitespace', {'on': ['StripWhitespace', 'EnableWhitespace']}
     nmap <leader>xdw :StripWhitespace<CR>
     nmap <leader>xds :EnableWhitespace<CR>
 
-    " bioSyntax - highlighting for bioinformatics file types
+    " highlighting for bioinformatics file types
     Plug 'bioSyntax/bioSyntax-vim', {'for': ['fasta']}
     autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa,fasta} set ft=fasta
 
