@@ -85,6 +85,11 @@ map <leader>sa zg
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" do not try any plugin hijinks if we are running dumb
+if exists("g:dumb")
+    finish
+endif
+
 try
     call plug#begin('~/.local/share/nvim/plugins')
 
@@ -134,20 +139,18 @@ try
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         set hidden
         set updatetime=300
-    elseif has('nvim')
-        Plug 'Shougo/deoplete.nvim'
+
+        inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ CheckBackspace() ? "\<TAB>" :
+          \ coc#refresh()
+        inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+        function! CheckBackspace() abort
+          let col = col('.') - 1
+          return !col || getline('.')[col - 1]  =~# '\s'
+        endfunction
     endif
-
-    inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ CheckBackspace() ? "\<TAB>" :
-      \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! CheckBackspace() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
 
     " vim-better-whitespace - handle whitespace
     Plug 'ntpeters/vim-better-whitespace', {'on': 'StripWhitespace'}
