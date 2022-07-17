@@ -105,6 +105,7 @@ try
 
     " rainbow_csv - TSV/CSV highlighting
     Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv']}
+    autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
 
     " neoformat - code formatter
     Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
