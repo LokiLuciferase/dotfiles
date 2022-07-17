@@ -22,4 +22,4 @@ set -euo pipefail
 
 EOF
 
-nvim -u ~/.SpaceVim/vimrc + "${FILENAME}"
+nvim + "${FILENAME}"
