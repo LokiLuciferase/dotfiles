@@ -96,8 +96,8 @@ try
     " NERDCommenter - enables block/line comment workflows
     Plug 'preservim/nerdcommenter'
     let g:NERDCreateDefaultMappings = 0
-    nmap <leader>cl <Plug>NERDCommenterInvert
-    vmap <leader>cl <Plug>NERDCommenterInvert
+    nmap <leader>cl <Plug>NERDCommenterToggle
+    vmap <leader>cl <Plug>NERDCommenterToggle
 
     " nextflow-vim - enables syntax highlighting for NF
     Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}

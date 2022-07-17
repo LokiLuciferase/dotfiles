@@ -364,15 +364,20 @@ _pshell() {
     popd
 }
 
-_pspacevim() {
-    # pull newest changes of SpaceVim
-    pushd ${HOME}/.SpaceVim || return 0
-	git checkout master
-	git pull
-    # git checkout $(git describe --tags --abbrev=0)
-    git checkout v1.8.0
-    popd
+_pnvimplug() {
+    # pull updates for vim-plug
+    nvim --headless -c PlugUpgrade -c PlugUpdate -c qa || return 0
 }
+
+#_pspacevim() {
+    ## pull newest changes of SpaceVim
+    #pushd ${HOME}/.SpaceVim || return 0
+    #git checkout master
+    #git pull
+    ## git checkout $(git describe --tags --abbrev=0)
+    #git checkout v1.8.0
+    #popd
+#}
 
 migrate-dotfiles(){
     echo ''
@@ -384,7 +389,8 @@ pall() {
     _pdot
     _pdata
     _pshell
-    _pspacevim
+    #_pspacevim
+    _pnvimplug
     migrate-dotfiles
 }
 
