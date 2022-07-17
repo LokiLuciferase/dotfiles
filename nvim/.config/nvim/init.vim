@@ -1,7 +1,6 @@
-"%""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General configuration options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set nocompatible  " Disable compatibility with vi which can cause unexpected issues.
 filetype on  " Enable type file detection. Vim will be able to try to detect the type of file in use.
 filetype plugin on  " Enable plugins and load plugin for the detected file type.
@@ -9,6 +8,7 @@ filetype indent on  " Load an indent file for the detected file type.
 set fileformats=unix,dos  " which line endings to try when editing a file
 set encoding=utf8  " default file encoding
 set number relativenumber  " Turn on hybrid numbering
+set signcolumn=number  " reuse number column as signcolumn
 set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
 set expandtab  " enable smart tabs
@@ -59,6 +59,9 @@ set listchars+=precedes:<,extends:>
 let mapleader = ','  " define leader key
 nmap <SPACE> ,
 vmap <SPACE> ,
+inoremap <S-Tab> <C-d>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -124,6 +127,23 @@ try
     nmap <leader>gb :Git blame<CR>
     nmap <leader>gl :Git log -- %<CR>
     nmap <leader>gL :Git log --<CR>
+
+    " coc.nvim - autocomplete
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    set hidden
+    set updatetime=300
+
+    "set signcolumn=yes
+    inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! CheckBackspace() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
 
     " vim-better-whitespace - handle whitespace
     Plug 'ntpeters/vim-better-whitespace', {'on': 'StripWhitespace'}
