@@ -4,3 +4,4 @@ spacevim/SpaceVim.d/spell/
 tmux/.config/tmux/plugins/*
 */__pycache__/*
 *.pyc
+nvim/.config/nvim/spell/

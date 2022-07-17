@@ -1,63 +1,77 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General configuration options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set pastetoggle=<F2>
-inoremap ^ <Esc>
-inoremap <c-^> ^
+set nocompatible  " Disable compatibility with vi which can cause unexpected issues.
+filetype on  " Enable type file detection. Vim will be able to try to detect the type of file in use.
+filetype plugin on  " Enable plugins and load plugin for the detected file type.
+filetype indent on  " Load an indent file for the detected file type.
+set fileformats=unix,dos  " which line endings to try when editing a file
+set encoding=utf8  " default file encoding
+set number relativenumber  " Turn on hybrid numbering
+set shiftwidth=4  " set width of shift
+set tabstop=4  " set width of tabstop
+set expandtab  " enable smart tabs
+set pastetoggle=<F2>  " set pastemode shortcut
 
-syntax enable
-set background=dark
-set clipboard=unnamedplus
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
+set mouse=a  " enable mouse in all modes
+set clipboard=unnamedplus  " sync unnamed register with system clipboard
+set backspace=eol,start,indent  " allow to backspace over everything
+set whichwrap+=<,>  " allow these characters to move to next line of first/last char in line reached"
 
-set ignorecase
+set showmatch  " show matching brackets
+set matchtime=2  " Tenths of a second to show the matching paren, when 'showmatch' is set.
 
-set smartcase
+set ignorecase  " Ignore capitalization during search
+set smartcase  " except when searching for capital letters
+set hlsearch  " highlight matches during search
+set incsearch  " While searching though a file incrementally highlight matching characters as you type.
 
-set hlsearch
+set wildmenu  " allow tabbing through file matches
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.flv,*.img,*.xlsx,.git/  " exclude these from file matches
 
-set incsearch
+set showmode  " Show current mode in statusline
+set history=1000  " Set the commands to save in history default number is 20.
 
-set lazyredraw
+set lazyredraw  " do not redraw screen while running macros
+set magic  " enable regex in search patterns
 
-set number
+set noerrorbells  " Disable error bell
+set novisualbell  " Disable visual error bell
+set t_vb=  " Never flash the screen
+set tm=500  " The time in milliseconds that is waited for a key code or mapped key sequence to complete.
 
-set magic
+set nobackup  " Do not keep backup of file
+set nowritebackup  " do not ever use a backup file, even during :write
+set noswapfile  " Do not use a swap file
 
-set showmatch
-set mat=2
+set autoindent  " automatically indent after newline
+set smartindent  " basic rules for indenting code
 
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
+set nowrap  " Disable linewrap and handle sidescrolling
+set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
-if has("gui_running")
-    set guioptions-=T
-    set guioptions+=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-set nobackup
-set nowb
-set noswapfile
-
-set expandtab
-set smarttab
-
-set shiftwidth=4
-set tabstop=4
-
-set lbr
-set tw=500
-
-set ai
-set si
-set wrap
-
-set nowrap
-set sidescroll=5
 set listchars+=precedes:<,extends:>
-set mouse=a
-" colo delek
-colo delek_mod
+
+let mapleader = ','  " define leader key
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on  " Turn syntax highlighting on.
+colorscheme delek_mod  " select color scheme
+set background=dark  " assume dark background
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing <leader>ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+
