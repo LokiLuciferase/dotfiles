@@ -55,12 +55,14 @@ au FileType markdown setlocal spell  " enable spelling for md
 
 set listchars+=precedes:<,extends:>
 
-let mapleader = ','  " define leader key
-nmap <SPACE> ,
-vmap <SPACE> ,
+let mapleader = ' '  " define leader key
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+nmap <silent> q :q<CR>
+nmap <silent> <ESC> :noh<CR>
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -81,6 +83,20 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Statusline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set statusline=
+set statusline+=%#Title#
+set statusline+=\ %f
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
