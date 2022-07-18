@@ -53,10 +53,16 @@ set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
 set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<  " better listchars
 
+" explicitly enable preview replace
+if has("nvim")
+  set inccommand=nosplit
+endif
+
 " Remember position of last edit and return on reopen
 if has("autocmd")
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymaps
@@ -114,6 +120,7 @@ set statusline+=\ [%{&fileencoding?&fileencoding:&encoding}
 set statusline+=\|%{&fileformat}\]
 set statusline+=\ %l:%c
 set statusline+=\ %p%%
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -187,7 +194,7 @@ try
           return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
     endif
-    
+
     " linting
     Plug 'neomake/neomake', {'on': 'Neomake'}
     nmap <leader>l :Neomake<CR>
