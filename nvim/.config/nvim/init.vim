@@ -50,11 +50,16 @@ set smartindent  " basic rules for indenting code
 set nowrap  " Disable linewrap and handle sidescrolling
 set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
-au FileType markdown setlocal wrap  " enable line wrapping for md
-au FileType markdown setlocal spell  " enable spelling for md
+set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<  " better listchars
 
-set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<
+" Remember position of last edit and return on reopen
+if has("autocmd")
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ' '  " define leader key
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
@@ -87,6 +92,14 @@ map <leader>sa zg
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Filetype quirks
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" markdown
+autocmd FileType markdown setlocal wrap  " enable line wrapping for md
+autocmd FileType markdown setlocal spell  " enable spelling for md
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Statusline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set statusline=
@@ -100,6 +113,7 @@ set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
 set statusline+=\ %p%%
 set statusline+=\ %l:%c
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -177,11 +191,18 @@ try
     " linting
     Plug 'neomake/neomake', {'on': 'Neomake'}
     nmap <leader>l :Neomake<CR>
+    let g:neomake_python_flake8_maker = {'args': ['--max-line-length', '100']}
+    let g:neomake_python_enabled_makers = ['flake8']
 
     " handle trailing whitespace
     Plug 'ntpeters/vim-better-whitespace', {'on': ['StripWhitespace', 'EnableWhitespace']}
     nmap <leader>xdw :StripWhitespace<CR>
     nmap <leader>xds :EnableWhitespace<CR>
+
+    if has('nvim')
+        " indent guides
+        Plug 'lukas-reineke/indent-blankline.nvim', {'for': ['python', 'sh', 'vim', 'lua']}
+    endif
 
     " highlighting for bioinformatics file types
     Plug 'bioSyntax/bioSyntax-vim', {'for': ['fasta']}
