@@ -141,7 +141,7 @@ try
     autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
 
     " TSV/CSV highlighting
-    Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv']}
+    Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text']}
     autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
 
     " code formatting
