@@ -12,6 +12,7 @@ set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
 set expandtab  " enable smart tabs
 set pastetoggle=<F2>  " set pastemode shortcut
+set shortmess=I  " disable splash screen
 
 set mouse=a  " enable mouse in all modes
 set clipboard=unnamedplus  " sync unnamed register with system clipboard
