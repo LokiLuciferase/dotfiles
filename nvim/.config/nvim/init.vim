@@ -110,11 +110,10 @@ set statusline+=%m%r
 set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\ %y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %p%%
+set statusline+=\ [%{&fileencoding?&fileencoding:&encoding}
+set statusline+=\|%{&fileformat}\]
 set statusline+=\ %l:%c
-
+set statusline+=\ %p%%
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
