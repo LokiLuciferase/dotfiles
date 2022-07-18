@@ -62,7 +62,8 @@ vnoremap <S-Tab> <gv
 nmap <silent> q :q<CR>
 nmap <silent> <ESC> :noh<CR>
 nmap <silent> <leader>sl :set list!<CR>
-
+noremap <F12> <Esc>:syntax sync fromstart<CR>  " resync syntax if it breaks
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
