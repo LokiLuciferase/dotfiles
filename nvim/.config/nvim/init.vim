@@ -12,8 +12,7 @@ set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
 set expandtab  " enable smart tabs
 set pastetoggle=<F2>  " set pastemode shortcut
-set shortmess=I  " disable splash screen
-
+set shortmess=aI  " disable splash screen and don't prompt on save
 set mouse=a  " enable mouse in all modes
 set clipboard=unnamedplus  " sync unnamed register with system clipboard
 set backspace=eol,start,indent  " allow to backspace over everything
@@ -214,6 +213,9 @@ try
     " highlighting for bioinformatics file types
     Plug 'bioSyntax/bioSyntax-vim', {'for': ['fasta']}
     autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa,fasta} set ft=fasta
+
+    " surrounding handling
+    Plug 'tpope/vim-surround'
 
     " color scheme
     Plug 'joshdick/onedark.vim'
