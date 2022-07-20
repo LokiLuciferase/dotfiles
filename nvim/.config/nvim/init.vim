@@ -217,6 +217,10 @@ try
     " surrounding handling
     Plug 'tpope/vim-surround'
 
+    " undotree visualization
+    Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+    nnoremap <F5> :UndotreeToggle<CR>
+
     " color scheme
     Plug 'joshdick/onedark.vim'
     let g:onedark_terminal_italics=1  " alacritty supports italics
