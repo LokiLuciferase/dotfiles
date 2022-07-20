@@ -105,6 +105,8 @@ map <leader>sa zg
 autocmd FileType markdown setlocal wrap  " enable line wrapping for md
 autocmd FileType markdown setlocal spell  " enable spelling for md
 
+" highlight jupyter source code
+autocmd BufNewFile,BufRead *.{ipynb} set ft=json
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Statusline
@@ -115,7 +117,7 @@ set statusline+=\ %f
 set statusline+=%m%r
 set statusline+=%=
 set statusline+=%#CursorColumn#
-set statusline+=\ %y
+set statusline+=\%y
 set statusline+=\ [%{&fileencoding?&fileencoding:&encoding}
 set statusline+=\|%{&fileformat}\]
 set statusline+=\ %l:%c
