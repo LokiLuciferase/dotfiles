@@ -60,6 +60,7 @@ endif
 " Remember position of last edit and return on reopen
 if has("autocmd")
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    autocmd BufEnter,InsertLeave * :syntax sync fromstart
 endif
 
 
