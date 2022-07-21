@@ -15,7 +15,7 @@ set $mod Mod4
 gaps inner 7
 for_window [class=".*"] border pixel 0
 
-# manage scratchpad: start shell
+# manage scratchpad: start terminal
 for_window [title="scratchpad_shell"] move scratchpad
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -23,7 +23,7 @@ for_window [title="scratchpad_shell"] move scratchpad
 font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMono Nerd Font 10
 
 # import environment variables from xresources - which default tools to use
-set_from_resource $default_shell i3wm.default_shell alacritty
+set_from_resource $default_term i3wm.default_term alacritty
 
 # user specific startup applications
 # connectivity
@@ -50,7 +50,7 @@ exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/local/bin/export_bat_stat.sh"
 exec --no-startup-id "env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud"
 exec --no-startup-id "sleep 7 && keepassxc"  # apply some sleep here to give pcloud a chance to connect to drive
-exec --no-startup-id $default_shell --title scratchpad_shell
+exec --no-startup-id $default_term --title scratchpad_shell
 
 # starting any .desktop files in $HOME/.config/autostart
 exec --no-startup-id "dex $HOME/.config/autostart/*"
@@ -89,7 +89,7 @@ for_window [title="win0"] floating enable  # for pycharm splash screen
 for_window [instance="cheese"] floating enable
 
 # start a terminal
-bindsym $mod+Return exec $default_shell
+bindsym $mod+Return exec $default_term
 
 # start browser
 bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
