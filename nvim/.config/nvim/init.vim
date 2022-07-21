@@ -227,6 +227,14 @@ try
     Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
     nnoremap <F5> :UndotreeToggle<CR>
 
+    " fzf bindings
+    Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim', {'on': ['Files', 'Rg', 'Lines', 'Commits']}
+    nmap <leader>ff :Files<CR>
+    nmap <leader>fc :Commits<CR>
+    nmap <leader>rg :Rg<CR>
+    nmap <leader>fl :Lines<CR>
+
     " color scheme
     Plug 'joshdick/onedark.vim'
     let g:onedark_terminal_italics=1  " alacritty supports italics
