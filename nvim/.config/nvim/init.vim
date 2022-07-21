@@ -234,6 +234,7 @@ try
     nmap <leader>fc :Commits<CR>
     nmap <leader>rg :Rg<CR>
     nmap <leader>fl :Lines<CR>
+    let g:fzf_colors = {'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}
 
     " color scheme
     Plug 'joshdick/onedark.vim'
