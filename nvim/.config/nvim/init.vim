@@ -58,10 +58,8 @@ if has("nvim")
 endif
 
 " Remember position of last edit and return on reopen
-if has("autocmd")
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-    autocmd BufEnter,InsertLeave * :syntax sync fromstart
-endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufEnter,InsertLeave * :syntax sync fromstart
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -108,6 +106,7 @@ autocmd FileType markdown setlocal spell  " enable spelling for md
 " highlight jupyter source code
 autocmd BufNewFile,BufRead *.{ipynb} set ft=json
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Statusline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -119,12 +118,33 @@ set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\%y
 if exists('ft')
-    set statusline +=\ 
+    set statusline +=\   " intentional trailing whitespace here
 endif
 set statusline+=[%{&fileencoding?&fileencoding:&encoding}
 set statusline+=\|%{&fileformat}\]
 set statusline+=\ %l:%c
 set statusline+=\ %p%%
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Add custom file headers for new files of a certain type
+autocmd FileType * call <SID>add_buffer_head()
+let s:ft_head_tp = {
+    \ 'python': ['#!/usr/bin/env python3', '', ''],
+    \ 'sh': ['#!/usr/bin/env bash', 'set -euo pipefail', '', ''],
+    \ 'nextflow': ['#!/usr/bin/env nextflow', 'nextflow.enable.dsl = 2', '', '']
+    \ }
+
+function! s:add_buffer_head() abort
+  if has_key(s:ft_head_tp, &ft) && getline(1) ==# '' && line('$')  == 1
+    let head = s:ft_head_tp[&ft]
+    call setline(1, head)
+    call cursor(len(head), 0)
+  endif
+endfunction
+autocmd FileType * call <SID>add_buffer_head()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
