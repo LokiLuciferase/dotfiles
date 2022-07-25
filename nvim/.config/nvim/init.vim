@@ -146,6 +146,16 @@ function! s:add_buffer_head() abort
 endfunction
 autocmd FileType * call <SID>add_buffer_head()
 
+" diff changes with file on disk
+function! s:DiffWithSaved()
+    let filetype=&ft
+    diffthis
+    vnew | r
+    diffthis
+    exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -167,6 +177,7 @@ try
     " enables file explorer
     Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
     nmap <F3> :NERDTreeToggle<CR>
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     " enables syntax highlighting for NF
     Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
