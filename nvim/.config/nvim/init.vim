@@ -156,7 +156,7 @@ if exists("g:dumb")
 endif
 
 try
-    call plug#begin('~/.local/share/nvim/plugins')
+    call plug#begin()
 
     " enables block/line comment workflows
     Plug 'preservim/nerdcommenter'
