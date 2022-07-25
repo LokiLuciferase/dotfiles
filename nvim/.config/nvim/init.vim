@@ -250,15 +250,17 @@ try
     " fzf bindings
     Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim', {'on': ['Files', 'Rg', 'Lines', 'Commits']}
-    nmap <leader>ff :Files<CR>
-    nmap <leader>fc :Commits<CR>
-    nmap <leader>rg :Rg<CR>
-    nmap <leader>fl :Lines<CR>
+    nmap <leader>ff :Files!<CR>
+    nmap <leader>fc :Commits!<CR>
+    nmap <leader>rg :Rg!<CR>
+    nmap <leader>fl :Lines!<CR>
     let g:fzf_colors = {'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}
 
     " color scheme
     Plug 'joshdick/onedark.vim'
     let g:onedark_terminal_italics=1  " alacritty supports italics
+
+    Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
     call plug#end()
 
