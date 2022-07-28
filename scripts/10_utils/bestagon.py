@@ -2,7 +2,7 @@
 
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
-from tqdm.auto import trange
+from tqdm.contrib.concurrent import process_map
 import numpy as np
 from PIL import Image
 
@@ -70,12 +70,11 @@ def convert(inp: str, outp: str, count: int, flat: bool):
 
     resolution = np.array(pix.shape[:2], dtype=np.uint16)
     r = np.array([resolution[1] / resolution[0], 1.0], dtype=np.float16)
-
-    for row in trange(resolution[0]):
-        for col in range(resolution[1]):
-            mapped_row, mapped_col = hexagon_map(
-                row, col, resolution=resolution, count=count, r=r
-            )
+    
+    tups = [(row, resolution, count, r) for row in range(resolution[0])]
+    mapped = process_map(parallelize_over_rows, tups, chunksize=1)
+    for row, mapping in enumerate(mapped):
+        for col, (mapped_row, mapped_col) in enumerate(mapping):
             newpix[row, col] = pix[mapped_row, mapped_col]
 
     if flat:
