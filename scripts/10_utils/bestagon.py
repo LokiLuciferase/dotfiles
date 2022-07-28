@@ -29,8 +29,23 @@ def get_args():
         default=False,
         help='Whether to have the spiky side of the bestagon on top.',
     )
+    parser.add_argument(
+        '-r',
+        '--rescale_height',
+        type=int,
+        default=None,
+        help='The height (in px) to rescale the image to before applying bestagon filter.',
+    )
     args = parser.parse_args()
     return args
+
+
+def rescale_image(im, new_height: int):
+    orig_width, orig_height = im.size
+    factor = new_height / orig_height
+    newsize = (int(orig_width * factor), new_height)
+    im1 = im.resize(newsize, resample=Image.Resampling.BICUBIC)
+    return im1
 
 
 def hexagon_map(row, col, resolution, count, r):
@@ -50,27 +65,29 @@ def parallelize_over_rows(tup):
     row, resolution, count, r = tup
     mapped = []
     for col in range(resolution[1]):
-        mapped_row, mapped_col = hexagon_map(
-            row, col, resolution=resolution, count=count, r=r
-        )
+        mapped_row, mapped_col = hexagon_map(row, col, resolution=resolution, count=count, r=r)
         mapped.append((mapped_row, mapped_col))
     return mapped
 
 
-def convert(inp: str, outp: str, count: int, flat: bool):
+def convert(inp: str, outp: str, count: int, flat: bool, rescale_height: int):
     count = count * 2
     pic = Image.open(inp)
+    if rescale_height is not None:
+        pic = rescale_image(pic, rescale_height)
+
     pix = np.array(pic, dtype=np.uint8)
+
     if flat:
         n_cols, n_rows = pic.size
         factor = n_cols / n_rows
         count = int(count // factor)
         pix = np.rot90(pix)
-    newpix = np.zeros_like(pix)
 
+    newpix = np.zeros_like(pix)
     resolution = np.array(pix.shape[:2], dtype=np.uint16)
     r = np.array([resolution[1] / resolution[0], 1.0], dtype=np.float16)
-    
+
     tups = [(row, resolution, count, r) for row in range(resolution[0])]
     mapped = process_map(parallelize_over_rows, tups, chunksize=1)
     for row, mapping in enumerate(mapped):
@@ -85,4 +102,4 @@ def convert(inp: str, outp: str, count: int, flat: bool):
 
 if __name__ == '__main__':
     args = get_args()
-    convert(args.input, args.output, int(args.count), flat=(not args.spiky))
+    convert(args.input, args.output, int(args.count), flat=(not args.spiky), rescale_height=args.rescale_height)
