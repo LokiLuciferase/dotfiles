@@ -267,6 +267,29 @@ try
     nmap <leader>fl :Lines!<CR>
     let g:fzf_colors = {'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}
 
+    " Rainbow parentheses
+    Plug 'luochen1990/rainbow'
+    nmap <leader>rb :RainbowToggle<CR>
+    let g:rainbow_conf = {
+    \	'ctermfgs': ['NONE', '39', '180', '170', '114'],
+    \	'guis': [''],
+    \	'cterms': [''],
+    \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+    \	'separately': {
+    \		'*': {},
+    \		'markdown': {
+    \			'parentheses_options': 'containedin=markdownCode contained',
+    \		},
+    \		'vim': {
+    \			'parentheses_options': 'containedin=vimFuncBody',
+    \		},
+    \		'perl': {
+    \			'syn_name_prefix': 'perlBlockFoldRainbow',
+    \		},
+    \		'css': 0
+    \	}
+    \}
+
     " color scheme
     Plug 'joshdick/onedark.vim'
     let g:onedark_terminal_italics=1  " alacritty supports italics
