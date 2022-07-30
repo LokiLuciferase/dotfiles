@@ -301,6 +301,6 @@ try
     " execute the following only if plugin loading worked.
     colorscheme onedark
 
-catch
-    echo "Plugins are unavailable."
+catch /.*/
+    echo "Plugins unavailable due to error: " . v:exception
 endtry
