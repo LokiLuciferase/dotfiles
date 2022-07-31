@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+from pathlib import Path
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
 from tqdm.contrib.concurrent import process_map
@@ -19,7 +19,7 @@ def get_args():
         formatter_class=ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument('-i', '--input', required=True, help='The file to process')
-    parser.add_argument('-o', '--output', required=True, help='The name of the output file.')
+    parser.add_argument('-o', '--output', help='The name of the output file.')
     parser.add_argument(
         '-c', '--count', default=32, type=int, help='The number of bestagons per row.'
     )
@@ -102,4 +102,12 @@ def convert(inp: str, outp: str, count: int, flat: bool, rescale_height: int):
 
 if __name__ == '__main__':
     args = get_args()
+
+    if args.output is None:
+        fin = Path(args.input)
+        fout = fin.parent / f'{fin.stem}_bg{args.count}{"s" if args.spiky else ""}{fin.suffix}'
+        if fout.is_file():
+            raise RuntimeError(f'Default output file already exists: {fout}')
+        args.output = str(fout)
+
     convert(args.input, args.output, int(args.count), flat=(not args.spiky), rescale_height=args.rescale_height)
