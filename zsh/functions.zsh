@@ -218,10 +218,10 @@ select-i3-layout() {
     WORKSPACE="$2"
     OUTPUT=$(i3-msg -t get_workspaces | jq -r ".[] | select(.num=="$WORKSPACE") | .output")
     GEOM=$(xrandr -q | grep ' connected' | sed 's/primary //g' | grep $OUTPUT | cut -f3 -d' ' | cut -f1 -d'+' | tr 'x' ' ')
-    if [ "$GEOM" = "1080 1920" ]; then
+    if [ "$GEOM" = "1080 1920" ] || [ "$GEOM" = "1200 1920" ]; then
         ALIGN=vert
         RESOL=FHD
-    elif [ "$GEOM" = "1920 1080" ]; then
+    elif [ "$GEOM" = "1920 1080" ] || [ "$GEOM" = "1920 1200" ]; then
         ALIGN=horz
         RESOL=FHD
     elif [ "$GEOM" = "2160 3840" ]; then
