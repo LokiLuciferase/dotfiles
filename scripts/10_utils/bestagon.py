@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from pathlib import Path
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
-from tqdm.contrib.concurrent import process_map
 import numpy as np
 from PIL import Image
-
+from tqdm.contrib.concurrent import process_map
 
 RATIO = np.array([0.577350278, 1.0])
 PI = 3.1415926
@@ -110,4 +109,10 @@ if __name__ == '__main__':
             raise RuntimeError(f'Default output file already exists: {fout}')
         args.output = str(fout)
 
-    convert(args.input, args.output, int(args.count), flat=(not args.spiky), rescale_height=args.rescale_height)
+    convert(
+        args.input,
+        args.output,
+        int(args.count),
+        flat=(not args.spiky),
+        rescale_height=args.rescale_height,
+    )

@@ -210,14 +210,23 @@ try
     nmap <leader>gl :Git log -- %<CR>
     nmap <leader>gL :Git log --<CR>
 
-    " autocomplete
+    " LSP integration
     if executable('node')
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         set hidden
         set updatetime=300
         let g:coc_disable_startup_warning = 1
         if executable('npm')
-            let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-sh', 'coc-pyright']
+            let g:coc_global_extensions = [
+                \ 'coc-diagnostic',
+                \ 'coc-json',
+                \ 'coc-yaml',
+                \ 'coc-sh',
+                \ 'coc-pyright'
+            \]
+            nmap <leader>lf :call CocAction('format')<CR>
+            nmap <leader>lsi :CocCommand python.sortImports<CR>
+
         endif
 
         " Insert <tab> when previous text is space, refresh completion if not.

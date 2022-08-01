@@ -1,0 +1,19 @@
+{
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": ["-S", "-l 100"],
+    "pyright.disableProgressNotifications": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportOptionalMemberAccess": "none",
+        "reportGeneralTypeIssues":"none",
+        "reportPrivateUsage": "warning",
+        "reportUnusedImport": "information"
+    },
+    "diagnostic-languageserver.formatFiletypes": {
+      "sh": "shfmt"
+    },
+    "diagnostic-languageserver.formatters": {
+        "shfmt": {
+            "args": []
+        }
+    }
+}
