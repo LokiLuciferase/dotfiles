@@ -215,6 +215,7 @@ try
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         set hidden
         set updatetime=300
+        let g:coc_disable_startup_warning = 1
 
         " Insert <tab> when previous text is space, refresh completion if not.
         function! s:check_back_space() abort
