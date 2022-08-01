@@ -216,6 +216,9 @@ try
         set hidden
         set updatetime=300
         let g:coc_disable_startup_warning = 1
+        if executable('npm')
+            let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-sh', 'coc-pyright']
+        endif
 
         " Insert <tab> when previous text is space, refresh completion if not.
         function! s:check_back_space() abort
