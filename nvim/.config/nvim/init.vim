@@ -305,3 +305,11 @@ try
 catch /.*/
     echo "Plugins unavailable due to error: " . v:exception
 endtry
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Local config (optional)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let $LOCALINIT = $XDG_CONFIG_HOME . "/nvim/local/init.local.vim"
+if filereadable($LOCALINIT)
+    source $LOCALINIT
+endif

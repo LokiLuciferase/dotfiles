@@ -5,3 +5,4 @@ tmux/.config/tmux/plugins/*
 */__pycache__/*
 *.pyc
 nvim/.config/nvim/spell/
+nvim/.config/nvim/local/
