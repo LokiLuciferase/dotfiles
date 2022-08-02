@@ -221,6 +221,7 @@ try
                 \ 'coc-diagnostic',
                 \ 'coc-json',
                 \ 'coc-yaml',
+                \ 'coc-pairs',
                 \ 'coc-sh',
                 \ 'coc-pyright'
             \]
