@@ -1,0 +1,7 @@
+zsh/
+scripts/
+termux/
+spacevim/
+libinput-gestures/
+.git/
+xresources/.Xresources.local
