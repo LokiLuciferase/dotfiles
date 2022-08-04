@@ -154,7 +154,7 @@ class Stow:
         :param dst: the path in the target destination
         :param op: 'install' or 'uninstall'
         """
-        if src.resolve().absolute() in self._read_ignored_paths():
+        if src.resolve().absolute() in self._ignored_paths:
             self._logger.info(f'Skipping ignored destination: {dst}')
             return
         if op == 'install':
@@ -210,7 +210,7 @@ class Stow:
         pkg_path = self.DOTFILES_DIR / pkg
         if not pkg_path.is_dir():
             raise RuntimeError(f'Package not found: {pkg_path}')
-        if pkg_path.resolve().absolute() in self._read_ignored_paths():
+        if pkg_path.resolve().absolute() in self._ignored_paths:
             self._logger.info(f'Skipping ignored package: {pkg_path}')
             return
 
