@@ -45,14 +45,7 @@ class Stow:
     HOME = Path.home()
     DOTFILES_DIR = HOME / '.dotfiles'
     IGNORED_PATHS_FILE = DOTFILES_DIR / '.stowignore'
-    SUBDIRS_TO_CREATE = [
-        HOME / '.local',
-        HOME / '.local' / 'share',
-        HOME / '.local' / 'bin',
-        HOME / '.local' / 'lib',
-        HOME / '.cache',
-        HOME / '.config',
-    ]
+    ENSURE_PRESENT_PATHS_FILE = DOTFILES_DIR / '.stowpresent'
 
     def __init__(
         self,
@@ -67,6 +60,7 @@ class Stow:
         self._ignore_errors = ignore_errors
         self._relative_base = (relative_base if relative_base is not None else self.HOME).absolute()
         self._ignored_paths = self._read_ignored_paths()
+        self._ensure_present_paths = self._read_ensure_present_paths()
 
     def _maybe_raise(self, s: str):
         if self._ignore_errors:
@@ -85,6 +79,20 @@ class Stow:
             return {
                 (self.IGNORED_PATHS_FILE.parent / Path(x.strip())).resolve().absolute()
                 for x in self.IGNORED_PATHS_FILE.read_text().split('\n')
+                if len(x.strip())
+            }
+
+    def _read_ensure_present_paths(self) -> Set[Path]:
+        """
+        Read the ensure present paths file `.stowpresent` from the dotfiles dir,
+        and return a set of all directories which, if queried, should be ensured to exist.
+        """
+        if not self.ENSURE_PRESENT_PATHS_FILE.is_file():
+            return set()
+        else:
+            return {
+                (Path(x.strip())).expanduser().resolve().absolute()
+                for x in self.ENSURE_PRESENT_PATHS_FILE.read_text().split('\n')
                 if len(x.strip())
             }
 
@@ -180,7 +188,7 @@ class Stow:
         if src.is_file():
             self._perform_op(src, dst, op=op)
         elif src.is_dir():
-            if dst in self.SUBDIRS_TO_CREATE:
+            if dst.resolve().absolute() in self._ensure_present_paths:
                 if op == 'install':
                     self._maybe_mkdir(dst)
                 for component in src.iterdir():
