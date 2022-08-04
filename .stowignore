@@ -1,0 +1,9 @@
+zsh/
+zsh/local/
+zsh/common/
+scripts/
+termux/
+spacevim/
+libinput-gestures/
+.git/
+xresources/.Xresources.local

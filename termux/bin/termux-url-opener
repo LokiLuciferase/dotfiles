@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/zsh
 
-source ~/.dotfiles/zsh/functions.zsh
+source ~/.dotfiles/zsh/common/functions.zsh
 
 
 wat-do() {
