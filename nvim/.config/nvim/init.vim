@@ -216,6 +216,7 @@ try
         set hidden
         set updatetime=300
         let g:coc_disable_startup_warning = 1
+        let g:coc_default_semantic_highlight_groups = 1
         if executable('npm')
             let g:coc_global_extensions = [
                 \ 'coc-diagnostic',
