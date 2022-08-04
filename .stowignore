@@ -1,4 +1,6 @@
 zsh/
+zsh/local/
+zsh/common/
 scripts/
 termux/
 spacevim/

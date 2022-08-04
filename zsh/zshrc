@@ -33,7 +33,7 @@ done
 source $ZSH/oh-my-zsh.sh
 
 # load all ZSH-related config files from unified directory
-for config in ${SHELL_DOT_DIR}/*.zsh ; do
+for config in ${SHELL_DOT_DIR}/common/*.zsh ; do
     source "$config"
 done
 
@@ -51,7 +51,7 @@ fi
 
 # Dirty hacks
 # make color of other-writable directories less offensive
-if [[ -f "${SHELL_DOT_DIR}/dircolors" ]]; then
-    eval "$(dircolors -b "${SHELL_DOT_DIR}/dircolors" )"
+if [[ -f "${SHELL_DOT_DIR}/common/dircolors" ]]; then
+    eval "$(dircolors -b "${SHELL_DOT_DIR}/common/dircolors" )"
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
