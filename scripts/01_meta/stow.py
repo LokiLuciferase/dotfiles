@@ -45,7 +45,7 @@ class Stow:
     HOME = Path.home()
     DOTFILES_DIR = HOME / '.dotfiles'
     IGNORED_PATHS_FILE = DOTFILES_DIR / '.stowignore'
-    ENSURE_PRESENT_PATHS_FILE = DOTFILES_DIR / '.stowpresent'
+    ENSURE_PRESENT_PATHS_FILE = DOTFILES_DIR / '.stowcreate'
 
     def __init__(
         self,
@@ -84,7 +84,7 @@ class Stow:
 
     def _read_ensure_present_paths(self) -> Set[Path]:
         """
-        Read the ensure present paths file `.stowpresent` from the dotfiles dir,
+        Read the ensure present paths file `.stowcreate` from the dotfiles dir,
         and return a set of all directories which, if queried, should be ensured to exist.
         """
         if not self.ENSURE_PRESENT_PATHS_FILE.is_file():
@@ -164,7 +164,7 @@ class Stow:
 
     def _maybe_mkdir(self, dst: Path):
         """
-        Create an essential (XDG spec) base directory if it doesn't exist.
+        Create a directory if it doesn't exist.
 
         :param dst: the directory to ensure it exists.
         """
@@ -176,7 +176,7 @@ class Stow:
     def _operate_path_recursively(self, src: Path, pkg_path: Path, op: str):
         """
         Walk the tree of the passed source path until encountering either a file,
-        or a directory which is not an essential XDG-spec base directory
+        or a directory which is not an essential directory
         (which are automatically and silently created).
         Perform the desired operation on that path.
 
@@ -225,15 +225,29 @@ class Stow:
 
         :returns: A list of package names for packages in the dotfiles dir.
         """
-        all_pkgs = [x.name for x in self.DOTFILES_DIR.iterdir() if x.is_dir()]
+        all_pkgs = [
+            x.name
+            for x in self.DOTFILES_DIR.iterdir()
+            if x.is_dir()
+            and (self.DOTFILES_DIR / x).resolve().absolute() not in self._ignored_paths
+        ]
         return all_pkgs
+
+    def operate_all_pkg(self, op: str):
+        """
+        Perform the desired operation on all dotfile packages apart from those explicitly
+        excluded by the stowignore file.
+
+        :param op: 'install' or 'uninstall'
+        """
+        for pkg in self.get_all_pkgs():
+            self.operate_pkg(pkg, op=op)
 
 
 if __name__ == '__main__':
     args = get_args()
     stow = Stow(verbose=args.verbose, dry_run=args.dry_run, relative_base=Path(args.relative_base))
     if args.pkg == 'all':
-        for pkg in stow.get_all_pkgs():
-            stow.operate_pkg(pkg, op=args.op)
+        stow.operate_all_pkg(op=args.op)
     else:
         stow.operate_pkg(args.pkg, op=args.op)
