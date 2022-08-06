@@ -52,6 +52,7 @@ set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
 set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<  " better listchars
 
+set pumheight=8  "maximum height of popup window
 " explicitly enable preview replace
 if has("nvim")
   set inccommand=nosplit
