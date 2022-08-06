@@ -52,7 +52,7 @@ set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
 set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<  " better listchars
 
-set pumheight=8  "maximum height of popup window
+set pumheight=12  "maximum height of popup window
 " explicitly enable preview replace
 if has("nvim")
   set inccommand=nosplit
@@ -219,6 +219,7 @@ try
         let g:coc_disable_startup_warning = 1
         let g:coc_default_semantic_highlight_groups = 1
         if executable('npm')
+            " Install default language servers
             let g:coc_global_extensions = [
                 \ 'coc-diagnostic',
                 \ 'coc-json',
@@ -231,7 +232,15 @@ try
             nmap <leader>lsi :CocCommand python.sortImports<CR>
 
         endif
-
+        " Allow scrolling of doc float with C-f and C-b
+        if has('nvim-0.4.0') || has('patch-8.2.0750')
+            nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+            nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+            inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+            inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+            vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+            vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+        endif
         " Insert <tab> when previous text is space, refresh completion if not.
         function! s:check_back_space() abort
             let col = col('.') - 1
