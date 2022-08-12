@@ -31,7 +31,6 @@ def get_args():
     parser.add_argument(
         '-r',
         '--rescale_height',
-        type=int,
         default=None,
         help='The height (in px) to rescale the image to before applying bestagon filter.',
     )
@@ -109,10 +108,20 @@ if __name__ == '__main__':
             raise RuntimeError(f'Default output file already exists: {fout}')
         args.output = str(fout)
 
+    if args.rescale_height is not None:
+        rh = {
+            '8k': 4320,
+            '4k': 2160,
+            'qhd': 1440,
+            'fhd': 1080,
+        }.get(args.rescale_height.lower())
+    else:
+        rh = None
+
     convert(
         args.input,
         args.output,
         int(args.count),
         flat=(not args.spiky),
-        rescale_height=args.rescale_height,
+        rescale_height=int(rh),
     )
