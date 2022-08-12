@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 
 
-logging.basicConfig()
+logging.basicConfig(format='%(levelname)s - %(message)s')
 
 
 def get_args():
@@ -155,7 +155,7 @@ class Stow:
         :param op: 'install' or 'uninstall'
         """
         if src.resolve().absolute() in self._ignored_paths:
-            self._logger.info(f'Skipping ignored destination: {dst}')
+            self._logger.warning(f'Skipping ignored destination: {dst}')
             return
         if op == 'install':
             self._maybe_lns_relatively(src=src, dst=dst)
@@ -210,9 +210,6 @@ class Stow:
         pkg_path = self.DOTFILES_DIR / pkg
         if not pkg_path.is_dir():
             raise RuntimeError(f'Package not found: {pkg_path}')
-        if pkg_path.resolve().absolute() in self._ignored_paths:
-            self._logger.info(f'Skipping ignored package: {pkg_path}')
-            return
 
         op_verb = op.title() + 'ing'
         self._logger.info(f'{op_verb} package {pkg_path} relative to {self._relative_base}')
