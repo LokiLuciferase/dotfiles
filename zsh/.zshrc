@@ -38,7 +38,7 @@ for config in ${SHELL_DOT_DIR}/common/*.zsh ; do
 done
 
 # load any local ZSH-related config files
-if [[ -d "$SHELL_DOT_DIR/local/" ]]; then
+if [[ -d "$SHELL_DOT_DIR/local/" ]] && [[ $(ls "${SHELL_DOT_DIR}/local") != '' ]]; then
     for local_config in ${SHELL_DOT_DIR}/local/*.zsh ; do
         source "$local_config"
     done

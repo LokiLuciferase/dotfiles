@@ -5,7 +5,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 ensure_tools_present() {
     # Only attempt to run this script if the relevant tools are available.
-    local required_tools=( git zsh curl )
+    local required_tools=( git zsh curl python3 )
     local missed_tools=()
     for tool in "${required_tools[@]}"; do
         which "$tool" &> /dev/null || missed_tools+=("$tool")
@@ -43,9 +43,9 @@ install_vimplug() {
 setup_migrations() {
     # Copy over existing migrations and setup cache dirs for shell histories
     echo "Setting up dotfile migrations..."
-    mkdir -p "${HOME}/.cache/{zsh,bash}"
-    mkdir -p "${HOME}/.local/share/dotfiles"
-    cp -r "${HOME}/.dotfiles/scripts/migrations/" "${HOME}/.local/share/dotfiles/done_migrations"
+    mkdir -p "${HOME}"/.cache/{zsh,bash}
+    mkdir -p "${HOME}"/.local/share/dotfiles
+    cp -r "${HOME}/.dotfiles/scripts/01_meta/02_migrations/migrations" "${HOME}/.local/share/dotfiles/done_migrations"
     return 0
 }
 
