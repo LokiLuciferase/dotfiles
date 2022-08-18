@@ -16,7 +16,7 @@ ensure_tools_present() {
 
 ensure_not_done() {
     # Do not run this script if it was run before
-    [ -f "${DIR}/.setup_done" ] && echo "Aborting, script was already run (${DIR}/.setup_done exists)" && exit 1
+    [ -f "${DIR}/.env_done" ] && echo "Aborting, script was already run (${DIR}/.env_done exists)" && exit 1
     return 0
 }
 
@@ -58,7 +58,7 @@ do_stow() {
 
 mark_done() {
     # Ensure this script is not run multiple times by accident
-    touch "$DIR"/.setup_done
+    touch "$DIR"/.env_done
     return 0
 }
 

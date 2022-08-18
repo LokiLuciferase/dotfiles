@@ -21,7 +21,7 @@ ENV PATH=/home/testuser/miniconda3/bin:$PATH
 
 COPY ../../../../ /opt/dotfiles
 RUN cp -r /opt/dotfiles ~/.dotfiles \
-    && rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done
+    && rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done || true
 RUN ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
 RUN ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
 RUN ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh
