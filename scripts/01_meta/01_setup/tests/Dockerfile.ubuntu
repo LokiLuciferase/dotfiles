@@ -1,0 +1,30 @@
+FROM ubuntu:focal
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive
+ARG TZ=Etc/UTC
+ARG ALLOW_SUDO=true
+ARG INSTALL_VARIOUS=true
+ARG ADD_REPOS=true
+ARG INSTALL_DESKTOP=false
+
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+RUN apt-get update --fix-missing
+RUN apt-get install --yes curl sudo
+RUN apt-get clean
+RUN useradd -m testuser -s /bin/bash \
+    && adduser testuser sudo \
+    && echo "testuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+USER testuser
+RUN whoami
+RUN sudo whoami
+WORKDIR /home/testuser
+ENV PATH=/home/testuser/miniconda3/bin:$PATH
+
+COPY ../../../../ /opt/dotfiles
+RUN cp -r /opt/dotfiles ~/.dotfiles \
+    && rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done
+RUN ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
+RUN ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
+RUN ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh

@@ -240,7 +240,11 @@ try
 
     " LSP integration
     if executable('node')
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        if has('nvim-0.5.0')
+            Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        else
+            Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
+        endif
         set hidden
         set updatetime=300
         let g:coc_disable_startup_warning = 1

@@ -1,0 +1,68 @@
+fraction	apt-get	dnf	pacman	pip	flatpak
+minimal	git	git	git
+minimal	curl	curl	curl
+minimal	make	make	make
+env	zsh	zsh	zsh
+env	tmux	tmux	tmux
+env	git	git	git
+vim	neovim	neovim	neovim
+various	build-essential	@development-tools	base-devel
+various	cmake	cmake	cmake
+various	tree	tree	tree
+various	htop	htop	htop
+various	rename	rename	rename
+various	pigz	pigz	pigz
+various	progress	progress	progress
+various	colordiff	colordiff	colordiff
+various	jq	jq	jq
+various	tmux	tmux	tmux
+various	parallel	parallel	parallel
+various	ripgrep	ripgrep	ripgrep
+various	fzf	fzf	fzf
+various	tmux	tmux	tmux
+various	highlight	highlight	highlight
+various	ffmpeg	ffmpeg	ffmpeg
+various	python3-pip	python3-pip	python-pip
+various	ncdu	ncdu	ncdu
+various	tldr	tldr	tldr	tldr
+various				bpytop
+various				yt-dlp
+desktop	timeshift	timeshift	timeshift
+desktop	mpv	mpv	mpv
+desktop	redshift	redshift	redshift
+desktop	keepassxc	keepassxc	keepassxc
+desktop	xdotool	xdotool	xdotool
+desktop	alacritty	alacritty	alacritty
+desktop	kitty	kitty	kitty
+desktop	flatpak	flatpak	flatpak
+desktop	picom	picom	picom
+desktop	wmctrl	wmctrl	wmctrl
+desktop	i3	i3	i3
+desktop	i3-gaps	i3-gaps	i3-gaps
+desktop	dex	dex	dex
+desktop	rofi	rofi	rofi
+desktop	feh	feh	feh
+desktop	dunst	dunst	dunst
+desktop	arandr	arandr	arandr
+desktop	fonts-powerline	powerline-fonts	powerline-fonts-git
+desktop	stow	stow	stow
+desktop	scrot	scrot	scrot
+desktop	imagemagick	imagemagick	ImageMagick
+desktop	brightnessctl	brightnessctl	brightnessctl
+desktop	pavucontrol	pavucontrol	pavucontrol
+desktop	lxappearance	lxappearance	lxappearance
+desktop	libdbus-glib-1-dev
+desktop	libgirepository1.0-dev
+desktop				autorandr
+desktop				bumblebee-status
+desktop				dbus-python
+desktop				i3ipc
+desktop					flathub@org.signal.Signal
+desktop					flathub@org.telegram.desktop
+desktop					flathub@com.spotify.Client
+desktop					flathub@org.gnome.Evolution
+desktop					flathub@tv.plex.PlexDesktop
+work					flathub@org.gnome.Evolution
+work					flathub@com.slack.Slack
+work					flathub@com.zoom.Zoom
+work					flathub@com.github.xournalpp.xournalpp

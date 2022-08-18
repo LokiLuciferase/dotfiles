@@ -4,10 +4,11 @@ import argparse
 import logging
 import os
 import logging
+import shutil
 from pathlib import Path
 
 
-logging.basicConfig()
+logging.basicConfig(format='%(levelname)s - %(message)s')
 
 
 def get_args():
@@ -37,6 +38,14 @@ def get_args():
             action='store_true',
             help='Whether to simulate changes. No file system changes will occur.',
         )
+        p.add_argument(
+            '-s',
+            '--shove',
+            default=False,
+            action='store_true',
+            help='Whether to move existing files and directories out of the way '
+                 'when introducing symlinks (instead of throwing an error)',
+        )
     return parser.parse_args()
 
 
@@ -51,12 +60,14 @@ class Stow:
         self,
         verbose: bool = True,
         dry_run: bool = True,
+        shove: bool = False,
         ignore_errors: bool = False,
         relative_base: Path = None,
     ) -> None:
         self._logger = logging.getLogger('stow')
         self._logger.setLevel((logging.INFO if verbose else logging.WARNING))
         self._dry_run = dry_run
+        self._shove = shove
         self._ignore_errors = ignore_errors
         self._relative_base = (relative_base if relative_base is not None else self.HOME).absolute()
         self._ignored_paths = self._read_ignored_paths()
@@ -81,6 +92,23 @@ class Stow:
                 for x in self.IGNORED_PATHS_FILE.read_text().split('\n')
                 if len(x.strip())
             }
+
+    def _maybe_shove(self, dst: Path, shove_suffix: str = '.bak') -> bool:
+        """
+        Move an existing file or directory out of the way to make space for the
+        to-be-introduced symlink into the dotfiles.
+        Fail if the target already exists.
+        """
+        dst = str(dst.absolute())
+        dst_shoved = dst + shove_suffix
+        if Path(dst_shoved).exists():
+            self._maybe_raise(f'Cannot shove destination out of the way: {dst_shoved} exists')
+            return False
+        else:
+            self._logger.info(f'mv {dst} {dst_shoved}')
+            if not self._dry_run:
+                shutil.move(src=dst, dst=dst_shoved)
+            return True
 
     def _read_ensure_present_paths(self) -> Set[Path]:
         """
@@ -113,13 +141,22 @@ class Stow:
         src_relpath = Path(dst_dots) / src_without_relhead
 
         if dst.exists():
-            if dst.resolve().absolute() == src.absolute():
-                self._logger.warning(f'Skipping existing destination: {dst}')
+            if dst.resolve().absolute() == src.resolve().absolute():
+                self._logger.warning(f'Skipping already managed destination: {dst}')
                 return
             else:
-                self._maybe_raise(
-                    f'Destination already exists but doesn\'t link to dotfiles: {dst} -> {dst.resolve()}'
-                )
+                if dst.is_file() or dst.is_dir() or dst.is_symlink():
+                    if self._shove:
+                        if self._maybe_shove(dst):
+                            self._logger.info(f'ln -s {src_relpath} {dst}')
+                            if not self._dry_run:
+                                dst.symlink_to(src_relpath)
+                        else:
+                            return
+                    else:
+                        self._maybe_raise(f'Destination already exists but is not managed: {dst}')
+                else:
+                    self._maybe_raise(f'Destination already exists but is not a file, dir or symlink: {dst}')
         else:
             self._logger.info(f'ln -s {src_relpath} {dst}')
             if not self._dry_run:
@@ -155,7 +192,7 @@ class Stow:
         :param op: 'install' or 'uninstall'
         """
         if src.resolve().absolute() in self._ignored_paths:
-            self._logger.info(f'Skipping ignored destination: {dst}')
+            self._logger.warning(f'Skipping ignored destination: {dst}')
             return
         if op == 'install':
             self._maybe_lns_relatively(src=src, dst=dst)
@@ -193,10 +230,6 @@ class Stow:
                     self._maybe_mkdir(dst)
                 for component in src.iterdir():
                     self._operate_path_recursively(component, pkg_path, op=op)
-            elif dst.is_dir() and not dst.is_symlink():
-                self._maybe_raise(f'Destination already exists but is not managed: {dst}')
-            elif dst.exists() and not dst.is_symlink():
-                self._maybe_raise(f'Destination already exists but is not a dir: {dst}')
             else:
                 self._perform_op(src, dst, op=op)
 
@@ -210,9 +243,6 @@ class Stow:
         pkg_path = self.DOTFILES_DIR / pkg
         if not pkg_path.is_dir():
             raise RuntimeError(f'Package not found: {pkg_path}')
-        if pkg_path.resolve().absolute() in self._ignored_paths:
-            self._logger.info(f'Skipping ignored package: {pkg_path}')
-            return
 
         op_verb = op.title() + 'ing'
         self._logger.info(f'{op_verb} package {pkg_path} relative to {self._relative_base}')
@@ -246,7 +276,7 @@ class Stow:
 
 if __name__ == '__main__':
     args = get_args()
-    stow = Stow(verbose=args.verbose, dry_run=args.dry_run, relative_base=Path(args.relative_base))
+    stow = Stow(verbose=args.verbose, dry_run=args.dry_run, shove=args.shove, relative_base=Path(args.relative_base))
     if args.pkg == 'all':
         stow.operate_all_pkg(op=args.op)
     else:

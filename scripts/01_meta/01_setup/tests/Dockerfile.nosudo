@@ -1,0 +1,25 @@
+FROM ubuntu:focal
+
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive
+ARG INSTALL_VARIOUS=true
+ARG INSTALL_DESKTOP=false
+ARG ALLOW_SUDO=false
+
+RUN apt-get update --fix-missing
+RUN apt-get install --yes curl sudo
+RUN apt-get clean
+RUN useradd -m testuser -s /bin/bash
+
+USER testuser
+RUN whoami
+RUN sudo whoami || true
+WORKDIR /home/testuser
+ENV PATH=/home/testuser/miniconda3/bin:$PATH
+
+COPY ../../../../ /opt/dotfiles
+RUN cp -r /opt/dotfiles ~/.dotfiles \
+    && rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done
+RUN ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
+RUN ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
+RUN ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh
