@@ -52,7 +52,7 @@ setup_migrations() {
 do_stow() {
     # Introduce dotfiles
     echo "Introducing dotfiles..."
-    "${DIR}/stow.py" install all -v -s 
+    "${DIR}/tools/stow.py" install all -v -s
     return 0
 }
 

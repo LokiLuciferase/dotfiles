@@ -1,0 +1,25 @@
+FROM fedora:latest
+
+ARG INSTALL_VARIOUS=true
+ARG INSTALL_DESKTOP=false
+ARG INSTALL_WORK=false
+ARG ALLOW_SUDO=true
+ARG SYSTEM_PACKAGE_MANAGER=dnf
+
+RUN dnf install -y which curl sudo
+RUN dnf upgrade -y
+RUN useradd -m testuser -s /bin/bash \
+    && echo "testuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+USER testuser
+RUN whoami
+RUN sudo whoami
+WORKDIR /home/testuser
+ENV PATH=/home/testuser/miniconda3/bin:$PATH
+
+COPY ../../../../ /opt/dotfiles
+RUN cp -r /opt/dotfiles ~/.dotfiles \
+    && rm ~/.dotfiles/scripts/01_meta/01_setup/.setup_done
+RUN ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
+RUN ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
+RUN ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh
