@@ -1,9 +1,8 @@
 FROM archlinux:latest
 
 ADD . /opt/envsetup-lite
+
 ARG INSTALL_VARIOUS=true
-ARG INSTALL_DESKTOP=false
-ARG ALLOW_SUDO=true
 ARG SYSTEM_PACKAGE_MANAGER=pacman
 
 #RUN patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && \

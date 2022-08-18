@@ -2,8 +2,8 @@ FROM ubuntu:focal
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
+
 ARG INSTALL_VARIOUS=true
-ARG INSTALL_DESKTOP=false
 ARG ALLOW_SUDO=false
 
 RUN apt-get update --fix-missing

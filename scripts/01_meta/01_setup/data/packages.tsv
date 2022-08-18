@@ -30,7 +30,6 @@ various				yt-dlp
 desktop	timeshift	timeshift	timeshift
 desktop	mpv	mpv	mpv
 desktop	redshift	redshift	redshift
-desktop	keepassxc	keepassxc	keepassxc
 desktop	xdotool	xdotool	xdotool
 desktop	alacritty	alacritty	alacritty
 desktop	kitty	kitty	kitty
@@ -45,7 +44,6 @@ desktop	feh	feh	feh
 desktop	dunst	dunst	dunst
 desktop	arandr	arandr	arandr
 desktop	fonts-powerline	powerline-fonts	powerline-fonts-git
-desktop	stow	stow	stow
 desktop	scrot	scrot	scrot
 desktop	imagemagick	imagemagick	ImageMagick
 desktop	brightnessctl	brightnessctl	brightnessctl
@@ -57,6 +55,7 @@ desktop				autorandr
 desktop				bumblebee-status
 desktop				dbus-python
 desktop				i3ipc
+desktop					flathub@org.keepassxc.KeePassXC
 desktop					flathub@org.signal.Signal
 desktop					flathub@org.telegram.desktop
 desktop					flathub@com.spotify.Client

@@ -1,9 +1,6 @@
 FROM fedora:latest
 
 ARG INSTALL_VARIOUS=true
-ARG INSTALL_DESKTOP=false
-ARG INSTALL_WORK=false
-ARG ALLOW_SUDO=true
 ARG SYSTEM_PACKAGE_MANAGER=dnf
 
 RUN dnf install -y which curl sudo

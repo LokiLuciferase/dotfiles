@@ -3,10 +3,10 @@ FROM ubuntu:focal
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=Etc/UTC
-ARG ALLOW_SUDO=true
+
 ARG INSTALL_VARIOUS=true
-ARG ADD_REPOS=true
 ARG INSTALL_DESKTOP=false
+ARG INSTALL_WORK=false
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN apt-get update --fix-missing

@@ -1,14 +1,22 @@
 #!/usr/bin/env bash
 set -uo pipefail
+### User settable env variables controlling what to install
+ALLOW_SUDO="${ALLOW_SUDO:-true}"
+INSTALL_VARIOUS="${INSTALL_VARIOUS:-false}"
+INSTALL_DESKTOP="${INSTALL_DESKTOP:-false}"
+INSTALL_WORK="${INSTALL_WORK:-false}"
+###
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DATADIR="${DIR}/data"
 SYSTEM_PACKAGE_MANAGER="${SYSTEM_PACKAGE_MANAGER:-apt-get}"
-ALLOW_SUDO="${ALLOW_SUDO:-true}"
-ADD_REPOS="${ADD_REPOS:-false}"
-INSTALL_VARIOUS="${INSTALL_VARIOUS:-false}"
-INSTALL_DESKTOP="${INSTALL_DESKTOP:-false}"
-INSTALL_WORK="${INSTALL_WORK:-false}"
+TMPDIR="${TMPDIR:-/tmp}"
+
+if [[ "${INSTALL_DESKTOP}" = true ]] || [[ "${INSTALL_WORK}" = true ]]; then
+    ADD_REPOS=true
+else
+    ADD_REPOS=false
+fi
 
 
 msg() {
@@ -49,22 +57,24 @@ maybe_update_system_package_manager() {
 }
 
 maybe_add_package_manager_repos() {
-    if [[ -n "$(which flatpak)" ]]; then
+    if [[ -n "$(which flatpak)" ]] && [[ ! -f "${TMPDIR}/flatpak_repos_added" ]]; then
         msg "Attempting to add repositories for flatpak."
         while read -r line; do
             msg "Adding repo: $line"
-            flatpak remote-add --if-not-exists $line
+            $(get_sudo_prefix) flatpak remote-add --if-not-exists $line
         done < "${DIR}/data/repos/flatpak.txt"
+        touch "${TMPDIR}/flatpak_repos_added"
     fi
 
     have_sudo || return 0
-    if [[ "${SYSTEM_PACKAGE_MANAGER}" = 'apt-get' ]]; then
+    if [[ "${SYSTEM_PACKAGE_MANAGER}" = 'apt-get' ]] && [[ ! -f "${TMPDIR}/apt_repos_added" ]]; then
         msg "Attempting to add repositories for apt-get."
         $(get_sudo_prefix) apt-get install -y software-properties-common
         while read -r line; do
             msg "Adding repo: $line"
             $(get_sudo_prefix) add-apt-repository "$line" --yes
         done < "${DIR}/data/repos/apt-get.txt"
+        touch "${TMPDIR}/apt_repos_added"
     fi
     return 0
 }
@@ -75,6 +85,7 @@ install_with_package_manager() {
     msg "Attempting to install '${pkg}' using ${mngr}..."
     if [[ "${mngr}" = 'apt-get' ]]; then
         have_sudo || return 1
+        [[ "${ADD_REPOS}" = true ]] && maybe_add_package_manager_repos
         export DEBIAN_FRONTEND=noninteractive
         $(get_sudo_prefix) apt-get install --yes "$pkg"
     elif [[ "${mngr}" = 'dnf' ]]; then
@@ -84,6 +95,7 @@ install_with_package_manager() {
         have_sudo || return 1
         $(get_sudo_prefix) pacman -S --noconfirm "$pkg"
     elif [[ "${mngr}" = 'flatpak' ]]; then
+        [[ "${ADD_REPOS}" = true ]] && maybe_add_package_manager_repos
         flatpak install --assumeyes $(echo $pkg | tr '@' ' ')
     elif [[ "${mngr}" = 'conda' ]]; then
         local conda_bin
@@ -178,7 +190,6 @@ main() {
     install_all_from_fraction minimal true || exit 1
     install_all_from_fraction env true || exit 1
     [[ "${INSTALL_VARIOUS}" = true ]] && install_all_from_fraction various
-    [[ "${ADD_REPOS}" = true ]] && maybe_add_package_manager_repos
     install_all_from_fraction vim
     ensure_nvim_installed
     [[ "${INSTALL_DESKTOP}" = true ]] && install_all_from_fraction desktop
