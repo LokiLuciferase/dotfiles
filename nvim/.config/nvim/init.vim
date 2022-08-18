@@ -44,6 +44,9 @@ set nobackup  " Do not keep backup of file
 set nowritebackup  " do not ever use a backup file, even during :write
 set noswapfile  " Do not use a swap file
 
+set splitbelow  " New horz splits appear below
+set splitright  " New vert splits appear right
+
 set autoindent  " automatically indent after newline
 set smartindent  " basic rules for indenting code
 
@@ -70,10 +73,34 @@ let mapleader = ' '  " define leader key
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-nmap <silent> q :q<CR>
-nmap <silent> <ESC> :noh<CR>
-nmap <silent> <leader>sl :set list!<CR>
-noremap <F12> <Esc>:syntax sync fromstart<CR>  " resync syntax if it breaks
+noremap <silent> q :q<CR>
+noremap <silent> <ESC> :noh<CR>
+noremap <silent> <leader>sl :set list!<CR>
+
+" navigation for tabs
+noremap <silent> <leader>tn gt
+noremap <silent> <leader>tN gT
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+" navigation for splits
+nnoremap <C-W>h <C-W>s
+nmap <silent> <C-W>n :vnew<CR>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" refreshing syntax highlighting
+noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 
