@@ -6,6 +6,16 @@ import numpy as np
 from PIL import Image
 from tqdm.contrib.concurrent import process_map
 
+try:
+    from numba import jit
+except ImportError as e:
+    print('Cannot import numba - bestagonization will be slow.')
+    def jit(f):
+        def wrapper(*args, **kwargs):
+            return f(*args, **kwargs) 
+        return wrapper
+
+
 RATIO = np.array([0.577350278, 1.0])
 PI = 3.1415926
 CONST_A = 1.047197551
@@ -46,14 +56,15 @@ def rescale_image(im, new_height: int):
     return im1
 
 
-def hexagon_map(row, col, resolution, count, r):
+@jit
+def hexagon_map(row: int, col: int, resolution: np.ndarray, count: int, r: np.ndarray):
     # Horribly inefficiently re-implemented from: https://www.shadertoy.com/view/wsSyWR
-    uv = np.array([row, col], dtype=np.uint16) / resolution[1]
+    uv = np.array([row, col]) / resolution[1]
     uv = uv * count * RATIO
-    z = np.clip(np.abs(np.mod(uv[0] + np.floor(uv[1]), 2.0) - 1.0) * PI - CONST_A, 0.0, 1.0)
+    z = min(max(abs(((uv[0] + np.floor(uv[1])) % 2.0) - 1.0) * PI - CONST_A, 0.0), 1.0)
     uv[1] = np.floor(uv[1] + z)
     uv[0] = (
-        np.floor(uv[0] * 0.5 + np.mod(uv[1], 2.0) * 0.5) - np.mod(uv[1], 2.0) * 0.5 + 0.5
+        np.floor(uv[0] * 0.5 + (uv[1] % 2.0) * 0.5) - (uv[1] % 2.0) * 0.5 + 0.5
     ) * CONST_B
     new_row, new_col = resolution * (uv / count * r)
     return min(int(new_row), resolution[0] - 1), min(int(new_col), resolution[1] - 1)
@@ -83,8 +94,8 @@ def convert(inp: str, outp: str, count: int, flat: bool, rescale_height: int):
         pix = np.rot90(pix)
 
     newpix = np.zeros_like(pix)
-    resolution = np.array(pix.shape[:2], dtype=np.uint16)
-    r = np.array([resolution[1] / resolution[0], 1.0], dtype=np.float16)
+    resolution = np.array(pix.shape[:2])
+    r = np.array([resolution[1] / resolution[0], 1.0])
 
     tups = [(row, resolution, count, r) for row in range(resolution[0])]
     mapped = process_map(parallelize_over_rows, tups, chunksize=1)
@@ -114,7 +125,8 @@ if __name__ == '__main__':
             '4k': 2160,
             'qhd': 1440,
             'fhd': 1080,
-        }.get(args.rescale_height.lower())
+        }.get(args.rescale_height.lower(), args.rescale_height)
+        rh = int(rh)
     else:
         rh = None
 
@@ -123,5 +135,5 @@ if __name__ == '__main__':
         args.output,
         int(args.count),
         flat=(not args.spiky),
-        rescale_height=int(rh),
+        rescale_height=rh,
     )
