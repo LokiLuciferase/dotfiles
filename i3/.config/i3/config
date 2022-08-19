@@ -107,7 +107,7 @@ bindsym $mod+Shift+v focus up, split v
 bindsym $mod+Shift+h focus left, split h
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh dmenu || dmenu -i -l 30"
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh drun || dmenu -i -l 30"
 bindsym $mod+shift+d exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh combi || dmenu -i -l 30"
 bindsym $mod+shift+s exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh ssh || dmenu -i -l 30"
 
