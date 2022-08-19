@@ -11,6 +11,8 @@
     interactive = auto
     status = auto
 [advice]
-	detachedHead = false
+    detachedHead = false
+[init]
+    defaultBranch = master
 [include]
     path = ~/.config/git/config.local
