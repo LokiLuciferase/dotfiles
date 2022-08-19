@@ -3,8 +3,8 @@
 
 conda-init() {
     # initialize conda environment
-    unalias conda || true
-    unalias mamba || true
+    unalias conda &> /dev/null || true
+    unalias mamba &> /dev/null || true
     local conda_basedir=${1:-${HOME}/miniconda3}
     __conda_setup="$("${conda_basedir}/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
