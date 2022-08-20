@@ -114,10 +114,11 @@ class Bestagon:
     @classmethod
     def from_args(cls):
         args = cls._get_args()
+        counts = args.count if isinstance(args.count, list) else [args.count]
         obj = cls(
             input_=args.input,
             output=args.output,
-            counts=args.count,
+            counts=counts,
             rescale_height=args.rescale_height,
             spiky=args.spiky,
             iterative=args.iterative,
@@ -133,6 +134,7 @@ class Bestagon:
         spiky: bool = False,
         iterative: bool = False,
     ):
+
         self._input = Path(str(input_))
         self._given_output = output
         self._counts = counts if len(counts) == 1 else tqdm(counts, desc='Converting')
