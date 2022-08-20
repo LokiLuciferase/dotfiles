@@ -140,6 +140,7 @@ class Bestagon:
         self._spiky = spiky
         self._iterative = iterative
         self._max_pad = len(str(max(counts)))
+        self._processed_outp = []
 
     def _format_outp(self, count: int):
         outp = self._given_output
@@ -200,7 +201,9 @@ class Bestagon:
         orig_img = self._load_img()
         for count in self._counts:
             converted_img = self._convert_img(orig_img, count=count)
-            self._write_img(converted_img, outp=self._format_outp(count))
+            outp = self._format_outp(count)
+            self._write_img(converted_img, outp=outp)
+            self._processed_outp.append(outp)
             if self._iterative:
                 orig_img = converted_img
 
