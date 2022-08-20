@@ -14,5 +14,11 @@
     detachedHead = false
 [init]
     defaultBranch = master
+[pull]
+    rebase = true
+[fetch]
+    prune = true
+[diff]
+    colorMoved = zebra
 [include]
     path = ~/.config/git/config.local
