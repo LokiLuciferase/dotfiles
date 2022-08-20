@@ -261,17 +261,31 @@ try
         endif
 
         set hidden
-        set updatetime=300
+        set updatetime=100
         function! s:check_back_space() abort
             let col = col('.') - 1
             return !col || getline('.')[col - 1]  =~ '\s'
         endfunction
 
+        function! ShowDocumentation()
+          if CocAction('hasProvider', 'hover')
+            call CocActionAsync('doHover')
+          else
+            call feedkeys('K', 'in')
+          endif
+        endfunction
+
         " Define commonly used shortcuts
-        nmap <leader>lf  :call CocAction('format')<CR>
+        nnoremap K :call ShowDocumentation()<CR>
+        nmap <leader>lgd <Plug>(coc-definition)
+        nmap <leader>lr  <Plug>(coc-rename)
+        nmap <leader>lf  <Plug>(coc-format)
         nmap <leader>lfo :call CocAction('fold')<CR>
         nmap <leader>lso :call CocAction('showOutline')<CR>
         nmap <leader>lsi :CocCommand python.sortImports<CR>
+
+        " Highlight the symbol and its references when holding the cursor.
+        autocmd CursorHold * silent call CocActionAsync('highlight')
 
         " Allow scrolling of doc float with C-f and C-b
         nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
@@ -281,7 +295,8 @@ try
         vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
         vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
-        autocmd ColorScheme * highlight CocMenuSel ctermfg=12 ctermbg=237
+        autocmd ColorScheme onedark highlight CocMenuSel ctermfg=12 ctermbg=237
+        autocmd ColorScheme onedark highlight CocHighlightText ctermbg=237
     endif
 
     " fzf bindings
