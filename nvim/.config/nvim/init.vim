@@ -69,7 +69,7 @@ autocmd BufEnter,InsertLeave * :syntax sync fromstart
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = ' '  " define leader key
+let mapleader = ' '
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
@@ -193,36 +193,21 @@ endif
 try
     call plug#begin()
 
-    " enables block/line comment workflows
+    " Block and line comments
     Plug 'preservim/nerdcommenter'
     let g:NERDCreateDefaultMappings = 0
     nmap <leader>cl <Plug>NERDCommenterToggle
     vmap <leader>cl <Plug>NERDCommenterToggle
 
-    " enables file explorer
+    " File explorer
     Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
     nmap <F3> :NERDTreeToggle<CR>
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-    " enables syntax highlighting for NF
-    Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
-    autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
+    " surrounding handling
+    Plug 'tpope/vim-surround'
 
-    " TSV/CSV highlighting
-    Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text']}
-    autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
-
-    " code formatting
-    Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
-    let g:neoformat_python_black = {
-    \ 'exe': 'black',
-    \ 'stdin': 1,
-    \ 'args': ['-q', '-', '-S', '-l', '100'],
-    \ }
-	let g:neoformat_enabled_python = ['black']
-    nmap <leader>fmt :Neoformat<CR>
-
-    " Git plugin
+    " Git integration
     Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gdiff']}
     set diffopt+=vertical
     nmap <leader>gd :Gdiff<CR>
@@ -238,19 +223,32 @@ try
     nmap <leader>gl :Git log -- %<CR>
     nmap <leader>gL :Git log --<CR>
 
+    " Git diff signs in signcolumn
+    Plug 'mhinz/vim-signify'
+
     " LSP integration
     if executable('node')
-        if has('nvim-0.5.0')
+        if has('nvim-0.5.0') || has('patch-8.1.1719')
+            " Use most recent coc.nvim with custom pum
             Plug 'neoclide/coc.nvim', {'branch': 'release'}
+            inoremap <silent><expr> <TAB>
+                \ coc#pum#visible() ? coc#pum#next(1):
+                \ <SID>check_back_space() ? "\<Tab>" :
+                \ coc#refresh()
+            inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+            inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
         else
+            " use legacy coc.nvim and (neo)vim internal pum
             Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
+            inoremap <silent><expr> <TAB>
+                  \ pumvisible() ? "\<C-n>" :
+                  \ <SID>check_back_space() ? "\<TAB>" :
+                  \ coc#refresh()
+            inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+            inoremap <expr> <CR> pumvisible() ? coc#_select_confirm() : "\<CR>"
         endif
-        set hidden
-        set updatetime=300
-        let g:coc_disable_startup_warning = 1
-        let g:coc_default_semantic_highlight_groups = 1
         if executable('npm')
-            " Install default language servers
+            " Ensure default language servers installed
             let g:coc_global_extensions = [
                 \ 'coc-diagnostic',
                 \ 'coc-json',
@@ -259,60 +257,31 @@ try
                 \ 'coc-sh',
                 \ 'coc-pyright'
             \]
-            nmap <leader>lf :call CocAction('format')<CR>
-            nmap <leader>lsi :CocCommand python.sortImports<CR>
+        endif
 
-        endif
-        " Allow scrolling of doc float with C-f and C-b
-        if has('nvim-0.4.0') || has('patch-8.2.0750')
-            nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-            nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-            inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-            inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-            vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-            vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-        endif
-        " Insert <tab> when previous text is space, refresh completion if not.
+        set hidden
+        set updatetime=300
         function! s:check_back_space() abort
             let col = col('.') - 1
             return !col || getline('.')[col - 1]  =~ '\s'
         endfunction
-        inoremap <silent><expr> <TAB>
-            \ coc#pum#visible() ? coc#pum#next(1):
-            \ <SID>check_back_space() ? "\<Tab>" :
-            \ coc#refresh()
-        inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-        " Enable completion with Enter
-        inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+
+        " Define commonly used shortcuts
+        nmap <leader>lf  :call CocAction('format')<CR>
+        nmap <leader>lfo :call CocAction('fold')<CR>
+        nmap <leader>lso :call CocAction('showOutline')<CR>
+        nmap <leader>lsi :CocCommand python.sortImports<CR>
+
+        " Allow scrolling of doc float with C-f and C-b
+        nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+        inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+        inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+        vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+        vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
         autocmd ColorScheme * highlight CocMenuSel ctermfg=12 ctermbg=237
     endif
-
-    " linting
-    Plug 'neomake/neomake', {'on': 'Neomake'}
-    nmap <leader>l :Neomake<CR>
-    let g:neomake_python_flake8_maker = {'args': ['--max-line-length', '100']}
-    let g:neomake_python_enabled_makers = ['flake8']
-
-    " handle trailing whitespace
-    Plug 'ntpeters/vim-better-whitespace'
-    nmap <leader>xdw :StripWhitespace<CR>
-    nmap <leader>xds :EnableWhitespace<CR>
-
-    if has('nvim')
-        " indent guides
-        Plug 'lukas-reineke/indent-blankline.nvim', {'for': ['python', 'sh', 'vim', 'lua']}
-    endif
-
-    " highlighting for bioinformatics file types
-    Plug 'bioSyntax/bioSyntax-vim', {'for': ['fasta']}
-    autocmd BufNewFile,BufRead *.{fna,faa,ffn,fa,fasta} set ft=fasta
-
-    " surrounding handling
-    Plug 'tpope/vim-surround'
-
-    " undotree visualization
-    Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-    nnoremap <F5> :UndotreeToggle<CR>
 
     " fzf bindings
     Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
@@ -322,6 +291,29 @@ try
     nmap <leader>rg :Rg!<CR>
     nmap <leader>fl :Lines!<CR>
     let g:fzf_colors = {'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}
+
+    " Trailing whitespace handling
+    Plug 'ntpeters/vim-better-whitespace'
+    nmap <leader>xdw :StripWhitespace<CR>
+
+    " indent guides
+    if has('nvim-0.5.0')
+        Plug 'lukas-reineke/indent-blankline.nvim', {'for': ['python', 'sh', 'vim', 'lua', 'nextflow']}
+    else
+        Plug 'Yggdroot/indentLine', {'for': ['python', 'sh', 'vim', 'lua', 'nextflow']}
+    endif
+
+    " undotree visualization
+    Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+    nnoremap <F5> :UndotreeToggle<CR>
+
+    " Syntax highlighting for NF
+    Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
+    autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
+
+    " TSV/CSV highlighting
+    Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text']}
+    autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
 
     " Rainbow parentheses
     Plug 'luochen1990/rainbow'
