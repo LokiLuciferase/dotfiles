@@ -17,6 +17,7 @@ set mouse=a  " enable mouse in all modes
 set clipboard=unnamedplus  " sync unnamed register with system clipboard
 set backspace=eol,start,indent  " allow to backspace over everything
 set whichwrap+=<,>  " allow these characters to move to next line of first/last char in line reached"
+set autochdir  " cwd to the location of the currently edited file
 
 set history=1000  " Set the commands to save in history default number is 20.
 set showmatch  " show matching brackets
