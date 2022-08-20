@@ -294,7 +294,7 @@ try
     let g:neomake_python_enabled_makers = ['flake8']
 
     " handle trailing whitespace
-    Plug 'ntpeters/vim-better-whitespace', {'on': ['StripWhitespace', 'EnableWhitespace']}
+    Plug 'ntpeters/vim-better-whitespace'
     nmap <leader>xdw :StripWhitespace<CR>
     nmap <leader>xds :EnableWhitespace<CR>
 
