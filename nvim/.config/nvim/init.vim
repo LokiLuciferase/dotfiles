@@ -74,8 +74,8 @@ let mapleader = ' '
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-noremap <silent> q :q<CR>
-noremap <silent> <ESC> :noh<CR>
+nnoremap <silent> <ESC> :noh<CR>
+nnoremap <silent> q :q<CR>
 noremap <silent> <leader>sl :set list!<CR>
 
 " navigation for tabs
