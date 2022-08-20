@@ -1,13 +1,18 @@
-# bookmarks support
 if [ ! -z "$BASH" ]; then
     echo "Sourcing environment in bash. This may yield unexpected results."
 fi
 
+# bookmarks support
 if [ -d "${HOME}/.local/share/bookmarks" ]; then
     export CDPATH=".:${HOME}/.local/share/bookmarks"
 fi
 
-export PATH=$HOME/miniconda3/bin:$HOME/.local/bin:/usr/games:$PATH
+# put dotfile scripts on path
+SCRIPTPATHS=''
+for d in ~/.dotfiles/scripts/*; do
+    SCRIPTPATHS+=$d:
+done
+export PATH=$HOME/miniconda3/bin:$HOME/.local/bin:$SCRIPTPATHS:$PATH
 export EDITOR=nvim
 export BROWSER=firefox
 
