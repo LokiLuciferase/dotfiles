@@ -396,9 +396,19 @@ _pnvimplug() {
     nvim --headless -c PlugUpgrade -c PlugUpdate -c qa || return 0
 }
 
-migrate-dotfiles(){
+_migrate-dotfiles(){
     echo ''
     bash ~/.dotfiles/scripts/01_meta/02_migrations/run_migrations.sh
+}
+
+_backup_shell_hist(){
+    local shells
+    local target_backup_dir="${HOME}/.local/share/dotfiles/shell_hist_backups"
+    mkdir -p "${target_backup_dir}"
+    shells=( bash zsh )
+    for sh in "${shells[@]}"; do
+        cp "${HOME}/.cache/${sh}/history" "${target_backup_dir}/${sh}_history" || true
+    done
 }
 
 pall() {
@@ -407,5 +417,6 @@ pall() {
     _pdata
     _pshell
     _pnvimplug
-    migrate-dotfiles
+    _migrate-dotfiles
+    _backup_shell_hist
 }

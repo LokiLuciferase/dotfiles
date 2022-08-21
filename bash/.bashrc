@@ -5,4 +5,4 @@ case $- in
 esac
 BASHCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/bash"
 mkdir -p "$BASHCACHE"
-export HISTFILE="$BASHCACHE/bash_history"
+export HISTFILE="$BASHCACHE/history"
