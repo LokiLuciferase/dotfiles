@@ -10,10 +10,10 @@
     "overrides": {
         "jp-property-inspector": "right",
         "jp-debugger-sidebar": "right",
-        "filebrowser": "right",
-        "jp-running-sessions": "right",
+        "filebrowser": "left",
+        "jp-running-sessions": "left",
         "jp-git-sessions": "right",
-        "table-of-contents": "right",
+        "table-of-contents": "left",
         "extensionmanager.main-view": "right"
     }
 }
