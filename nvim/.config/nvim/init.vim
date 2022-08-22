@@ -358,7 +358,15 @@ try
     Plug 'joshdick/onedark.vim'
     let g:onedark_terminal_italics=1  " alacritty supports italics
 
+    " Light color scheme for J
     Plug 'sonph/onehalf', {'rtp': 'vim/'}
+
+    " Github copilot integration
+    if executable('node')
+        Plug 'github/copilot.vim'
+        imap <silent><script><expr> <F9> copilot#Accept("")
+        let g:copilot_no_tab_map = v:true
+    endif
 
     call plug#end()
 
