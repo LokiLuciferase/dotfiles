@@ -34,6 +34,7 @@ alias pls='podman image ls'
 alias shfmt='shfmt -i 4 -sr -w -l'
 alias assume='source assume'
 alias watch='watch '
+alias vd='vd --config ~/.config/visidata/config.py'
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias svim="${VIM_BIN}" # disable use of spacevim
