@@ -47,4 +47,5 @@ dependencies:
   - tqdm
   - typeguard
   - urllib3
+  - visidata
   - vulture
