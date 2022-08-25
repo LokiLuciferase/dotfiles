@@ -9,3 +9,4 @@ nvim/.config/nvim/local/
 scripts/01_meta/01_setup/.env_done
 scripts/01_meta/01_setup/.packages_done
 git/.config/git/config.local
+visidata/.config/visidata/cache
