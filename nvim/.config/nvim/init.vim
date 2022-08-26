@@ -40,6 +40,7 @@ set noerrorbells  " Disable error bell
 set novisualbell  " Disable visual error bell
 set t_vb=  " Never flash the screen
 set tm=500  " The time in milliseconds that is waited for a key code or mapped key sequence to complete.
+set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20  " Set the cursor shape
 
 set nobackup  " Do not keep backup of file
 set nowritebackup  " do not ever use a backup file, even during :write
@@ -74,7 +75,7 @@ let mapleader = ' '
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-nnoremap <silent> <ESC> :noh<CR>
+nnoremap <silent> <ESC><ESC> :noh<CR>
 nnoremap <silent> q :q<CR>
 noremap <silent> <leader>sl :set list!<CR>
 
@@ -109,7 +110,11 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on  " Turn syntax highlighting on.
-colorscheme delek_mod  " select color scheme
+try
+    colorscheme delek_mod  " select color scheme
+catch
+    colorscheme delek
+endtry
 set background=dark  " assume dark background
 
 
@@ -136,6 +141,7 @@ autocmd BufNewFile,BufRead *.{ipynb} set ft=json
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Statusline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2  " show statusline
 set statusline=
 set statusline+=%#Title#
 set statusline+=\ %f
@@ -192,6 +198,12 @@ if exists("g:dumb")
 endif
 
 try
+    " ensure vim-plug is installed, then load plugins
+    let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+    if empty(glob(data_dir . '/autoload/plug.vim'))
+      silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
     call plug#begin()
 
     " Block and line comments
@@ -241,6 +253,7 @@ try
         else
             " use legacy coc.nvim and (neo)vim internal pum
             Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
+            let g:coc_disable_startup_warning = 1
             inoremap <silent><expr> <TAB>
                   \ pumvisible() ? "\<C-n>" :
                   \ <SID>check_back_space() ? "\<TAB>" :
