@@ -194,7 +194,6 @@ main() {
     ensure_nvim_installed
     [[ "${INSTALL_DESKTOP}" = true ]] && install_all_from_fraction desktop
     [[ "${INSTALL_WORK}" = true ]] && install_all_from_fraction work
-    m
    return 0
 }
 
