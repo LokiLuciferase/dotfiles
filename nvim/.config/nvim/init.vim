@@ -109,7 +109,7 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax on  " Turn syntax highlighting on.
+syntax on  " Turn syntax highlighting on
 try
     colorscheme delek_mod  " select color scheme
 catch
@@ -137,6 +137,10 @@ autocmd FileType markdown setlocal spell  " enable spelling for md
 " highlight jupyter source code
 autocmd BufNewFile,BufRead *.{ipynb} set ft=json
 
+" run scripts
+autocmd FileType sh nnoremap <F5> :!bash %<CR>
+autocmd FileType python nnoremap <F5> :!python3 %<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Statusline
@@ -162,7 +166,6 @@ set statusline+=\ %p%%
 " Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Add custom file headers for new files of a certain type
-autocmd FileType * call <SID>add_buffer_head()
 let s:ft_head_tp = {
     \ 'python': ['#!/usr/bin/env python3', '', ''],
     \ 'sh': ['#!/usr/bin/env bash', 'set -euo pipefail', '', ''],
