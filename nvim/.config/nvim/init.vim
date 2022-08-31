@@ -337,7 +337,7 @@ try
 
     " undotree visualization
     Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-    nnoremap <F5> :UndotreeToggle<CR>
+    nnoremap <F6> :UndotreeToggle<CR>
 
     " Syntax highlighting for NF
     Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
