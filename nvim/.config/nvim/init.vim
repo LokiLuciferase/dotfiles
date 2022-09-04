@@ -272,7 +272,8 @@ try
                 \ 'coc-yaml',
                 \ 'coc-pairs',
                 \ 'coc-sh',
-                \ 'coc-pyright'
+                \ 'coc-pyright',
+                \ 'coc-clangd'
             \]
         endif
 
@@ -293,7 +294,7 @@ try
 
         " Define commonly used shortcuts
         nnoremap K :call ShowDocumentation()<CR>
-        nmap <leader>lgd <Plug>(coc-definition)
+        nmap <leader>ld <Plug>(coc-definition)
         nmap <leader>lr  <Plug>(coc-rename)
         nmap <leader>lf  <Plug>(coc-format)
         nmap <leader>lfo :call CocAction('fold')<CR>
