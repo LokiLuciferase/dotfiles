@@ -1,12 +1,13 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General configuration options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set encoding=utf8  " default file encoding
+scriptencoding utf8  " default script encoding
 set nocompatible  " Disable compatibility with vi which can cause unexpected issues.
 filetype on  " Enable type file detection. Vim will be able to try to detect the type of file in use.
 filetype plugin on  " Enable plugins and load plugin for the detected file type.
 filetype indent on  " Load an indent file for the detected file type.
 set fileformats=unix,dos  " which line endings to try when editing a file
-set encoding=utf8  " default file encoding
 set number relativenumber  " Turn on hybrid numbering
 set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
@@ -55,9 +56,13 @@ set smartindent  " basic rules for indenting code
 set nowrap  " Disable linewrap and handle sidescrolling
 set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
-set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<  " better listchars
+" better listchars - only works if vim is not an ancient piece of shit
+if has("patch-7.4.710")
+    set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<
+endif
 
 set pumheight=12  "maximum height of popup window
+
 " explicitly enable preview replace
 if has("nvim")
   set inccommand=nosplit
@@ -317,7 +322,12 @@ try
     endif
 
     " fzf bindings
-    Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
+    try
+        Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
+    catch /E15/
+        " Catch an error occurring with ancient vim
+        Plug 'junegunn/fzf'
+    endtry
     Plug 'junegunn/fzf.vim', {'on': ['Files', 'Rg', 'Lines', 'Commits']}
     nmap <leader>ff :Files!<CR>
     nmap <leader>fc :Commits!<CR>
