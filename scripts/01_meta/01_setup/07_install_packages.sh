@@ -20,9 +20,9 @@ fi
 
 
 msg() {
-echo "#################################################"
-echo "$@"
-echo "#################################################"
+echo "#################################################" >&2
+echo "$@" >&2
+echo "#################################################" >&2
 }
 
 ensure_not_done() {
@@ -104,7 +104,7 @@ install_with_package_manager() {
     elif [[ "${mngr}" = 'pip' ]]; then
         pip install "${pkg}"
     else
-        msg "Unknown package manager: ${PACKAGE_MANAGER}"
+        msg "Unknown package manager: ${mngr}"
         false
     fi
     return $?
@@ -162,9 +162,7 @@ install_all_from_package_list() {
 install_all_from_fraction() {
     local fraction="$1"
     local fail_on_unsatisfiable="${2:-false}"
-    for package_manager in "${SYSTEM_PACKAGE_MANAGER}" flatpak pip; do
-        install_all_from_package_list "${fraction}" "${package_manager}" "${fail_on_unsatisfiable}" || return 1
-    done
+    install_all_from_package_list "${fraction}" "${SYSTEM_PACKAGE_MANAGER}" "${fail_on_unsatisfiable}" || return 1
     return 0
 }
 
@@ -172,10 +170,19 @@ ensure_nvim_installed() {
     # If we couldn't install neovim, install from appimage
     which nvim && return 0
     local nvim_latest
-    nvim_latest='https://github.com/neovim/neovim/releases/download/latest/nvim.appimage'
+    nvim_latest='https://github.com/neovim/neovim/releases/latest/download/nvim.appimage'
     mkdir -p ~/.local/bin
     curl -SsL -o ~/.local/bin/nvim "$nvim_latest"
     chmod u+x ~/.local/bin/nvim
+    # Check if we have FUSE support, else extract appimage
+    if [[ -z "$(which fusermount)" ]]; then
+        msg "FUSE not found. Extracting nvim.appimage..."
+        cd ~/.local/bin
+        ./nvim --appimage-extract
+        rm ./nvim
+        mv squashfs-root nvim.appimage
+        ln -s nvim.appimage/AppRun nvim
+    fi
     return 0
 }
 
