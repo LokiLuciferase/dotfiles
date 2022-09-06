@@ -341,9 +341,11 @@ try
 
     " indent guides
     if has('nvim-0.5.0')
-        Plug 'lukas-reineke/indent-blankline.nvim', {'for': ['python', 'sh', 'vim', 'lua', 'nextflow']}
+        Plug 'lukas-reineke/indent-blankline.nvim'
     else
-        Plug 'Yggdroot/indentLine', {'for': ['python', 'sh', 'vim', 'lua', 'nextflow']}
+        Plug 'Yggdroot/indentLine'
+        let g:indentLine_char = '│'
+        let g:indentLine_defaultGroup = 'StatusLineNC'
     endif
 
     " undotree visualization
