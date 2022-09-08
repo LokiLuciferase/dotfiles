@@ -1,8 +1,8 @@
 name: base
 channels:
-  - defaults
-  - conda-forge
   - bioconda
+  - conda-forge
+  - defaults
 dependencies:
   - asciinema
   - autopep8
@@ -28,7 +28,7 @@ dependencies:
   - mamba
   - matplotlib
   - memory_profiler
-  - nodejs
+  - nodejs<=17
   - notebook
   - numpy
   - openpyxl
