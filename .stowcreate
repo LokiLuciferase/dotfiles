@@ -1,9 +1,3 @@
-~/.local
-~/.local/share
-~/.local/bin
-~/.local/lib
-~/.cache
-~/.config
 ~/.config/jupyter
 ~/.config/jupyter/lab
 ~/.config/ipython

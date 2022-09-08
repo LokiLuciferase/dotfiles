@@ -44,18 +44,18 @@ def get_args():
             default=False,
             action='store_true',
             help='Whether to move existing files and directories out of the way '
-                 'when introducing symlinks (instead of throwing an error)',
+            'when introducing symlinks (instead of throwing an error)',
+        )
+        p.add_argument(
+            '--dotfiles_dir',
+            metavar='PATH',
+            default=str(Path.home() / '.dotfiles'),
+            help='The directory containing the dotfiles packages.',
         )
     return parser.parse_args()
 
 
 class Stow:
-
-    HOME = Path.home()
-    DOTFILES_DIR = HOME / '.dotfiles'
-    IGNORED_PATHS_FILE = DOTFILES_DIR / '.stowignore'
-    ENSURE_PRESENT_PATHS_FILE = DOTFILES_DIR / '.stowcreate'
-
     def __init__(
         self,
         verbose: bool = True,
@@ -63,15 +63,21 @@ class Stow:
         shove: bool = False,
         ignore_errors: bool = False,
         relative_base: Path = None,
+        dotfiles_dir: Path = Path.home() / '.dotfiles',
     ) -> None:
         self._logger = logging.getLogger('stow')
         self._logger.setLevel((logging.INFO if verbose else logging.WARNING))
         self._dry_run = dry_run
         self._shove = shove
         self._ignore_errors = ignore_errors
-        self._relative_base = (relative_base if relative_base is not None else self.HOME).absolute()
-        self._ignored_paths = self._read_ignored_paths()
-        self._ensure_present_paths = self._read_ensure_present_paths()
+        self._relative_base = (
+            relative_base if relative_base is not None else Path.home()
+        ).absolute()
+        self._dotfiles_dir = dotfiles_dir
+        self._ignored_paths = self._read_ignored_paths(self._dotfiles_dir / '.stowignore')
+        self._ensure_present_paths = self._read_ensure_present_paths(
+            self._dotfiles_dir / '.stowcreate'
+        )
 
     def _maybe_raise(self, s: str):
         if self._ignore_errors:
@@ -79,19 +85,40 @@ class Stow:
         else:
             raise RuntimeError(s)
 
-    def _read_ignored_paths(self) -> Set[Path]:
+    def _read_ignored_paths(self, ignored_paths_file: Path) -> Set[Path]:
         """
         Read the ignored paths file `.stowignore` from the dotfiles dir,
         and return a set of all paths which should be excluded from any operations.
         """
-        if not self.IGNORED_PATHS_FILE.is_file():
-            return set()
-        else:
-            return {
-                (self.IGNORED_PATHS_FILE.parent / Path(x.strip())).resolve().absolute()
-                for x in self.IGNORED_PATHS_FILE.read_text().split('\n')
-                if len(x.strip())
-            }
+        paths = {ignored_paths_file.parent / '.git'}
+        if ignored_paths_file.is_file():
+            paths = paths.union(
+                {
+                    (ignored_paths_file.parent / Path(x.strip())).resolve().absolute()
+                    for x in ignored_paths_file.read_text().split('\n')
+                    if len(x.strip())
+                }
+            )
+        return paths
+
+    def _read_ensure_present_paths(self, ensure_present_paths_file: Path) -> Set[Path]:
+        """
+        Read the ensure present paths file `.stowcreate` from the dotfiles dir,
+        and return a set of all directories which, if queried, should be ensured to exist.
+        """
+        paths = {
+            (Path.home() / x).resolve().absolute()
+            for x in ['.config', '.local', '.local/share', '.local/bin', '.local/lib', '.cache']
+        }
+        if ensure_present_paths_file.is_file():
+            paths = paths.union(
+                {
+                    (Path(x.strip())).expanduser().resolve().absolute()
+                    for x in ensure_present_paths_file.read_text().split('\n')
+                    if len(x.strip())
+                }
+            )
+        return paths
 
     def _maybe_shove(self, dst: Path, shove_suffix: str = '.bak') -> bool:
         """
@@ -109,20 +136,6 @@ class Stow:
             if not self._dry_run:
                 shutil.move(src=dst, dst=dst_shoved)
             return True
-
-    def _read_ensure_present_paths(self) -> Set[Path]:
-        """
-        Read the ensure present paths file `.stowcreate` from the dotfiles dir,
-        and return a set of all directories which, if queried, should be ensured to exist.
-        """
-        if not self.ENSURE_PRESENT_PATHS_FILE.is_file():
-            return set()
-        else:
-            return {
-                (Path(x.strip())).expanduser().resolve().absolute()
-                for x in self.ENSURE_PRESENT_PATHS_FILE.read_text().split('\n')
-                if len(x.strip())
-            }
 
     def _maybe_lns_relatively(self, src: Path, dst: Path):
         """
@@ -156,7 +169,9 @@ class Stow:
                     else:
                         self._maybe_raise(f'Destination already exists but is not managed: {dst}')
                 else:
-                    self._maybe_raise(f'Destination already exists but is not a file, dir or symlink: {dst}')
+                    self._maybe_raise(
+                        f'Destination already exists but is not a file, dir or symlink: {dst}'
+                    )
         else:
             self._logger.info(f'ln -s {src_relpath} {dst}')
             if not self._dry_run:
@@ -240,7 +255,7 @@ class Stow:
         :param pkg: The directory name of the package to operate on.
         :param op: 'install' or 'uninstall'
         """
-        pkg_path = self.DOTFILES_DIR / pkg
+        pkg_path = self._dotfiles_dir / pkg
         if not pkg_path.is_dir():
             raise RuntimeError(f'Package not found: {pkg_path}')
 
@@ -257,9 +272,9 @@ class Stow:
         """
         all_pkgs = [
             x.name
-            for x in self.DOTFILES_DIR.iterdir()
+            for x in self._dotfiles_dir.iterdir()
             if x.is_dir()
-            and (self.DOTFILES_DIR / x).resolve().absolute() not in self._ignored_paths
+            and (self._dotfiles_dir / x).resolve().absolute() not in self._ignored_paths
         ]
         return all_pkgs
 
@@ -276,7 +291,13 @@ class Stow:
 
 if __name__ == '__main__':
     args = get_args()
-    stow = Stow(verbose=args.verbose, dry_run=args.dry_run, shove=args.shove, relative_base=Path(args.relative_base))
+    stow = Stow(
+        verbose=args.verbose,
+        dry_run=args.dry_run,
+        shove=args.shove,
+        relative_base=Path(args.relative_base),
+        dotfiles_dir=Path(args.dotfiles_dir),
+    )
     if args.pkg == 'all':
         stow.operate_all_pkg(op=args.op)
     else:
