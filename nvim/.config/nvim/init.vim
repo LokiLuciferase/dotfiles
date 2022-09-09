@@ -223,6 +223,8 @@ try
     " File explorer
     Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
     nmap <F3> :NERDTreeToggle<CR>
+    let NERDTreeMapActivateNode='l'
+    let NERDTreeMapOpenInTab='<ENTER>'
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
     " surrounding handling
