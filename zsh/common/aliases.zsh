@@ -17,7 +17,6 @@ alias hgrep='history | grep'
 alias trace='tail -f -n100000'
 alias mkdir='mkdir -pv'
 alias tmux="tmux -f ${HOME}/.config/tmux/tmux.conf"
-alias rsync2="rsync -PrazuL"
 alias dog='highlight -O ansi --force'
 alias goto='cd -P'
 alias tree="tree -I '.git'"

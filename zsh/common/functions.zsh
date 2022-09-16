@@ -213,7 +213,7 @@ for-each-dir() {
     set -o monitor
 }
 
-rsync() {
+rsync2() {
     ## make rsync respect .rsyncignore
     RSYNC="$(whence -p rsync)"
     IGNORE_FILES=( ${HOME}/.rsyncignore ./.rsyncignore )
@@ -223,7 +223,7 @@ rsync() {
             EXCLUDE_FROM="$EXCLUDE_FROM --exclude-from=$f"
         fi
     done
-    CMD="$RSYNC $EXCLUDE_FROM $@"
+    CMD="$RSYNC -PrazuL $EXCLUDE_FROM $@"
     /bin/bash -c "$CMD"
 }
 
