@@ -36,6 +36,7 @@ endif
 hi SpecialKey ctermfg=DarkBlue	   guifg=Blue
 hi StatusLine cterm=bold ctermbg=darkgrey ctermfg=darkgreen guibg=gold guifg=blue
 hi StatusLineNC	cterm=bold	   ctermbg=darkgrey ctermfg=darkgreen  guibg=gold guifg=blue
+hi CursorColumn ctermbg=236
 hi Title      ctermfg=DarkMagenta  gui=bold guifg=Magenta
 hi VertSplit  cterm=reverse	   gui=reverse
 hi Visual     ctermbg=NONE	   cterm=reverse gui=reverse guifg=Grey guibg=fg

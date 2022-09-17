@@ -99,6 +99,8 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
 " navigation for splits
+command! Hsplit split
+cnoreabbrev hsplit Hsplit
 nnoremap <C-W>h <C-W>s
 nmap <silent> <C-W>n :vnew<CR>
 nnoremap <C-J> <C-W><C-J>
@@ -158,9 +160,6 @@ set statusline+=%m%r
 set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\%y
-if exists('ft')
-    set statusline +=\   " intentional trailing whitespace here
-endif
 set statusline+=[%{&fileencoding?&fileencoding:&encoding}
 set statusline+=\|%{&fileformat}\]
 set statusline+=\ %l:%c
