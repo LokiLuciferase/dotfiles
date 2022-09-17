@@ -9,14 +9,14 @@ cpu.theme.minwidth = 3
 memory.format = {percent:.00f}%
 disk.format = {percent:.00f}%
 brightness_autohide.format = {:.00f}%
-datetime.format = %Y/%m/%d %H:%M
+datetime.format = %Y-%m-%d %H:%M
 
 brightness_autohide.left-click = brightnessctl set "$(zenity --title 'Set Brightness' --entry --text 'Brightness:')%"
 datetime.left-click = evolution -c calendar
 cpu.left-click = alacritty -e htop
-cpu.right-click = alacritty -e bpytop
+cpu.right-click = alacritty -e btop
 memory.left-click = alacritty -e htop
-memory.right-click = alacritty -e bpytop
+memory.right-click = alacritty -e btop
 spotify_silent.right-click = i3-msg '[class="Spotify"] focus'
 
 cpu.interval = 3s
@@ -31,4 +31,4 @@ spotify_silent.concise_controls = True
 spotify_silent.scrolling.width = 32
 spotify_silent.scrolling.makewide = False
 spotify_silent.scrolling.bounce = False
-spotify_silent.scrolling.speed = 3
+spotify_silent.scrolling.speed = 2
