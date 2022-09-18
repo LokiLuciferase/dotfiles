@@ -5,6 +5,10 @@ conda-init() {
     # initialize conda environment
     unalias conda &> /dev/null || true
     unalias mamba &> /dev/null || true
+    unalias python &> /dev/null || true
+    unalias python3 &> /dev/null || true
+    unalias pip &> /dev/null || true
+    unalias pip3 &> /dev/null || true
     local conda_basedir=${1:-${HOME}/miniconda3}
     __conda_setup="$("${conda_basedir}/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
@@ -21,7 +25,7 @@ conda-init() {
 
 conda-lazy-init() {
     # lazy init conda only when relevant commands are called
-    local lazy_conda_cmds=( 'python' 'python3' 'conda' 'mamba' )
+    local lazy_conda_cmds=( 'python' 'python3' 'conda' 'mamba' 'pip' 'pip3' )
     for lazy_conda_alias in $lazy_conda_cmds; do
         alias $lazy_conda_alias="conda-init && \\$lazy_conda_alias"
     done
@@ -60,14 +64,15 @@ read-aloud() {
     cat "$1" | gtts-cli - | mpv - &> /dev/null
 }
 
-spip() {
+pip() {
     # Safe pip: refuse to install stuff into the base conda environment.
     CONDA_PREFIX=${CONDA_PREFIX:-'null'}
-    CURRENV=$(basename ${CONDA_PREFIX})
+    local CURRENV=$(basename ${CONDA_PREFIX})
+    local PIP="$(whence -p pip)"
     if [[ "$CURRENV" == "miniconda3" && "$VIRTUAL_ENV" == "" ]]; then
         echo "Cowardly refusing to mess up base conda environment."
     else
-        \pip "$@"
+        $PIP "$@"
     fi
 }
 
@@ -100,26 +105,6 @@ cpcd() {
     else
         cd $(dirname "${@[-1]}")
     fi
-}
-
-transpose() {
-    local sep="${2:-\t}"
-    awk '
-    {
-        for (i=1; i<=NF; i++)  {
-            a[NR,i] = $i
-        }
-    }
-    NF>p { p = NF }
-    END {
-        for(j=1; j<=p; j++) {
-            str=a[1,j]
-            for(i=2; i<=NR; i++){
-                str=str" "a[i,j];
-            }
-            print str
-        }
-    }' FS="$sep" "$1"
 }
 
 docker-interactive() {
