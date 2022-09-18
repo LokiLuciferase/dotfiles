@@ -41,6 +41,7 @@ alias svimdiff='svim -d "$@"'
 alias nano="${VIM_BIN}"
 alias vim="${VIM_BIN}"
 alias vi="${VIM_BIN} --cmd 'let g:dumb=1'"
+alias suvi=sudoedit
 alias ed="echo 'fuck off'"
 alias nvidia-settings="nvidia-settings --config=${XDG_CONFIG_HOME}/nvidia/settings"
 
