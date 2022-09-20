@@ -197,6 +197,15 @@ com! DiffSaved call s:DiffWithSaved()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General (non-plugin-related) local config (optional)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let $LOCALINIT = $XDG_CONFIG_HOME . "/nvim/local/init.local.vim"
+if filereadable($LOCALINIT)
+    source $LOCALINIT
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " do not try any plugin hijinks if we are running dumb
@@ -398,6 +407,12 @@ try
         let g:copilot_no_tab_map = v:true
     endif
 
+    " Local plugin config (optional)
+    let $LOCALPLUGCONF = $XDG_CONFIG_HOME . "/nvim/local/plugins.local.vim"
+    if filereadable($LOCALPLUGCONF)
+        source $LOCALPLUGCONF
+    endif
+
     call plug#end()
 
     " execute the following only if plugin loading worked.
@@ -406,11 +421,3 @@ try
 catch /.*/
     echo "Plugins unavailable due to error: " . v:exception
 endtry
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Local config (optional)
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let $LOCALINIT = $XDG_CONFIG_HOME . "/nvim/local/init.local.vim"
-if filereadable($LOCALINIT)
-    source $LOCALINIT
-endif

@@ -6,6 +6,7 @@ tmux/.config/tmux/plugins/*
 *.pyc
 nvim/.config/nvim/spell/
 nvim/.config/nvim/local/
+nvim/.config/nvim/*.local.vim
 scripts/01_meta/01_setup/.env_done
 scripts/01_meta/01_setup/.packages_done
 git/.config/git/config.local
