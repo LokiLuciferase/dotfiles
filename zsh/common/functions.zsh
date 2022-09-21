@@ -76,6 +76,11 @@ pip() {
     fi
 }
 
+ps-nxf() {
+    # extract relevant nextflow call from ps output
+    ps aux | grep nextflo[w] | grep jav[a] | sed -E 's/^([^ ]+) ([[:digit:]]+) .* nextflow.cli.Launcher (.*)/\1 \2 nextflow \3/'
+}
+
 desktop-run() {
     # run desktop application without blocking CLI
     nohup "$@" &> /dev/null &
