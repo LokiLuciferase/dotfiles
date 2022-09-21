@@ -56,6 +56,8 @@ set smartindent  " basic rules for indenting code
 set nowrap  " Disable linewrap and handle sidescrolling
 set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
+set hidden  " Allow to hide buffers with unsaved changes
+
 " better listchars - only works if vim is not an ancient piece of shit
 if has("patch-7.4.710")
     set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<
@@ -71,6 +73,9 @@ endif
 " Remember position of last edit and return on reopen
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 autocmd BufEnter,InsertLeave * :syntax sync fromstart
+
+" Always open multiple files in tabs
+autocmd VimEnter * if !&diff | tab all | tabfirst | endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -292,7 +297,6 @@ try
             \]
         endif
 
-        set hidden
         set updatetime=100
         function! s:check_back_space() abort
             let col = col('.') - 1
