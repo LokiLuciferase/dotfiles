@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_PATH="`dirname \"$0\"`"
 AWSCLI_PROFILE=rnd
-INSTANCE_NAME="${1:-llf-sandbox-v1}"
+INSTANCE_NAME="${1:-llf-sandbox-v2}"
 
 
 ensure_tools_present() {
