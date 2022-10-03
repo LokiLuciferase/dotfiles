@@ -81,8 +81,8 @@ ps-nxf() {
     ps aux | grep nextflo[w] | grep jav[a] | sed -E 's/^([^ ]+) ([[:digit:]]+) .* nextflow.cli.Launcher (.*)/\1 \2 nextflow \3/'
 }
 
-desktop-run() {
-    # run desktop application without blocking CLI
+bgrun() {
+    # run application without blocking CLI
     nohup "$@" &> /dev/null &
     disown
 }
@@ -91,7 +91,7 @@ google() {
     # google search the given terms
     [[ "$BROWSER" == "" ]] && echo '$BROWSER variable unset.' 1>&2 && return 1
     QUERY=${@// /%20}
-    desktop-run ${BROWSER} http://www.google.com/search?q="$QUERY"
+    bgrun ${BROWSER} http://www.google.com/search?q="$QUERY"
 }
 
 sleeptimer() {
@@ -226,7 +226,7 @@ apply-i3-layout() {
     i3-msg "workspace $WORKSPACE; append_layout $LAYOUT"
     for name in ${NAMES[@]}; do
         echo -n "Executing $name: "
-        desktop-run $name
+        bgrun $name
     done
 }
 
@@ -337,7 +337,7 @@ term-replace() {
     # replace current terminal with given one. Per default,
     # replace with a terminal window with full transparency.
     local alacritty_flags="${1:--o background_opacity=0.0}"
-    local cmd="desktop-run alacritty ${alacritty_flags}"
+    local cmd="bgrun alacritty ${alacritty_flags}"
     eval "$cmd" && exit
 }
 
