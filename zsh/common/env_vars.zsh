@@ -12,7 +12,7 @@ SCRIPTPATHS=''
 for d in ~/.dotfiles/scripts/*; do
     SCRIPTPATHS+=$d:
 done
-export PATH=$HOME/miniconda3/bin:$HOME/.local/bin:$SCRIPTPATHS:$PATH
+export PATH=$HOME/.local/bin:$SCRIPTPATHS:$PATH:$HOME/miniconda3/bin
 export EDITOR=nvim
 export BROWSER=firefox
 
