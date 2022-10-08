@@ -331,8 +331,8 @@ try
         vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
         vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
-        autocmd ColorScheme onedark highlight CocMenuSel ctermfg=12 ctermbg=237
-        autocmd ColorScheme onedark highlight CocHighlightText ctermbg=237
+        autocmd ColorScheme onedark highlight CocMenuSel ctermfg=12 ctermbg=237 guibg=#3a3a3a
+        autocmd ColorScheme onedark highlight CocHighlightText ctermbg=237 guibg=#3a3a3a
     endif
 
     " fzf bindings
@@ -379,6 +379,7 @@ try
     nmap <leader>rb :RainbowToggle<CR>
     let g:rainbow_conf = {
     \	'ctermfgs': ['NONE', '39', '180', '170', '114'],
+    \   'guifgs': ['NONE', '#61AFEF', '#E5C07B', '#C678DD', '#56B6C2'],
     \	'guis': [''],
     \	'cterms': [''],
     \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
@@ -399,6 +400,13 @@ try
 
     " color scheme
     Plug 'joshdick/onedark.vim'
+    if has('termguicolors')
+        set termguicolors
+    endif
+    let g:onedark_color_overrides = {
+    \ "background": {"gui": "#232323", "cterm": "235", "cterm16": "0"},
+    \}
+    let g:onedark_termcolors=256
     let g:onedark_terminal_italics=1  " alacritty supports italics
 
     " Light color scheme for J
