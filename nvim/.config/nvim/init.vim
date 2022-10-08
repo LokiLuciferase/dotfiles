@@ -416,6 +416,7 @@ try
     if executable('node')
         Plug 'github/copilot.vim'
         imap <silent><script><expr> <F9> copilot#Accept("")
+        imap <silent><script><expr> <F10> copilot#Accept("")
         let g:copilot_no_tab_map = v:true
     endif
 
