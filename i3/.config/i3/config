@@ -102,9 +102,9 @@ bindsym --release $mod+Shift+Print exec "FN=$(mktemp -u).png && scrot --freeze -
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# poor man's split up and split left
-bindsym $mod+Shift+v focus up, split v
-bindsym $mod+Shift+h focus left, split h
+# split into placeholder swallowing the next window
+bindsym $mod+Shift+v split v, open append_layout ~/.config/i3/layouts/universal/placeholder.json
+bindsym $mod+Shift+h split h, open append_layout ~/.config/i3/layouts/universal/placeholder.json
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh drun || dmenu -i -l 30"

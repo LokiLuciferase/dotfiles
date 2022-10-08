@@ -1,0 +1,15 @@
+{
+    "border": "pixel",
+    "current_border_width": 0,
+    "floating": "auto_off",
+    "marks": [],
+    "name": "preallocated",
+    "percent": 1,
+    "swallows": [
+       {
+          "class": "*"
+       }
+    ],
+    "type": "con"
+}
+
