@@ -17,6 +17,5 @@ else
     NEW_SESS_ARG="-s $ATTACH_NAME"
 fi
 
-CMD="tmux -f ${TMUX_CONFIG} attach -t $ATTACH_NAME || tmux -f ${TMUX_CONFIG} new $NEW_SESS_ARG"
-echo "${CMD}"
+CMD="tmux -f ${TMUX_CONFIG} attach -t $ATTACH_NAME &> /dev/null || tmux -f ${TMUX_CONFIG} new $NEW_SESS_ARG"
 eval $CMD
