@@ -200,6 +200,29 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
+" hide lefthand columns for copying
+let s:hidden_all = 0
+function! ToggleCopyMode()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set signcolumn=no
+        set nonumber
+        set norelativenumber
+        try
+            IndentBlanklineDisable
+        catch
+        endtry
+    else
+        let s:hidden_all = 0
+        set signcolumn=yes
+        set relativenumber
+         try
+            IndentBlanklineEnable
+        catch
+        endtry
+   endif
+endfunction
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General (non-plugin-related) local config (optional)
