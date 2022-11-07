@@ -51,7 +51,7 @@ do_toggle() {
         read start_yn
         if [[ "${start_yn}" = 'y' ]]; then
             echo "Starting instance."
-            PAGER="" aws --profile ${AWSCLI_PROFILE} ec2 start-instances --instance-ids ${INSTANCE_ID}
+            PAGER="" aws --profile ${AWSCLI_PROFILE} ec2 start-instances --instance-ids ${INSTANCE_ID} | jq .
         else
             echo "Aborting instance start."
         fi
@@ -60,7 +60,7 @@ do_toggle() {
         read stop_yn
         if [[ "${stop_yn}" = 'y' ]]; then
             echo "Stopping instance."
-            PAGER="" aws --profile ${AWSCLI_PROFILE} ec2 stop-instances --instance-ids ${INSTANCE_ID}
+            PAGER="" aws --profile ${AWSCLI_PROFILE} ec2 stop-instances --instance-ids ${INSTANCE_ID} | jq .
         else
             echo "Aborting instance stop."
         fi
