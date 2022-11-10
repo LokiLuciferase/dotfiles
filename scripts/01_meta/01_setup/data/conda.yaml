@@ -38,6 +38,7 @@ dependencies:
   - pudb
   - pytest
   - pytest-cov
+  - pytest-pudb
   - python>=3.9
   - rise
   - scipy
