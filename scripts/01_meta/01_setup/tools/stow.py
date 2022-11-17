@@ -1,32 +1,34 @@
 #!/usr/bin/env python3
-from typing import Set
 import argparse
 import logging
 import os
-import logging
 import shutil
 from pathlib import Path
+from typing import Set
 
 
 logging.basicConfig(format='%(levelname)s - %(message)s')
 
 
 def get_args():
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description='Stow dotfiles from a directory to the home directory.',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     subparsers = parser.add_subparsers(dest='op')
-    install = subparsers.add_parser('install', help='Install a package.')
-    uninstall = subparsers.add_parser('uninstall', help='Uninstall a package.')
+    install = subparsers.add_parser('install', help='Install a dotfiles package.')
+    uninstall = subparsers.add_parser('uninstall', help='Uninstall a dotfiles package.')
     for p, op_verb in zip((install, uninstall), ('install', 'uninstall')):
         p.add_argument(
             'pkg',
-            help=f'The package name to {op_verb}. If "all", {op_verb} all dotfiles packages instead.',
+            help=f'The dotfiles package name to {op_verb}. If "all", {op_verb} all dotfiles packages instead.',
         )
         p.add_argument(
             '-r',
             '--relative-base',
             metavar='PATH',
             default=str(Path.home()),
-            help=f'The directory relative to which to {op_verb} the package.',
+            help=f'The directory relative to which to {op_verb} the dotfiles package.',
         )
         p.add_argument(
             '-v', '--verbose', default=False, action='store_true', help='Toggle verbosity.'
@@ -62,7 +64,7 @@ class Stow:
         dry_run: bool = True,
         shove: bool = False,
         ignore_errors: bool = False,
-        relative_base: Path = None,
+        relative_base: Path = Path.home(),
         dotfiles_dir: Path = Path.home() / '.dotfiles',
     ) -> None:
         self._logger = logging.getLogger('stow')
@@ -70,9 +72,7 @@ class Stow:
         self._dry_run = dry_run
         self._shove = shove
         self._ignore_errors = ignore_errors
-        self._relative_base = (
-            relative_base if relative_base is not None else Path.home()
-        ).absolute()
+        self._relative_base = relative_base.absolute()
         self._dotfiles_dir = dotfiles_dir
         self._ignored_paths = self._read_ignored_paths(self._dotfiles_dir / '.stowignore')
         self._ensure_present_paths = self._read_ensure_present_paths(
@@ -252,23 +252,23 @@ class Stow:
         """
         Perform the desired operation on the dotfiles package with the given name.
 
-        :param pkg: The directory name of the package to operate on.
+        :param pkg: The directory name of the dotfiles package to operate on.
         :param op: 'install' or 'uninstall'
         """
         pkg_path = self._dotfiles_dir / pkg
         if not pkg_path.is_dir():
-            raise RuntimeError(f'Package not found: {pkg_path}')
+            raise RuntimeError(f'Dotfiles package not found: {pkg_path}')
 
         op_verb = op.title() + 'ing'
-        self._logger.info(f'{op_verb} package {pkg_path} relative to {self._relative_base}')
+        self._logger.info(f'{op_verb} {pkg_path} relative to {self._relative_base}')
         for component in pkg_path.iterdir():
             self._operate_path_recursively(component, pkg_path, op=op)
 
     def get_all_pkgs(self):
         """
-        Returns all package names for packages which exist in the dotfiles dir.
+        Returns all dotfiles packages which exist in the dotfiles dir.
 
-        :returns: A list of package names for packages in the dotfiles dir.
+        :returns: A list of dotfiles package names in the dotfiles dir.
         """
         all_pkgs = [
             x.name
