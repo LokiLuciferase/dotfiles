@@ -37,8 +37,6 @@ alias vd='vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
-alias svim="${VIM_BIN}" # disable use of spacevim
-alias svimdiff='svim -d "$@"'
 alias nano="${VIM_BIN}"
 alias vim="${VIM_BIN}"
 alias vi="${VIM_BIN} --cmd 'let g:dumb=1'"
