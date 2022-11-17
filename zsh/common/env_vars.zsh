@@ -2,10 +2,9 @@ if [ ! -z "$BASH" ]; then
     echo "Sourcing environment in bash. This may yield unexpected results."
 fi
 
-# bookmarks support
-if [ -d "${HOME}/.local/share/bookmarks" ]; then
-    export CDPATH=".:${HOME}/.local/share/bookmarks"
-fi
+export EDITOR=nvim
+export BROWSER=firefox
+export TERMINAL=alacritty
 
 # put dotfile scripts on path
 SCRIPTPATHS=''
@@ -13,8 +12,6 @@ for d in ~/.dotfiles/scripts/*; do
     SCRIPTPATHS+=$d:
 done
 export PATH=$HOME/.local/bin:$SCRIPTPATHS:$PATH:$HOME/miniconda3/bin
-export EDITOR=nvim
-export BROWSER=firefox
 
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME=$HOME/.config
