@@ -24,7 +24,7 @@ memory.interval = 20s
 disk.interval = 5m
 datetime.interval = 10s
 
-title.max = 32
+title.max = 128
 
 spotify_silent.layout = spotify.song
 spotify_silent.concise_controls = True
