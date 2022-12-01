@@ -6,7 +6,7 @@ set -euo pipefail
 TMUX_CONFIG="$HOME/.config/tmux/tmux.conf"
 
 if [[ $# -eq 0 ]]; then
-    ATTACH_NAME=$(tmux list-sessions -F '#{session_name}#{?session_attached,--attached,}' | grep -v '--attached' 2> /dev/null | grep -oE '[0-9]+$' 2> /dev/null | sort -n | tail -n 1 || true)
+    ATTACH_NAME=$(tmux list-sessions -F '#{session_name}#{?session_attached,--attached,}' | grep -v -- '--attached' 2> /dev/null | grep -oE '[0-9]+$' 2> /dev/null | sort -n | tail -n 1 || true)
 else
     ATTACH_NAME=$1
 fi
