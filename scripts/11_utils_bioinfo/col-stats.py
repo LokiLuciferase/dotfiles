@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from pathlib import Path
 import argparse
 import logging
 import io
@@ -17,6 +18,7 @@ class ColStats:
     @classmethod
     def _get_args(cls):
         parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+        parser.add_argument('infile', nargs='?', type=Path, default=None, help='Input file - if not provided, stdin is used')
         parser.add_argument(
             '-f',
             '--field',
@@ -85,7 +87,15 @@ class ColStats:
         self._args = self._get_args()
         self._usestats = self._parse_stat_selection(self._args.usestats)
         self._skip = self._args.skip
-        self._required_fields = self._parse_field_selection(self._args.field)
+        self._field_selection = self._args.field
+        self._required_fields = self._parse_field_selection(self._field_selection)
+
+    def _get_raw_lines(self) -> List[str]:
+        if self._args.infile is not None:
+            with open(self._args.infile, 'r') as f:
+                return f.readlines()
+        else:
+            return sys.stdin.readlines()
 
     def _calc_col(self, col: List[float]) -> Dict[str, Any]:
         col = col.copy()
@@ -122,9 +132,10 @@ class ColStats:
         try:
             incol = [float(x[field]) for x in lines[int(self._skip) :]]
         except ValueError:
-            logging.warning(
-                f'Could not convert field {field + 1} to float. Use --skip to skip header rows.'
-            )
+            if self._field_selection != 'all':  # if we're doing all fields indiscriminately, don't warn
+                logging.warning(
+                    f'Could not convert field {field + 1} to float. Use --skip to skip header rows.'
+                )
             return None
         if len(incol) == 0:
             return None
@@ -148,7 +159,7 @@ class ColStats:
             return fout.getvalue()
 
     def run(self):
-        lines = [x.strip().split(self._args.delimiter) for x in sys.stdin]
+        lines = [x.strip().split(self._args.delimiter) for x in self._get_raw_lines()]
         if self._required_fields is None:
             self._required_fields = [0]
         elif self._required_fields == 'all':
