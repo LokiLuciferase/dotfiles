@@ -8,12 +8,11 @@ import sys
 from typing import Any, Dict, List, Optional, Union
 
 
-
-
-
 class ColStats:
 
     DEFAULT_STATS = ['count', 'mean', 'std', 'min', '50p', 'max']
+    KNOWN_STATS = ['count', 'mean', 'std', 'min', '25p', '50p', '75p', 'max', 'iq_range', 'iq_mean', 'mode', 'skewness', 'kurtosis']
+    HEADER_CONCAT = '__'
 
     @classmethod
     def _get_args(cls):
@@ -21,40 +20,30 @@ class ColStats:
         parser.add_argument(
             '-f',
             '--field',
-            '-k',
-            '--key',
-            '-c',
-            '--column',
-            dest='field',
-            default='1',
-            help='Field to read (1-indexed), or comma-separated list of fields, or range of fields (e.g. 1-3,5,7-10)',
+            default='all',
+            help='Comma-separated list or ranges of fields to summarize (1-indexed), (e.g. 1-3,5,7-10), or "all"',
         )
+        parser.add_argument('-d', '--delimiter', default='\t', help='Input delimiter to use')
         parser.add_argument(
-            '-d',
-            '--delimiter',
             '-s',
-            '--separator',
-            dest='delimiter',
-            default='\t',
-            help='Input delimiter to use',
-        )
-        parser.add_argument(
             '--skip',
-            dest='skip',
-            default='0',
+            default='auto',
             help='Number of header rows to skip, or auto to skip all rows that are not numeric',
         )
         parser.add_argument(
-            '-r', '--round-to', dest='round_to', default=3, help='Round to this many decimal places'
+            '-r', '--round-to', default=3, help='Round to this many decimal places'
         )
         parser.add_argument(
-            '--no-out-header', dest='no_out_header', action='store_true', help='Write no header'
+            '--no-out-header', action='store_true', help='Write no header'
         )
         parser.add_argument(
-            '--usecols',
-            dest='usecols',
+            '--no-out-index', action='store_true', help='Write no index column'
+        )
+        parser.add_argument(
+            '--stats',
+            dest='usestats',
             default=','.join(cls.DEFAULT_STATS),
-            help='Comma-separated list of stats to show. Prefix with "+" to include default stats',
+            help=f'Comma-separated list of stats to show, or "all". Prefix with "+" to include default stats (existing: {",".join(cls.KNOWN_STATS)})',
         )
         return parser.parse_args()
 
@@ -81,7 +70,9 @@ class ColStats:
 
     @staticmethod
     def _parse_stat_selection(s) -> List[str]:
-        if s.startswith('+'):
+        if s == 'all':
+            return ColStats.KNOWN_STATS
+        elif s.startswith('+'):
             return ColStats.DEFAULT_STATS + [
                 x for x in s[1:].split(',') if x not in ColStats.DEFAULT_STATS
             ]
@@ -92,7 +83,7 @@ class ColStats:
 
     def __init__(self):
         self._args = self._get_args()
-        self._usecols = self._parse_stat_selection(self._args.usecols)
+        self._usestats = self._parse_stat_selection(self._args.usestats)
         self._skip = self._args.skip
         self._required_fields = self._parse_field_selection(self._args.field)
 
@@ -107,32 +98,43 @@ class ColStats:
         stats['25p'] = col[int(stats['count'] * 0.25)]
         stats['50p'] = col[int(stats['count'] * 0.5)]
         stats['75p'] = col[int(stats['count'] * 0.75)]
+        stats['mode'] = max(set(col), key=col.count)
+        stats['iq_range'] = stats['75p'] - stats['25p']
+        iq = col[int(stats['count'] * 0.25):int(stats['count'] * 0.75)]
+        stats['iq_mean'] = sum(iq) / len(iq)
         stats['skewness'] = (stats['mean'] - stats['50p']) / stats['std'] if stats['std'] else 'nan'
         stats['kurtosis'] = (stats['mean'] - stats['75p']) / stats['std'] if stats['std'] else 'nan'
-        stats = {x: stats[x] for x in self._usecols}
+        stats = {x: stats[x] for x in self._usestats}
         return stats
 
     def _get_col(self, field: int, lines: List[List[str]]) -> Optional[Dict[str, Any]]:
         if self._skip == 'auto':
-            header = str(field + 1)
-            incol = [float(x[field]) for x in lines if self._isnumeric(x[field])]
+            header_items = []
+            for i, l in enumerate(lines):
+                if not self._isnumeric(l[field]):
+                    header_items.append(l[field])
+                else:
+                    self._skip = i
+                    break
+            header = self.HEADER_CONCAT.join(header_items)
         else:
-            header = '__'.join([x[field] for x in lines[: int(self._skip)]])
-            try:
-                incol = [float(x[field]) for x in lines[int(self._skip) :]]
-            except ValueError:
-                logging.warning(
-                    f'Could not convert field {field + 1} to float. Use --skip to skip header rows.'
-                )
-                return None
+            header = self.HEADER_CONCAT.join([x[field] for x in lines[: int(self._skip)]])
+        try:
+            incol = [float(x[field]) for x in lines[int(self._skip) :]]
+        except ValueError:
+            logging.warning(
+                f'Could not convert field {field + 1} to float. Use --skip to skip header rows.'
+            )
+            return None
         if len(incol) == 0:
             return None
         calced = self._calc_col(incol)
-        calced = {'column': header, **calced}
+        calced = {'column_id': str(field + 1), 'column_name': header, **calced}
         return calced
 
     def _format_output(self, calced_lines: List[Dict[str, Any]], round_to: int) -> str:
-        header = ['column', *[x for x in self._usecols]]
+        idx_cols = ['column_id', 'column_name'] if not self._args.no_out_index else []
+        header = [*idx_cols, *[x for x in self._usestats]]
         with io.StringIO() as fout:
             writer = csv.DictWriter(fout, fieldnames=header, delimiter='\t')
             if not self._args.no_out_header:
