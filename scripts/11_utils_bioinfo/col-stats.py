@@ -11,8 +11,8 @@ from typing import Any, Dict, List, Optional, Union
 
 class ColStats:
 
-    DEFAULT_STATS = ['count', 'mean', 'std', 'min', '50p', 'max']
-    KNOWN_STATS = ['count', 'mean', 'std', 'min', '25p', '50p', '75p', 'max', 'iq_range', 'iq_mean', 'mode', 'skewness', 'kurtosis']
+    DEFAULT_STATS = ['count', 'mean', 'std', 'min', '50p', 'max', 'sum']
+    KNOWN_STATS = ['count', 'mean', 'std', 'min', '25p', '50p', '75p', 'max', 'sum', 'iq_range', 'iq_mean', 'mode', 'skewness', 'kurtosis']
     HEADER_CONCAT = '__'
 
     @classmethod
@@ -105,6 +105,7 @@ class ColStats:
         col.sort()
         stats['min'] = col[0]
         stats['max'] = col[-1]
+        stats['sum'] = sum(col)
         stats['25p'] = col[int(stats['count'] * 0.25)]
         stats['50p'] = col[int(stats['count'] * 0.5)]
         stats['75p'] = col[int(stats['count'] * 0.75)]

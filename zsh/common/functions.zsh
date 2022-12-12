@@ -124,6 +124,11 @@ cpcd() {
     fi
 }
 
+ssha() {
+    # attach to unnamed, unattached tmux session or create new
+    ssh "$1" -t '~/.dotfiles/scripts/10_utils/tmux-attach-or-create.sh'
+}
+
 docker-interactive() {
     # open a docker container in an interactive shell
     local container="${1:-}"

@@ -44,6 +44,8 @@ alias vi="${VIM_BIN} --cmd 'let g:dumb=1'"
 alias suvi=sudoedit
 alias ed="echo 'fuck off'"
 
+[[ "$(which ssha)" != '' ]] && compdef _ssh ssha=ssh
+
 ##silly
 alias mansplain='man'
 alias leckmiamoasch='echo "trottl"'
