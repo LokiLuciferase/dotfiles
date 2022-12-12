@@ -73,7 +73,7 @@ maybe_add_package_manager_repos() {
         while read -r line; do
             msg "Adding repo: $line"
             $(get_sudo_prefix) add-apt-repository "$line" --yes
-        done < "${DIR}/data/repos/apt-get.txt"
+        done < "${DIR}/data/repos/ubuntu-ppa.txt"
         touch "${TMPDIR}/apt_repos_added"
     fi
     return 0
