@@ -7,6 +7,7 @@ env	tmux	tmux	tmux
 env	git	git	git
 vim	neovim	neovim	neovim
 various	build-essential	@development-tools	base-devel
+various	xsel	xsel	xsel
 various	cmake	cmake	cmake
 various	tree	tree	tree
 various	htop	htop	htop
