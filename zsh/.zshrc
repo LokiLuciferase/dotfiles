@@ -1,5 +1,5 @@
 # general omz setup
-unsetopt nomatch
+unsetopt NOMATCH
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 export ZSH="${HOME}/.config/oh-my-zsh"

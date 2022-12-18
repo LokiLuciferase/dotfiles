@@ -13,3 +13,5 @@ git/.config/git/config.local
 visidata/.config/visidata/cache
 pudb/.config/pudb/*
 !pudb/.config/pudb/pudb.cfg
+tut/.config/tut/*
+!tut/.config/tut/config.ini
