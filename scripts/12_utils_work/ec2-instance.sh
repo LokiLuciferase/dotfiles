@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_PATH="`dirname \"$0\"`"
 AWSCLI_PROFILE=rnd
-INSTANCE_NAME="${1:-llf-sandbox-v2}"
+INSTANCE_NAME=llf-sandbox-v2
 
 
 ensure_tools_present() {
@@ -28,22 +28,21 @@ maybe_aws_sso_login() {
 }
 
 get_instance_info() {
-    INSTANCE_NAME="$1"
-    AWSCLI_PROFILE="$2"
-    RESULT=$(PAGER="" aws --profile ${AWSCLI_PROFILE} ec2 describe-instances --no-paginate --output json \
+    local awscli_profile="$2"
+    RESULT=$(PAGER="" aws --profile ${awscli_profile} ec2 describe-instances --no-paginate --output json \
         | jq '.[] | .[].Instances[] | {instance_id: .InstanceId, instance_type: .InstanceType, tagname: .Tags[].Key, tagval: .Tags[].Value, ip: .PublicIpAddress, status: .State["Name"]} | select(.tagname=="Name")' \
-        | jq -r "select(.tagval==\"$INSTANCE_NAME\") | [ .instance_id, .instance_type, .ip, .tagval, .status ] | .[]" \
+        | jq -r "select(.tagval==\"$1\") | [ .instance_id, .instance_type, .ip, .tagval, .status ] | .[]" \
         | tr '\n' '\t')
     echo "$RESULT"
 }
 
 do_toggle() {
-    RESULT=($(get_instance_info $INSTANCE_NAME $AWSCLI_PROFILE))
+    RESULT=($(get_instance_info $1 $AWSCLI_PROFILE))
     INSTANCE_ID="${RESULT[0]}"
     INSTANCE_TYPE="${RESULT[1]}"
     IP_ADDR="${RESULT[2]}"
     INSTANCE_STATUS="${RESULT[4]}"
-    DESC_STR="${INSTANCE_NAME} (${INSTANCE_ID}) as ${INSTANCE_TYPE} in account rnd"
+    DESC_STR="${1} (${INSTANCE_ID}) as ${INSTANCE_TYPE} in account rnd"
     YN_REMINDER="(y/N)"
 
     if [[ "${INSTANCE_STATUS}" = 'stopped' ]]; then
@@ -69,6 +68,45 @@ do_toggle() {
     fi
 }
 
-ensure_tools_present
-maybe_aws_sso_login
-do_toggle
+do_switch_instance_type() {
+    SWITCH_TO_TYPE="${2:-t3.large}"
+    RESULT=($(get_instance_info $1 $AWSCLI_PROFILE))
+    INSTANCE_ID="${RESULT[0]}"
+    INSTANCE_TYPE="${RESULT[1]}"
+    IP_ADDR="${RESULT[2]}"
+    INSTANCE_STATUS="${RESULT[4]}"
+    DESC_STR="${1} (${INSTANCE_ID}) as ${INSTANCE_TYPE} in account rnd"
+    YN_REMINDER="(y/N)"
+
+    if [[ "${INSTANCE_STATUS}" = 'stopped' ]]; then
+        echo -n "Switch instance type to ${SWITCH_TO_TYPE} for ${DESC_STR}? $YN_REMINDER "
+        read switch_yn
+        if [[ "${switch_yn}" = 'y' ]]; then
+            echo "Switching instance type."
+            PAGER="" aws --profile ${AWSCLI_PROFILE} ec2 modify-instance-attribute --instance-id ${INSTANCE_ID} --instance-type "{\"Value\": \"${SWITCH_TO_TYPE}\"}" | jq .
+        else
+            echo "Aborting instance type switch."
+        fi
+    else
+        echo "Instance is in status '${INSTANCE_STATUS}' and cannot switch instance type. Try again later."
+    fi
+}
+
+main() {
+    ensure_tools_present
+    maybe_aws_sso_login
+    if [[ "$#" -eq 0 ]]; then
+        echo "Usage: $0 <instance-name> [action]"
+        echo "Actions: toggle, switch-instance-type"
+        exit 1
+    fi
+    if [[ "${1}" = 'toggle' ]]; then
+        do_toggle ${2:-${INSTANCE_NAME}}
+    elif [[ "${1:-toggle}" = 'switch' ]]; then
+        do_switch_instance_type ${2:-${INSTANCE_NAME}} ${3:-t3.large}
+    else
+        echo "Unknown command '${1}'."
+    fi
+}
+
+main "$@"
