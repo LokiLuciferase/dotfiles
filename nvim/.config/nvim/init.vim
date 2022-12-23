@@ -13,7 +13,7 @@ set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
 set expandtab  " enable smart tabs
 set pastetoggle=<F2>  " set pastemode shortcut
-set shortmess=atI  " disable splash screen and don't prompt on save
+set shortmess=atoI  " disable splash screen, don't prompt on save and overwrite messages for each buffer
 set mouse=a  " enable mouse in all modes
 set clipboard=unnamedplus  " sync unnamed register with system clipboard
 set backspace=eol,start,indent  " allow to backspace over everything
@@ -58,6 +58,8 @@ set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
 set hidden  " Allow to hide buffers with unsaved changes
 
+set fillchars+=diff:╱  " Set the fillchars for diff mode
+
 " better listchars - only works if vim is not an ancient piece of shit
 if has("patch-7.4.710")
     set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<
@@ -77,6 +79,10 @@ autocmd BufEnter,InsertLeave * :syntax sync fromstart
 " Always open multiple files in tabs
 autocmd VimEnter * if !&diff | tab all | tabfirst | endif
 
+" Fix autochdir when opening a directory
+let g:netrw_keepdir = 0
+autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | end
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymaps
@@ -87,6 +93,7 @@ vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 nnoremap <silent> <ESC><ESC> :noh<CR>
 nnoremap <silent> q :q<CR>
+nnoremap <silent> Q :qa<CR>
 noremap <silent> <leader>sl :set list!<CR>
 
 " navigation for tabs
@@ -389,7 +396,8 @@ try
     if has('nvim-0.7.0')
         Plug 'nvim-lua/plenary.nvim'
         Plug 'sindrets/diffview.nvim'
-        nmap <leader>gdv :DiffviewOpen<CR>
+        nmap <leader>dv :DiffviewOpen<CR>
+        nmap <leader>dc :DiffviewClose<CR>
     endif
 
     " undotree visualization
@@ -460,6 +468,13 @@ try
 
     " execute the following only if plugin loading worked.
     colorscheme onedark
+
+    " execute lua configurations - needs to be done after plug#end
+    try
+        lua require("diffview").setup({enhanced_diff_hl = true})
+    catch /.*/
+    endtry
+
 
 catch /.*/
     echo "Plugins unavailable due to error: " . v:exception
