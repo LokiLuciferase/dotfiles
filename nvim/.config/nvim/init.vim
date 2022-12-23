@@ -385,6 +385,13 @@ try
         let g:indentLine_defaultGroup = 'StatusLineNC'
     endif
 
+    " better vimdiff file selection
+    if has('nvim-0.7.0')
+        Plug 'nvim-lua/plenary.nvim'
+        Plug 'sindrets/diffview.nvim'
+        nmap <leader>gdv :DiffviewOpen<CR>
+    endif
+
     " undotree visualization
     Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
     nnoremap <F6> :UndotreeToggle<CR>
