@@ -410,6 +410,7 @@ try
 
     " TSV/CSV highlighting
     Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text']}
+    let g:rbql_with_headers = 1
     autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
 
     " Rainbow parentheses
