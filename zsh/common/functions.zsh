@@ -192,6 +192,11 @@ nagme() {
     done
 }
 
+git-nvimdiff() {
+    # git diff using neovim diffview
+    nvim -c "DiffviewOpen ${1:-}" -c "bd 1"
+}
+
 get-newest() {
     # gets the newest directory entry by modification time
     DIR="${1:-.}"
