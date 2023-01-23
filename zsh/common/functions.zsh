@@ -124,6 +124,27 @@ cpcd() {
     fi
 }
 
+icat() {
+    # print image(s) to terminal
+    # requires: img2sixel and sixel-enabled terminal
+    local default_term_dims=(600 400)
+    for img in "$@"; do
+        local term_dims=( $(xwininfo -id $WINDOWID 2> /dev/null | grep "Width\|Height" | grep -v xwininfo | tr -s '\n' ' ' | cut -f3,5 -d' ') )
+        [ "${#term_dims[@]}" -ne 2 ] && term_dims=( $default_term_dims )
+        local img_dims=( $(identify -format "%w %h" "$img") )
+        local maxwidth=${term_dims[1]}
+        local maxheight=$((${term_dims[2]} - 50))  # subtract some pixels for the prompt
+        if [ "$maxwidth" -lt "$maxheight" ]; then
+            [ "${img_dims[1]}" -gt "$maxwidth" ] && width=$maxwidth || width=${img_dims[1]}
+            height=auto
+        else
+            [ "${img_dims[2]}" -gt "$maxheight" ] && height=$maxheight || height=${img_dims[2]}
+            width=auto
+        fi
+        img2sixel -w $width -h $height -E fast "$img"
+    done
+}
+
 ssha() {
     # attach to unnamed, unattached tmux session or create new
     ssh "$1" -t '~/.dotfiles/scripts/10_utils/tmux-attach-or-create.sh'

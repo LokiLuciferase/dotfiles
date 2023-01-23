@@ -35,7 +35,6 @@ alias assume='source assume'
 alias watch='watch '
 alias vd='vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
-alias icat='kitty +kitten icat '
 
 [[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias nano="${VIM_BIN}"
