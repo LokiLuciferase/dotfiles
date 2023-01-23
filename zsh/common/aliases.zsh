@@ -40,6 +40,7 @@ alias chs='term-replace font.size=20 chs'
 alias nano="${VIM_BIN}"
 alias vim="${VIM_BIN}"
 alias vi="${VIM_BIN} --cmd 'let g:dumb=1'"
+alias nvimdiff='vimdiff'
 alias gvd="git-nvimdiff"
 alias suvi=sudoedit
 alias ed="echo 'fuck off'"

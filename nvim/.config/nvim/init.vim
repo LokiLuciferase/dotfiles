@@ -472,7 +472,7 @@ try
 
     " execute lua configurations - needs to be done after plug#end
     try
-        lua require("diffview").setup({enhanced_diff_hl = true})
+        lua require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
     catch /.*/
     endtry
 
