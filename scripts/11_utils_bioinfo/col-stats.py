@@ -12,13 +12,34 @@ from typing import Any, Dict, List, Optional, Union
 class ColStats:
 
     DEFAULT_STATS = ['count', 'mean', 'std', 'min', '50p', 'max', 'sum']
-    KNOWN_STATS = ['count', 'mean', 'std', 'min', '25p', '50p', '75p', 'max', 'sum', 'iq_range', 'iq_mean', 'mode', 'skewness', 'kurtosis']
+    KNOWN_STATS = [
+        'count',
+        'mean',
+        'std',
+        'min',
+        '25p',
+        '50p',
+        '75p',
+        'max',
+        'sum',
+        'iq_range',
+        'iq_mean',
+        'mode',
+        'skewness',
+        'kurtosis',
+    ]
     HEADER_CONCAT = '__'
 
     @classmethod
     def _get_args(cls):
         parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        parser.add_argument('infile', nargs='?', type=Path, default=None, help='Input file - if not provided, stdin is used')
+        parser.add_argument(
+            'infile',
+            nargs='?',
+            type=Path,
+            default=None,
+            help='Input file - if not provided, stdin is used',
+        )
         parser.add_argument(
             '-f',
             '--field',
@@ -32,15 +53,14 @@ class ColStats:
             default='auto',
             help='Number of header rows to skip, or auto to skip all rows that are not numeric',
         )
+        parser.add_argument('-r', '--round-to', default=3, help='Round to this many decimal places')
         parser.add_argument(
-            '-r', '--round-to', default=3, help='Round to this many decimal places'
+            '--skip-cols',
+            default=0,
+            help='Number of columns to skip at the beginning of each line (to align columns with header when unnamed indices are present)',
         )
-        parser.add_argument(
-            '--no-out-header', action='store_true', help='Write no header'
-        )
-        parser.add_argument(
-            '--no-out-index', action='store_true', help='Write no index column'
-        )
+        parser.add_argument('--no-out-header', action='store_true', help='Write no header')
+        parser.add_argument('--no-out-index', action='store_true', help='Write no index column')
         parser.add_argument(
             '--stats',
             dest='usestats',
@@ -87,6 +107,7 @@ class ColStats:
         self._args = self._get_args()
         self._usestats = self._parse_stat_selection(self._args.usestats)
         self._skip = self._args.skip
+        self._skip_cols = int(self._args.skip_cols)
         self._field_selection = self._args.field
         self._required_fields = self._parse_field_selection(self._field_selection)
 
@@ -111,7 +132,7 @@ class ColStats:
         stats['75p'] = col[int(stats['count'] * 0.75)]
         stats['mode'] = max(set(col), key=col.count)
         stats['iq_range'] = stats['75p'] - stats['25p']
-        iq = col[int(stats['count'] * 0.25):int(stats['count'] * 0.75)]
+        iq = col[int(stats['count'] * 0.25) : int(stats['count'] * 0.75)]
         stats['iq_mean'] = sum(iq) / len(iq)
         stats['skewness'] = (stats['mean'] - stats['50p']) / stats['std'] if stats['std'] else 'nan'
         stats['kurtosis'] = (stats['mean'] - stats['75p']) / stats['std'] if stats['std'] else 'nan'
@@ -130,10 +151,13 @@ class ColStats:
             header = self.HEADER_CONCAT.join(header_items)
         else:
             header = self.HEADER_CONCAT.join([x[field] for x in lines[: int(self._skip)]])
+        field = field + self._skip_cols
         try:
             incol = [float(x[field]) for x in lines[int(self._skip) :]]
         except ValueError:
-            if self._field_selection != 'all':  # if we're doing all fields indiscriminately, don't warn
+            if (
+                self._field_selection != 'all'
+            ):  # if we're doing all fields indiscriminately, don't warn
                 logging.warning(
                     f'Could not convert field {field + 1} to float. Use --skip to skip header rows.'
                 )
