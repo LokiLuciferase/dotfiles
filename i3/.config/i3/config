@@ -23,7 +23,7 @@ for_window [title="scratchpad_shell"] move scratchpad
 font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMono Nerd Font 10
 
 # import environment variables from xresources - which default tools to use
-set_from_resource $default_term i3wm.default_term alacritty
+set $default_term alacritty
 
 # user specific startup applications
 # connectivity

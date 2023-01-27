@@ -1,0 +1,11 @@
+set $bar_separator_colors              #928374
+set $bar_background_colors             #282828
+set $bar_statusline_colors             #ebdbb2
+set $bar_focused_workspace_colors      #8bbb2d     #8bbb2d     #282828
+set $bar_active_workspace_colors       #1d2021     #1d2021     #928374
+set $bar_inactive_workspace_colors     #32302f     #32302f     #928374
+set $bar_urgent_workspace_colors       #f92672     #f92672     #ebdbb2
+set $focused_colors                    #8bbb2d     #8bbb2d     #282828     #282828
+set $focused_inactive_colors           #1d2021     #1d2021     #928374     #282828
+set $unfocused_colors                  #32302f     #32302f     #928374     #282828
+set $urgent_colors                     #f92672     #f92672     #ebdbb2     #282828
