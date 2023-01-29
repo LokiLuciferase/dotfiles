@@ -32,6 +32,7 @@ exec --no-startup-id "blueman-applet"
 
 # screen locking
 exec --no-startup-id "xss-lock --transfer-sleep-lock -- $HOME/.config/i3/scripts/i3-lock-screen"
+exec --no-startup-id "light-locker"
 
 # display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; feh --bg-fill --no-fehbg $HOME/.local/share/backgrounds/default"
@@ -56,7 +57,7 @@ exec --no-startup-id $default_term --title scratchpad_shell
 exec --no-startup-id "dex $HOME/.config/autostart/*"
 
 bindsym $mod+Tab exec pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
-bindsym Control+Mod1+l exec --no-startup-id "cinnamon-screensaver-command --lock || i3lock -i ~/.local/share/backgrounds/default"
+bindsym Control+Mod1+l exec --no-startup-id "light-locker-command --lock || cinnamon-screensaver-command --lock || i3lock -i ~/.local/share/backgrounds/default"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
