@@ -297,6 +297,9 @@ bindsym $mod+Shift+i mark --add "swapee"; mode "swap"
 # Load colors from xresources
 include "~/.config/sway/themes/monsterkai.theme"
 
+# set cursor theme
+seat * xcursor_theme BreezeX-Black 32
+
 # define bar
 bar {
     colors {
