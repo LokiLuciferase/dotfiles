@@ -2,7 +2,7 @@
 set -euo pipefail
 
 get_migrations(){
-    local migration_files=($(ls "${ACTIVE_MIGRATIONS_DIR}"/*.sh))
+    local migration_files=($(ls "${ACTIVE_MIGRATIONS_DIR}"/*.sh 2> /dev/null || true))
     local considered_migration_files=()
     for file in "${migration_files[@]}"; do
         if [[ "$(ls ${DONE_MIGRATIONS_DIR} | grep $(basename ${file}))" ]]; then
