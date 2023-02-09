@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+from collections import Counter
+import i3ipc
+
+
+def main():
+    i3 = i3ipc.Connection()
+    workspaces = {x.name: [] for x in i3.get_workspaces()}
+    focused = i3.get_tree().find_focused().workspace().name
+    for con in i3.get_tree():
+        if con.window and con.parent.type != 'dockarea':
+            ws = con.workspace().name
+            if ws == '__i3_scratch':
+                continue
+            workspaces[ws].append(con.window_class)
+
+    workspaces_agg = {}
+    for ws, windows in workspaces.items():
+        workspaces_agg[ws] = [x if y == 1 else f'{x}(x{y})' for x, y in Counter(windows).items()]
+
+    for ws, windows in workspaces_agg.items():
+        if ws == focused:
+            ws = f'*{ws}'
+        print('\t'.join([ws, ' | '.join(windows)]))
+
+
+if __name__ == '__main__':
+    main()
