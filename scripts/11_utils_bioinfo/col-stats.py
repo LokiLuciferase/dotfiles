@@ -133,7 +133,7 @@ class ColStats:
         stats['mode'] = max(set(col), key=col.count)
         stats['iq_range'] = stats['75p'] - stats['25p']
         iq = col[int(stats['count'] * 0.25) : int(stats['count'] * 0.75)]
-        stats['iq_mean'] = sum(iq) / len(iq)
+        stats['iq_mean'] = sum(iq) / len(iq) if iq else 'nan'
         stats['skewness'] = (stats['mean'] - stats['50p']) / stats['std'] if stats['std'] else 'nan'
         stats['kurtosis'] = (stats['mean'] - stats['75p']) / stats['std'] if stats['std'] else 'nan'
         stats = {x: stats[x] for x in self._usestats}
