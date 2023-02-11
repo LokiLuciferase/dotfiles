@@ -135,14 +135,11 @@
                     "marks": [
                        "ev"
                     ],
-                    "name": "evolution",
+                    "name": "thunderbird",
                     "percent": 1,
                     "swallows": [
                        {
-                       // "class": "^Evolution$",
-                          "instance": "^evolution"
-                       // "title": "^Unified\\ Sent\\ \\—\\ Evolution$",
-                       // "window_role": "^EShellWindow\\-94255381291824$"
+                          "class": "^thunderbird\\-default$"
                        }
                     ],
                     "type": "con"

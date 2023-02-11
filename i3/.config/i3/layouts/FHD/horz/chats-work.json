@@ -18,15 +18,12 @@
                "x": 1926,
                "y": 555
             },
-            "marks": ["ev"],
-            "name": "evolution",
+            "marks": ["tb"],
+            "name": "thunderbird",
             "percent": 0.5,
             "swallows": [
                {
-                  "class": "^Evolution\\.bin$"
-               // "instance": "^evolution\\.bin$",
-               // "title": "^Inbox\\ \\—\\ Evolution$",
-               // "window_role": "^EShellWindow\\-93919303649264$"
+                  "class": "^thunderbird\\-default$"
                }
             ],
             "type": "con"
@@ -47,9 +44,6 @@
             "swallows": [
                {
                   "class": "^Slack$"
-               // "instance": "^slack$",
-               // "title": "^Slack\\ \\|\\ Rick\\ \\|\\ Ares\\ Genetics$",
-               // "window_role": "^browser\\-window$"
                }
             ],
             "type": "con"
@@ -58,25 +52,56 @@
 }
 
 {
-    "border": "pixel",
-    "current_border_width": 0,
+    // splitv split container with 2 children
+    "border": "normal",
     "floating": "auto_off",
-    "geometry": {
-       "height": 600,
-       "width": 800,
-       "x": 0,
-       "y": 0
-    },
-    "marks": ["sp"],
-    "name": "spotify",
+    "layout": "splitv",
+    "marks": [],
     "percent": 0.4,
-    "swallows": [
-       {
-          "class": "^Spotify$"
-       // "instance": "^spotify$",
-       // "title": "^Spotify$"
-       }
-    ],
-    "type": "con"
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 600,
+               "width": 800,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [
+               "sp"
+            ],
+            "name": "spotify",
+            "percent": 0.5,
+            "swallows": [
+               {
+                "class": "^Spotify$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 1044,
+               "width": 1908,
+               "x": 6,
+               "y": 30
+            },
+            "marks": [],
+            "name": "telegram",
+            "percent": 0.5,
+            "swallows": [
+               {
+                   "class": "^TelegramDesktop$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
 }
 
