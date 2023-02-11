@@ -159,12 +159,25 @@ install_all_from_package_list() {
     return 0
 }
 
+install_all_from_installer_dir() {
+    # Install various packages using install scripts
+    local fraction="$1"
+    local script_dir="${DIR}/data/installers/${fraction}"
+    [[ ! -d "${script_dir}" ]] && return 0
+    for script in "${script_dir}"/*.sh; do
+        msg "Running installer script: ${fraction} - ${script}"
+        bash "${script}" || true
+    done
+    return 0
+}
+
 install_all_from_fraction() {
     local fraction="$1"
     local fail_on_unsatisfiable="${2:-false}"
     install_all_from_package_list "${fraction}" "${SYSTEM_PACKAGE_MANAGER}" "${fail_on_unsatisfiable}" || return 1
     install_all_from_package_list "${fraction}" pip "${fail_on_unsatisfiable}" || return 1
     install_all_from_package_list "${fraction}" flatpak "${fail_on_unsatisfiable}" || return 1
+    install_all_from_installer_dir "${fraction}" || return 1
     return 0
 }
 
