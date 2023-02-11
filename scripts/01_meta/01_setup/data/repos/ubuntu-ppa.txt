@@ -1,3 +1,2 @@
 ppa:regolith-linux/release
-ppa:mmstick76/alacritty
 ppa:neovim-ppa/stable
