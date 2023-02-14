@@ -36,7 +36,7 @@ alias watch='watch '
 alias vd='vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
 
-[[ "$(which nvim)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
+[[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias nano="${VIM_BIN}"
 alias vim="${VIM_BIN}"
 alias vi="${VIM_BIN} --cmd 'let g:dumb=1'"
@@ -45,7 +45,7 @@ alias gvd="git-nvimdiff"
 alias suvi=sudoedit
 alias ed="echo 'fuck off'"
 
-[[ "$(which ssha)" != '' ]] && compdef _ssh ssha=ssh
+[[ "$(which ssha 2> /dev/null)" != '' ]] && compdef _ssh ssha=ssh
 
 ##silly
 alias mansplain='man'
