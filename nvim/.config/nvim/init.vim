@@ -95,6 +95,7 @@ nnoremap <silent> <ESC><ESC> :noh<CR>
 nnoremap <silent> q :q<CR>
 nnoremap <silent> Q :qa<CR>
 noremap <silent> <leader>sl :set list!<CR>
+noremap <leader>ya :%y+<CR>
 
 " navigation for tabs
 noremap <silent> <leader>tn gt

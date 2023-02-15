@@ -21,5 +21,8 @@
     prune = true
 [diff]
     colorMoved = zebra
+[grep]
+    extendedRegexp = true
+    lineNumber = true
 [include]
     path = ~/.config/git/config.local
