@@ -16,8 +16,6 @@ conda-init() {
     else
         if [ -f "${conda_basedir}/etc/profile.d/conda.sh" ]; then
             . "${conda_basedir}/etc/profile.d/conda.sh"
-        else
-            export PATH="${conda_basedir}/bin:$PATH"
         fi
     fi
     unset __conda_setup
