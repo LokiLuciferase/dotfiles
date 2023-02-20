@@ -158,7 +158,7 @@ autocmd FileType tex,latex,markdown nnoremap j gj
 autocmd FileType tex,latex,markdown nnoremap k gk
 autocmd FileType tex,latex,markdown nnoremap 0 g0
 autocmd FileType tex,latex,markdown nnoremap $ g$
-
+autocmd FileType tex,latex,markdown setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
 
 " highlight jupyter source code
 autocmd BufNewFile,BufRead *.{ipynb} set ft=json
