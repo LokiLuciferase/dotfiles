@@ -151,14 +151,24 @@ map <leader>sa zg
 " Filetype quirks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " prose
-autocmd FileType tex,latex,markdown setlocal wrap  " enable line wrapping for md
-autocmd FileType tex,latex,markdown setlocal spell  " enable spelling for md
-autocmd FileType tex,latex,markdown setlocal linebreak  " break lines at word boundaries
-autocmd FileType tex,latex,markdown nnoremap j gj
-autocmd FileType tex,latex,markdown nnoremap k gk
-autocmd FileType tex,latex,markdown nnoremap 0 g0
-autocmd FileType tex,latex,markdown nnoremap $ g$
-autocmd FileType tex,latex,markdown setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
+autocmd FileType tex,latex,markdown call SetProseOptions()
+function SetProseOptions()
+    try
+        if filereadable(expand('./resources/spell.add'))
+            setlocal spellfile=./resources/spell.add  " use custom spellfile if exists
+            exec 'silent mkspell! ' . &spellfile . '.spl ' . &spellfile
+        endif
+    catch
+    endtry
+    setlocal wrap  " enable line wrapping for md
+    setlocal spell  " enable spelling for md
+    setlocal linebreak  " break lines at word boundaries
+    setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
+    nnoremap j gj
+    nnoremap k gk
+    nnoremap 0 g0
+    nnoremap $ g$
+endfunction
 
 " highlight jupyter source code
 autocmd BufNewFile,BufRead *.{ipynb} set ft=json
