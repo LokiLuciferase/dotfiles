@@ -130,6 +130,7 @@
   #
   # Or for a specific segment in specific state:
   #
+  typeset -g ZLE_RPROMPT_INDENT=0
   #   POWERLEVEL9K_DIR_NOT_WRITABLE_ICON_BEFORE_CONTENT=false
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=
 
