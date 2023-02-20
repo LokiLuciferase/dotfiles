@@ -150,9 +150,15 @@ map <leader>sa zg
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Filetype quirks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" markdown
-autocmd FileType markdown setlocal wrap  " enable line wrapping for md
-autocmd FileType markdown setlocal spell  " enable spelling for md
+" prose
+autocmd FileType tex,latex,markdown setlocal wrap  " enable line wrapping for md
+autocmd FileType tex,latex,markdown setlocal spell  " enable spelling for md
+autocmd FileType tex,latex,markdown setlocal linebreak  " break lines at word boundaries
+autocmd FileType tex,latex,markdown nnoremap j gj
+autocmd FileType tex,latex,markdown nnoremap k gk
+autocmd FileType tex,latex,markdown nnoremap 0 g0
+autocmd FileType tex,latex,markdown nnoremap $ g$
+
 
 " highlight jupyter source code
 autocmd BufNewFile,BufRead *.{ipynb} set ft=json
@@ -439,6 +445,17 @@ try
     \		},
     \		'css': 0
     \	}
+    \}
+
+    " TeX support
+    Plug 'lervag/vimtex'
+    let g:vimtex_view_general_viewer = 'xreader'
+    let maplocalleader = " "
+    let g:vimtex_quickfix_mode = 2
+    let g:vimtex_quickfix_autoclose_after_keystrokes = 1
+    let g:vimtex_quickfix_open_on_warning = 0
+    let g:vimtex_compiler_latexmk = {
+    \   'build_dir' : 'build',
     \}
 
     " color scheme
