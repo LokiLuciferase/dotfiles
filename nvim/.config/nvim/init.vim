@@ -164,6 +164,7 @@ function SetProseOptions()
     setlocal spell  " enable spelling for md
     setlocal linebreak  " break lines at word boundaries
     setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
+    setlocal diffopt+=iwhite,iblank,followwrap
     nnoremap j gj
     nnoremap k gk
     nnoremap 0 g0
@@ -459,7 +460,11 @@ try
 
     " TeX support
     Plug 'lervag/vimtex'
-    let g:vimtex_view_general_viewer = 'xreader'
+    if executable('zathura')
+        let g:vimtex_view_method = 'zathura'
+    elseif executable('xreader')
+        let g:vimtex_view_general_viewer = 'xreader'
+    endif
     let maplocalleader = " "
     let g:vimtex_quickfix_mode = 2
     let g:vimtex_quickfix_autoclose_after_keystrokes = 1
