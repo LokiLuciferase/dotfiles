@@ -151,7 +151,7 @@ map <leader>sa zg
 " Filetype quirks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " prose
-autocmd FileType tex,latex,markdown call SetProseOptions()
+autocmd FileType tex,latex,markdown,rst call SetProseOptions()
 function SetProseOptions()
     try
         if filereadable(expand('./resources/spell.add'))
@@ -463,7 +463,7 @@ try
     \}
 
     " TeX support
-    Plug 'lervag/vimtex'
+    Plug 'lervag/vimtex', {'for': 'tex'}
     if executable('zathura')
         let g:vimtex_view_method = 'zathura'
     elseif executable('xreader')
