@@ -89,6 +89,9 @@ for_window [title="Welcome to PyCharm"] floating enable
 for_window [title="win0"] floating enable  # for pycharm splash screen
 for_window [instance="cheese"] floating enable
 
+# explicitly disable floating
+for_window [class="firefox"] floating disable
+
 # start a terminal
 bindsym $mod+Return exec $default_term
 
