@@ -51,6 +51,7 @@ desktop	imagemagick	imagemagick	ImageMagick
 desktop	brightnessctl	brightnessctl	brightnessctl
 desktop	pavucontrol	pavucontrol	pavucontrol
 desktop	lxappearance	lxappearance	lxappearance
+desktop	zathura	zathura	zathura
 desktop	libdbus-glib-1-dev
 desktop	libgirepository1.0-dev
 desktop				autorandr
