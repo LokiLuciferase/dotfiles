@@ -54,6 +54,7 @@ set autoindent  " automatically indent after newline
 set smartindent  " basic rules for indenting code
 
 set nowrap  " Disable linewrap and handle sidescrolling
+set showbreak=... "If wrapping is enabled, this option specifies what to show at the begin of wrapped lines.
 set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
 set hidden  " Allow to hide buffers with unsaved changes
@@ -163,6 +164,7 @@ function SetProseOptions()
     setlocal wrap  " enable line wrapping for md
     setlocal spell  " enable spelling for md
     setlocal linebreak  " break lines at word boundaries
+    setlocal showbreak=  " do not show linebreaks
     setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
     setlocal diffopt+=iwhite,iblank,followwrap
     nnoremap j gj
@@ -404,6 +406,7 @@ try
     " Trailing whitespace handling
     Plug 'ntpeters/vim-better-whitespace'
     nmap <leader>xdw :StripWhitespace<CR>
+    let g:current_line_whitespace_disabled_hard=1
 
     " indent guides
     if has('nvim-0.5.0')
