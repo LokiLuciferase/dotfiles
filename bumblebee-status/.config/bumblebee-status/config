@@ -28,3 +28,5 @@ title.max = 128
 
 spotify.layout = spotify.song
 spotify.concise_controls = True
+spotify.scrolling.width = 128
+spotify.scrolling.makewide = False
