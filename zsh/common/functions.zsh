@@ -377,7 +377,7 @@ svimsh() {
 term-replace() {
     # replace current terminal with given one. Per default,
     # replace with a terminal window with full transparency.
-    local alacritty_flags="${1:-background_opacity=0.0}"
+    local alacritty_flags="${1:-window.opacity=0.0}"
     local command_to_call="${2:-zsh}"
     local cmd="bgrun alacritty -o ${alacritty_flags} -e ${command_to_call}"
     eval "$cmd" && exit
