@@ -84,6 +84,11 @@ autocmd VimEnter * if !&diff | tab all | tabfirst | endif
 let g:netrw_keepdir = 0
 autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | end
 
+" Highlight yanks
+if has("nvim")
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=100}
+endif
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymaps
@@ -146,6 +151,7 @@ map <leader>st :setlocal spell!<cr>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
+map <leader>sua zug
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -239,6 +245,7 @@ function! ToggleCopyMode()
         set signcolumn=no
         set nonumber
         set norelativenumber
+        set paste
         try
             IndentBlanklineDisable
         catch
@@ -247,12 +254,14 @@ function! ToggleCopyMode()
         let s:hidden_all = 0
         set signcolumn=yes
         set relativenumber
+        set nopaste
          try
             IndentBlanklineEnable
         catch
         endtry
    endif
 endfunction
+nnoremap <F2> :call ToggleCopyMode()<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -289,7 +298,7 @@ try
 
     " File explorer
     Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
-    nmap <F3> :NERDTreeToggle<CR>
+    nmap <silent> <F3> :NERDTreeToggle<CR>
     let NERDTreeMapActivateNode='l'
     let NERDTreeMapOpenInTab='<ENTER>'
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
