@@ -489,6 +489,14 @@ try
     \   'build_dir' : 'build',
     \}
 
+    " Github copilot integration
+    if executable('node')
+        Plug 'github/copilot.vim'
+        imap <silent><script><expr> <F10> copilot#Accept("")
+        imap <silent><script><expr> <F11> copilot#Accept("")
+        let g:copilot_no_tab_map = v:true
+    endif
+
     " color scheme
     Plug 'joshdick/onedark.vim'
     if has('termguicolors')
@@ -502,14 +510,6 @@ try
 
     " Light color scheme for J
     Plug 'NLKNguyen/papercolor-theme'
-
-    " Github copilot integration
-    if executable('node')
-        Plug 'github/copilot.vim'
-        imap <silent><script><expr> <F9> copilot#Accept("")
-        imap <silent><script><expr> <F10> copilot#Accept("")
-        let g:copilot_no_tab_map = v:true
-    endif
 
     " Local plugin config (optional)
     let $LOCALPLUGCONF = $XDG_CONFIG_HOME . "/nvim/local/plugins.local.vim"
