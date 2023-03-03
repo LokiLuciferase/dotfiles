@@ -12,7 +12,6 @@ set number relativenumber  " Turn on hybrid numbering
 set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
 set expandtab  " enable smart tabs
-set pastetoggle=<F2>  " set pastemode shortcut
 set shortmess=atoI  " disable splash screen, don't prompt on save and overwrite messages for each buffer
 set mouse=a  " enable mouse in all modes
 set clipboard=unnamedplus  " sync unnamed register with system clipboard
@@ -158,7 +157,6 @@ map <leader>sua zug
 " Filetype quirks
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " prose
-autocmd FileType tex,latex,markdown,rst call SetProseOptions()
 function SetProseOptions()
     try
         if filereadable(expand('./resources/spell.add'))
@@ -182,6 +180,7 @@ function SetProseOptions()
     vnoremap 0 g0
     vnoremap $ g$
 endfunction
+autocmd FileType tex,latex,markdown,rst call SetProseOptions()
 
 " highlight jupyter source code
 autocmd BufNewFile,BufRead *.{ipynb} set ft=json
@@ -189,6 +188,22 @@ autocmd BufNewFile,BufRead *.{ipynb} set ft=json
 " run scripts
 autocmd FileType sh nnoremap <F5> :!bash %<CR>
 autocmd FileType python nnoremap <F5> :!python3 %<CR>
+
+" add custom file headers for new files of a certain type
+let s:ft_head_tp = {
+    \ 'python': ['#!/usr/bin/env python3', '', ''],
+    \ 'sh': ['#!/usr/bin/env bash', 'set -euo pipefail', '', ''],
+    \ 'nextflow': ['#!/usr/bin/env nextflow', 'nextflow.enable.dsl = 2', '', '']
+    \ }
+
+function! s:add_buffer_head() abort
+  if has_key(s:ft_head_tp, &ft) && getline(1) ==# '' && line('$')  == 1
+    let head = s:ft_head_tp[&ft]
+    call setline(1, head)
+    call cursor(len(head), 0)
+  endif
+endfunction
+autocmd FileType * call <SID>add_buffer_head()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -211,22 +226,6 @@ set statusline+=\ %p%%
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Add custom file headers for new files of a certain type
-let s:ft_head_tp = {
-    \ 'python': ['#!/usr/bin/env python3', '', ''],
-    \ 'sh': ['#!/usr/bin/env bash', 'set -euo pipefail', '', ''],
-    \ 'nextflow': ['#!/usr/bin/env nextflow', 'nextflow.enable.dsl = 2', '', '']
-    \ }
-
-function! s:add_buffer_head() abort
-  if has_key(s:ft_head_tp, &ft) && getline(1) ==# '' && line('$')  == 1
-    let head = s:ft_head_tp[&ft]
-    call setline(1, head)
-    call cursor(len(head), 0)
-  endif
-endfunction
-autocmd FileType * call <SID>add_buffer_head()
-
 " diff changes with file on disk
 function! s:DiffWithSaved()
     let filetype=&ft
@@ -237,7 +236,7 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
-" hide lefthand columns for copying
+" hide lefthand columns and non-text chars for copying
 let s:hidden_all = 0
 function! ToggleCopyMode()
     if s:hidden_all  == 0
@@ -246,6 +245,7 @@ function! ToggleCopyMode()
         set nonumber
         set norelativenumber
         set paste
+        set showbreak=
         try
             IndentBlanklineDisable
         catch
@@ -253,15 +253,18 @@ function! ToggleCopyMode()
     else
         let s:hidden_all = 0
         set signcolumn=yes
+        set number
         set relativenumber
         set nopaste
+        set showbreak=...
          try
             IndentBlanklineEnable
         catch
         endtry
    endif
 endfunction
-nnoremap <F2> :call ToggleCopyMode()<CR>
+com! ToggleCopyMode call ToggleCopyMode()
+nnoremap <F2> :ToggleCopyMode<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
