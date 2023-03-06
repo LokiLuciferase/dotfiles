@@ -1,2 +1,2 @@
 [Context]
-filesystems=~/.icons:ro
+filesystems=xdg-config/fontconfig:ro;~/.icons:ro
