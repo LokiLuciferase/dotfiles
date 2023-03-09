@@ -15,10 +15,12 @@
     detachedHead = false
 [init]
     defaultBranch = master
-[pull]
-    ff = true
 [fetch]
     prune = true
+[pull]
+    ff = true
+[push]
+    followTags = true
 [diff]
     colorMoved = zebra
 [grep]
