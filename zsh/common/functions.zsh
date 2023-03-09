@@ -5,8 +5,7 @@ conda-init() {
     # initialize conda environment
     unalias conda &> /dev/null || true
     unalias mamba &> /dev/null || true
-    unalias python &> /dev/null || true
-    unalias python3 &> /dev/null || true
+    unalias ipython &> /dev/null || true
     unalias pip &> /dev/null || true
     unalias pip3 &> /dev/null || true
     local conda_basedir=${1:-${HOME}/miniconda3}
@@ -23,7 +22,7 @@ conda-init() {
 
 conda-lazy-init() {
     # lazy init conda only when relevant commands are called
-    local lazy_conda_cmds=( 'python' 'python3' 'conda' 'mamba' 'pip' 'pip3' )
+    local lazy_conda_cmds=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
     for lazy_conda_alias in $lazy_conda_cmds; do
         alias $lazy_conda_alias="conda-init && \\$lazy_conda_alias"
     done

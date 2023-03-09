@@ -22,8 +22,6 @@ alias goto='cd -P'
 alias tree="tree -I '.git'"
 alias ta="tree -I '.git' -a"
 alias dr="desktop-run"
-alias gbb="git bisect bad"
-alias gbg="git bisect good"
 alias sshb="ssh -f -N"
 alias lo='libreoffice'
 alias dps='docker ps'
@@ -35,6 +33,13 @@ alias assume='source assume'
 alias watch='watch '
 alias vd='vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
+
+# more git aliases - some already defined by oh-my-zsh
+alias ga.='git add .'
+alias gpl='git pull'
+alias gdh='git diff HEAD~1'
+alias gbb='git bisect bad'
+alias gbg='git bisect good'
 
 [[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias nano="${VIM_BIN}"

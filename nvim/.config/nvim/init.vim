@@ -495,6 +495,8 @@ try
     " Github copilot integration
     if executable('node')
         Plug 'github/copilot.vim'
+        " ain't nobody got time to hit the right key
+        imap <silent><script><expr> <F9> copilot#Accept("")
         imap <silent><script><expr> <F10> copilot#Accept("")
         imap <silent><script><expr> <F11> copilot#Accept("")
         let g:copilot_no_tab_map = v:true
