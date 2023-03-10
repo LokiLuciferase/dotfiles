@@ -39,7 +39,8 @@ install_conda() {
     export PATH="$CONDA_PATH/bin:$PATH"
 
     conda install -c conda-forge mamba --yes
-    mamba env update -f "${DATADIR}/conda.yaml"
+    mamba env update -n base -f "${DATADIR}/conda.yaml"
+    pip install pyOpenSSL --upgrade  # work around for https://github.com/conda/conda/issues/12234
     mamba clean -a --yes
     conda init bash
     return 0

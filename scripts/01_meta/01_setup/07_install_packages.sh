@@ -102,7 +102,12 @@ install_with_package_manager() {
         conda_bin=$(which mamba &> /dev/null && echo 'mamba' || echo 'conda')
         $conda_bin install -c conda-forge --yes "$pkg"
     elif [[ "${mngr}" = 'pip' ]]; then
-        pip install "${pkg}"
+        if [[ -f /usr/bin/pip ]]; then
+            /usr/bin/pip install --user "${pkg}"
+        elif [[ -s "$(whence -p pip)" ]]; then
+            echo "WARN: Using pip at $(whence -p pip) to install ${pkg}" >&2
+            $(whence -p pip) install --user "${pkg}"
+        fi
     else
         msg "Unknown package manager: ${mngr}"
         false

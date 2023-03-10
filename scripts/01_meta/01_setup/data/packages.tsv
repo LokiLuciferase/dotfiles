@@ -28,6 +28,9 @@ various	ncdu	ncdu	ncdu
 various	tldr	tldr	tldr	tldr
 various				bpytop
 various				yt-dlp
+various				asciinema
+various				visidata
+various				openpyxl
 desktop	timeshift	timeshift	timeshift
 desktop	mpv	mpv	mpv
 desktop	redshift	redshift	redshift
@@ -70,3 +73,4 @@ work					flathub@org.mozilla.Thunderbird
 work					flathub@com.slack.Slack
 work					flathub@com.zoom.Zoom
 work					flathub@com.github.xournalpp.xournalpp
+work					flathub@org.libreoffice.LibreOffice
