@@ -1,7 +1,5 @@
-xterm*fontSize: 12
 Xcursor.size: 36
 Xcursor.theme: BreezeX-Black
-i3wm.default_term: alacritty
 
 ! include i3 theme colors
 #include ".config/i3/themes/monsterkai.theme"

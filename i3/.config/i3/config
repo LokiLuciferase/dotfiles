@@ -23,7 +23,7 @@ for_window [title="scratchpad_shell"] move scratchpad
 font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMono Nerd Font 10
 
 # import environment variables from xresources - which default tools to use
-set $default_term alacritty
+set_from_resource $term_font_size terminal.font.size 12
 
 # user specific startup applications
 # connectivity
@@ -51,7 +51,7 @@ exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/local/bin/export_bat_stat.sh"
 exec --no-startup-id "env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud"
 exec --no-startup-id "sleep 7 && keepassxc"  # apply some sleep here to give pcloud a chance to connect to drive
-exec --no-startup-id "alacritty --title scratchpad_shell -o window.opacity=1"
+exec --no-startup-id "alacritty --title scratchpad_shell -o window.opacity=1 -o font.size=$term_font_size"
 
 # starting any .desktop files in $HOME/.config/autostart
 exec --no-startup-id "dex $HOME/.config/autostart/*"
@@ -93,7 +93,7 @@ for_window [instance="cheese"] floating enable
 for_window [class="firefox"] floating disable
 
 # start a terminal
-bindsym $mod+Return exec $default_term
+bindsym $mod+Return exec "alacritty -o font.size=$term_font_size"
 
 # start browser
 bindsym $mod+b exec "firefox || brave-browser || sensible-browser"

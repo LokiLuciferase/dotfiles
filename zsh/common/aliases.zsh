@@ -37,6 +37,7 @@ alias chs='term-replace font.size=20 chs'
 # more git aliases - some already defined by oh-my-zsh
 alias ga.='git add .'
 alias gpl='git pull'
+alias glo='git lola'
 alias gdh='git diff HEAD~1'
 alias gbb='git bisect bad'
 alias gbg='git bisect good'
