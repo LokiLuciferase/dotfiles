@@ -50,6 +50,7 @@ desktop	fonts-powerline	powerline-fonts	powerline-fonts-git
 desktop	scrot	scrot	scrot
 desktop	imagemagick	imagemagick	ImageMagick
 desktop	brightnessctl	brightnessctl	brightnessctl
+desktop	playerctl	playerctl	playerctl
 desktop	pavucontrol	pavucontrol	pavucontrol
 desktop	lxappearance	lxappearance	lxappearance
 desktop	zathura	zathura	zathura
