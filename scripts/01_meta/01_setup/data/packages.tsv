@@ -1,4 +1,4 @@
-fraction	apt-get	dnf	pacman	pip	flatpak
+fraction	apt-get	dnf	pacman	pip	flatpak	cargo
 minimal	git	git	git
 minimal	curl	curl	curl
 minimal	make	make	make
@@ -34,13 +34,11 @@ various				openpyxl
 desktop	timeshift	timeshift	timeshift
 desktop	mpv	mpv	mpv
 desktop	redshift	redshift	redshift
-desktop	light-locker
+desktop	light-locker	light-locker	light-locker
 desktop	xdotool	xdotool	xdotool
 desktop	alacritty	alacritty	alacritty
-desktop	kitty	kitty	kitty
 desktop	flatpak	flatpak	flatpak
 desktop	picom	picom	picom
-desktop	wmctrl	wmctrl	wmctrl
 desktop	i3	i3	i3
 desktop	i3-gaps	i3-gaps	i3-gaps
 desktop	dex	dex	dex
@@ -55,8 +53,6 @@ desktop	brightnessctl	brightnessctl	brightnessctl
 desktop	pavucontrol	pavucontrol	pavucontrol
 desktop	lxappearance	lxappearance	lxappearance
 desktop	zathura	zathura	zathura
-desktop	libdbus-glib-1-dev
-desktop	libgirepository1.0-dev
 desktop				autorandr
 desktop				bumblebee-status
 desktop				dbus-python

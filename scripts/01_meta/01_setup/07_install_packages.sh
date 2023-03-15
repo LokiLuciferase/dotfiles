@@ -104,10 +104,28 @@ install_with_package_manager() {
     elif [[ "${mngr}" = 'pip' ]]; then
         if [[ -f /usr/bin/pip ]]; then
             /usr/bin/pip install --user "${pkg}"
-        elif [[ -s "$(whence -p pip)" ]]; then
-            echo "WARN: Using pip at $(whence -p pip) to install ${pkg}" >&2
-            $(whence -p pip) install --user "${pkg}"
+        elif [[ -s "$(which pip)" ]]; then
+            echo "WARN: Using pip at $(which pip) to install ${pkg}" >&2
+            $(which pip) install --user "${pkg}"
         fi
+    elif [[ "${mngr}" = 'cargo' ]]; then
+        local rootdir
+        local sudoprefix
+        local gitflag
+        if have_sudo ; then
+            rootdir="/usr/local"
+            sudoprefix=$(get_sudo_prefix)
+            [[ "$sudoprefix" != "" ]] && sudoprefix="$sudoprefix -E"
+        else
+            rootdir="${HOME}/.local"
+            sudoprefix=''
+        fi
+        if [[ "${pkg}" =~ ^https ]]; then
+            gitflag='--git'
+        else
+            gitflag=''
+        fi
+        ${sudoprefix} cargo +stable install ${gitflag} "${pkg}" --root "${rootdir}"
     else
         msg "Unknown package manager: ${mngr}"
         false
@@ -179,10 +197,11 @@ install_all_from_installer_dir() {
 install_all_from_fraction() {
     local fraction="$1"
     local fail_on_unsatisfiable="${2:-false}"
+    install_all_from_installer_dir "${fraction}" || return 1
     install_all_from_package_list "${fraction}" "${SYSTEM_PACKAGE_MANAGER}" "${fail_on_unsatisfiable}" || return 1
     install_all_from_package_list "${fraction}" pip "${fail_on_unsatisfiable}" || return 1
     install_all_from_package_list "${fraction}" flatpak "${fail_on_unsatisfiable}" || return 1
-    install_all_from_installer_dir "${fraction}" || return 1
+    install_all_from_package_list "${fraction}" cargo "${fail_on_unsatisfiable}" || return 1
     return 0
 }
 

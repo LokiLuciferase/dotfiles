@@ -19,6 +19,7 @@ ensure_tools_present() {
 ensure_not_done() {
     # Only attempt to run this script if the target conda directory does not already exist.
     [ -d "${CONDA_PATH}" ] && echo "Aborting, conda directory already present at ${CONDA_PATH}" && exit 1
+    [ -f "${DIR}/.conda_done" ] && echo "Aborting, conda already installed" && exit 1
     return 0
 }
 
@@ -43,6 +44,11 @@ install_conda() {
     pip install pyOpenSSL --upgrade  # work around for https://github.com/conda/conda/issues/12234
     mamba clean -a --yes
     conda init bash
+    return 0
+}
+
+mark_done() {
+    touch "${DIR}/.conda_done"
     return 0
 }
 
