@@ -1,5 +1,5 @@
 [core]
-modules = title,spotify,cpu,memory,disk:root,redshift,brightness_autohide,battery_autohide,pasink,datetime,dunst
+modules = title,playerctl2,cpu,memory,disk:root,redshift,brightness_autohide,battery_autohide,pasink,datetime,dunst
 autohide = cpu,memory,disk
 theme = monsterkai
 
@@ -18,6 +18,8 @@ cpu.right-click = alacritty -e btop
 memory.left-click = alacritty -e htop
 memory.right-click = alacritty -e btop
 spotify.right-click = i3-msg '[class="Spotify"] focus'
+playerctl2.left-click = playerctl -p mpv,spotify play-pause
+playerctl2.right-click = i3-msg '[class="Spotify"] focus'
 
 cpu.interval = 3s
 memory.interval = 20s
@@ -30,3 +32,8 @@ spotify.layout = spotify.song
 spotify.concise_controls = True
 spotify.scrolling.width = 128
 spotify.scrolling.makewide = False
+
+playerctl2.format = {{artist}} - {{title}}
+playerctl2.layout = playerctl.song
+playerctl2.args = -p mpv,spotify
+playerctl2.hide = true
