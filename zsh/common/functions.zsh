@@ -243,6 +243,14 @@ for-each-dir() {
     set -o monitor
 }
 
+for-each-dir-in() {
+    local parent_dir="$1"
+    shift
+    pushd -q $parent_dir || return
+    for-each-dir $@
+    popd -q
+}
+
 rsync2() {
     ## make rsync respect .rsyncignore
     RSYNC="$(whence -p rsync)"
