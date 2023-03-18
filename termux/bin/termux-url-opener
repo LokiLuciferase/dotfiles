@@ -16,7 +16,7 @@ wat-do() {
     echo ""
     if [[ "$response" = "d" ]]; then
         cecho G "Downloading url..."
-        wget --directory-prefix ~/Downloads/ "$url"
+        wget --directory-prefix ~/downloads/ "$url"
     elif [[ "$response" = "c" ]]; then
         cecho G "Casting url..."
         ytdl-cast "$url"

@@ -17,3 +17,5 @@ pudb/.config/pudb/*
 tut/.config/tut/*
 !tut/.config/tut/config.ini
 btop/.config/btop/btop.log
+termux/.termux/font.ttf
+termux/.termux/shell
