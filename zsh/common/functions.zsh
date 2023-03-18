@@ -30,7 +30,18 @@ conda-lazy-init() {
 
 ## misc convenience functions ##
 ytdl-mp3() {
-    yt-dlp "$1" -x --audio-format mp3 --audio-quality 9
+    yt-dlp "$1" \
+        -x \
+        --audio-format mp3 \
+        --audio-quality 0 \
+        --continue \
+        --ignore-errors \
+        --extractor-args youtubetab:skip=authcheck \
+        --no-overwrites \
+        --verbose \
+        --embed-metadata \
+        --output '%(title)s.%(ext)s' \
+        $1
 }
 
 ytdl-vid() {
@@ -40,12 +51,15 @@ ytdl-vid() {
         --extractor-args youtubetab:skip=authcheck \
         --no-overwrites \
         --verbose \
-        --embed-metadata \
-        --embed-subs \
         --convert-subs srt \
         --sub-langs 'en.*,de' \
+        --embed-subs \
+        --embed-metadata \
+        --embed-info-json \
         --embed-chapters \
-        --output '%(upload_date)s_%(title)s.%(ext)s' \
+        --embed-thumbnail \
+        --remux-video mkv \
+        --output '%(upload_date)s_%(channel)s_-_%(title)s.%(ext)s' \
         $1
 }
 
