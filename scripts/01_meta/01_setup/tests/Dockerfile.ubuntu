@@ -7,9 +7,11 @@ ARG TZ=Etc/UTC
 ARG INSTALL_VARIOUS=true
 ARG INSTALL_DESKTOP=false
 ARG INSTALL_WORK=false
+ARG DOTFILES_TESTING=true
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update --fix-missing \
+RUN --mount=type=cache,target=/var/cache/apt \
+    apt-get update --fix-missing \
     && apt-get install --yes curl sudo \
     && apt-get clean
 RUN useradd -m testuser -s /bin/bash \
@@ -23,5 +25,23 @@ WORKDIR /home/testuser
 ENV PATH=/home/testuser/miniconda3/bin:$PATH
 
 COPY ../../../../ /opt/dotfiles
-RUN cp -r /opt/dotfiles ~/.dotfiles || true; rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done
-RUN ~/.dotfiles/scripts/01_meta/01_setup/01_setup_all.sh
+
+RUN cp -r /opt/dotfiles ~/.dotfiles || true; \
+    rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done \
+    && cp ~/.dotfiles/scripts/01_meta/01_setup/tests/condarc /home/testuser/.condarc \
+    && mkdir -p /home/testuser/.cache/conda
+
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
+    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
+   ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
+
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
+    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
+   ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
+
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
+    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
+   ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh

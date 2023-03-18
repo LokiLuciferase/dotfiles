@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+hdate () {
+    # format date as "X days/hours/minutes ago"
+    awk -v date="$(date +%s -d "$1")" -v now="$(date +%s)" '
+    BEGIN {  diff = now - date;
+       if (diff > (24*60*60)) printf "T+%.0fd", diff/(24*60*60);
+       else if (diff > (60*60)) printf "T+%.0fh", diff/(60*60);
+       else printf "T+%.0fm", diff/60;
+    }'
+}
+
+hdate "$1"
