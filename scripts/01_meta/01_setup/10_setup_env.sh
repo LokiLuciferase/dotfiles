@@ -37,6 +37,7 @@ install_omz_stuff() {
 install_vimplug() {
     # Install vim-plug plugin manager
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    nvim --headless -c 'PlugInstall | qa'
     return 0
 }
 
@@ -66,9 +67,9 @@ main() {
     ensure_tools_present
     ensure_not_done
     install_omz_stuff
-    install_vimplug
     setup_migrations
     do_stow
+    install_vimplug
     mark_done
     return 0
 }

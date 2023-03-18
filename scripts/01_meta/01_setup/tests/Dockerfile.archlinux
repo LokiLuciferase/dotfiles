@@ -3,11 +3,10 @@ FROM archlinux:latest
 ADD . /opt/envsetup-lite
 
 ARG INSTALL_VARIOUS=true
+ARG INSTALL_DESKTOP=false
+ARG INSTALL_WORK=false
 ARG SYSTEM_PACKAGE_MANAGER=pacman
 
-#RUN patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && \
-#curl -LO "https://repo.archlinuxcn.org/x86_64/$patched_glibc" && \
-#bsdtar -C / -xvf "$patched_glibc"
 RUN pacman -Syu --noconfirm which curl sudo
 RUN useradd -m testuser -s /bin/bash \
     && echo "testuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -16,11 +15,7 @@ USER testuser
 RUN whoami
 RUN sudo whoami
 WORKDIR /home/testuser
-ENV PATH=/home/testuser/miniconda3/bin:$PATH
 
 COPY ../../../../ /opt/dotfiles
-RUN cp -r /opt/dotfiles ~/.dotfiles \
-    && rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done || true
-RUN ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
-RUN ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
-RUN ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh
+RUN cp -r /opt/dotfiles ~/.dotfiles; rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done || true
+RUN ~/.dotfiles/scripts/01_meta/01_setup/01_setup_all.sh
