@@ -204,9 +204,12 @@ nagme() {
     local message="$1"
     local interval="${2:-5m}"
     local urgency="${3:-critical}"
+    local ctr=0
     while true; do
-        notify-send -u "$urgency" "$message"
         sleep ${interval}
+        notify-send -u "$urgency" "$message"
+        ctr=$((ctr+1))
+        echo "Nagged to '$message' at $(date) ($ctr times already)"
     done
 }
 
@@ -432,7 +435,7 @@ _pshell() {
 
 _pnvimplug() {
     # pull updates for vim-plug
-    nvim --headless -c PlugUpgrade -c PlugUpdate -c qa || return 0
+    nvim --headless -c 'PlugUpgrade | PlugUpdate | qa' || return 0
 }
 
 _migrate-dotfiles(){
