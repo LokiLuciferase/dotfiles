@@ -11,6 +11,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DATADIR="${DIR}/data"
 SYSTEM_PACKAGE_MANAGER="${SYSTEM_PACKAGE_MANAGER:-apt-get}"
 TMPDIR="${TMPDIR:-/tmp}"
+MSG_LOG="${MSG_LOG:-${TMPDIR}/dotfiles_install.log}"
 
 if [[ "${INSTALL_DESKTOP}" = true ]] || [[ "${INSTALL_WORK}" = true ]]; then
     ADD_REPOS=true
@@ -21,7 +22,7 @@ fi
 
 msg() {
 echo "#################################################" >&2
-echo "$@" >&2
+echo "$@" |& tee -a "${MSG_LOG}" >&2
 echo "#################################################" >&2
 }
 

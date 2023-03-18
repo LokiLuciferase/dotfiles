@@ -5,6 +5,7 @@ ADD . /opt/envsetup-lite
 ARG INSTALL_VARIOUS=true
 ARG INSTALL_DESKTOP=false
 ARG INSTALL_WORK=false
+ARG DOTFILES_TESTING=true
 ARG SYSTEM_PACKAGE_MANAGER=pacman
 
 RUN pacman -Syu --noconfirm which curl sudo

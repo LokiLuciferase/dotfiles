@@ -223,7 +223,7 @@ nagme() {
         sleep ${interval}
         notify-send -u "$urgency" "$message"
         ctr=$((ctr+1))
-        echo "Nagged to '$message' at $(date) ($ctr times already)"
+        echo "Nagged re '$message' at $(date) ($ctr times already)"
     done
 }
 

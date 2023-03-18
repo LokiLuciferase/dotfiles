@@ -1,6 +1,7 @@
 FROM fedora:latest
 
 ARG INSTALL_VARIOUS=true
+ARG DOTFILES_TESTING=true
 ARG SYSTEM_PACKAGE_MANAGER=dnf
 
 RUN dnf install -y which curl sudo
@@ -15,8 +16,23 @@ WORKDIR /home/testuser
 ENV PATH=/home/testuser/miniconda3/bin:$PATH
 
 COPY ../../../../ /opt/dotfiles
-RUN cp -r /opt/dotfiles ~/.dotfiles \
-    && rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done || true
-RUN ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
-RUN ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
-RUN ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh
+
+RUN cp -r /opt/dotfiles ~/.dotfiles || true; \
+    rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done \
+    && cp ~/.dotfiles/scripts/01_meta/01_setup/tests/condarc /home/testuser/.condarc \
+    && mkdir -p /home/testuser/.cache/conda
+
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
+    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
+   ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
+
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
+    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
+   ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
+
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
+    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
+   ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh
