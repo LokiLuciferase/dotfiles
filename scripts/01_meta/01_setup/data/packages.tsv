@@ -56,7 +56,6 @@ desktop	lxappearance	lxappearance	lxappearance
 desktop	zathura	zathura	zathura
 desktop				autorandr
 desktop				bumblebee-status
-desktop				dbus-python
 desktop				i3ipc
 desktop					flathub@com.github.tchx84.Flatseal
 desktop					flathub@org.keepassxc.KeePassXC
