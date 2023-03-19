@@ -1,3 +1,5 @@
+datafiles/.git
+datafiles/.gitignore
 zsh/local/
 zsh/common/
 scripts/
