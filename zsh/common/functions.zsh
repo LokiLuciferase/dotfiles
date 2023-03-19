@@ -425,7 +425,7 @@ _pdot() {
     # pull newest changes to dotfiles
     pushd ${HOME}/.dotfiles || return 0
     git pull
-    git submodule update --recursive
+    git submodule update --depth=1
     popd
 }
 
