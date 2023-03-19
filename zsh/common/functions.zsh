@@ -425,13 +425,7 @@ _pdot() {
     # pull newest changes to dotfiles
     pushd ${HOME}/.dotfiles || return 0
     git pull
-    popd
-}
-
-_pdata() {
-    # pull newest changes to data
-    pushd ${HOME}/.datafiles || return 0
-    git pull
+    git submodule update --recursive
     popd
 }
 
@@ -470,7 +464,6 @@ _backup_shell_hist(){
 pall() {
     # pull all changes of git-dependent software, and apply dotfile migrations
     _pdot
-    _pdata
     _pshell
     _pnvimplug
     _migrate-dotfiles
