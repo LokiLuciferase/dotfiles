@@ -1,5 +1,5 @@
 [submodule "datafiles"]
 	path = datafiles
 	url = git@github.com:LokiLuciferase/datafiles.git
-	branch = dotfiles-submodule
 	shallow = true
+    ignore = dirty
