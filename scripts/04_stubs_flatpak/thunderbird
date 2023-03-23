@@ -1,1 +1,1 @@
-flatpak run org.mozilla.Thunderbird $@
+flatpak run org.mozilla.Thunderbird "$@"

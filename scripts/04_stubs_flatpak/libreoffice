@@ -1,1 +1,1 @@
-flatpak run org.libreoffice.LibreOffice $@
+flatpak run org.libreoffice.LibreOffice "$@"

@@ -1,1 +1,1 @@
-flatpak run com.cryptomator.Cryptomator $@
+flatpak run com.cryptomator.Cryptomator "$@"
