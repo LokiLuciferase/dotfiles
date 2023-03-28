@@ -33,6 +33,7 @@ alias assume='source assume'
 alias watch='watch '
 alias vd='vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
+alias zat='zathura'
 
 # more git aliases - some already defined by oh-my-zsh
 alias ga.='git add .'
