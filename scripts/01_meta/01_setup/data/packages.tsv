@@ -23,6 +23,7 @@ various	fzf	fzf	fzf
 various	tmux	tmux	tmux
 various	highlight	highlight	highlight
 various	ffmpeg	ffmpeg	ffmpeg
+various	sshfs	sshfs	sshfs
 various	python3-pip	python3-pip	python-pip
 various	ncdu	ncdu	ncdu
 various	tldr	tldr	tldr	tldr
