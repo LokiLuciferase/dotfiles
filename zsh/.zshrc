@@ -2,10 +2,12 @@
 unsetopt NOMATCH
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
-export ZSH="${HOME}/.config/oh-my-zsh"
+
 export LC_ALL='en_US.UTF-8'
 export LC_CTYPE='en_US.UTF-8'
 export LANG='en_US.UTF-8'
+
+ZSH="${HOME}/.config/oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 TERM='xterm-256color'
 DEFAULT_USER=$USER
@@ -25,6 +27,7 @@ wanted_custom_plugins=(
     zsh-syntax-highlighting
     zsh-autosuggestions
 )
+
 # load all found ZSH plugins
 for wanted_plugin in "${wanted_custom_plugins[@]}"; do
     [[ -d "$ZSH/custom/plugins/${wanted_plugin}" ]] && plugins+=(${wanted_plugin})
@@ -44,8 +47,13 @@ if [[ -d "$SHELL_DOT_DIR/local/" ]] && [[ $(ls "${SHELL_DOT_DIR}/local") != '' ]
 fi
 
 # run tmux if requested, if exists and if not inside yet
-if [[ "$USE_TMUX_AS_SHELL" = true ]] && command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-   exec tmux -f $HOME/.config/tmux/tmux.conf
+if [[ "$USE_TMUX_AS_SHELL" = true ]] \
+    && command -v tmux &> /dev/null \
+    && [[ -n "$PS1" ]] \
+    && [[ ! "$TERM" =~ screen ]] \
+    && [[ ! "$TERM" =~ tmux ]] \
+    && [[ -z "$TMUX" ]]; then
+    exec tmux -f $HOME/.config/tmux/tmux.conf
 fi
 
 # Dirty hacks
