@@ -11,6 +11,7 @@ set fileformats=unix,dos  " which line endings to try when editing a file
 set number relativenumber  " Turn on hybrid numbering
 set shiftwidth=4  " set width of shift
 set tabstop=4  " set width of tabstop
+set textwidth=100  " set width of text
 set expandtab  " enable smart tabs
 set shortmess=atoI  " disable splash screen, don't prompt on save and overwrite messages for each buffer
 set mouse=a  " enable mouse in all modes
@@ -167,6 +168,7 @@ function SetProseOptions()
     endtry
     setlocal wrap  " enable line wrapping for md
     setlocal spell  " enable spelling for md
+    setlocal textwidth=0  " disable textwidth
     setlocal linebreak  " break lines at word boundaries
     setlocal showbreak=  " do not show linebreaks
     setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
