@@ -1,0 +1,9 @@
+{
+  "notebook": {
+    "edit_mode": "vi",
+    "color_scheme": "dark",
+    "syntax_theme": "one-dark",
+    "show_side_bar": true,
+    "line_numbers": true
+  }
+}
