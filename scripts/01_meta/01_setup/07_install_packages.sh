@@ -95,6 +95,9 @@ install_with_package_manager() {
     elif [[ "${mngr}" = 'pacman' ]]; then
         have_sudo || return 1
         $(get_sudo_prefix) pacman -S --noconfirm "$pkg"
+    elif [[ "${mngr}" = 'apk' ]]; then
+        have_sudo || return 1
+        $(get_sudo_prefix) apk add "$pkg"
     elif [[ "${mngr}" = 'flatpak' ]]; then
         [[ "${ADD_REPOS}" = true ]] && maybe_add_package_manager_repos
         flatpak install --assumeyes $(echo $pkg | tr '@' ' ')

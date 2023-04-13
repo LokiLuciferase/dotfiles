@@ -56,6 +56,7 @@ main() {
     ensure_tools_present
     ensure_not_done
     install_conda
+    mark_done
 }
 
 
