@@ -33,28 +33,28 @@ various					asciinema
 various					visidata		
 various					openpyxl		
 desktop	timeshift	timeshift	timeshift				
-desktop	mpv	mpv	mpv				
-desktop	redshift	redshift	redshift				
+desktop	mpv	mpv	mpv	mpv			
+desktop	redshift	redshift	redshift	redshift			
 desktop	light-locker	light-locker	light-locker				
-desktop	xdotool	xdotool	xdotool				
-desktop	alacritty	alacritty	alacritty				
-desktop	flatpak	flatpak	flatpak				
-desktop	picom	picom	picom				
-desktop	i3	i3	i3				
-desktop	i3-gaps	i3-gaps	i3-gaps				
+desktop	xdotool	xdotool	xdotool	xdotool			
+desktop	alacritty	alacritty	alacritty	alacritty			
+desktop	flatpak	flatpak	flatpak	flatpak			
+desktop	picom	picom	picom	picom			
+desktop	i3	i3	i3	i3wm			
+desktop	i3-gaps	i3-gaps	i3-gaps	I3wm-gaps			
 desktop	dex	dex	dex				
-desktop	rofi	rofi	rofi				
-desktop	feh	feh	feh				
-desktop	dunst	dunst	dunst				
-desktop	arandr	arandr	arandr				
-desktop	fonts-powerline	powerline-fonts	powerline-fonts-git				
-desktop	scrot	scrot	scrot				
-desktop	imagemagick	imagemagick	ImageMagick				
-desktop	brightnessctl	brightnessctl	brightnessctl				
-desktop	playerctl	playerctl	playerctl				
-desktop	pavucontrol	pavucontrol	pavucontrol				
+desktop	rofi	rofi	rofi	rofi			
+desktop	feh	feh	feh	feh			
+desktop	dunst	dunst	dunst	dunst			
+desktop	arandr	arandr	arandr	arandr			
+desktop	fonts-powerline	powerline-fonts	powerline-fonts-git	Font-dejavu-sans-mono-nerd			
+desktop	scrot	scrot	scrot	scrot			
+desktop	imagemagick	imagemagick	ImageMagick	imagemagick			
+desktop	brightnessctl	brightnessctl	brightnessctl	brightnessctl			
+desktop	playerctl	playerctl	playerctl	playerctl			
+desktop	pavucontrol	pavucontrol	pavucontrol	pavucontrol			
 desktop	lxappearance	lxappearance	lxappearance				
-desktop	zathura	zathura	zathura				
+desktop	zathura	zathura	zathura	zathura			
 desktop					autorandr		
 desktop					bumblebee-status		
 desktop					i3ipc		
