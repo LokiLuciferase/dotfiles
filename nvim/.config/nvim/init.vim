@@ -528,6 +528,8 @@ try
         Plug 'vimwiki/vimwiki'
         let g:vimwiki_list = []
         nnoremap <leader>pe :PensieveEdit<CR>
+        nnoremap <leader>pet :PensieveEdit t+1<CR>
+        nnoremap <leader>pey :PensieveEdit t-1<CR>
     endif
 
     call plug#end()
