@@ -524,6 +524,12 @@ try
         source $LOCALPLUGCONF
     endif
 
+    if exists('g:journal_mode')
+        Plug 'LokiLuciferase/pensieve.nvim'
+        Plug 'vimwiki/vimwiki'
+        let g:vimwiki_list = []
+    endif
+
     call plug#end()
 
     " execute the following only if plugin loading worked.
@@ -531,6 +537,7 @@ try
 
     " execute lua configurations - needs to be done after plug#end
     try
+        lua if vim.g.journal_mode == 1 then require("pensieve").setup({}) end
         lua require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
     catch /.*/
     endtry

@@ -125,6 +125,12 @@ sleeptimer() {
     sleep "$SECS" && systemctl suspend -i
 }
 
+journal() {
+    # Open pensieve.nvim journal
+    nvim --cmd "let g:journal_mode=1" -c ":PensieveOpen $1"
+    fusermount -u "$1" &> /dev/null
+}
+
 cpcd() {
     # perform the given cp operation; then cd into the parent directory of the target.
     cp $@
