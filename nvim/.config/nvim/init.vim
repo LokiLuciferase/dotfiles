@@ -527,6 +527,7 @@ try
         Plug 'LokiLuciferase/pensieve.nvim'
         Plug 'vimwiki/vimwiki'
         let g:vimwiki_list = []
+        nnoremap <leader>pe :PensieveEdit<CR>
     endif
 
     call plug#end()
