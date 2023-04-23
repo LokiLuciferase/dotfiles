@@ -539,7 +539,8 @@ try
 
     " execute lua configurations - needs to be done after plug#end
     try
-        lua if vim.g.journal_mode == 1 then require("pensieve").setup({}) end
+        "lua if vim.g.journal_mode == 1 then require("pensieve").setup({}) end
+        lua if vim.g.journal_mode == 1 then require("pensieve").setup({spell_langs={"en_us", "de_at"}}) end
         lua require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
     catch /.*/
     endtry
