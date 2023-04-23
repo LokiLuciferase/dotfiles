@@ -526,10 +526,12 @@ try
     if exists('g:journal_mode')
         Plug 'LokiLuciferase/pensieve.nvim'
         Plug 'vimwiki/vimwiki'
+        Plug 'itchyny/calendar.vim'
         let g:vimwiki_list = []
         nnoremap <leader>pe :PensieveEdit<CR>
         nnoremap <leader>pet :PensieveEdit t+1<CR>
         nnoremap <leader>pey :PensieveEdit t-1<CR>
+        nnoremap <leader>ml :PensieveLink<CR>
     endif
 
     call plug#end()

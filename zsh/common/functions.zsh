@@ -127,8 +127,14 @@ sleeptimer() {
 
 journal() {
     # Open pensieve.nvim journal
-    nvim --cmd "let g:journal_mode=1" -c ":PensieveOpen $1"
-    fusermount -u "$1" &> /dev/null
+    local journal_flag=
+    local cmd
+    if [ ! -z "$1" ]; then
+        journal_flag=" -c ':PensieveOpen $1'"
+    fi
+    cmd="nvim --cmd 'let g:journal_mode=1' $journal_flag"
+    eval $cmd
+    [ ! -z "$1" ] && fusermount -u "$1" &> /dev/null
 }
 
 cpcd() {
