@@ -168,6 +168,7 @@ function SetProseOptions()
     setlocal wrap  " enable line wrapping for md
     setlocal spell  " enable spelling for md
     setlocal textwidth=0  " disable textwidth
+    setlocal colorcolumn=  " disable colorcolumn
     setlocal linebreak  " break lines at word boundaries
     setlocal showbreak=  " do not show linebreaks
     setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
@@ -189,6 +190,9 @@ autocmd BufNewFile,BufRead *.{ipynb} set ft=json
 " run scripts
 autocmd FileType sh nnoremap <F5> :!bash %<CR>
 autocmd FileType python nnoremap <F5> :!python3 %<CR>
+
+" enable colorcolumn for commonly used code files
+autocmd FileType python,nextflow,c,cpp,sh,rust,lua,perl,php,js,java,go,scala,sql,vim set colorcolumn=100
 
 " add custom file headers for new files of a certain type
 let s:ft_head_tp = {
