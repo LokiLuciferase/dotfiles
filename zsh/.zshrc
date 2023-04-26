@@ -20,6 +20,7 @@ SHELL_DOT_DIR="${HOME}/.dotfiles/zsh"
 plugins=(
     vi-mode
     git
+    z
     aws
     docker
 )

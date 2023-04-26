@@ -36,6 +36,7 @@ export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
 export HISTSIZE=1000000  # disable truncation of history when starting bash
 export HISTFILESIZE=1000000
 [ -z "$BASH" ] && export HISTFILE="${XDG_CACHE_HOME}/zsh/history"  # do not source with bash! overwrites zsh history
+export _Z_DATA="${XDG_DATA_HOME}/zsh/zshz"
 export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export TERMINFO="${XDG_DATA_HOME}/terminfo"
