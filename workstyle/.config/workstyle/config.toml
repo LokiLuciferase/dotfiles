@@ -10,32 +10,55 @@
 # precedence is given in order of apparition in this file.
 
 "alacritty" = ""
-"rust" = ""
+"shell" = ""
+
 "private browsing" = ""
 "firefox" = ""
 "chrome" = ""
+"brave" = ""
+
 "thunderbird" = ""
+"mail" = ""
+
 "slack" = ""
+"telegram" = ""
+"discord" = "ﭮ"
+"zoom" = ""
+"microsoft teams" = ""
+"whatsapp" = ""
+
 "nemo" = ""
 "file manager" = ""
+"disk usage" = ""
+"menu" = ""
+"calculator" = ""
+"keepassxc" = ""
+"bluetooth" = ""
+
 "libreoffice calc" = ""
 "libreoffice writer" = ""
 "libreoffice" = ""
-"nvim" = ""
-"menu" = ""
-"calculator" = ""
+
 "transmission" = ""
 "deluge" = ""
-"videostream" = ""
-"mpv" = ""
-"music" = ""
+"torrent" = ""
+
+"mpv" = ""
 "spotify" = ""
-"disk usage" = ""
-"zathura" = ""
-"telegram" = ""
-"pycharm" = ""
+"music" = ""
 "jellyfin media player" = ""
 
+"zathura" = ""
+"xournal" = ""
+"pycharm" = ""
+"python" = ""
+"rust" = ""
+
+"gimp" = ""
+"inkscape" = ""
+
+"steam" = ""
+
 [other]
-fallback_icon = ""
+fallback_icon = ""
 deduplicate_icons = true
