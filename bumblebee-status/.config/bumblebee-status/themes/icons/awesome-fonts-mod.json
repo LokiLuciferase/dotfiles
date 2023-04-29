@@ -131,18 +131,18 @@
     "unknown-100": { "prefix": "", "suffix": "" }
   },
    "battery_autohide": {
-    "charged": { "prefix": " ", "suffix": " " },
-    "AC": { "suffix": " " },
+    "charged": { "prefix": " ", "suffix": "" },
+    "AC": { "suffix": "" },
     "charging": {
       "prefix": [" ", " ", " ", " ", " "],
-      "suffix": " "
+      "suffix": ""
     },
     "discharging-10": { "prefix": " ", "suffix": "" },
     "discharging-25": { "prefix": " ", "suffix": "" },
     "discharging-50": { "prefix": " ", "suffix": "" },
     "discharging-80": { "prefix": " ", "suffix": "" },
     "discharging-100": { "prefix": " ", "suffix": "" },
-    "unlimited": { "prefix": " ", "suffix": " " },
+    "unlimited": { "prefix": " ", "suffix": "" },
     "estimate": { "prefix": " " },
     "unknown-10": { "prefix": " ", "suffix": "" },
     "unknown-25": { "prefix": " ", "suffix": " " },
@@ -204,12 +204,6 @@
     "night": { "prefix": "" },
     "transition": { "prefix": "" }
   },
- "redshift_aug": {
-    "day": { "prefix": "" },
-    "night": { "prefix": "" },
-	"disabled": { "prefix": "" },
-    "transition": { "prefix": "" }
-  },
   "docker_ps": {
     "prefix": ""
   },
@@ -248,13 +242,6 @@
   },
   "deezer": {
     "prefix": "  "
-  },
-  "spotify_silent": {
-    "song": { "prefix": "" },
-    "playing": { "prefix": "" },
-    "paused": { "prefix": "" },
-    "prev": { "prefix": "" },
-    "next": { "prefix": "" }
   },
   "spotify": {
     "song": { "prefix": "" },
