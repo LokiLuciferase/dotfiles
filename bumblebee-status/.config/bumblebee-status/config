@@ -27,7 +27,7 @@ memory.interval = 20s
 disk.interval = 5m
 datetime.interval = 10s
 
-title.max = 128
+title.max = 64
 
 playerctl2.format = {{artist}} - {{title}}
 playerctl2.layout = playerctl.song

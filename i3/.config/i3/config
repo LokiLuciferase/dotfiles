@@ -45,7 +45,7 @@ exec --no-startup-id "libinput-gestures"
 exec --no-startup-id "numlockx"
 
 # starting misc applications
-exec --no-startup-id "/usr/libexec/goa-daemon --replace"
+exec --no-startup-id "env RUST_LOG=off workstyle"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/local/bin/export_bat_stat.sh"
