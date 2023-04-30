@@ -25,6 +25,7 @@ font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMon
 
 # import environment variables from xresources - which default tools to use
 set $default_term alacritty
+set $term_font_size 12
 
 # user specific startup applications
 # connectivity
@@ -45,13 +46,14 @@ exec --no-startup-id "libinput-gestures"
 exec --no-startup-id "numlockx"
 
 # starting misc applications
-exec --no-startup-id "/usr/libexec/goa-daemon --replace"
+exec --no-startup-id "env RUST_LOG=off workstyle"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/local/bin/export_bat_stat.sh"
+exec --no-startup-id "syncthing"
 exec --no-startup-id "env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud"
 exec --no-startup-id "sleep 7 && keepassxc"  # apply some sleep here to give pcloud a chance to connect to drive
-exec --no-startup-id $default_term --title scratchpad_shell
+exec --no-startup-id "alacritty --title scratchpad_shell -o window.opacity=1 -o font.size=$term_font_size"
 
 # starting any .desktop files in $HOME/.config/autostart
 exec --no-startup-id "dex $HOME/.config/autostart/*"
@@ -89,8 +91,11 @@ for_window [title="Welcome to PyCharm"] floating enable
 for_window [title="win0"] floating enable  # for pycharm splash screen
 for_window [instance="cheese"] floating enable
 
+# explicitly disable floating
+for_window [class="firefox"] floating disable
+
 # start a terminal
-bindsym $mod+Return exec $default_term
+bindsym $mod+Return exec "alacritty -o font.size=$term_font_size"
 
 # start browser
 bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
@@ -108,10 +113,10 @@ bindsym $mod+Shift+v split v, open append_layout ~/.config/i3/layouts/universal/
 bindsym $mod+Shift+h split h, open append_layout ~/.config/i3/layouts/universal/placeholder.json
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh drun || dmenu -i -l 30"
-bindsym $mod+F1 exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh window || dmenu -i -l 30"
-bindsym $mod+shift+d exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh combi || dmenu -i -l 30"
-bindsym $mod+shift+s exec --no-startup-id i3-dmenu-desktop --dmenu="~/.config/rofi/dmenu-launcher.sh ssh || dmenu -i -l 30"
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh drun || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
+bindsym $mod+shift+d exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh combi || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
+bindsym $mod+F1 exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh window || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
+bindsym $mod+shift+s exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh ssh || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
 
 # reload autorandr/xrandr config
 bindsym $mod+Shift+x exec --no-startup-id autorandr --change
