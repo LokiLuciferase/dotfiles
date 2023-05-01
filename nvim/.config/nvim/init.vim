@@ -364,7 +364,8 @@ try
                 \ 'coc-pairs',
                 \ 'coc-sh',
                 \ 'coc-pyright',
-                \ 'coc-clangd'
+                \ 'coc-clangd',
+                \ 'coc-lua'
             \]
         endif
 
