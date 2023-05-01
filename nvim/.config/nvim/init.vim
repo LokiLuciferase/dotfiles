@@ -534,10 +534,7 @@ try
         Plug 'xiyaowong/telescope-emoji.nvim'
         Plug 'itchyny/calendar.vim'
         let g:vimwiki_list = []
-        nnoremap <leader>pe :PensieveEdit<CR>
-        nnoremap <leader>pet :PensieveEdit t+1<CR>
-        nnoremap <leader>pey :PensieveEdit t-1<CR>
-        nnoremap <leader>ml :PensieveLink<CR>
+        let g:copilot_filetypes = {'*': v:false}
     endif
 
     call plug#end()
