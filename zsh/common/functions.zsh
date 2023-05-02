@@ -404,12 +404,6 @@ vhexsplit() {
     _tmux_ctx "split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
 }
 
-svimsh() {
-    ## run spacevim with a true terminal window at bottom
-    WD=$(dirname "$@") || WD="$PWD"
-    tmux new-session \; attach-session -c "$WD" \; split-window -v -p 20 \; select-pane -t 1 \; send-keys svim Space "$@" Enter
-}
-
 term-replace() {
     # replace current terminal with given one. Per default,
     # replace with a terminal window with full transparency.
