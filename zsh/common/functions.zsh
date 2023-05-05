@@ -177,8 +177,7 @@ docker-interactive() {
     # open a docker container in an interactive shell
     local container="${1:-}"
     local cmd="${2:-/bin/bash}"
-    local extra_docker_args=("${@:3}")
-    local full_cmd="docker run -u $(id -u):$(id -g) -e ARES_DB_URL -v /tmp/mysql.sock:/tmp/mysql.sock -w $PWD -v $PWD:$PWD ${extra_docker_args} -it ${container} ${cmd}"
+    local full_cmd="docker run -u $(id -u):$(id -g) -w $PWD -v $PWD:$PWD --rm -it ${container} ${cmd}"
     eval "$full_cmd"
 }
 
