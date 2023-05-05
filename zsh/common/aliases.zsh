@@ -34,6 +34,7 @@ alias watch='watch '
 alias vd='vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
 alias zat='zathura'
+alias pcloud='env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud'
 
 # more git aliases - some already defined by oh-my-zsh
 alias ga.='git add .'
