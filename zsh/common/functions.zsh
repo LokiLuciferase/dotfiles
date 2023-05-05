@@ -173,12 +173,10 @@ ssha() {
     ssh "$1" -t '~/.dotfiles/scripts/10_utils/tmux-attach-or-create.sh'
 }
 
-docker-interactive() {
+docker-run-tool() {
     # open a docker container in an interactive shell
     local container="${1:-}"
-    local cmd="${2:-/bin/bash}"
-    local extra_args="${@:3}"
-    local full_cmd="docker run -u $(id -u):$(id -g) -w $PWD -v $PWD:$PWD --rm -it ${container} ${cmd} ${extra_args}"
+    local full_cmd="docker run -u $(id -u):$(id -g) -w $PWD -v $PWD:$PWD --rm ${container} -- ${@:2}"
     eval "$full_cmd"
 }
 
