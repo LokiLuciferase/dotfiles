@@ -177,7 +177,8 @@ docker-interactive() {
     # open a docker container in an interactive shell
     local container="${1:-}"
     local cmd="${2:-/bin/bash}"
-    local full_cmd="docker run -u $(id -u):$(id -g) -w $PWD -v $PWD:$PWD --rm -it ${container} ${cmd}"
+    local extra_args="${@:3}"
+    local full_cmd="docker run -u $(id -u):$(id -g) -w $PWD -v $PWD:$PWD --rm -it ${container} ${cmd} ${extra_args}"
     eval "$full_cmd"
 }
 
