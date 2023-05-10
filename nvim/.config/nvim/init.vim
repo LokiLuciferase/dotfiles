@@ -166,6 +166,7 @@ function SetProseOptions()
     catch
     endtry
     setlocal wrap  " enable line wrapping for md
+    setlocal spelllang=en_us,de_at  " set spell language
     setlocal spell  " enable spelling for md
     setlocal textwidth=0  " disable textwidth
     setlocal colorcolumn=  " disable colorcolumn
@@ -391,6 +392,8 @@ try
         nmap <leader>lfo :call CocAction('fold')<CR>
         nmap <leader>lso :call CocAction('showOutline')<CR>
         nmap <leader>lsi :CocCommand python.sortImports<CR>
+        nmap <leader>ln :call CocAction('diagnosticNext')<CR>
+        nmap <leader>lp :call CocAction('diagnosticPrevious')<CR>
 
         " Highlight the symbol and its references when holding the cursor.
         autocmd CursorHold * silent call CocActionAsync('highlight')
