@@ -522,9 +522,6 @@ try
     let g:onedark_termcolors=256
     let g:onedark_terminal_italics=1  " alacritty supports italics
 
-    " Light color scheme for J
-    Plug 'NLKNguyen/papercolor-theme'
-
     " Local plugin config (optional)
     let $LOCALPLUGCONF = $XDG_CONFIG_HOME . "/nvim/local/plugins.local.vim"
     if filereadable($LOCALPLUGCONF)
@@ -548,9 +545,13 @@ try
 
     " execute lua configurations - needs to be done after plug#end
     try
-        lua if vim.g.journal_mode == 1 then require("pensieve").setup({spell_langs={"en_us", "de_at"}}) end
-        lua if vim.g.journal_mode == 1 then require("telescope").load_extension("emoji") end
-        lua require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
+    lua <<EOF
+    if vim.g.journal_mode == 1 then
+        require("pensieve").setup({spell_langs={"en_us", "de_at"}})
+        require("telescope").load_extension("emoji")
+    end
+    require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
+EOF
     catch /.*/
     endtry
 
