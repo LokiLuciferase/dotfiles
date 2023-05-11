@@ -26,6 +26,7 @@ font pango:DejaVu Sans Mono 10, DejaVu Sans Mono for Powerline 10, DejaVuSansMon
 # import environment variables from xresources - which default tools to use
 set $default_term alacritty
 set $term_font_size 12
+include ~/.config/sway/local.config
 
 # user specific startup applications
 # connectivity

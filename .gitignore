@@ -20,3 +20,4 @@ btop/.config/btop/btop.log
 termux/.termux/font.ttf
 termux/.termux/shell
 epy/.config/epy/states.db
+sway/.config/sway/local.config
