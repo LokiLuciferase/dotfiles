@@ -515,7 +515,7 @@ try
     if has('termguicolors')
         set termguicolors
     endif
-    if has('nvim-0.7.0')
+    if has('nvim-0.8.0')
         Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
         Plug 'navarasu/onedark.nvim'
         let g:onedark_config = {
@@ -558,7 +558,19 @@ try
         require("pensieve").setup({spell_langs={"en_us", "de_at"}})
         require("telescope").load_extension("emoji")
     end
-    require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
+    if vim.fn.has('nvim-0.8.0') == 1 then
+        require("nvim-treesitter.configs").setup(
+        {
+            ensure_installed = {
+                "c", "cpp", "rust",
+                "javascript", "python", "bash",
+                "lua", "vim"
+            },
+            highlight = {enable = true},
+        }
+        )
+        require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
+    end
 EOF
     catch /.*/
     endtry
