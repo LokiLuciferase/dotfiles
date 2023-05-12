@@ -519,7 +519,7 @@ try
         Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
         Plug 'navarasu/onedark.nvim'
         let g:onedark_config = {
-            \ 'style': 'warmer',
+            \"colors": {"bg0": "#232323"}
         \}
     else
         Plug 'joshdick/onedark.vim'
