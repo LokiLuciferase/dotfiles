@@ -512,15 +512,23 @@ try
     endif
 
     " color scheme
-    Plug 'joshdick/onedark.vim'
     if has('termguicolors')
         set termguicolors
     endif
-    let g:onedark_color_overrides = {
-    \ "background": {"gui": "#232323", "cterm": "235", "cterm16": "0"},
-    \}
-    let g:onedark_termcolors=256
-    let g:onedark_terminal_italics=1  " alacritty supports italics
+    if has('nvim-0.7.0')
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        Plug 'navarasu/onedark.nvim'
+        let g:onedark_config = {
+            \ 'style': 'warmer',
+        \}
+    else
+        Plug 'joshdick/onedark.vim'
+        let g:onedark_color_overrides = {
+        \    "background": {"gui": "#232323", "cterm": "235", "cterm16": "0"},
+        \}
+        let g:onedark_termcolors=256
+        let g:onedark_terminal_italics=1  " alacritty supports italics
+    endif
 
     " Local plugin config (optional)
     let $LOCALPLUGCONF = $XDG_CONFIG_HOME . "/nvim/local/plugins.local.vim"
