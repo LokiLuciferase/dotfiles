@@ -199,7 +199,6 @@ autocmd FileType python,nextflow,c,cpp,sh,rust,lua,perl,php,js,java,go,scala,sql
 let s:ft_head_tp = {
     \ 'python': ['#!/usr/bin/env python3', '', ''],
     \ 'sh': ['#!/usr/bin/env bash', 'set -euo pipefail', '', ''],
-    \ 'nextflow': ['#!/usr/bin/env nextflow', 'nextflow.enable.dsl = 2', '', '']
     \ }
 
 function! s:add_buffer_head() abort
