@@ -405,8 +405,7 @@ try
         vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
         vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
-        autocmd ColorScheme onedark highlight CocMenuSel ctermfg=12 ctermbg=237 guibg=#3a3a3a
-        autocmd ColorScheme onedark highlight CocHighlightText ctermbg=237 guibg=#3a3a3a
+        autocmd ColorScheme onedark highlight CocInlayHint guifg=#56b6c2
     endif
 
     " fzf bindings
