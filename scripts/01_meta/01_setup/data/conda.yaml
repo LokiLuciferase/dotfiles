@@ -13,7 +13,6 @@ dependencies:
   - flake8
   - git
   - html5lib
-  - ipdb
   - ipython
   - ipywidgets
   - isort
@@ -26,7 +25,6 @@ dependencies:
   - mamba
   - matplotlib
   - memory_profiler
-  - nodejs<=17
   - notebook
   - numpy
   - openpyxl
@@ -37,7 +35,9 @@ dependencies:
   - pytest
   - pytest-cov
   - pytest-pudb
-  - python>=3.9
+  - pytest-profiling
+  - python>=3.10
+  - requests
   - scipy
   - seaborn
   - sphinx
@@ -45,5 +45,4 @@ dependencies:
   - tabulate
   - tqdm
   - typeguard
-  - urllib3
   - vulture
