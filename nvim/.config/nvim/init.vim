@@ -189,11 +189,23 @@ autocmd FileType tex,latex,markdown,rst call SetProseOptions()
 autocmd BufNewFile,BufRead *.{ipynb} set ft=json
 
 " run scripts
-autocmd FileType sh nnoremap <F5> :!bash %<CR>
-autocmd FileType python nnoremap <F5> :!python3 %<CR>
+function! s:run_file_type(ft) abort
+    let s:run_tp = {
+        \ 'python': '!python3 %',
+        \ 'sh': '!bash %',
+        \ 'js': '!node %',
+        \ 'rust': '!cargo run',
+        \ }
+    if has_key(s:run_tp, a:ft)
+        exec s:run_tp[a:ft]
+    elseif executable(a:ft)
+        exec '!' . a:ft . ' %'
+    endif
+endfunction
+autocmd FileType * nnoremap <F5> :call <SID>run_file_type(&ft)<CR>
 
 " enable colorcolumn for commonly used code files
-autocmd FileType python,nextflow,c,cpp,sh,rust,lua,perl,php,js,java,go,scala,sql,vim set colorcolumn=100
+autocmd FileType python,nextflow,c,cpp,sh,rust,lua,perl,php,js,java,go,scala,sql,vim,julia set colorcolumn=100
 
 " add custom file headers for new files of a certain type
 let s:ft_head_tp = {
@@ -370,7 +382,8 @@ try
                 \ 'coc-sh',
                 \ 'coc-pyright',
                 \ 'coc-clangd',
-                \ 'coc-lua'
+                \ 'coc-lua',
+                \ 'coc-pyright'
             \]
         endif
 
