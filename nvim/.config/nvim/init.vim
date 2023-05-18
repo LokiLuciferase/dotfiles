@@ -305,11 +305,16 @@ try
     vmap <leader>cl <Plug>NERDCommenterToggle
 
     " File explorer
-    Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
-    nmap <silent> <F3> :NERDTreeToggle<CR>
-    let NERDTreeMapActivateNode='l'
-    let NERDTreeMapOpenInTab='<ENTER>'
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    if has('nvim-0.8.0')
+        Plug 'nvim-tree/nvim-tree.lua', {'on': 'NvimTreeToggle'}
+        nmap <silent> <F3> :NvimTreeToggle<CR>
+    else
+        Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
+        nmap <silent> <F3> :NERDTreeToggle<CR>
+        let NERDTreeMapActivateNode='l'
+        let NERDTreeMapOpenInTab='<ENTER>'
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    endif
 
     " surrounding handling
     Plug 'tpope/vim-surround'
@@ -437,7 +442,7 @@ try
     endif
 
     " better vimdiff file selection
-    if has('nvim-0.7.0')
+    if has('nvim-0.8.0')
         Plug 'nvim-lua/plenary.nvim'
         Plug 'sindrets/diffview.nvim'
         nmap <leader>dv :DiffviewOpen<CR>
@@ -567,6 +572,7 @@ try
             highlight = {enable = true},
         }
         )
+        require("nvim-tree").setup()
         require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
     end
 EOF
