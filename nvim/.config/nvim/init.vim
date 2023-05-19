@@ -580,6 +580,8 @@ try
             ensure_installed = {
                 "c", "cpp", "rust",
                 "javascript", "python", "bash",
+                "latex", "toml", "json", "yaml",
+                "dockerfile", "make",
                 "lua", "vim"
             },
             highlight = {enable = true},
