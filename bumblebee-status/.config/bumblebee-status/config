@@ -17,7 +17,7 @@ cpu.left-click = alacritty -e htop
 cpu.right-click = alacritty -e btop
 memory.left-click = alacritty -e htop
 memory.right-click = alacritty -e btop
-playerctl2.left-click = playerctl -p mpv,spotify play-pause
+playerctl2.left-click = playerctl -p mpv,spotify,Spot play-pause
 playerctl2.right-click = i3-msg '[class="Spotify"] focus'
 playerctl2.wheel-up = playerctl previous
 playerctl2.wheel-down = playerctl next
@@ -31,5 +31,5 @@ title.max = 64
 
 playerctl2.format = {{artist}} - {{title}}
 playerctl2.layout = playerctl.song
-playerctl2.args = -p mpv,spotify
+playerctl2.args = -p mpv,spotify,Spot
 playerctl2.hide = true
