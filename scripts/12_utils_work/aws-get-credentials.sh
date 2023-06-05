@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 AWSCLI_PROFILE=$1
 
@@ -12,5 +11,9 @@ CREDENTIALS=$(aws --profile ${AWSCLI_PROFILE} sso get-role-credentials --role-na
 AWS_ACCESS_KEY_ID=$(echo "$CREDENTIALS" | jq -r '.roleCredentials.accessKeyId')
 AWS_SECRET_ACCESS_KEY=$(echo "$CREDENTIALS" | jq -r '.roleCredentials.secretAccessKey')
 AWS_SESSION_TOKEN=$(echo "$CREDENTIALS" | jq -r '.roleCredentials.sessionToken')
-echo -ne "$AWS_ACCESS_KEY_ID\t$AWS_SECRET_ACCESS_KEY\t$AWS_SESSION_TOKEN"
 
+if [ "$2" = "export" ]; then
+    export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+else
+    echo -ne "$AWS_ACCESS_KEY_ID\t$AWS_SECRET_ACCESS_KEY\t$AWS_SESSION_TOKEN"
+fi
