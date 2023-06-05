@@ -344,20 +344,6 @@ select-i3-layout() {
     fi
 }
 
-swap-i3-screens() {
-    # swap the screens of currently active workspaces
-    i3-msg "mark add 'swapper'"
-    local display_config=($(i3-msg -t get_outputs | jq -r '.[]|select(.active == true) |"\(.current_workspace)"'))
-    for ROW in "${display_config[@]}"
-    do
-    read -r CONFIG <<< "${ROW}"
-        i3-msg -- workspace --no-auto-back-and-forth "${CONFIG}"
-        i3-msg -- move workspace to output right
-    done
-    i3-msg '[con_mark="swapper"] focus'
-    i3-msg unmark 'swapper'
-}
-
 scrotsel(){
     # scrot select from tmp file
     FN=$(mktemp -u).png
