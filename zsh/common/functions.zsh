@@ -58,6 +58,7 @@ ytdl-vid() {
         --embed-info-json \
         --embed-chapters \
         --embed-thumbnail \
+        --sponsorblock-mark all \
         --remux-video mkv \
         --output '%(upload_date)s_%(channel)s_-_%(title)s.%(ext)s' \
         $1
