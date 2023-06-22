@@ -589,12 +589,6 @@ try
     if vim.g.journal_mode == 1 then
         require("pensieve").setup({spell_langs={"en_us", "de_at"}})
         require("telescope").load_extension("emoji")
-        require("null-ls").setup({
-            sources = {
-                require("pensieve/nls_sources").hover.testcontext
-            },
-            debug = true
-        })
     end
     if vim.fn.has('nvim-0.8.0') == 1 then
         require("nvim-treesitter.configs").setup(
