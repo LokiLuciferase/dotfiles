@@ -283,6 +283,21 @@ endfunction
 com! ToggleCopyMode call ToggleCopyMode()
 nnoremap <F2> :ToggleCopyMode<CR>
 
+" Run updates
+function! RunUpdates()
+    if exists(':PlugUpdate')
+        PlugUpdate
+        PlugUpgrade
+    endif
+    if exists(':TSUpdate')
+        TSUpdateSync
+    endif
+    if exists(':CocUpdate')
+        CocUpdate
+    endif
+endfunction
+com! RunUpdates call RunUpdates()
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General (non-plugin-related) local config (optional)
@@ -532,7 +547,7 @@ try
         set termguicolors
     endif
     if has('nvim-0.8.0')
-        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        Plug 'nvim-treesitter/nvim-treesitter'
         Plug 'navarasu/onedark.nvim'
         let g:onedark_config = {
             \"colors": {"bg0": "#232323"}
@@ -558,6 +573,7 @@ try
         Plug 'nvim-telescope/telescope.nvim'
         Plug 'xiyaowong/telescope-emoji.nvim'
         Plug 'itchyny/calendar.vim'
+        Plug 'jose-elias-alvarez/null-ls.nvim'
         let g:vimwiki_list = []
         let g:copilot_filetypes = {'*': v:false}
     endif
@@ -573,6 +589,12 @@ try
     if vim.g.journal_mode == 1 then
         require("pensieve").setup({spell_langs={"en_us", "de_at"}})
         require("telescope").load_extension("emoji")
+        require("null-ls").setup({
+            sources = {
+                require("pensieve/nls_sources").hover.testcontext
+            },
+            debug = true
+        })
     end
     if vim.fn.has('nvim-0.8.0') == 1 then
         require("nvim-treesitter.configs").setup(

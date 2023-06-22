@@ -440,8 +440,8 @@ _pshell() {
 }
 
 _pnvimplug() {
-    # pull updates for vim-plug
-    nvim --headless -c 'PlugUpgrade | PlugUpdate | qa' || return 0
+    # pull updates for neovim
+    nvim --headless -c 'call RunUpdates() | quitall' || return 0
 }
 
 _migrate-dotfiles(){
