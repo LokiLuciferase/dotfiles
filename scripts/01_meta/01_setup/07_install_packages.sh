@@ -13,6 +13,8 @@ SYSTEM_PACKAGE_MANAGER="${SYSTEM_PACKAGE_MANAGER:-apt-get}"
 TMPDIR="${TMPDIR:-/tmp}"
 MSG_LOG="${MSG_LOG:-${TMPDIR}/dotfiles_install.log}"
 
+export PIP_BREAK_SYSTEM_PACKAGES=1
+
 if [[ "${INSTALL_DESKTOP}" = true ]] || [[ "${INSTALL_WORK}" = true ]]; then
     ADD_REPOS=true
 else
