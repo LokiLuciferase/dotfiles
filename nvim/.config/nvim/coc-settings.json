@@ -1,4 +1,5 @@
 {
+    "bashIde.backgroundAnalysisMaxFiles": 10,
     "coc.preferences.enableLinkedEditing": false,
     "semanticTokens.enable": true,
     "python.formatting.provider": "black",
