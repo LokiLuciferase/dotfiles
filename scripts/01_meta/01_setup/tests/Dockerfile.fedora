@@ -13,7 +13,7 @@ USER testuser
 RUN whoami
 RUN sudo whoami
 WORKDIR /home/testuser
-ENV PATH=/home/testuser/miniconda3/bin:$PATH
+ENV PATH=/home/testuser/.local/share/miniconda3/bin:$PATH
 
 COPY ../../../../ /opt/dotfiles
 

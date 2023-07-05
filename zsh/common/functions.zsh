@@ -2,13 +2,24 @@
 
 
 conda-init() {
+    # locate conda installation
+    local conda_basedir
+    if [ -n "$1" ]; then
+        conda_basedir="$1"
+    elif [ -d "${HOME}/miniconda3" ]; then
+        conda_basedir="${HOME}/miniconda3"
+    elif [ -d "${HOME}/.local/share/miniconda3" ]; then
+        conda_basedir="${HOME}/.local/share/miniconda3"
+    else
+        echo "No conda installation dir found and none passed."
+        return 1
+    fi
     # initialize conda environment
     unalias conda &> /dev/null || true
     unalias mamba &> /dev/null || true
     unalias ipython &> /dev/null || true
     unalias pip &> /dev/null || true
     unalias pip3 &> /dev/null || true
-    local conda_basedir=${1:-${HOME}/miniconda3}
     __conda_setup="$("${conda_basedir}/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"

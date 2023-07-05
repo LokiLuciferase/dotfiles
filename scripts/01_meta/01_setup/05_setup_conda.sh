@@ -3,7 +3,7 @@ set -euo pipefail
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 DATADIR="${DIR}/data"
-CONDA_PATH="${CONDA_PATH:-${HOME}/miniconda3}"
+CONDA_PATH="${CONDA_PATH:-${HOME}/.local/share/miniconda3}"
 
 ensure_tools_present() {
     # Only attempt to run this script if the relevant tools are available.
@@ -35,6 +35,7 @@ install_conda() {
     fi
     mkdir -p anaconda_install && cd anaconda_install
     curl -sSL "${dlpath}" -o conda.sh
+    mkdir -p "$(dirname "${CONDA_PATH}")"
     bash conda.sh -b -p "${CONDA_PATH}"
     cd .. && rm -rf anaconda_install
     export PATH="$CONDA_PATH/bin:$PATH"

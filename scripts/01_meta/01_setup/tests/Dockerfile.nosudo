@@ -20,7 +20,7 @@ RUN useradd -m testuser -s /bin/bash
 USER testuser
 RUN whoami
 WORKDIR /home/testuser
-ENV PATH=/home/testuser/miniconda3/bin:$PATH
+ENV PATH=/home/testuser/.local/share/miniconda3/bin:$PATH
 
 COPY ../../../../ /opt/dotfiles
 
