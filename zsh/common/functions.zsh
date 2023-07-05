@@ -148,6 +148,12 @@ cpcd() {
     fi
 }
 
+ff(){
+    # fuzzy find files and emit selection to command line
+    local found=$(fzf $@)
+    [ ! -z "$found" ] && print -z "\"$found\""
+}
+
 icat() {
     # print image(s) to terminal
     # requires: img2sixel and sixel-enabled terminal
