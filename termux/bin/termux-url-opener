@@ -5,8 +5,10 @@ source ~/.dotfiles/zsh/common/functions.zsh
 
 wat-do() {
     local url="$1"
+    echo "\n\n\n\n"
     echo -e "What should I do with this link?
-    c: Cast to default chromecast device using castnow
+    a: Open with archive.ph to circumvent paywalls
+    c: Cast to default chromecast device using lolcatt
     d: Download url with wget
     y: Download youtube url with yt-dlp
     any other: cancel operation
@@ -14,12 +16,15 @@ wat-do() {
 
     local response=$(bash -c "read -n 1 c; echo \$c")
     echo ""
-    if [[ "$response" = "d" ]]; then
+    if [[ "$response" = "a" ]]; then
+        cecho G "Opening with archive.ph..."
+        termux-open-url "https://archive.ph/$url"
+    elif [[ "$response" = "d" ]]; then
         cecho G "Downloading url..."
         wget --directory-prefix ~/downloads/ "$url"
     elif [[ "$response" = "c" ]]; then
         cecho G "Casting url..."
-        ytdl-cast "$url"
+        lolcatt "$url"
     elif [[ "$response" = "y" ]]; then
         cecho G "Downloading youtube url..."
         ytdl-vid "$url"
