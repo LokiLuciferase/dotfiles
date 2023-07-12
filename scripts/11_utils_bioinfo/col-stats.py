@@ -10,7 +10,6 @@ from typing import Any, Dict, List, Optional, Union
 
 
 class ColStats:
-
     DEFAULT_STATS = ['count', 'mean', 'std', 'min', '50p', 'max', 'sum']
     KNOWN_STATS = [
         'count',
@@ -47,6 +46,7 @@ class ColStats:
             help='Comma-separated list or ranges of fields to summarize (1-indexed), (e.g. 1-3,5,7-10), or "all"',
         )
         parser.add_argument('-d', '--delimiter', default='\t', help='Input delimiter to use')
+        parser.add_argument('--pretty', action='store_true', help='Pretty-print output')
         parser.add_argument(
             '-s',
             '--skip',
@@ -110,6 +110,7 @@ class ColStats:
         self._skip_cols = int(self._args.skip_cols)
         self._field_selection = self._args.field
         self._required_fields = self._parse_field_selection(self._field_selection)
+        self._pretty_print = self._args.pretty
 
     def _get_raw_lines(self) -> List[str]:
         if self._args.infile is not None:
@@ -171,16 +172,39 @@ class ColStats:
     def _format_output(self, calced_lines: List[Dict[str, Any]], round_to: int) -> str:
         idx_cols = ['column_id', 'column_name'] if not self._args.no_out_index else []
         header = [*idx_cols, *[x for x in self._usestats]]
+
+        if self._pretty_print:
+            # ensure uniform column widths
+            max_lens = {x: len(x) for x in header}
+            for line in calced_lines:
+                for colname, colval in line.items():
+                    colval = colval if isinstance(colval, str) else str(round(colval, round_to))
+                    line[colname] = colval
+                    max_lens[colname] = max(max_lens[colname], len(colval))
+            fmt_lines = []
+            for line in calced_lines:
+                fmt_line = {}
+                for col, colval in line.items():
+                    fmt_line[col] = colval + ' ' * (max_lens[col] - len(colval))
+                fmt_lines.append(fmt_line)
+            header_fmt_map = {x: x + ' ' * (max_lens[x] - len(x)) for x in header}
+            header = [header_fmt_map[x] for x in header]
+            fmt_lines = [{header_fmt_map[x]: y for (x, y) in line.items()} for line in fmt_lines]
+        else:
+            fmt_lines = [
+                {
+                    x: line[x] if isinstance(line[x], str) else str(round(line[x], round_to))
+                    for x in header
+                }
+                for line in calced_lines
+            ]
+
         with io.StringIO() as fout:
             writer = csv.DictWriter(fout, fieldnames=header, delimiter='\t')
             if not self._args.no_out_header:
                 writer.writeheader()
-            for line in calced_lines:
-                fmt_line = {
-                    x: line[x] if isinstance(line[x], str) else str(round(line[x], round_to))
-                    for x in header
-                }
-                writer.writerow(fmt_line)
+            for line in fmt_lines:
+                writer.writerow(line)
             return fout.getvalue()
 
     def run(self):
