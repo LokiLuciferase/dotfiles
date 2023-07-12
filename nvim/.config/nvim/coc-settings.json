@@ -29,5 +29,6 @@
             "UPPERCASE_SENTENCE_START"
         ]
     },
-    "markdown-preview-enhanced.previewTheme": "github-dark.css"
+    "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "Lua.diagnostics.globals": ["vim"]
 }
