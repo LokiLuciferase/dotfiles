@@ -173,6 +173,12 @@ class ColStats:
         idx_cols = ['column_id', 'column_name'] if not self._args.no_out_index else []
         header = [*idx_cols, *[x for x in self._usestats]]
 
+        # pop the column name if it is empty for all
+        if all([x['column_name'] == '' for x in calced_lines]):
+            if  'column_name' in header:
+                header.pop(header.index('column_name'))
+            [x.pop('column_name') for x in calced_lines]
+
         if self._pretty_print:
             # ensure uniform column widths
             max_lens = {x: len(x) for x in header}
@@ -180,7 +186,7 @@ class ColStats:
                 for colname, colval in line.items():
                     colval = colval if isinstance(colval, str) else str(round(colval, round_to))
                     line[colname] = colval
-                    max_lens[colname] = max(max_lens[colname], len(colval))
+                    max_lens[colname] = max(max_lens.get(colname, 0), len(colval))
             fmt_lines = []
             for line in calced_lines:
                 fmt_line = {}
@@ -189,7 +195,10 @@ class ColStats:
                 fmt_lines.append(fmt_line)
             header_fmt_map = {x: x + ' ' * (max_lens[x] - len(x)) for x in header}
             header = [header_fmt_map[x] for x in header]
-            fmt_lines = [{header_fmt_map[x]: y for (x, y) in line.items()} for line in fmt_lines]
+            fmt_lines = [
+                {header_fmt_map[x]: y for (x, y) in line.items() if x in header_fmt_map}
+                for line in fmt_lines
+            ]
         else:
             fmt_lines = [
                 {
