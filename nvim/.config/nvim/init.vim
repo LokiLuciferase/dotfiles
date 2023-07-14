@@ -546,7 +546,8 @@ try
         Plug 'nvim-treesitter/nvim-treesitter'
         Plug 'navarasu/onedark.nvim'
         let g:onedark_config = {
-            \"colors": {"bg0": "#232323"}
+            \"colors": {"bg0": "#232323"},
+            \"highlights": {"Title": {"fg": "$green"}}
         \}
     else
         Plug 'joshdick/onedark.vim'

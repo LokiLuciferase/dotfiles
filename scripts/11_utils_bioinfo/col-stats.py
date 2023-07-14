@@ -10,7 +10,15 @@ from typing import Any, Dict, List, Optional, Union
 
 
 class ColStats:
-    DEFAULT_STATS = ['count', 'mean', 'std', 'min', '50p', 'max', 'sum']
+    DEFAULT_STATS = [
+        'count',
+        'mean',
+        'std',
+        'min',
+        '50p',
+        'max',
+        'sum',
+    ]
     KNOWN_STATS = [
         'count',
         'mean',
@@ -175,7 +183,7 @@ class ColStats:
 
         # pop the column name if it is empty for all
         if all([x['column_name'] == '' for x in calced_lines]):
-            if  'column_name' in header:
+            if 'column_name' in header:
                 header.pop(header.index('column_name'))
             [x.pop('column_name') for x in calced_lines]
 
