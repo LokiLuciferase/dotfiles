@@ -362,27 +362,15 @@ try
     Plug 'mhinz/vim-signify'
 
     " LSP integration
-    if executable('node')
-        if has('nvim-0.5.0') || has('patch-8.1.1719')
-            " Use most recent coc.nvim with custom pum
-            Plug 'neoclide/coc.nvim', {'branch': 'release'}
-            inoremap <silent><expr> <TAB>
-                \ coc#pum#visible() ? coc#pum#next(1):
-                \ <SID>check_back_space() ? "\<Tab>" :
-                \ coc#refresh()
-            inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-            inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-        else
-            " use legacy coc.nvim and (neo)vim internal pum
-            Plug 'neoclide/coc.nvim', {'tag': 'v0.0.81'}
-            let g:coc_disable_startup_warning = 1
-            inoremap <silent><expr> <TAB>
-                  \ pumvisible() ? "\<C-n>" :
-                  \ <SID>check_back_space() ? "\<TAB>" :
-                  \ coc#refresh()
-            inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-            inoremap <expr> <CR> pumvisible() ? coc#_select_confirm() : "\<CR>"
-        endif
+    if executable('node') && (has('nvim-0.5.0') || has('patch-8.1.1719'))
+        " Use most recent coc.nvim with custom pum
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        inoremap <silent><expr> <TAB>
+            \ coc#pum#visible() ? coc#pum#next(1):
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
+        inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+        inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
         if executable('npm')
             " Ensure default language servers installed
             let g:coc_global_extensions = [
@@ -394,11 +382,14 @@ try
                 \ 'coc-pyright',
                 \ 'coc-clangd',
                 \ 'coc-lua',
-                \ 'coc-pyright'
             \]
         endif
 
         set updatetime=100
+
+        " show number of diagnostics in statusline
+        set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
         function! s:check_back_space() abort
             let col = col('.') - 1
             return !col || getline('.')[col - 1]  =~ '\s'
@@ -422,6 +413,7 @@ try
         nmap <leader>lsi :CocCommand python.sortImports<CR>
         nmap <leader>ln :call CocAction('diagnosticNext')<CR>
         nmap <leader>lp :call CocAction('diagnosticPrevious')<CR>
+        nmap <leader>ll :CocList<CR>
 
         " Highlight the symbol and its references when holding the cursor.
         autocmd CursorHold * silent call CocActionAsync('highlight')
