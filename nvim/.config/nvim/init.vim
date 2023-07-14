@@ -1,10 +1,25 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General configuration options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set encoding=utf8  " default file encoding
-scriptencoding utf8  " default script encoding
-set nocompatible  " Disable compatibility with vi which can cause unexpected issues.
-filetype on  " Enable type file detection. Vim will be able to try to detect the type of file in use.
+if !(has('nvim'))  " Neovim already sets these options
+    set encoding=utf8  " default file encoding
+    scriptencoding utf8  " default script encoding
+    set nocompatible  " Disable compatibility with vi which can cause unexpected issues.
+    filetype on  " Enable type file detection. Vim will be able to try to detect the type of file in use.
+    set backspace=eol,start,indent  " allow to backspace over everything
+    set history=1000  " Set the commands to save in history default number is 20.
+    set hlsearch  " highlight matches during search
+    set incsearch  " While searching though a file incrementally highlight matching characters as you type.
+    set wildmenu  " allow tabbing through file matches
+    set showmode  " Show current mode in statusline
+    set magic  " enable regex in search patterns
+    set noerrorbells  " Disable error bell
+    set novisualbell  " Disable visual error bell
+    set t_vb=  " Never flash the screen
+    set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20  " Set the cursor shape
+    set hidden  " Allow to hide buffers with unsaved changes
+endif
+
 filetype plugin on  " Enable plugins and load plugin for the detected file type.
 filetype indent on  " Load an indent file for the detected file type.
 set fileformats=unix,dos  " which line endings to try when editing a file
@@ -15,32 +30,20 @@ set expandtab  " enable smart tabs
 set shortmess=atoI  " disable splash screen, don't prompt on save and overwrite messages for each buffer
 set mouse=a  " enable mouse in all modes
 set clipboard=unnamedplus  " sync unnamed register with system clipboard
-set backspace=eol,start,indent  " allow to backspace over everything
 set whichwrap+=<,>  " allow these characters to move to next line of first/last char in line reached"
 set autochdir  " cwd to the location of the currently edited file
 
-set history=1000  " Set the commands to save in history default number is 20.
 set showmatch  " show matching brackets
 set matchtime=2  " Tenths of a second to show the matching paren, when 'showmatch' is set.
 
 set ignorecase  " Ignore capitalization during search
 set smartcase  " except when searching for capital letters
-set hlsearch  " highlight matches during search
-set incsearch  " While searching though a file incrementally highlight matching characters as you type.
 
-set wildmenu  " allow tabbing through file matches
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.flv,*.img,*.xlsx,.git/  " exclude these from file matches
 
-set showmode  " Show current mode in statusline
-
 set lazyredraw  " do not redraw screen while running macros
-set magic  " enable regex in search patterns
 
-set noerrorbells  " Disable error bell
-set novisualbell  " Disable visual error bell
-set t_vb=  " Never flash the screen
 set tm=500  " The time in milliseconds that is waited for a key code or mapped key sequence to complete.
-set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20  " Set the cursor shape
 
 set nobackup  " Do not keep backup of file
 set nowritebackup  " do not ever use a backup file, even during :write
@@ -56,8 +59,6 @@ set nowrap  " Disable linewrap and handle sidescrolling
 set showbreak=... "If wrapping is enabled, this option specifies what to show at the begin of wrapped lines.
 set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
-set hidden  " Allow to hide buffers with unsaved changes
-
 set fillchars+=diff:╱  " Set the fillchars for diff mode
 
 " better listchars - only works if vim is not an ancient piece of shit
@@ -66,11 +67,6 @@ if has("patch-7.4.710")
 endif
 
 set pumheight=12  "maximum height of popup window
-
-" explicitly enable preview replace
-if has("nvim")
-  set inccommand=nosplit
-endif
 
 " Remember position of last edit and return on reopen
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
