@@ -60,12 +60,7 @@ set showbreak=... "If wrapping is enabled, this option specifies what to show at
 set sidescroll=5  " The minimal number of columns to scroll horizontally.
 
 set fillchars+=diff:╱  " Set the fillchars for diff mode
-
-" better listchars - only works if vim is not an ancient piece of shit
-if has("patch-7.4.710")
-    set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<
-endif
-
+set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<  " better listchars
 set pumheight=12  "maximum height of popup window
 
 " Remember position of last edit and return on reopen
@@ -89,6 +84,7 @@ endif
 " Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ' '
+let maplocalleader = ' '
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
@@ -98,25 +94,19 @@ nnoremap <silent> Q :qa<CR>
 noremap <silent> <leader>sl :set list!<CR>
 noremap <leader>ya :%y+<CR>
 
-" navigation for tabs
+" leader-based navigation for tabs
 noremap <silent> <leader>tn gt
 noremap <silent> <leader>tN gT
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
+for i in range(1,9)
+    exec "noremap <silent> <leader>" . i . " " . i . "gt"
+endfor
 noremap <leader>0 :tablast<cr>
 
 " navigation for splits
 command! Hsplit split
 cnoreabbrev hsplit Hsplit
 nnoremap <C-W>h <C-W>s
-nmap <silent> <C-W>n :vnew<CR>
+nnoremap <silent> <C-W>n :vnew<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -125,6 +115,13 @@ nnoremap <C-H> <C-W><C-H>
 " refreshing syntax highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
+
+" Spell checking
+noremap <leader>st :setlocal spell!<cr>
+noremap <leader>sn ]s
+noremap <leader>sp [s
+noremap <leader>sa zg
+noremap <leader>sua zug
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -137,16 +134,6 @@ catch
     colorscheme delek
 endtry
 set background=dark  " assume dark background
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>st :setlocal spell!<cr>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>sua zug
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -204,17 +191,16 @@ autocmd FileType * nnoremap <F5> :call <SID>run_file_type(&ft)<CR>
 autocmd FileType python,nextflow,c,cpp,sh,rust,lua,perl,php,js,java,go,scala,sql,vim,julia set colorcolumn=100
 
 " add custom file headers for new files of a certain type
-let s:ft_head_tp = {
-    \ 'python': ['#!/usr/bin/env python3', '', ''],
-    \ 'sh': ['#!/usr/bin/env bash', 'set -euo pipefail', '', ''],
-    \ }
-
 function! s:add_buffer_head() abort
-  if has_key(s:ft_head_tp, &ft) && getline(1) ==# '' && line('$')  == 1
-    let head = s:ft_head_tp[&ft]
-    call setline(1, head)
-    call cursor(len(head), 0)
-  endif
+    let l:ft_head_tp = {
+        \ 'python': ['#!/usr/bin/env python3', '', ''],
+        \ 'sh': ['#!/usr/bin/env bash', 'set -euo pipefail', '', ''],
+        \ }
+    if has_key(l:ft_head_tp, &ft) && getline(1) ==# '' && line('$')  == 1
+        let head = l:ft_head_tp[&ft]
+        call setline(1, head)
+        call cursor(len(head), 0)
+    endif
 endfunction
 autocmd FileType * call <SID>add_buffer_head()
 
@@ -312,294 +298,262 @@ if exists("g:dumb")
     finish
 endif
 
+" ensure vim-plug is installed, then load plugins
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin()
+
+" Block and line comments
+Plug 'preservim/nerdcommenter'
+let g:NERDCreateDefaultMappings = 0
+nmap <leader>cl <Plug>NERDCommenterToggle
+vmap <leader>cl <Plug>NERDCommenterToggle
+
+" File explorer
+if has('nvim-0.8.0')
+    Plug 'nvim-tree/nvim-tree.lua', {'on': 'NvimTreeToggle'}
+    nmap <silent> <F3> :NvimTreeToggle<CR>
+else
+    Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
+    nmap <silent> <F3> :NERDTreeToggle<CR>
+    let NERDTreeMapActivateNode='l'
+    let NERDTreeMapOpenInTab='<ENTER>'
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+endif
+
+" surrounding handling
+Plug 'tpope/vim-surround'
+
+" Git integration
+Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gdiff']}
+set diffopt+=vertical
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gs :Git<CR>
+nmap <leader>gr :Git restore %<CR>
+nmap <leader>ga :Git add %<CR>
+nmap <leader>gA :Git add .<CR>
+nmap <leader>gc :Git commit<CR>
+nmap <leader>gca :Git commit --amend<CR>
+nmap <leader>gpl :Git pull<CR>
+nmap <leader>gps :Git push<CR>
+nmap <leader>gb :Git blame<CR>
+nmap <leader>gl :Git log -- %<CR>
+nmap <leader>gL :Git log --<CR>
+
+" Git diff signs in signcolumn
+Plug 'mhinz/vim-signify'
+
+" LSP integration
+if executable('node') && (has('nvim-0.5.0') || has('patch-8.1.1719'))
+    " Use most recent coc.nvim with custom pum
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    inoremap <silent><expr> <TAB>
+        \ coc#pum#visible() ? coc#pum#next(1):
+        \ <SID>check_back_space() ? "\<Tab>" :
+        \ coc#refresh()
+    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+    inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+    if executable('npm')
+        " Ensure default language servers installed
+        let g:coc_global_extensions = [
+            \ 'coc-diagnostic',
+            \ 'coc-json',
+            \ 'coc-yaml',
+            \ 'coc-pairs',
+            \ 'coc-sh',
+            \ 'coc-pyright',
+            \ 'coc-clangd',
+            \ 'coc-lua',
+        \]
+    endif
+
+    set updatetime=100
+
+    " show number of diagnostics in statusline
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+      else
+        call feedkeys('K', 'in')
+      endif
+    endfunction
+
+    " Define commonly used shortcuts
+    nnoremap K :call ShowDocumentation()<CR>
+    nmap <leader>ld <Plug>(coc-definition)
+    nmap <leader>lr  <Plug>(coc-rename)
+    nmap <leader>lf  <Plug>(coc-format)
+    nmap <leader>lfo :call CocAction('fold')<CR>
+    nmap <leader>lso :call CocAction('showOutline')<CR>
+    nmap <leader>lsi :CocCommand python.sortImports<CR>
+    nmap <leader>ln :call CocAction('diagnosticNext')<CR>
+    nmap <leader>lp :call CocAction('diagnosticPrevious')<CR>
+    nmap <leader>ll :CocList<CR>
+
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Allow scrolling of doc float with C-f and C-b
+    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
+    autocmd ColorScheme onedark highlight CocInlayHint guifg=#56b6c2
+endif
+
+" fzf bindings
 try
-    " ensure vim-plug is installed, then load plugins
-    let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-    if empty(glob(data_dir . '/autoload/plug.vim'))
-      silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-      autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-    endif
-    call plug#begin()
+    Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
+catch /E15/
+    " Catch an error occurring with ancient vim
+    Plug 'junegunn/fzf'
+endtry
+Plug 'junegunn/fzf.vim', {'on': ['Files', 'Rg', 'Lines', 'Commits']}
+nmap <leader>ff :Files!<CR>
+nmap <leader>gl :Commits!<CR>
+nmap <leader>rg :Rg!<CR>
+nmap <leader>fl :Lines!<CR>
+let g:fzf_colors = {'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}
 
-    " Block and line comments
-    Plug 'preservim/nerdcommenter'
-    let g:NERDCreateDefaultMappings = 0
-    nmap <leader>cl <Plug>NERDCommenterToggle
-    vmap <leader>cl <Plug>NERDCommenterToggle
+" Trailing whitespace handling
+Plug 'ntpeters/vim-better-whitespace'
+nmap <leader>xdw :StripWhitespace<CR>
+let g:current_line_whitespace_disabled_hard=1
 
-    " File explorer
-    if has('nvim-0.8.0')
-        Plug 'nvim-tree/nvim-tree.lua', {'on': 'NvimTreeToggle'}
-        nmap <silent> <F3> :NvimTreeToggle<CR>
-    else
-        Plug 'preservim/nerdtree', {'on': 'NERDTreeToggle'}
-        nmap <silent> <F3> :NERDTreeToggle<CR>
-        let NERDTreeMapActivateNode='l'
-        let NERDTreeMapOpenInTab='<ENTER>'
-        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    endif
+" indent guides
+if has('nvim-0.5.0')
+    Plug 'lukas-reineke/indent-blankline.nvim'
+else
+    Plug 'Yggdroot/indentLine'
+    let g:indentLine_char = '│'
+    let g:indentLine_defaultGroup = 'StatusLineNC'
+endif
 
-    " surrounding handling
-    Plug 'tpope/vim-surround'
+" better vimdiff file selection
+if has('nvim-0.8.0')
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'sindrets/diffview.nvim'
+    nmap <leader>dv :DiffviewOpen<CR>
+    nmap <leader>dc :DiffviewClose<CR>
+endif
 
-    " Git integration
-    Plug 'tpope/vim-fugitive', {'on': ['Git', 'Gdiff']}
-    set diffopt+=vertical
-    nmap <leader>gd :Gdiff<CR>
-    nmap <leader>gs :Git<CR>
-    nmap <leader>gr :Git restore %<CR>
-    nmap <leader>ga :Git add %<CR>
-    nmap <leader>gA :Git add .<CR>
-    nmap <leader>gc :Git commit<CR>
-    nmap <leader>gca :Git commit --amend<CR>
-    nmap <leader>gpl :Git pull<CR>
-    nmap <leader>gps :Git push<CR>
-    nmap <leader>gb :Git blame<CR>
-    nmap <leader>gl :Git log -- %<CR>
-    nmap <leader>gL :Git log --<CR>
+" undotree visualization
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+nnoremap <F6> :UndotreeToggle<CR>
 
-    " Git diff signs in signcolumn
-    Plug 'mhinz/vim-signify'
+" Syntax highlighting for NF
+Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
+autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
 
-    " LSP integration
-    if executable('node') && (has('nvim-0.5.0') || has('patch-8.1.1719'))
-        " Use most recent coc.nvim with custom pum
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
-        inoremap <silent><expr> <TAB>
-            \ coc#pum#visible() ? coc#pum#next(1):
-            \ <SID>check_back_space() ? "\<Tab>" :
-            \ coc#refresh()
-        inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-        inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-        if executable('npm')
-            " Ensure default language servers installed
-            let g:coc_global_extensions = [
-                \ 'coc-diagnostic',
-                \ 'coc-json',
-                \ 'coc-yaml',
-                \ 'coc-pairs',
-                \ 'coc-sh',
-                \ 'coc-pyright',
-                \ 'coc-clangd',
-                \ 'coc-lua',
-            \]
-        endif
+" TSV/CSV highlighting
+Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text']}
+let g:rbql_with_headers = 1
+let g:rb_storage_dir = $HOME . '/.cache/rbql'
+let g:table_names_settings = $HOME . '/.cache/rbql/table_names'
+let g:rainbow_table_index = $HOME . '/.cache/rbql/table_index'
+autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
 
-        set updatetime=100
+" TeX support
+Plug 'lervag/vimtex', {'for': 'tex'}
+if executable('zathura')
+    let g:vimtex_view_method = 'zathura'
+elseif executable('xreader')
+    let g:vimtex_view_general_viewer = 'xreader'
+endif
+let g:vimtex_quickfix_mode = 2
+let g:vimtex_quickfix_autoclose_after_keystrokes = 1
+let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_compiler_latexmk = {'build_dir' : 'build'}
 
-        " show number of diagnostics in statusline
-        set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" Github copilot integration
+if executable('node')
+    Plug 'github/copilot.vim'
+    " ain't nobody got time to hit the right key
+    for key in range(9, 11)
+        exec 'imap <silent><script><expr> <F' . key . '> copilot#Accept("")'
+        exec 'imap <silent><script><expr> <C-F' . key . '> copilot#Next()'
+    endfor
+    let g:copilot_no_tab_map = v:true
+endif
 
-        function! s:check_back_space() abort
-            let col = col('.') - 1
-            return !col || getline('.')[col - 1]  =~ '\s'
-        endfunction
-
-        function! ShowDocumentation()
-          if CocAction('hasProvider', 'hover')
-            call CocActionAsync('doHover')
-          else
-            call feedkeys('K', 'in')
-          endif
-        endfunction
-
-        " Define commonly used shortcuts
-        nnoremap K :call ShowDocumentation()<CR>
-        nmap <leader>ld <Plug>(coc-definition)
-        nmap <leader>lr  <Plug>(coc-rename)
-        nmap <leader>lf  <Plug>(coc-format)
-        nmap <leader>lfo :call CocAction('fold')<CR>
-        nmap <leader>lso :call CocAction('showOutline')<CR>
-        nmap <leader>lsi :CocCommand python.sortImports<CR>
-        nmap <leader>ln :call CocAction('diagnosticNext')<CR>
-        nmap <leader>lp :call CocAction('diagnosticPrevious')<CR>
-        nmap <leader>ll :CocList<CR>
-
-        " Highlight the symbol and its references when holding the cursor.
-        autocmd CursorHold * silent call CocActionAsync('highlight')
-
-        " Allow scrolling of doc float with C-f and C-b
-        nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-        nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-        inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-        inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-        vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-        vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-
-        autocmd ColorScheme onedark highlight CocInlayHint guifg=#56b6c2
-    endif
-
-    " fzf bindings
-    try
-        Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
-    catch /E15/
-        " Catch an error occurring with ancient vim
-        Plug 'junegunn/fzf'
-    endtry
-    Plug 'junegunn/fzf.vim', {'on': ['Files', 'Rg', 'Lines', 'Commits']}
-    nmap <leader>ff :Files!<CR>
-    nmap <leader>fc :Commits!<CR>
-    nmap <leader>rg :Rg!<CR>
-    nmap <leader>fl :Lines!<CR>
-    let g:fzf_colors = {'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}
-
-    " Trailing whitespace handling
-    Plug 'ntpeters/vim-better-whitespace'
-    nmap <leader>xdw :StripWhitespace<CR>
-    let g:current_line_whitespace_disabled_hard=1
-
-    " indent guides
-    if has('nvim-0.5.0')
-        Plug 'lukas-reineke/indent-blankline.nvim'
-    else
-        Plug 'Yggdroot/indentLine'
-        let g:indentLine_char = '│'
-        let g:indentLine_defaultGroup = 'StatusLineNC'
-    endif
-
-    " better vimdiff file selection
-    if has('nvim-0.8.0')
-        Plug 'nvim-lua/plenary.nvim'
-        Plug 'sindrets/diffview.nvim'
-        nmap <leader>dv :DiffviewOpen<CR>
-        nmap <leader>dc :DiffviewClose<CR>
-    endif
-
-    " undotree visualization
-    Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
-    nnoremap <F6> :UndotreeToggle<CR>
-
-    " Syntax highlighting for NF
-    Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
-    autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
-
-    " TSV/CSV highlighting
-    Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text']}
-    let g:rbql_with_headers = 1
-    let g:rb_storage_dir = $HOME . '/.cache/rbql'
-    let g:table_names_settings = $HOME . '/.cache/rbql/table_names'
-    let g:rainbow_table_index = $HOME . '/.cache/rbql/table_index'
-    autocmd BufNewFile,BufRead *.{tsv,csv} set ft=csv
-
-    " Rainbow parentheses
-    Plug 'luochen1990/rainbow'
-    nmap <leader>rb :RainbowToggle<CR>
-    let g:rainbow_conf = {
-    \	'ctermfgs': ['NONE', '39', '180', '170', '114'],
-    \   'guifgs': ['NONE', '#61AFEF', '#E5C07B', '#C678DD', '#56B6C2'],
-    \	'guis': [''],
-    \	'cterms': [''],
-    \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-    \	'separately': {
-    \		'*': {},
-    \		'markdown': {
-    \			'parentheses_options': 'containedin=markdownCode contained',
-    \		},
-    \		'vim': {
-    \			'parentheses_options': 'containedin=vimFuncBody',
-    \		},
-    \		'perl': {
-    \			'syn_name_prefix': 'perlBlockFoldRainbow',
-    \		},
-    \		'css': 0
-    \	}
+" color scheme
+if has('termguicolors')
+    set termguicolors
+endif
+if has('nvim-0.8.0')
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'navarasu/onedark.nvim'
+    let g:onedark_config = {
+        \"colors": {"bg0": "#232323"},
+        \"highlights": {"Title": {"fg": "$green"}}
     \}
-
-    " TeX support
-    Plug 'lervag/vimtex', {'for': 'tex'}
-    if executable('zathura')
-        let g:vimtex_view_method = 'zathura'
-    elseif executable('xreader')
-        let g:vimtex_view_general_viewer = 'xreader'
-    endif
-    let maplocalleader = " "
-    let g:vimtex_quickfix_mode = 2
-    let g:vimtex_quickfix_autoclose_after_keystrokes = 1
-    let g:vimtex_quickfix_open_on_warning = 0
-    let g:vimtex_compiler_latexmk = {
-    \   'build_dir' : 'build',
+else
+    Plug 'joshdick/onedark.vim'
+    let g:onedark_color_overrides = {
+    \    "background": {"gui": "#232323", "cterm": "235", "cterm16": "0"},
     \}
+    let g:onedark_termcolors=256
+    let g:onedark_terminal_italics=1  " alacritty supports italics
+endif
 
-    " Github copilot integration
-    if executable('node')
-        Plug 'github/copilot.vim'
-        " ain't nobody got time to hit the right key
-        imap <silent><script><expr> <F9> copilot#Accept("")
-        imap <silent><script><expr> <F10> copilot#Accept("")
-        imap <silent><script><expr> <F11> copilot#Accept("")
-        let g:copilot_no_tab_map = v:true
-    endif
+" Local plugin config (optional)
+let $LOCALPLUGCONF = $XDG_CONFIG_HOME . "/nvim/local/plugins.local.vim"
+if filereadable($LOCALPLUGCONF)
+    source $LOCALPLUGCONF
+endif
 
-    " color scheme
-    if has('termguicolors')
-        set termguicolors
-    endif
-    if has('nvim-0.8.0')
-        Plug 'nvim-treesitter/nvim-treesitter'
-        Plug 'navarasu/onedark.nvim'
-        let g:onedark_config = {
-            \"colors": {"bg0": "#232323"},
-            \"highlights": {"Title": {"fg": "$green"}}
-        \}
-    else
-        Plug 'joshdick/onedark.vim'
-        let g:onedark_color_overrides = {
-        \    "background": {"gui": "#232323", "cterm": "235", "cterm16": "0"},
-        \}
-        let g:onedark_termcolors=256
-        let g:onedark_terminal_italics=1  " alacritty supports italics
-    endif
+if exists('g:journal_mode')
+    Plug 'LokiLuciferase/pensieve.nvim'
+    Plug 'vimwiki/vimwiki'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'xiyaowong/telescope-emoji.nvim'
+    Plug 'itchyny/calendar.vim'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
+    let g:vimwiki_list = []
+    let g:copilot_filetypes = {'*': v:false}
+endif
 
-    " Local plugin config (optional)
-    let $LOCALPLUGCONF = $XDG_CONFIG_HOME . "/nvim/local/plugins.local.vim"
-    if filereadable($LOCALPLUGCONF)
-        source $LOCALPLUGCONF
-    endif
+call plug#end()
 
-    if exists('g:journal_mode')
-        Plug 'LokiLuciferase/pensieve.nvim'
-        Plug 'vimwiki/vimwiki'
-        Plug 'nvim-telescope/telescope.nvim'
-        Plug 'xiyaowong/telescope-emoji.nvim'
-        Plug 'itchyny/calendar.vim'
-        Plug 'jose-elias-alvarez/null-ls.nvim'
-        let g:vimwiki_list = []
-        let g:copilot_filetypes = {'*': v:false}
-    endif
+" execute the following only if plugin loading worked.
+colorscheme onedark
 
-    call plug#end()
-
-    " execute the following only if plugin loading worked.
-    colorscheme onedark
-
-    " execute lua configurations - needs to be done after plug#end
-    try
-    lua <<EOF
-    if vim.g.journal_mode == 1 then
-        require("pensieve").setup({spell_langs={"en_us", "de_at"}})
-        require("telescope").load_extension("emoji")
-    end
-    if vim.fn.has('nvim-0.8.0') == 1 then
-        require("nvim-treesitter.configs").setup(
-        {
-            ensure_installed = {
-                "c", "cpp", "rust",
-                "javascript", "python", "bash",
-                "latex", "toml", "json", "yaml", "sql",
-                "dockerfile",
-                "lua", "vim"
-            },
-            highlight = {enable = true},
-        }
-        )
-        require("nvim-tree").setup()
-        require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
-    end
+" execute lua configurations - needs to be done after plug#end
+try
+lua <<EOF
+if vim.g.journal_mode == 1 then
+    require("pensieve").setup({spell_langs={"en_us", "de_at"}})
+    require("telescope").load_extension("emoji")
+end
+if vim.fn.has('nvim-0.8.0') == 1 then
+    require("nvim-treesitter.configs").setup(
+    {
+        ensure_installed = {
+            "c", "cpp", "rust",
+            "javascript", "python", "bash",
+            "latex", "toml", "json", "yaml", "sql",
+            "dockerfile",
+            "lua", "vim"
+        },
+        highlight = {enable = true},
+    }
+    )
+    require("nvim-tree").setup()
+    require("diffview").setup({enhanced_diff_hl = true, use_icons = false})
+end
 EOF
-    catch /.*/
-    endtry
-
-
 catch /.*/
-    echo "Plugins unavailable due to error: " . v:exception
 endtry
