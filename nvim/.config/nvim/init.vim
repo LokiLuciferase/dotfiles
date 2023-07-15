@@ -264,6 +264,26 @@ function! RunUpdates()
 endfunction
 com! RunUpdates call RunUpdates()
 
+" Session handling
+function! HandleSession(arg)
+    if has('nvim')
+        let l:session_file = stdpath('cache') . '/session.vim'
+    else
+        let l:session_file = $VIM . '/session.vim'
+    endif
+    if a:arg == 'save'
+        execute 'mksession! ' . l:session_file
+    elseif a:arg == 'restore'
+        if filereadable('session.vim')
+            execute 'source session.vim'
+        elseif filereadable(l:session_file)
+            execute 'source ' . l:session_file
+        endif
+    endif
+endfunction
+nnoremap <leader>ss :call HandleSession('save')<CR>
+nnoremap <leader>sr :call HandleSession('restore')<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc autocmds
@@ -277,7 +297,7 @@ autocmd BufEnter * if &diff | nnoremap <silent> q :qa<CR> | endif
 
 " Fix autochdir when opening a directory
 let g:netrw_keepdir = 0
-autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | end
+autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | endif
 
 " Highlight yanks
 if has("nvim")
