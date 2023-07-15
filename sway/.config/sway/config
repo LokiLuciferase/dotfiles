@@ -20,6 +20,7 @@ for_window [class=".*"] border pixel 0
 for_window [title="scratchpad_shell"] move scratchpad
 
 # import environment variables from local config - which default tools to use
+font pango:Monospace,DejaVuSansMNerdFont 10
 set $term_font_size 12
 include ~/.config/sway/local.config
 

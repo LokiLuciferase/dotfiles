@@ -19,6 +19,7 @@ for_window [class=".*"] border pixel 0
 for_window [title="scratchpad_shell"] move scratchpad
 
 # import environment variables from xresources - which default tools to use
+font pango:Monospace,DejaVuSansMNerdFont 10
 set_from_resource $term_font_size terminal.font.size 12
 
 # user specific startup applications
