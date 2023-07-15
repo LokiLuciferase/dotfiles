@@ -45,13 +45,14 @@ alias gbb='git bisect bad'
 alias gbg='git bisect good'
 
 [[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
+alias ed="echo 'fuck off'"
 alias nano="${VIM_BIN}"
-alias vim="${VIM_BIN}"
 alias vi="${VIM_BIN} --cmd 'let g:dumb=1'"
-alias nvimdiff='nvim -d'
+alias vim="${VIM_BIN} -p"
+alias nvim="${VIM_BIN} -p"
+alias nvimdiff='\nvim -d'
 alias gvd="git-nvimdiff"
 alias suvi=sudoedit
-alias ed="echo 'fuck off'"
 
 [[ "$(which ssha 2> /dev/null)" != '' ]] && compdef _ssh ssha=ssh
 

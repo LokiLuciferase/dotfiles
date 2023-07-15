@@ -264,7 +264,7 @@ nagme() {
 
 git-nvimdiff() {
     # git diff using neovim diffview
-    nvim -c "DiffviewOpen ${1:-}" -c "bd 1"
+    nvimdiff -c "DiffviewOpen ${1:-}"
 }
 
 get-newest() {

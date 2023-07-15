@@ -63,22 +63,6 @@ set fillchars+=diff:╱  " Set the fillchars for diff mode
 set listchars=tab:→\ ,space:·,eol:¬,trail:~,extends:>,precedes:<  " better listchars
 set pumheight=12  "maximum height of popup window
 
-" Remember position of last edit and return on reopen
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-autocmd BufEnter,InsertLeave * :syntax sync fromstart
-
-" Always open multiple files in tabs
-autocmd VimEnter * if !&diff | tab all | tabfirst | endif
-
-" Fix autochdir when opening a directory
-let g:netrw_keepdir = 0
-autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | end
-
-" Highlight yanks
-if has("nvim")
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=100}
-endif
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymaps
@@ -125,6 +109,23 @@ noremap <leader>sua zug
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Statusline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2  " show statusline
+set statusline=
+set statusline+=%#Title#
+set statusline+=\ %f
+set statusline+=%m%r
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\%y
+set statusline+=[%{&fileencoding?&fileencoding:&encoding}
+set statusline+=\|%{&fileformat}\]
+set statusline+=\ %l:%c
+set statusline+=\ %p%%
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on  " Turn syntax highlighting on
@@ -137,7 +138,7 @@ set background=dark  " assume dark background
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Filetype quirks
+" Filetype-specific settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " prose
 function SetProseOptions()
@@ -206,23 +207,6 @@ autocmd FileType * call <SID>add_buffer_head()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Statusline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set laststatus=2  " show statusline
-set statusline=
-set statusline+=%#Title#
-set statusline+=\ %f
-set statusline+=%m%r
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\%y
-set statusline+=[%{&fileencoding?&fileencoding:&encoding}
-set statusline+=\|%{&fileformat}\]
-set statusline+=\ %l:%c
-set statusline+=\ %p%%
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " diff changes with file on disk
@@ -279,6 +263,26 @@ function! RunUpdates()
     endif
 endfunction
 com! RunUpdates call RunUpdates()
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Misc autocmds
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remember position of last edit and return on reopen
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufEnter,InsertLeave * :syntax sync fromstart
+
+" If we entered in diff mode, exit all buffers with q
+autocmd BufEnter * if &diff | nnoremap <silent> q :qa<CR> | endif
+
+" Fix autochdir when opening a directory
+let g:netrw_keepdir = 0
+autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | end
+
+" Highlight yanks
+if has("nvim")
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank {timeout=100}
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -498,7 +502,11 @@ if has('nvim-0.8.0')
     Plug 'navarasu/onedark.nvim'
     let g:onedark_config = {
         \"colors": {"bg0": "#232323"},
-        \"highlights": {"Title": {"fg": "$green"}}
+        \"highlights": {
+            \"Title": {"fg": "$green"},
+            \"TabLine": {"fg": "$grey"},
+            \"TabLineSel": {"bg": "$bg3", "fg": "$fg"},
+        \},
     \}
 else
     Plug 'joshdick/onedark.vim'
