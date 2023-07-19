@@ -391,6 +391,7 @@ if executable('node') && (has('nvim-0.5.0') || has('patch-8.1.1719'))
             \ 'coc-pyright',
             \ 'coc-clangd',
             \ 'coc-lua',
+            \ 'coc-db',
         \]
     endif
 
@@ -501,6 +502,10 @@ let g:vimtex_quickfix_mode = 2
 let g:vimtex_quickfix_autoclose_after_keystrokes = 1
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_compiler_latexmk = {'build_dir' : 'build'}
+
+" relational database support
+Plug 'tpope/vim-dadbod', {'for': 'sql'}
+Plug 'kristijanhusak/vim-dadbod-ui', {'for': 'sql'}
 
 " Github copilot integration
 if executable('node')
