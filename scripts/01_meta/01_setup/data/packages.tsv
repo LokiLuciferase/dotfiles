@@ -33,8 +33,8 @@ various					asciinema
 various					visidata		
 various					openpyxl		
 various					black		
-desktop	lightdm    lightdm	lightdm	lightdm
-desktop	slick-greeter	slick-greeter	lightdm-slick-greeter	slick-greeter
+desktop	lightdm	lightdm	lightdm	lightdm			
+desktop	slick-greeter	slick-greeter	lightdm-slick-greeter	slick-greeter			
 desktop	timeshift	timeshift	timeshift				
 desktop	mpv	mpv	mpv	mpv			
 desktop	redshift	redshift	redshift	redshift			
@@ -61,6 +61,8 @@ desktop	zathura	zathura	zathura	zathura
 desktop					autorandr		
 desktop					bumblebee-status		
 desktop					i3ipc		
+desktop							https://github.com/LokiLuciferase/workstyle.git
+desktop							https://github.com/ayosec/alacritty.git
 desktop						flathub@com.github.tchx84.Flatseal	
 desktop						flathub@org.keepassxc.KeePassXC	
 desktop						flathub@org.signal.Signal	
