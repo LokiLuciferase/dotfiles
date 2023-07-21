@@ -507,6 +507,7 @@ let g:vimtex_compiler_latexmk = {'build_dir' : 'build'}
 Plug 'tpope/vim-dadbod', {'for': 'sql', 'on': ['DB', 'DBUI', 'DBUIToggle']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'for': 'sql', 'on': ['DBUI', 'DBUIToggle']}
 nnoremap <F4> :DBUIToggle<CR>
+autocmd FileType dbout wincmd T
 
 " Github copilot integration
 if executable('node')
