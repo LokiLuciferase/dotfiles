@@ -504,8 +504,9 @@ let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_compiler_latexmk = {'build_dir' : 'build'}
 
 " relational database support
-Plug 'tpope/vim-dadbod', {'for': 'sql'}
-Plug 'kristijanhusak/vim-dadbod-ui', {'for': 'sql'}
+Plug 'tpope/vim-dadbod', {'for': 'sql', 'on': ['DB', 'DBUI', 'DBUIToggle']}
+Plug 'kristijanhusak/vim-dadbod-ui', {'for': 'sql', 'on': ['DBUI', 'DBUIToggle']}
+nnoremap <F4> :DBUIToggle<CR>
 
 " Github copilot integration
 if executable('node')
