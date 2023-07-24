@@ -506,8 +506,10 @@ let g:vimtex_compiler_latexmk = {'build_dir' : 'build'}
 " relational database support
 Plug 'tpope/vim-dadbod', {'for': 'sql', 'on': ['DB', 'DBUI', 'DBUIToggle']}
 Plug 'kristijanhusak/vim-dadbod-ui', {'for': 'sql', 'on': ['DBUI', 'DBUIToggle']}
+let g:db_ui_auto_execute_table_helpers = 1
 nnoremap <F4> :DBUIToggle<CR>
 autocmd FileType dbout wincmd T
+autocmd FileType dbout setlocal nofoldenable
 
 " Github copilot integration
 if executable('node')
