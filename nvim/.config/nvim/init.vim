@@ -484,7 +484,7 @@ Plug 'LokiLuciferase/nextflow-vim', {'for': 'nextflow'}
 autocmd BufNewFile,BufRead *.{nf,config} set ft=nextflow
 
 " TSV/CSV highlighting
-Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text']}
+Plug 'mechatroner/rainbow_csv', {'for': ['tsv', 'csv', 'text'], 'on': ['DBUIToggle']}
 let g:rbql_with_headers = 1
 let g:rb_storage_dir = $HOME . '/.cache/rbql'
 let g:table_names_settings = $HOME . '/.cache/rbql/table_names'
