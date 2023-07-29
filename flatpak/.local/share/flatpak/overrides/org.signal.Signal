@@ -1,0 +1,5 @@
+[Context]
+filesystems=home
+
+[Environment]
+SIGNAL_USE_TRAY_ICON=1

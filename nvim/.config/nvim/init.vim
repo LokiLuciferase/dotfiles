@@ -178,6 +178,7 @@ function! s:run_file_type(ft) abort
         \ 'python': '!python3 %',
         \ 'sh': '!bash %',
         \ 'js': '!node %',
+        \ 'go': '!go run %',
         \ 'rust': '!cargo run',
         \ }
     if has_key(s:run_tp, a:ft)
