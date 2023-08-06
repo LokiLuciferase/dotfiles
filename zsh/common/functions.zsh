@@ -432,7 +432,7 @@ _apt_upgrade_all() {
 _flatpak_upgrade_all_if_exist() {
     which flatpak &> /dev/null || return 0
     flatpak update -y
-    flatpak remove --unused
+    flatpak remove --unused --delete-data -y
 }
 
 ## Git automation ##
