@@ -375,6 +375,7 @@ Plug 'mhinz/vim-signify'
 if executable('node') && (has('nvim-0.5.0') || has('patch-8.1.1719'))
     " Use most recent coc.nvim with custom pum
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    let g:coc_data_home = $XDG_DATA_HOME . '/nvim/coc'
     inoremap <silent><expr> <TAB>
         \ coc#pum#visible() ? coc#pum#next(1):
         \ <SID>check_back_space() ? "\<Tab>" :
