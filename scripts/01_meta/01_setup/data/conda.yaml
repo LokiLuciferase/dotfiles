@@ -5,7 +5,6 @@ channels:
 dependencies:
   - autopep8
   - beautifulsoup4
-  - black
   - boto3
   - click
   - cookiecutter
@@ -45,3 +44,5 @@ dependencies:
   - tqdm
   - typeguard
   - vulture
+  - pip:
+    - jupyterlab_materialdarker
