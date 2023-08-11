@@ -36,7 +36,6 @@ dependencies:
   - pytest-cov
   - pytest-pudb
   - pytest-profiling
-  - python=3.10.*
   - requests
   - scipy
   - seaborn
