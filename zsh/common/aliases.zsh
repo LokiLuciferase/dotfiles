@@ -23,7 +23,6 @@ alias tree="tree -I '.git'"
 alias ta="tree -I '.git' -a"
 alias dr="desktop-run"
 alias sshb="ssh -f -N"
-alias lo='libreoffice'
 alias dps='docker ps'
 alias dls='docker image ls'
 alias pps='podman ps'
