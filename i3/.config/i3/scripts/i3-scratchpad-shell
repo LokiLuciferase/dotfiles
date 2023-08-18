@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
+alacritty --title scratchpad_shell -o window.opacity=1 -o font.size="${1:-12}" -e "$SCRIPT_DIR/i3-scratchpad-tmux"

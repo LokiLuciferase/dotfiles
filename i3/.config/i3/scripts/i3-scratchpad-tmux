@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+tmux new-session -d -s scratchpad
+tmux send-keys -t scratchpad "setopt ignoreeof" Enter
+tmux send-keys -t scratchpad "cd" Enter
+tmux send-keys -t scratchpad "clear" Enter
+tmux attach -t scratchpad
