@@ -20,7 +20,7 @@ maybe_aws_sso_login() {
 purge_existing_rules() {
     echo "Loading Security Group information..."
     local rules_to_revoke
-    rules_to_revoke=$(aws --profile $AWSCLI_PROFILE ec2 describe-security-groups --group-ids "$SECURITY_GROUP_ID" --output text | grep IPRANGES | grep -v "0.0.0.0" | grep -v "KEEP" | cut -f2 | tr '\n' ' ')
+    rules_to_revoke=$(aws --profile $AWSCLI_PROFILE ec2 describe-security-groups --group-ids "$SECURITY_GROUP_ID" --output text | grep IPRANGES | grep -v "0.0.0.0" | grep '[[:blank:]]$' | cut -f2 | tr '\n' ' ')
     for rule in ${rules_to_revoke[@]}; do
         echo "Revoking ingress rule $rule..."
         AWS_PAGER="" aws --profile $AWSCLI_PROFILE ec2 revoke-security-group-ingress --group-id "$SECURITY_GROUP_ID" --cidr "$rule" --protocol tcp --port $INGRESS_PORT
