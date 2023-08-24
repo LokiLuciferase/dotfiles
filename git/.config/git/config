@@ -2,7 +2,7 @@
     name = Lukas Lüftinger
     email = lukas.lueftinger@outlook.com
 [alias]
-    wdiff = diff --word-diff=color
+    wdiff = diff --word-diff=color --word-diff-regex="[A-Za-z0-9_-]+|[^[:space:]]"
     lol = log --graph --decorate --abbrev-commit --all --pretty=format:'%C(auto)%h%d%Creset %C(cyan)(%cs)%Creset %C(green)%cn%Creset %s'
     lola = log --graph --decorate --abbrev-commit --all --pretty=format:'%C(auto)%h%d%Creset %C(cyan)(%cr)%Creset %C(green)%cn%Creset %s'
     lolas = lola --simplify-by-decoration
