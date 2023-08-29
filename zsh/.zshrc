@@ -8,6 +8,7 @@ export LC_CTYPE='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 
 ZSH="${HOME}/.config/oh-my-zsh"
+ZDOTDIR="${HOME}/.cache/zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 TERM='xterm-256color'
 DEFAULT_USER=$USER
