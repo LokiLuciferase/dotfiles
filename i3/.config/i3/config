@@ -33,7 +33,7 @@ exec --no-startup-id "light-locker"
 
 # display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; feh --bg-fill --no-fehbg $HOME/.local/share/backgrounds/default"
-exec --no-startup-id "picom"
+exec --no-startup-id "picom --daemon"
 exec --no-startup-id "redshift"
 
 # keyboard and mouse/touchpad setup
