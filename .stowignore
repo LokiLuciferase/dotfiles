@@ -1,9 +1,16 @@
+# paths which should be igored from stow operations
 datafiles/.git
 datafiles/.gitignore
 zsh/local/
 zsh/common/
 scripts/
 termux/
-spacevim/
 libinput-gestures/
 xresources/.Xresources.local
+
+# directory paths which, if requested to be present at the target location of a stow operation, are to be created (i.e., they should not be part of the symlink)
+!~/.config/jupyter
+!~/.config/jupyter/lab
+!~/.config/ipython
+!~/.config/ipython/profile_default
+!~/.local/share/flatpak

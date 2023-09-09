@@ -4,7 +4,7 @@ import logging
 import os
 import shutil
 from pathlib import Path
-from typing import Set
+from typing import Set, Tuple
 
 
 logging.basicConfig(format='%(levelname)s - %(message)s')
@@ -74,9 +74,8 @@ class Stow:
         self._ignore_errors = ignore_errors
         self._relative_base = relative_base.absolute()
         self._dotfiles_dir = dotfiles_dir
-        self._ignored_paths = self._read_ignored_paths(self._dotfiles_dir / '.stowignore')
-        self._ensure_present_paths = self._read_ensure_present_paths(
-            self._dotfiles_dir / '.stowcreate'
+        self._ignored_paths, self._ensure_present_paths = self._read_ignored_paths(
+            self._dotfiles_dir / '.stowignore'
         )
 
     def _maybe_raise(self, s: str):
@@ -85,40 +84,39 @@ class Stow:
         else:
             raise RuntimeError(s)
 
-    def _read_ignored_paths(self, ignored_paths_file: Path) -> Set[Path]:
+    def _read_ignored_paths(self, ignored_paths_file: Path) -> Tuple[Set[Path], Set[Path]]:
         """
         Read the ignored paths file `.stowignore` from the dotfiles dir,
-        and return a set of all paths which should be excluded from any operations.
+        and return a set of all paths which should be excluded from any operations, as well as
+        a set of all directories which, if queried, should be ensured to exist (denoted by a
+        leading `!` in the path).
         """
-        paths = {ignored_paths_file.parent / '.git'}
+        ignored_paths = {ignored_paths_file.parent / '.git'}
+        ensure_present_paths = {
+            (Path.home() / x).resolve().absolute()
+            for x in ['.config', '.local', '.local/share', '.local/bin', '.local/lib', '.cache']
+        }
+
         if ignored_paths_file.is_file():
-            paths = paths.union(
+            ignored_paths = ignored_paths.union(
                 {
                     (ignored_paths_file.parent / Path(x.strip())).resolve().absolute()
                     for x in ignored_paths_file.read_text().split('\n')
                     if len(x.strip())
+                    and not x.strip().startswith('!')  # ignore negated paths
+                    and not x.strip().startswith('#')  # ignore comments
                 }
             )
-        return paths
-
-    def _read_ensure_present_paths(self, ensure_present_paths_file: Path) -> Set[Path]:
-        """
-        Read the ensure present paths file `.stowcreate` from the dotfiles dir,
-        and return a set of all directories which, if queried, should be ensured to exist.
-        """
-        paths = {
-            (Path.home() / x).resolve().absolute()
-            for x in ['.config', '.local', '.local/share', '.local/bin', '.local/lib', '.cache']
-        }
-        if ensure_present_paths_file.is_file():
-            paths = paths.union(
+            ensure_present_paths = ensure_present_paths.union(
                 {
-                    (Path(x.strip())).expanduser().resolve().absolute()
-                    for x in ensure_present_paths_file.read_text().split('\n')
+                    (Path(x.strip()[1:])).expanduser().resolve().absolute()
+                    for x in ignored_paths_file.read_text().split('\n')
                     if len(x.strip())
+                    and x.strip().startswith('!')  # only include negated paths
+                    and not x.strip().startswith('#')  # ignore comments
                 }
             )
-        return paths
+        return ignored_paths, ensure_present_paths
 
     def _maybe_shove(self, dst: Path, shove_suffix: str = '.bak') -> bool:
         """
