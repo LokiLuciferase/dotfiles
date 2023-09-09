@@ -8,6 +8,7 @@ alias la='ls -a'
 alias lh='ls -lh'
 alias l='ls -lah'
 alias lt='ls -lahtr'
+alias ltt='ls -lahtr --group-directories-first'
 
 alias c='clear'
 alias :q='exit'
