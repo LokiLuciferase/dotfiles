@@ -425,7 +425,6 @@ if executable('node') && (has('nvim-0.5.0') || has('patch-8.1.1719'))
     nmap <leader>lsi :CocCommand python.sortImports<CR>
     nmap <leader>ln :call CocAction('diagnosticNext')<CR>
     nmap <leader>lp :call CocAction('diagnosticPrevious')<CR>
-    nmap <leader>ll :CocList<CR>
 
     " Highlight the symbol and its references when holding the cursor.
     autocmd CursorHold * silent call CocActionAsync('highlight')
