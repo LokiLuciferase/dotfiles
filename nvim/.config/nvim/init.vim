@@ -122,15 +122,15 @@ set statusline+=\ %p%%
 
 " add statusline background if multiple splits to improve readability
 function SLColor()
-    if tabpagewinnr(tabpagenr(), '$') == 1
-        hi! link StatusLine Title
-    else
+    if tabpagewinnr(tabpagenr(), '$') > 1 && winheight('$') != &lines - 2
         exec 'hi StatusLine' .
             \' ctermfg=' . synIDattr(synIDtrans(hlID('Title')), 'fg', 'cterm') .
             \' guifg=' . synIDattr(synIDtrans(hlID('Title')), 'fg', 'gui')
+    else
+        hi! link StatusLine Title
     endif
 endfunction
-autocmd BufEnter,WinEnter * call SLColor()
+autocmd VimEnter,WinEnter,WinLeave,WinClosed,InsertEnter * call SLColor()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -354,7 +354,7 @@ else
     nmap <silent> <F3> :NERDTreeToggle<CR>
     let NERDTreeMapActivateNode='l'
     let NERDTreeMapOpenInTab='<ENTER>'
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endif
 
 " surrounding handling
