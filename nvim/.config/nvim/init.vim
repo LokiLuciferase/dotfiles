@@ -112,17 +112,25 @@ noremap <leader>sua zug
 " Statusline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2  " show statusline
-set statusline=
-set statusline+=%#Title#
-set statusline+=\ %f
-set statusline+=%m%r
-set statusline+=%=
+set statusline=\ %f%m%r%=
 set statusline+=%#CursorColumn#
 set statusline+=\%y
 set statusline+=[%{&fileencoding?&fileencoding:&encoding}
 set statusline+=\|%{&fileformat}\]
 set statusline+=\ %l:%c
 set statusline+=\ %p%%
+
+" add statusline background if multiple splits to improve readability
+function SLColor()
+    if tabpagewinnr(tabpagenr(), '$') == 1
+        hi! link StatusLine Title
+    else
+        exec 'hi StatusLine' .
+            \' ctermfg=' . synIDattr(synIDtrans(hlID('Title')), 'fg', 'cterm') .
+            \' guifg=' . synIDattr(synIDtrans(hlID('Title')), 'fg', 'gui')
+    endif
+endfunction
+autocmd BufEnter,WinEnter * call SLColor()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
