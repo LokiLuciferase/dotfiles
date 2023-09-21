@@ -489,3 +489,8 @@ pall() {
     _migrate-dotfiles
     _backup_shell_hist
 }
+
+update-git-repos() {
+    # update all git repos in the current directory, including submodules, and remove fully merged branches
+    for-each-dir eval 'git fetch --all && git pull && git submodule update --recursive && git sweep && echo "On branch $(git branch --show-current)."'
+}
