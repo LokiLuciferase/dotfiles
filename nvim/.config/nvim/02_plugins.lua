@@ -98,7 +98,7 @@ local plugin_spec = {
             vim.api.nvim_set_keymap("n", "<leader>gb", ":Git blame<CR>", mopts)
             vim.api.nvim_set_keymap("n", "<leader>gr", ":Git restore<CR>", mopts)
         end,
-        cmd = {"Git", "Gdiffsplit"}
+        cmd = { "Git", "Gdiffsplit" }
     },
     {
         -- Git diff signs in signcolumn
@@ -144,9 +144,9 @@ local plugin_spec = {
             { "junegunn/fzf", lazy = true }
         },
         init = function()
-            vim.api.nvim_set_keymap("n", "<leader>ff", ":Files!<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>gl", ":Commits!<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>rg", ":Rg!<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>ff", ":Files!<CR>", { noremap = true, desc = "Find files" })
+            vim.api.nvim_set_keymap("n", "<leader>gl", ":Commits!<CR>", { noremap = true, desc = "Git log" })
+            vim.api.nvim_set_keymap("n", "<leader>rg", ":Rg!<CR>", { noremap = true, desc = "Ripgrep" })
             vim.cmd("let g:fzf_colors ={'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}")
         end,
         cmd = { "Files", "Buffers", "History", "BLines", "Rg", "Lines", "BCommits", "Commits", "Tags" },
@@ -247,15 +247,23 @@ local plugin_spec = {
             ]], false)
 
             -- define commonly used shortcuts
-            vim.api.nvim_set_keymap("n", "K", ":call ShowDocumentation()<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>ld", "<Plug>(coc-definition)", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>lr", "<Plug>(coc-rename)", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>lf", "<Plug>(coc-format)", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>lfo", ":call CocAction('fold')<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>lso", ":call CocAction('showOutline')<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>ln", ":call CocAction('diagnosticNext')<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>lp", ":call CocAction('diagnosticPrevious')<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>lsi", ":CocCommand python.sortImports<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "K", ":call ShowDocumentation()<CR>",
+                { noremap = true, desc = "Show documentation" })
+            vim.api.nvim_set_keymap("n", "<leader>ld", "<Plug>(coc-definition)",
+                { noremap = false, desc = "Go to definition" })
+            vim.api.nvim_set_keymap("n", "<leader>lr", "<Plug>(coc-rename)", { noremap = false, desc = "Rename symbol" })
+            vim.api.nvim_set_keymap("n", "<leader>lf", "<Plug>(coc-format)",
+                { noremap = false, desc = "Format document" })
+            vim.api.nvim_set_keymap("n", "<leader>lfo", ":call CocAction('fold')<CR>",
+                { noremap = false, desc = "Fold document" })
+            vim.api.nvim_set_keymap("n", "<leader>lso", ":call CocAction('showOutline')<CR>",
+                { noremap = false, desc = "Show outline" })
+            vim.api.nvim_set_keymap("n", "<leader>ln", ":call CocAction('diagnosticNext')<CR>",
+                { noremap = false, desc = "Go to next diagnostic" })
+            vim.api.nvim_set_keymap("n", "<leader>lp", ":call CocAction('diagnosticPrevious')<CR>",
+                { noremap = false, desc = "Go to previous diagnostic" })
+            vim.api.nvim_set_keymap("n", "<leader>lsi", ":CocCommand python.sortImports<CR>",
+                { noremap = false, desc = "Sort imports" })
 
             -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
             vim.api.nvim_create_augroup("CocGroup", {})
@@ -309,6 +317,15 @@ local plugin_spec = {
             end
             vim.g.copilot_no_tab_map = 1
         end
+    },
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        opts = {}
     }
 }
 
