@@ -1,0 +1,316 @@
+-- bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+
+vim.opt.rtp:prepend(lazypath)
+vim.g.mapleader = " "
+local mopts = { noremap = true }
+
+-- define plugin spec
+local plugin_spec = {
+    {
+        -- Onedark color scheme
+        "navarasu/onedark.nvim",
+        lazy = false,
+        config = function()
+            require("onedark").setup({
+                colors = {
+                    bg0 = "#232323"
+                },
+                highlights = {
+                    Title = { fg = "$green" },
+                    TabLine = { fg = "$grey" },
+                    TabLineSel = { bg = "$bg3", fg = "$fg" },
+                    -- CocInlayHint = {fg = "#56b6c2"}
+                }
+            })
+            vim.cmd("colorscheme onedark")
+        end,
+        priority = 1000
+    },
+    {
+        -- Syntax highlighting for NF
+        "LokiLuciferase/nextflow-vim",
+        lazy = true,
+        init = function()
+            vim.api.nvim_create_autocmd(
+                { "BufNewFile", "BufRead" },
+                { pattern = { "*.nf", "*.config" }, command = "set filetype=nextflow" }
+            )
+        end,
+        ft = { "nextflow" },
+    },
+    {
+        -- Indent guides
+        "lukas-reineke/indent-blankline.nvim"
+    },
+    {
+        "ntpeters/vim-better-whitespace",
+        init = function()
+            vim.g.current_line_whitespace_disabled_hard = 1
+            vim.api.nvim_set_keymap("n", "<leader>xdw", ":StripWhitespace<CR>", mopts)
+        end
+    },
+    {
+        -- Line and block commenting
+        'numToStr/Comment.nvim',
+        lazy = false,
+        config = function()
+            require('Comment').setup({
+                toggler = {
+                    line = "<leader>cl",
+                    block = "<leader>cb",
+                },
+                opleader = {
+                    line = "<leader>cl",
+                    block = "<leader>cb",
+                }
+            })
+        end
+    },
+    {
+        -- Surrounding handling
+        "tpope/vim-surround"
+    },
+    {
+        -- Git integration
+        "tpope/vim-fugitive",
+        lazy = true,
+        init = function()
+            vim.opt.diffopt:append("vertical")
+            vim.api.nvim_set_keymap("n", "<leader>gd", ":Gdiffsplit<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gs", ":Git<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gc", ":Git commit<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gca", ":Git commit --amend<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gps", ":Git push<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gpl", ":Git pull<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>ga", ":Git add %<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gA", ":Git add .<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gb", ":Git blame<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gr", ":Git restore<CR>", mopts)
+        end,
+        cmd = {"Git", "Gdiffsplit"}
+    },
+    {
+        -- Git diff signs in signcolumn
+        "mhinz/vim-signify",
+    },
+    {
+        -- TSV/CSV highlighting
+        "mechatroner/rainbow_csv",
+        lazy = true,
+        init = function()
+            vim.g.rbql_with_headers = 1
+            vim.g.rb_storage_dir = vim.fn.stdpath("cache") .. "/rbql"
+            vim.g.table_names_settings = vim.fn.stdpath("cache") .. "/rbql/table_names"
+            vim.g.rainbow_table_index = vim.fn.stdpath("cache") .. "/rbql/table_index"
+            vim.api.nvim_create_autocmd(
+                { "BufNewFile", "BufRead" },
+                { pattern = { "*.tsv", "*.csv" }, command = "set filetype=tsv" }
+            )
+        end,
+        ft = { "csv", "tsv" },
+    },
+    {
+        -- Relational database support
+        "kristijanhusak/vim-dadbod-ui",
+        lazy = true,
+        dependencies = {
+            { "tpope/vim-dadbod", lazy = true },
+        },
+        init = function()
+            vim.g.db_ui_auto_execute_table_helpers = 1
+            vim.api.nvim_set_keymap("n", "<F4>", ":DBUIToggle<CR>", mopts)
+            vim.api.nvim_create_autocmd({ "FileType" },
+                { pattern = "dbout", command = "wincmd T | setlocal nofoldenable" })
+        end,
+        cmd = { "DB", "DBUI", "DBUIToggle" },
+        ft = { "sql" },
+    },
+    {
+        -- fzf and rg bindings
+        "junegunn/fzf.vim",
+        lazy = true,
+        dependencies = {
+            { "junegunn/fzf", lazy = true }
+        },
+        init = function()
+            vim.api.nvim_set_keymap("n", "<leader>ff", ":Files!<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gl", ":Commits!<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>rg", ":Rg!<CR>", mopts)
+            vim.cmd("let g:fzf_colors ={'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}")
+        end,
+        cmd = { "Files", "Buffers", "History", "BLines", "Rg", "Lines", "BCommits", "Commits", "Tags" },
+    },
+    {
+        -- File explorer
+        "nvim-tree/nvim-tree.lua",
+        lazy = true,
+        init = function()
+            vim.api.nvim_set_keymap("n", "<F3>", ":NvimTreeToggle<CR>", mopts)
+        end,
+        config = function()
+            require("nvim-tree").setup()
+        end,
+        cmd = { "NvimTreeToggle" },
+    },
+    {
+        -- LaTeX support
+        "lervag/vimtex",
+        lazy = true,
+        init = function()
+            vim.g.vimtex_view_method = "zathura"
+            vim.g.vimtex_quickfix_mode = 2
+            vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1
+            vim.g.vimtex_quickfix_open_on_warning = 0
+            vim.g.vimtex_compiler_latexmk = { build_dir = "build" }
+        end,
+        ft = { "tex" },
+    },
+    {
+        -- Better git diff
+        "sindrets/diffview.nvim",
+        lazy = true,
+        dependencies = {
+            { "nvim-lua/plenary.nvim", lazy = true }
+        },
+        init = function()
+            vim.api.nvim_set_keymap("n", "<leader>dv", ":DiffviewOpen<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewOpen<CR>", mopts)
+        end,
+        config = function()
+            require("diffview").setup({ enhanced_diff_hl = true, use_icons = false })
+        end,
+        cmd = { "DiffviewOpen" },
+    },
+    {
+        -- Undotree visualizer
+        "mbbill/undotree",
+        lazy = true,
+        init = function()
+            vim.api.nvim_set_keymap("n", "<F6>", ":UndotreeToggle<CR>", mopts)
+        end,
+        cmd = { "UndotreeToggle" },
+    },
+    {
+        -- LSP integration
+        "neoclide/coc.nvim",
+        lazy = false,
+        cond = function() return vim.fn.executable("node") == 1 end,
+        init = function()
+            vim.opt.updatetime = 100
+            vim.opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}")
+            vim.g.coc_data_home = vim.fn.stdpath("data") .. "/coc"
+            local keyset = vim.keymap.set
+            local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
+            function _G.check_back_space()
+                local col = vim.fn.col('.') - 1
+                return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
+            end
+
+            keyset("i", "<TAB>",
+                'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_back_space() ? "<TAB>" : coc#refresh()', opts)
+            keyset("i", "<S-TAB>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
+            keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]],
+                opts)
+            if vim.fn.executable("npm") then
+                vim.g.coc_global_extensions = {
+                    'coc-diagnostic',
+                    'coc-json',
+                    'coc-yaml',
+                    'coc-pairs',
+                    'coc-sh',
+                    'coc-pyright',
+                    'coc-clangd',
+                    'coc-lua',
+                    'coc-db',
+                }
+            end
+
+            vim.api.nvim_exec([[
+                function! ShowDocumentation()
+                  if CocAction('hasProvider', 'hover')
+                    call CocActionAsync('doHover')
+                  else
+                    call feedkeys('K', 'in')
+                  endif
+                endfunction
+            ]], false)
+
+            -- define commonly used shortcuts
+            vim.api.nvim_set_keymap("n", "K", ":call ShowDocumentation()<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>ld", "<Plug>(coc-definition)", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>lr", "<Plug>(coc-rename)", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>lf", "<Plug>(coc-format)", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>lfo", ":call CocAction('fold')<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>lso", ":call CocAction('showOutline')<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>ln", ":call CocAction('diagnosticNext')<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>lp", ":call CocAction('diagnosticPrevious')<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>lsi", ":CocCommand python.sortImports<CR>", mopts)
+
+            -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
+            vim.api.nvim_create_augroup("CocGroup", {})
+            vim.api.nvim_create_autocmd("CursorHold", {
+                group = "CocGroup",
+                command = "silent call CocActionAsync('highlight')",
+                desc = "Highlight symbol under cursor on CursorHold"
+            })
+
+            -- Remap <C-f> and <C-b> to scroll float windows/popups
+            ---@diagnostic disable-next-line: redefined-local
+            local opts = { silent = true, nowait = true, expr = true }
+            keyset("n", "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
+            keyset("n", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
+            keyset("i", "<C-f>",
+                'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
+            keyset("i", "<C-b>",
+                'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
+            keyset("v", "<C-f>", 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
+            keyset("v", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
+        end,
+        branch = "release",
+    },
+    {
+        -- Treesitter integration
+        "nvim-treesitter/nvim-treesitter",
+        lazy = false,
+        init = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = {
+                    "c", "cpp", "rust",
+                    "javascript", "python", "bash",
+                    "latex", "toml", "json", "yaml", "sql",
+                    "dockerfile",
+                    "lua", "vim"
+                },
+                highlight = { enable = true },
+            })
+        end
+    },
+    {
+        -- Github Copilot integration
+        "github/copilot.vim",
+        lazy = false,
+        cond = function() return vim.fn.executable("node") == 1 end,
+        init = function()
+            local opts = { silent = true, script = true, expr = true, noremap = true }
+            for i = 9, 11 do
+                vim.api.nvim_set_keymap("i", "<F" .. i .. ">", "copilot#Accept('')", opts)
+                vim.api.nvim_set_keymap("i", "<C-F" .. i .. ">", "copilot#Next('')", opts)
+            end
+            vim.g.copilot_no_tab_map = 1
+        end
+    }
+}
+
+-- load plugins
+require("lazy").setup(plugin_spec)
