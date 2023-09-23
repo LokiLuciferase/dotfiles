@@ -254,8 +254,12 @@ local plugin_spec = {
             vim.api.nvim_set_keymap("n", "<leader>lr", "<Plug>(coc-rename)", { noremap = false, desc = "Rename symbol" })
             vim.api.nvim_set_keymap("n", "<leader>lf", "<Plug>(coc-format)",
                 { noremap = false, desc = "Format document" })
-            vim.api.nvim_set_keymap("n", "<leader>lfo", ":call CocAction('fold')<CR>",
-                { noremap = false, desc = "Fold document" })
+            vim.api.nvim_set_keymap("n", "<leader>lzi", ":call CocAction('fold', 'imports')<CR>",
+                { noremap = false, desc = "Fold imports" })
+            vim.api.nvim_set_keymap("n", "<leader>lza", ":call CocAction('fold', 'region')<CR>",
+                { noremap = false, desc = "Fold all regions" })
+            vim.api.nvim_set_keymap("n", "<leader>lzr", "zR", { noremap = false, desc = "Unfold all" })
+            vim.api.nvim_set_keymap("n", "<leader>lzA", "zA", { noremap = false, desc = "Unfold region" })
             vim.api.nvim_set_keymap("n", "<leader>lso", ":call CocAction('showOutline')<CR>",
                 { noremap = false, desc = "Show outline" })
             vim.api.nvim_set_keymap("n", "<leader>ln", ":call CocAction('diagnosticNext')<CR>",
@@ -301,6 +305,7 @@ local plugin_spec = {
                     "lua", "vim"
                 },
                 highlight = { enable = true },
+                indent = { enable = true },
             })
         end
     },
