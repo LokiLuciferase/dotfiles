@@ -96,7 +96,7 @@ local plugin_spec = {
             vim.api.nvim_set_keymap("n", "<leader>ga", ":Git add %<CR>", mopts)
             vim.api.nvim_set_keymap("n", "<leader>gA", ":Git add .<CR>", mopts)
             vim.api.nvim_set_keymap("n", "<leader>gb", ":Git blame<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>gr", ":Git restore<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gr", ":Git restore %<CR>", mopts)
         end,
         cmd = { "Git", "Gdiffsplit" }
     },
