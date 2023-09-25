@@ -113,10 +113,6 @@ local plugin_spec = {
             vim.g.rb_storage_dir = vim.fn.stdpath("cache") .. "/rbql"
             vim.g.table_names_settings = vim.fn.stdpath("cache") .. "/rbql/table_names"
             vim.g.rainbow_table_index = vim.fn.stdpath("cache") .. "/rbql/table_index"
-            vim.api.nvim_create_autocmd(
-                { "BufNewFile", "BufRead" },
-                { pattern = { "*.tsv", "*.csv" }, command = "set filetype=tsv" }
-            )
         end,
         ft = { "csv", "tsv" },
     },

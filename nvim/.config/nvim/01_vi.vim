@@ -214,6 +214,8 @@ function! s:add_buffer_head() abort
 endfunction
 autocmd FileType * call <SID>add_buffer_head()
 
+autocmd BufNewFile,BufRead *.nf,*.config setlocal filetype=nextflow
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
