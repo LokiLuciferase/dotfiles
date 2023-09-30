@@ -173,6 +173,17 @@ local plugin_spec = {
         ft = { "tex" },
     },
     {
+        "voldikss/vim-floaterm",
+        lazy = true,
+        init = function()
+            vim.api.nvim_set_keymap(
+                "n", "<leader>ft", ":FloatermToggle<CR>", { noremap = true, desc = "Open terminal" }
+            )
+            vim.g.floaterm_autoclose = 2
+        end,
+        cmd = { "FloatermNew", "FloatermToggle", "FloatermNext", "FloatermPrev" },
+    },
+    {
         -- Better git diff
         "sindrets/diffview.nvim",
         lazy = true,
