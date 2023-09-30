@@ -120,7 +120,7 @@ set statusline+=\|%{&fileformat}\]
 set statusline+=\ %l:%c
 set statusline+=\ %p%%
 
-" add statusline background if multiple splits to improve readability
+" add statusline background if multiple horizontal splits to improve readability
 function SLColor()
     if tabpagewinnr(tabpagenr(), '$') > 1 && winheight('$') != &lines - 2
         exec 'hi StatusLine' .
@@ -311,6 +311,9 @@ autocmd BufEnter * if &diff | nnoremap <silent> q :qa<CR> | endif
 " Fix autochdir when opening a directory
 let g:netrw_keepdir = 0
 autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | endif
+
+" resize splits if window got resized
+autocmd VimResized * tabdo wincmd =
 
 " Highlight yanks
 if has("nvim")

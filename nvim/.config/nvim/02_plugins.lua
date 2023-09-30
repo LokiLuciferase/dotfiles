@@ -294,7 +294,7 @@ local plugin_spec = {
         init = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
-                    "c", "cpp", "rust",
+                    "c", "cpp", "rust", "go",
                     "javascript", "python", "bash",
                     "latex", "toml", "json", "yaml", "sql",
                     "dockerfile",
