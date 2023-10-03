@@ -63,7 +63,7 @@ local plugin_spec = {
     {
         -- Line and block commenting
         'numToStr/Comment.nvim',
-        lazy = false,
+        lazy = true,
         config = function()
             require('Comment').setup({
                 toggler = {
@@ -75,7 +75,8 @@ local plugin_spec = {
                     block = "<leader>cb",
                 }
             })
-        end
+        end,
+        keys = { "<leader>cl", "<leader>cb" },
     },
     {
         -- Surrounding handling
