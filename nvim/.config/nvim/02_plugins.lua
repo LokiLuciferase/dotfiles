@@ -146,6 +146,8 @@ local plugin_spec = {
         },
         init = function()
             vim.api.nvim_set_keymap("n", "<leader>ff", ":Files!<CR>", { noremap = true, desc = "Find files" })
+            vim.api.nvim_set_keymap("n", "<leader>fc", ":Commits!<CR>", { noremap = true, desc = "Find commits" })
+            vim.api.nvim_set_keymap("n", "<leader>fr", ":Rg!<CR>", { noremap = true, desc = "Find file contents" })
             vim.api.nvim_set_keymap("n", "<leader>gl", ":Commits!<CR>", { noremap = true, desc = "Git log" })
             vim.api.nvim_set_keymap("n", "<leader>rg", ":Rg!<CR>", { noremap = true, desc = "Ripgrep" })
             vim.cmd("let g:fzf_colors ={'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}")
@@ -182,7 +184,7 @@ local plugin_spec = {
         lazy = true,
         init = function()
             vim.api.nvim_set_keymap(
-                "n", "<leader>ft", ":FloatermToggle<CR>", { noremap = true, desc = "Open terminal" }
+                "n", "<leader>tt", ":FloatermToggle<CR>", { noremap = true, desc = "Open terminal" }
             )
             vim.g.floaterm_autoclose = 2
         end,
@@ -244,15 +246,6 @@ local plugin_spec = {
             end
             vim.g.copilot_no_tab_map = 1
         end
-    },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        opts = {}
     },
     {
         -- LSP integration
@@ -343,7 +336,59 @@ local plugin_spec = {
             keyset("v", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
         end,
         branch = "release",
-    }
+    },
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        config = function()
+            local wk = require("which-key")
+            wk.register({
+                ["<leader>"] = {
+                    name = "+tools",
+                    c = {
+                        name = "+comment",
+                        l = { name = "Line comment" },
+                        b = { name = "Block comment" },
+                    },
+                    d = "which_key_ignore",
+                    f = { name = "+find", },
+                    g = {
+                        name = "+git",
+                        p = { name = "+pull/push" }
+                    },
+                    l = {
+                        name = "+language",
+                        s = { name = "+sort/+show" },
+                        z = { name = "+fold" }
+                    },
+                    r = "which_key_ignore",
+                    s = { name = "+session/+spell", },
+                    t = {
+                        name = "+terminal",
+                        n = "which_key_ignore",
+                        N = "which_key_ignore"
+                    },
+                    x = { name = "+misc" },
+                    y = "which_key_ignore",
+                    ["1"] = "which_key_ignore",
+                    ["2"] = "which_key_ignore",
+                    ["3"] = "which_key_ignore",
+                    ["4"] = "which_key_ignore",
+                    ["5"] = "which_key_ignore",
+                    ["6"] = "which_key_ignore",
+                    ["7"] = "which_key_ignore",
+                    ["8"] = "which_key_ignore",
+                    ["9"] = "which_key_ignore",
+                    ["0"] = "which_key_ignore",
+                },
+            })
+            wk.setup()
+        end,
+    },
 }
 
 -- load plugins
