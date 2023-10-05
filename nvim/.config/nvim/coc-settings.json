@@ -23,7 +23,8 @@
         }
     },
     "clangd.fallbackFlags": [ "-std=c++17" ],
-    "rust-analyzer.inlayHints.enable": true,
+    "rust-analyzer.inlayHints.typeHints.enable": true,
+    "rust-analyzer.inlayHints.chainingHints.enable": true,
     "ltex.disabledRules": {
         "en-US": [
             "MORFOLOGIK_RULE_EN_US",

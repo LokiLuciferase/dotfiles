@@ -43,6 +43,8 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.flv,*.img,*.xlsx,.git/  " 
 
 set lazyredraw  " do not redraw screen while running macros
 
+set diffopt+=vertical  " start diff mode in vertical split
+
 set tm=500  " The time in milliseconds that is waited for a key code or mapped key sequence to complete.
 
 set nobackup  " Do not keep backup of file

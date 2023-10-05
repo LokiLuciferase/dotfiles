@@ -30,7 +30,7 @@ local plugin_spec = {
                     Title = { fg = "$green" },
                     TabLine = { fg = "$grey" },
                     TabLineSel = { bg = "$bg3", fg = "$fg" },
-                    -- CocInlayHint = {fg = "#56b6c2"}
+                    CocInlayHint = { fg = "#56b6c2" }
                 }
             })
             vim.cmd("colorscheme onedark")
@@ -76,7 +76,12 @@ local plugin_spec = {
                 }
             })
         end,
-        keys = { "<leader>cl", "<leader>cb" },
+        keys = {
+            { "<leader>cl" },
+            { "<leader>cb" },
+            { "<leader>cl", mode = "v" },
+            { "<leader>cb", mode = "v" },
+        }
     },
     {
         -- Surrounding handling
@@ -87,7 +92,6 @@ local plugin_spec = {
         "tpope/vim-fugitive",
         lazy = true,
         init = function()
-            vim.opt.diffopt:append("vertical")
             vim.api.nvim_set_keymap("n", "<leader>gd", ":Gdiffsplit<CR>", mopts)
             vim.api.nvim_set_keymap("n", "<leader>gs", ":Git<CR>", mopts)
             vim.api.nvim_set_keymap("n", "<leader>gc", ":Git commit<CR>", mopts)
@@ -210,6 +214,47 @@ local plugin_spec = {
         cmd = { "UndotreeToggle" },
     },
     {
+        -- Treesitter integration
+        "nvim-treesitter/nvim-treesitter",
+        lazy = false,
+        init = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = {
+                    "c", "cpp", "rust", "go",
+                    "javascript", "python", "bash",
+                    "latex", "toml", "json", "yaml", "sql",
+                    "dockerfile",
+                    "lua", "vim"
+                },
+                highlight = { enable = true },
+                indent = { enable = true },
+            })
+        end
+    },
+    {
+        -- Github Copilot integration
+        "github/copilot.vim",
+        lazy = false,
+        cond = function() return vim.fn.executable("node") == 1 end,
+        init = function()
+            local opts = { silent = true, script = true, expr = true, noremap = true }
+            for i = 9, 11 do
+                vim.api.nvim_set_keymap("i", "<F" .. i .. ">", "copilot#Accept('')", opts)
+                vim.api.nvim_set_keymap("i", "<C-F" .. i .. ">", "copilot#Next('')", opts)
+            end
+            vim.g.copilot_no_tab_map = 1
+        end
+    },
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end,
+        opts = {}
+    },
+    {
         -- LSP integration
         "neoclide/coc.nvim",
         lazy = false,
@@ -298,47 +343,6 @@ local plugin_spec = {
             keyset("v", "<C-b>", 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
         end,
         branch = "release",
-    },
-    {
-        -- Treesitter integration
-        "nvim-treesitter/nvim-treesitter",
-        lazy = false,
-        init = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = {
-                    "c", "cpp", "rust", "go",
-                    "javascript", "python", "bash",
-                    "latex", "toml", "json", "yaml", "sql",
-                    "dockerfile",
-                    "lua", "vim"
-                },
-                highlight = { enable = true },
-                indent = { enable = true },
-            })
-        end
-    },
-    {
-        -- Github Copilot integration
-        "github/copilot.vim",
-        lazy = false,
-        cond = function() return vim.fn.executable("node") == 1 end,
-        init = function()
-            local opts = { silent = true, script = true, expr = true, noremap = true }
-            for i = 9, 11 do
-                vim.api.nvim_set_keymap("i", "<F" .. i .. ">", "copilot#Accept('')", opts)
-                vim.api.nvim_set_keymap("i", "<C-F" .. i .. ">", "copilot#Next('')", opts)
-            end
-            vim.g.copilot_no_tab_map = 1
-        end
-    },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy",
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        opts = {}
     }
 }
 
