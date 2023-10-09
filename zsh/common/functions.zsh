@@ -490,7 +490,27 @@ pall() {
     _backup_shell_hist
 }
 
+update-git-repo() {
+    if [[ ! -d .git ]]; then
+        echo "Not a git repo."
+        return
+    fi
+    git fetch --all \
+        && git pull \
+        && git submodule update --recursive \
+        && git sweep \
+        || return
+    local branch=$(git branch --show-current)
+    local color
+    if [[ "$branch" == "master" ]] || [[ "$branch" == "main" ]]; then
+        color=G
+    else
+        color=Y
+    fi
+    cecho $color "On branch $branch."
+}
+
 update-git-repos() {
     # update all git repos in the current directory, including submodules, and remove fully merged branches
-    for-each-dir eval 'git fetch --all && git pull && git submodule update --recursive && git sweep && echo "On branch $(git branch --show-current)."'
+    for-each-dir eval 'update-git-repo'
 }
