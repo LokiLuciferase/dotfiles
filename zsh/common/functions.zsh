@@ -81,12 +81,7 @@ ytdl-stream() {
 
 ytdl-cast() {
     # Cast the downloaded video to chromecast
-    yt-dlp -f b -o - "$1" | castnow --quiet -
-}
-
-asciinema-upload() {
-    # Workaround for uploading to asciinema on ubuntu-focal
-    curl -v -u $USER:$(cat ~/.config/asciinema/install-id) https://asciinema.org/api/asciicasts -F asciicast=@$1
+    lolcatt "$1"
 }
 
 say() {
@@ -135,28 +130,6 @@ sleeptimer() {
     echo "Will suspend machine after ${MINS} mins. Ctrl+C to abort this."
     SECS=$(($MINS * 60))
     sleep "$SECS" && systemctl suspend -i
-}
-
-journal() {
-    # Open pensieve.nvim journal
-    local journal_flag=
-    local cmd
-    if [ ! -z "$1" ]; then
-        journal_flag=" -c ':PensieveOpen $1'"
-    fi
-    cmd="nvim --cmd 'let g:journal_mode=1' $journal_flag"
-    eval $cmd
-    [ ! -z "$1" ] && fusermount -u "$1" &> /dev/null
-}
-
-cpcd() {
-    # perform the given cp operation; then cd into the parent directory of the target.
-    cp $@
-    if [ -d "${@[-1]}" ]; then
-        cd "${@[-1]}"
-    else
-        cd $(dirname "${@[-1]}")
-    fi
 }
 
 ff(){
