@@ -198,13 +198,19 @@ local plugin_spec = {
             { "nvim-lua/plenary.nvim", lazy = true }
         },
         init = function()
-            vim.api.nvim_set_keymap("n", "<leader>dv", ":DiffviewOpen<CR>", mopts)
-            vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewOpen<CR>", mopts)
+            vim.api.nvim_set_keymap("n", "<leader>gvo", ":DiffviewOpen<CR>",
+                { noremap = true, desc = "Open repo diff" })
+            vim.api.nvim_set_keymap("n", "<leader>gvc", ":DiffviewClose<CR>",
+                { noremap = true, desc = "Close repo diff" })
+            vim.api.nvim_set_keymap("n", "<leader>dv", ":DiffviewOpen<CR>",
+                { noremap = true, desc = "Open repo diff" })
+            vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewClose<CR>",
+                { noremap = true, desc = "Close repo diff" })
         end,
         config = function()
             require("diffview").setup({ enhanced_diff_hl = true, use_icons = false })
         end,
-        cmd = { "DiffviewOpen" },
+        cmd = { "DiffviewOpen", "DiffviewClose" },
     },
     {
         -- Undotree visualizer
@@ -358,7 +364,8 @@ local plugin_spec = {
                     f = { name = "+find", },
                     g = {
                         name = "+git",
-                        p = { name = "+pull/push" }
+                        p = { name = "+pull/push" },
+                        v = { name = "+diffview" },
                     },
                     l = {
                         name = "+language",
