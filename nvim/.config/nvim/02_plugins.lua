@@ -51,12 +51,14 @@ local plugin_spec = {
     },
     {
         -- Indent guides
-        "lukas-reineke/indent-blankline.nvim"
+        "lukas-reineke/indent-blankline.nvim",
+        version = "2.x"
+
     },
     {
         "ntpeters/vim-better-whitespace",
         init = function()
-            vim.g.current_line_whitespace_disabled_hard = 1
+            vim.g.current_line_whitespace_disabled_hard = true
             vim.api.nvim_set_keymap("n", "<leader>xdw", ":StripWhitespace<CR>", mopts)
         end
     },
