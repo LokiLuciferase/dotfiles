@@ -1,8 +1,6 @@
 # paths which should be igored from stow operations
 datafiles/.git
 datafiles/.gitignore
-zsh/local/
-zsh/common/
 scripts/
 termux/
 libinput-gestures/

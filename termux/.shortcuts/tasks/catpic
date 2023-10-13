@@ -1,3 +1,3 @@
 #!/data/data/com.termux/files/usr/bin/zsh
-source $HOME/.dotfiles/zsh/common/functions.zsh
+source $HOME/.config/zsh/common/functions.zsh
 scp rpi3:"$(ssh rpi3 "$(typeset -f get-newest); get-newest /tmp/rpicam-*")" $TMPDIR/cat_trap_latest.png && termux-open $TMPDIR/cat_trap_latest.png

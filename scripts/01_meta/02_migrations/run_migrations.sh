@@ -27,7 +27,7 @@ get_migration_summary(){
 }
 
 source_env() {
-    source ~/.dotfiles/zsh/common/functions.zsh
+    source ~/.config/zsh/common/functions.zsh
 }
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )

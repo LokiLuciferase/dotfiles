@@ -15,7 +15,7 @@ COMPLETION_WAITING_DOTS=true
 DISABLE_UPDATE_PROMPT=true
 DISABLE_MAGIC_FUNCTIONS=true
 ZVM_CURSOR_STYLE_ENABLED=false
-SHELL_DOT_DIR="${HOME}/.dotfiles/zsh"
+SHELL_DOT_DIR="${HOME}/.config/zsh"
 plugins=(
     vi-mode
     git

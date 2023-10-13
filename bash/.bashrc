@@ -6,4 +6,4 @@ esac
 BASHCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/bash"
 mkdir -p "$BASHCACHE"
 export HISTFILE="$BASHCACHE/history"
-source ~/.dotfiles/zsh/common/aliases.zsh
+source ~/.config/zsh/common/aliases.zsh
