@@ -34,7 +34,7 @@ exec --no-startup-id "xss-lock --transfer-sleep-lock -- $HOME/.config/i3/scripts
 
 # display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; swaybg -i $HOME/.local/share/backgrounds/default"
-exec --no-startup-id "picom"
+exec --no-startup-id "picom --daemon"
 exec --no-startup-id "redshift"
 
 # keyboard and mouse/touchpad setup
@@ -109,7 +109,7 @@ bindsym $mod+Shift+h split h, open append_layout ~/.config/i3/layouts/universal/
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh drun || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
-bindsym $mod+shift+d exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh combi || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
+bindsym $mod+shift+d exec --no-startup-id rofimoji --skin-tone neutral
 bindsym $mod+F1 exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh window || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
 bindsym $mod+shift+s exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh ssh || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
 
