@@ -27,7 +27,7 @@ get_migration_summary(){
 }
 
 source_env() {
-    source ~/.config/zsh/common/functions.zsh
+    source ~/.config/zsh/common/functions.zsh || cecho() { echo "$@";}
 }
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
