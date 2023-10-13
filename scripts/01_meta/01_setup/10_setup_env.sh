@@ -34,14 +34,6 @@ install_omz_stuff() {
     return 0
 }
 
-install_vimplug() {
-    # Install vim-plug plugin manager
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    export PATH="$HOME/.local/bin:$PATH"
-    nvim --headless -c 'PlugInstall | qa'
-    return 0
-}
-
 setup_migrations() {
     # Copy over existing migrations and setup cache dirs for shell histories
     echo "Setting up dotfile migrations..."
@@ -70,7 +62,6 @@ main() {
     install_omz_stuff
     setup_migrations
     do_stow
-    install_vimplug
     mark_done
     return 0
 }

@@ -434,7 +434,7 @@ _pshell() {
     popd
 }
 
-_pnvimplug() {
+_pnvimupdates() {
     # pull updates for neovim
     nvim --headless -c 'call RunUpdates() | quitall' || return 0
 }
@@ -458,7 +458,7 @@ pall() {
     # pull all changes of git-dependent software, and apply dotfile migrations
     _pdot
     _pshell
-    _pnvimplug
+    _pnvimupdates
     _migrate-dotfiles
     _backup_shell_hist
 }
