@@ -113,6 +113,9 @@ bindsym $mod+shift+d exec --no-startup-id rofimoji --skin-tone neutral
 bindsym $mod+F1 exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh window || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
 bindsym $mod+shift+s exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh ssh || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
 
+# toggle i3 session management menu
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/i3/scripts/i3-toggle-nagbar
+
 # reload autorandr/xrandr config
 bindsym $mod+Shift+x exec --no-startup-id autorandr --change
 
@@ -217,9 +220,6 @@ bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Session Management' -B 'Power Down' 'systemctl poweroff' -B 'Suspend' 'systemctl suspend' -B 'Logout' 'i3-msg exit'"
 
 # goto mark
 bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 2 -P 'Goto: '

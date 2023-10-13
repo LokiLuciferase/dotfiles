@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+nagbar_on() {
+    i3-nagbar -t warning -m 'Session Management' -B 'Power Down' 'systemctl poweroff' -B 'Suspend' 'systemctl suspend' -B 'Logout' 'i3-msg exit' &
+}
+
+nagbar_off() {
+    pkill i3-nagbar
+}
+
+if pgrep i3-nagbar; then
+    nagbar_off
+else
+    nagbar_on
+fi
