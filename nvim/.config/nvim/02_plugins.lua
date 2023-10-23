@@ -116,10 +116,11 @@ local plugin_spec = {
         "mechatroner/rainbow_csv",
         lazy = true,
         init = function()
-            vim.g.rbql_with_headers = 1
+            vim.g.rbql_with_headers = true
             vim.g.rb_storage_dir = vim.fn.stdpath("cache") .. "/rbql"
             vim.g.table_names_settings = vim.fn.stdpath("cache") .. "/rbql/table_names"
             vim.g.rainbow_table_index = vim.fn.stdpath("cache") .. "/rbql/table_index"
+            vim.api.nvim_set_keymap("n", "<leader>rq", ":RainbowQuery<CR>", mopts)
         end,
         ft = { "csv", "tsv" },
     },
@@ -131,7 +132,7 @@ local plugin_spec = {
             { "tpope/vim-dadbod", lazy = true },
         },
         init = function()
-            vim.g.db_ui_auto_execute_table_helpers = 1
+            vim.g.db_ui_auto_execute_table_helpers = true
             vim.api.nvim_set_keymap("n", "<F4>", ":DBUIToggle<CR>", mopts)
             vim.api.nvim_create_autocmd({ "FileType" },
                 { pattern = "dbout", command = "wincmd T | setlocal nofoldenable" })
@@ -175,7 +176,7 @@ local plugin_spec = {
         init = function()
             vim.g.vimtex_view_method = "zathura"
             vim.g.vimtex_quickfix_mode = 2
-            vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1
+            vim.g.vimtex_quickfix_autoclose_after_keystrokes = true
             vim.g.vimtex_quickfix_open_on_warning = 0
             vim.g.vimtex_compiler_latexmk = { build_dir = "build" }
         end,

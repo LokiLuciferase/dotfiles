@@ -69,15 +69,21 @@ set pumheight=12  "maximum height of popup window
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keymaps
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" What's your favorite thing about space? Mine is space.
 let mapleader = ' '
 let maplocalleader = ' '
+" tab indentation
 inoremap <S-Tab> <C-d>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
-nnoremap <silent> <ESC><ESC> :noh<CR>
+" clear search highlighting and cmdline
+nnoremap <silent> <ESC><ESC> :noh \| :echon ''<CR>
+" quick exit
 nnoremap <silent> q :q<CR>
 nnoremap <silent> Q :qa<CR>
+" toggle listchars
 noremap <silent> <leader>sl :set list!<CR>
+" copy complete document
 noremap <leader>ya :%y+<CR>
 
 " leader-based navigation for tabs
