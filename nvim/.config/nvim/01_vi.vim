@@ -311,6 +311,16 @@ endfunction
 nnoremap <leader>ss :call HandleSession('save')<CR>
 nnoremap <leader>sr :call HandleSession('restore')<CR>
 
+" Paste from clipboard, replacing newline with space
+function! PasteReplaceCR(rep)
+    let l:reg_save = getreg('+')
+    let l:regtype_save = getregtype('+')
+    let l:cb_save = &clipboard
+    let l:reg = substitute(getreg('+'), '\n', a:rep, 'g')
+    call setreg('+', l:reg)
+    normal! p
+endfunction
+nnoremap <leader>ps :call PasteReplaceCR(' ')<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Misc autocmds
