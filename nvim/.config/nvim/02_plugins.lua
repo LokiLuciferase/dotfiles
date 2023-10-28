@@ -257,6 +257,9 @@ local plugin_spec = {
         end
     },
     {
+        "honza/vim-snippets",
+    },
+    {
         -- LSP integration
         "neoclide/coc.nvim",
         lazy = false,
@@ -288,6 +291,7 @@ local plugin_spec = {
                     'coc-clangd',
                     'coc-lua',
                     'coc-db',
+                    'coc-snippets'
                 }
             end
 
@@ -323,6 +327,9 @@ local plugin_spec = {
                 { noremap = false, desc = "Go to previous diagnostic" })
             vim.api.nvim_set_keymap("n", "<leader>lsi", ":CocCommand python.sortImports<CR>",
                 { noremap = false, desc = "Sort imports" })
+
+            -- Snippets
+            vim.api.nvim_set_keymap("i", "<C-l>", "<Plug>(coc-snippets-expand-jump)", { noremap = false })
 
             -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
             vim.api.nvim_create_augroup("CocGroup", {})
