@@ -48,8 +48,8 @@ exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/local/bin/export_bat_stat.sh"
 exec --no-startup-id "syncthing"
-exec --no-startup-id "keepassxc"
-exec --no-startup-id "alacritty --title scratchpad_shell -o window.opacity=1 -o font.size=$term_font_size -e tmux"
+exec --no-startup-id "sleep 7 && keepassxc"  # apply some sleep here to give syncthing a chance to start
+exec --no-startup-id "alacritty --title scratchpad_shell -o window.opacity=1 -o font.size=$term_font_size -e $HOME/.config/i3/scripts/i3-scratchpad-tmux"
 
 # starting any .desktop files in $HOME/.config/autostart
 exec --no-startup-id "dex $HOME/.config/autostart/*"
@@ -112,6 +112,9 @@ bindsym $mod+d exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh drun || i3-
 bindsym $mod+shift+d exec --no-startup-id rofimoji --skin-tone neutral
 bindsym $mod+F1 exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh window || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
 bindsym $mod+shift+s exec --no-startup-id ~/.config/rofi/dmenu-launcher.sh ssh || i3-dmenu-desktop --dmenu="dmenu -i -l 30"
+
+# toggle sway session management menu
+bindsym $mod+Shift+e exec --no-startup-id ~/.config/sway/scripts/sway-toggle-nagbar
 
 # reload autorandr/xrandr config
 bindsym $mod+Shift+x exec --no-startup-id autorandr --change
@@ -217,9 +220,6 @@ bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "swaynag -t warning -m 'Session Management' -B 'Power Down' 'systemctl poweroff' -B 'Suspend' 'systemctl suspend' -B 'Logout' 'i3-msg exit'"
 
 # goto mark
 bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 2 -P 'Goto: '
