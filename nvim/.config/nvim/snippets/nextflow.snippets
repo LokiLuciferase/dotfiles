@@ -1,0 +1,30 @@
+snippet processm "A minimal Nextflow DSL2 process."
+	process ${1:process_name} {
+		input:
+			${2:input}
+		output:
+			${3:output}
+		script:
+			"""
+			${4:script}
+			"""
+	}
+
+
+snippet workflowm "A minimal Nextflow DSL2 workflow."
+    workflow ${1:workflow_name} {
+		main:
+			${3:script}
+	}
+
+
+snippet workflow "A fully specified Nextflow DSL2 workflow."
+	workflow ${1:workflow_name} {
+		take:
+			${2:input}
+		main:
+			${3:script}
+		emit:
+			${4:output}
+	}
+

@@ -257,12 +257,12 @@ local plugin_spec = {
         end
     },
     {
-        "honza/vim-snippets",
-    },
-    {
         -- LSP integration
         "neoclide/coc.nvim",
         lazy = false,
+        dependencies = {
+            { "honza/vim-snippets", lazy = false }
+        },
         cond = function() return vim.fn.executable("node") == 1 end,
         init = function()
             vim.opt.updatetime = 100
