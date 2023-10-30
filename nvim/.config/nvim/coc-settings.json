@@ -32,5 +32,8 @@
         ]
     },
     "markdown-preview-enhanced.previewTheme": "github-dark.css",
-    "Lua.diagnostics.globals": ["vim"]
+    "Lua.diagnostics.globals": [
+      "vim"
+    ],
+    "snippets.ultisnips.pythonPrompt": false
 }
