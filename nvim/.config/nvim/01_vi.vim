@@ -230,6 +230,8 @@ autocmd FileType * call <SID>add_buffer_head()
 
 autocmd BufNewFile,BufRead *.nf,*.config setlocal filetype=nextflow
 
+autocmd BufNewFile,BufRead *5etools*.json setlocal filetype=json.5etools
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Functions
