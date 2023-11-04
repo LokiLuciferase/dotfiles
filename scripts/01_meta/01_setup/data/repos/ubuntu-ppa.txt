@@ -1,2 +1,0 @@
-ppa:regolith-linux/release
-ppa:neovim-ppa/stable
