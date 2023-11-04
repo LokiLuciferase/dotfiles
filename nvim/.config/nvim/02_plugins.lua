@@ -245,6 +245,7 @@ local plugin_spec = {
     {
         -- Github Copilot integration
         "github/copilot.vim",
+        tag = "v1.10.3",  -- TODO: revisit later or not, v1.11.* slows down entry
         lazy = false,
         cond = function() return vim.fn.executable("node") == 1 end,
         init = function()
