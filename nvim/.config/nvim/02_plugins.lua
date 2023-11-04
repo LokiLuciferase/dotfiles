@@ -90,6 +90,10 @@ local plugin_spec = {
         "tpope/vim-surround"
     },
     {
+        -- More powerful substitution
+        "tpope/vim-abolish",
+    },
+    {
         -- Git integration
         "tpope/vim-fugitive",
         lazy = true,
