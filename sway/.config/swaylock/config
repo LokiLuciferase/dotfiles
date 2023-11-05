@@ -1,0 +1,7 @@
+daemonize
+show-failed-attempts
+ignore-empty-password
+indicator-caps-lock
+show-keyboard-layout
+scaling=fit
+image=~/.local/share/backgrounds/default

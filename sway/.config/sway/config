@@ -13,6 +13,7 @@ set $mod Mod4
 
 # i3-gaps
 gaps inner 7
+corner_radius 10
 default_border none
 for_window [class=".*"] border pixel 0
 
@@ -25,12 +26,16 @@ set $term_font_size 12
 include ~/.config/sway/local.config
 
 # user specific startup applications
+# local startup applications
+exec "$HOME/.config/i3/scripts/local/i3-startup-pre || true"
+
 # connectivity
 exec --no-startup-id "nm-applet"
 exec --no-startup-id "blueman-applet"
 
 # screen locking
 exec --no-startup-id "xss-lock --transfer-sleep-lock -- $HOME/.config/i3/scripts/i3-lock-screen"
+exec --no-startup-id "swayidle -w timeout 300 'swaylock' timeout 360 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock'
 
 # display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; swaybg -i $HOME/.local/share/backgrounds/default"
@@ -48,14 +53,18 @@ exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/local/bin/export_bat_stat.sh"
 exec --no-startup-id "syncthing"
-exec --no-startup-id "sleep 7 && keepassxc"  # apply some sleep here to give syncthing a chance to start
 exec --no-startup-id "alacritty --title scratchpad_shell -o window.opacity=1 -o font.size=$term_font_size -e $HOME/.config/i3/scripts/i3-scratchpad-tmux"
+exec --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
+exec --no-startup-id "keepassxc"
 
 # starting any .desktop files in $HOME/.config/autostart
 exec --no-startup-id "dex $HOME/.config/autostart/*"
 
+# local startup applications
+exec "$HOME/.config/i3/scripts/local/i3-startup-post || true"
+
 bindsym $mod+Tab exec pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
-bindsym Control+Mod1+l exec --no-startup-id "swaylock -F -e -l -k -s fit -i ~/.local/share/backgrounds/default"
+bindsym Control+Mod1+l exec --no-startup-id "swaylock"
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
