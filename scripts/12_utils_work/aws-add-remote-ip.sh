@@ -43,9 +43,9 @@ main() {
         purge_existing_rules
     fi
 
-    echo -n "Add the current public IP (${PUBLIC_IP}) to your DMZ security group in account ${ACCOUNT_NAME}? [y/N] "
+    echo -n "Add the current public IP (${PUBLIC_IP}) to your DMZ security group in account ${ACCOUNT_NAME}? [Y/n] "
     read -r yn_add
-    if [[ "$yn_add" = "y" ]]; then
+    if [[ "$yn_add" != "n" ]]; then
         add_current_ip "${PUBLIC_IP}"
     fi
 }
