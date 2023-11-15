@@ -400,6 +400,18 @@ term-replace() {
     eval "$cmd" && exit
 }
 
+send-tg-message() {
+    # send a message to telegram
+    if [ ! -v TG_CHAT_ID ]; then
+        echo "TG_CHAT_ID not set."
+        return 1
+    elif [ ! -v TG_BOT_TOKEN ]; then
+        echo "TG_BOT_TOKEN not set."
+        return 1
+    fi
+    curl -s -X POST https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage -d chat_id=${TG_CHAT_ID} -d text="$1" &> /dev/null
+}
+
 ## Package management ##
 _apt_upgrade_all() {
     sudo apt update \
