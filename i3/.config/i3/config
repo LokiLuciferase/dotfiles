@@ -329,10 +329,10 @@ bar {
         inactive_workspace $bar_inactive_workspace_colors
         urgent_workspace   $bar_urgent_workspace_colors
     }
-    font pango:Monospace,DejaVuSansMNerdFont 11
+    font pango:Monospace,DejaVuSansMNerdFont 9
     position top
     tray_output Primary
-    tray_padding 1
+    tray_padding 0
     status_command "bumblebee-status || i3status"
 }
 
