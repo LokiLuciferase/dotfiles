@@ -172,7 +172,7 @@ ssha() {
 docker-run-tool() {
     # run a tool inside a docker container, mounting the current directory and setting UID/GID
     local container="${1:-}"
-    local full_cmd="docker run -u $(id -u):$(id -g) -w $PWD -v $PWD:$PWD --rm ${container} ${@:2}"
+    local full_cmd="docker run -u $(id -u):$(id -g) -w '$PWD' -v '$PWD':'$PWD' --rm ${container} ${@:2}"
     eval "$full_cmd"
 }
 
