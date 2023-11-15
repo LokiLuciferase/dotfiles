@@ -191,7 +191,7 @@ install_all_from_package_list() {
 install_all_from_installer_dir() {
     # Install various packages using install scripts
     local fraction="$1"
-    local script_dir="${DIR}/data/installers/${fraction}"
+    local script_dir="${DIR}/installers/${fraction}"
     [[ ! -d "${script_dir}" ]] && return 0
     for script in "${script_dir}"/*.sh; do
         msg "Running installer script: ${fraction} - ${script}"

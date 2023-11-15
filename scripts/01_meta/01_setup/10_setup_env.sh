@@ -28,9 +28,9 @@ install_omz_stuff() {
     export ZSH="$HOME/.config/oh-my-zsh"
     export ZSH_CUSTOM="$HOME/.config/oh-my-zsh/custom"
     sh -c "$(curl -sL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM}/plugins/zsh-syntax-highlighting"
+    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM}/themes/powerlevel10k"
     return 0
 }
 
@@ -46,7 +46,7 @@ setup_migrations() {
 do_stow() {
     # Introduce dotfiles
     echo "Introducing dotfiles..."
-    "${DIR}/tools/stow.py" install all -v -s
+    "${DIR}/../../10_utils/stow.py" install all -v -s
     return 0
 }
 
