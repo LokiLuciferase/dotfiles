@@ -24,7 +24,7 @@ playerctl.wheel-down = playerctl next
 
 cpu.interval = 3s
 memory.interval = 20s
-disk.interval = 5m
+disk.interval = 20s
 datetime.interval = 10s
 
 title.max = 64

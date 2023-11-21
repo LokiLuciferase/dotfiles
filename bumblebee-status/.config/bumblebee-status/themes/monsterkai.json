@@ -11,13 +11,13 @@
         {"fg": "#ABB2BF", "bg": "#282828"}
     ],
     "pasink": {
-        "muted": {"fg": "#282828", "bg": "#8BBB2D"}
+        "muted": {"bg": "#282828", "fg": "#8BBB2D"}
     },
     "pasource": {
-        "muted": {"fg": "#282828", "bg": "#8BBB2D"}
+        "muted": {"bg": "#282828", "fg": "#8BBB2D"}
     },
     "battery_autohide": {
-        "charged": {"fg": "#282828", "bg": "#8BBB2D"},
+        "charged": {"bg": "#282828", "fg": "#8BBB2D"},
         "AC": {"fg": "#282828", "bg": "#8BBB2D"}
     }
 }
