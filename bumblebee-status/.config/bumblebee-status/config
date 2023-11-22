@@ -12,8 +12,8 @@ brightness_autohide.format = {:.00f}%
 datetime.format = %H:%M
 
 brightness_autohide.left-click = brightnessctl set "$(zenity --title 'Set Brightness' --entry --text 'Brightness:')%"
-datetime.left-click = notify-send --urgency low "$(LC_ALL=C date '+%a %F %T')"
-datetime.right-click = notify-send --urgency low "$(LC_ALL=C ncal -b)"
+datetime.left-click = notify-send --urgency low Datetime "$(LC_ALL=C date '+%a %F %T')"
+datetime.right-click = notify-send --urgency low Calendar "$(LC_ALL=C ncal -b -h)"
 cpu.left-click = alacritty -e htop
 cpu.right-click = alacritty -e btop
 memory.left-click = alacritty -e htop
