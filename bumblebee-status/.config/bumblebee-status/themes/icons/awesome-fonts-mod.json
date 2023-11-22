@@ -71,6 +71,7 @@
     "next": { "prefix": "" }
   },
   "playerctl": {
+    "prefix": "",
     "playing": { "prefix": "" },
     "paused": { "prefix": "" },
     "stopped": { "prefix": "" },
