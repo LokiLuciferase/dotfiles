@@ -27,7 +27,7 @@
   "apt": { "prefix": "" },
   "pacman": { "prefix": "" },
   "brightness": { "prefix": "" },
-  "brightness_autohide": { "prefix": "" },
+  "brightness_autohide": { "prefix": "󰛨" },
   "load": { "prefix": "" },
   "layout": { "prefix": "" },
   "layout-xkb": { "prefix": "" },
