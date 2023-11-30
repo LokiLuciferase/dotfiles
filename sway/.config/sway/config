@@ -13,8 +13,11 @@ set $mod Mod4
 
 # i3-gaps
 gaps inner 7
+
+# swayfx
 corner_radius 10
 default_border none
+
 for_window [class=".*"] border pixel 0
 
 # manage scratchpad: start terminal
@@ -327,9 +330,9 @@ bar {
         inactive_workspace $bar_inactive_workspace_colors
         urgent_workspace   $bar_urgent_workspace_colors
     }
-    font pango:Monospace,DejaVuSansMNerdFont 11
+    font pango:Monospace,DejaVuSansMNerdFont bold 9
     position top
-    tray_padding 1
+    tray_padding 0
     status_command "bumblebee-status || i3status"
 }
 
