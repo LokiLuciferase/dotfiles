@@ -229,6 +229,32 @@ local plugin_spec = {
         cmd = { "UndotreeToggle" },
     },
     {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-neotest/neotest-python"
+        },
+        init = function()
+            require('neotest').setup({
+                adapters = {
+                    require('neotest-python')({
+                        dap = { justMyCode = false },
+                    })
+                }
+            })
+            vim.api.nvim_set_keymap("n", "<leader>nr", ":Neotest run<CR>", { noremap = true, desc = "Run tests" })
+            vim.api.nvim_set_keymap("n", "<leader>ns", ":Neotest stop<CR>", { noremap = true, desc = "Stop tests" })
+            vim.keymap.set("n", "<leader>nt",
+                function()
+                    require('neotest').summary.toggle()
+                    require('neotest').output_panel.toggle()
+                end,
+                { noremap = true, desc = "Toggle test summary" }
+            )
+        end,
+    },
+    {
         -- Treesitter integration
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
@@ -387,6 +413,7 @@ local plugin_spec = {
                         s = { name = "+sort/+show" },
                         z = { name = "+fold" }
                     },
+                    n = { name = "+neotest" },
                     r = "which_key_ignore",
                     s = { name = "+session/+spell", },
                     t = {
