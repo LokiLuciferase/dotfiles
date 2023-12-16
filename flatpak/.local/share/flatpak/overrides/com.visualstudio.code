@@ -1,5 +1,5 @@
 [Context]
-sockets=cups;pcsc;system-bus;session-bus;fallback-x11;wayland
-devices=shm;kvm;dri
-features=per-app-dev-shm;canbus;bluetooth
-filesystems=xdg-config;xdg-cache;xdg-download;~/.config;~/.local;home;host-etc;host-os
+sockets=wayland;session-bus;system-bus;fallback-x11;pcsc;cups;
+devices=dri;kvm;shm;
+features=bluetooth;canbus;per-app-dev-shm;
+filesystems=host-etc;/run/docker.sock;~/.local;xdg-download;xdg-config;~/.config;xdg-cache;home;host-os;
