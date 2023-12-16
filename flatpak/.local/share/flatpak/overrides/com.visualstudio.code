@@ -1,3 +1,5 @@
 [Context]
-devices=dri
-filesystems=~/.local;~/.config;xdg-download;xdg-cache;xdg-config;home;host-etc;host-os
+sockets=cups;pcsc;system-bus;session-bus;fallback-x11;wayland
+devices=shm;kvm;dri
+features=per-app-dev-shm;canbus;bluetooth
+filesystems=xdg-config;xdg-cache;xdg-download;~/.config;~/.local;home;host-etc;host-os
