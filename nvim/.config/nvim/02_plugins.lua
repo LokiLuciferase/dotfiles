@@ -415,7 +415,11 @@ local plugin_spec = {
                     },
                     n = { name = "+neotest" },
                     r = "which_key_ignore",
-                    s = { name = "+session/+spell", },
+                    s = {
+                        name = "+session/+spell",
+                        s = { name = "Save session" },
+                        r = { name = "Restore session" },
+                    },
                     t = {
                         name = "+terminal",
                         n = "which_key_ignore",

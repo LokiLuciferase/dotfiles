@@ -25,3 +25,7 @@ epy/.config/epy/states.db
 sway/.config/sway/local.config
 i3/.config/i3/scripts/local/
 lolcatt/.config/lolcatt/cookies.txt
+vscode/.config/Code/User/globalStorage/
+vscode/.config/Code/User/History/
+vscode/.config/Code/User/workspaceStorage/
+vscode/.config/Code/User/sync/

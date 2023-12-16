@@ -1,0 +1,11 @@
+{
+    "editor.inlineSuggest.enabled": true,
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "~/.config/nvim/init.vim",
+    "workbench.startupEditor": "none",
+    "window.menuBarVisibility": "toggle",
+    "telemetry.telemetryLevel": "off",
+    "gitlens.telemetry.enabled": false,
+    "editor.cursorBlinking": "solid"
+}
