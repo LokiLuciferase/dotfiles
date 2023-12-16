@@ -56,9 +56,11 @@ if [[ "$USE_TMUX_AS_SHELL" = true ]] \
     exec tmux -f $HOME/.config/tmux/tmux.conf
 fi
 
-# Dirty hacks
 # make color of other-writable directories less offensive
 if [[ -f "${SHELL_DOT_DIR}/common/dircolors" ]]; then
     eval "$(dircolors -b "${SHELL_DOT_DIR}/common/dircolors" )"
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
+
+# - exclude directories from completion
+zstyle ':completion:*' ignored-patterns '.dotnet'
