@@ -6,12 +6,12 @@ conda-init() {
     local conda_basedir
     if [ -n "$1" ]; then
         conda_basedir="$1"
-    elif [ -d "${HOME}/miniconda3" ]; then
-        conda_basedir="${HOME}/miniconda3"
     elif [ -d "${HOME}/.local/share/miniconda3" ]; then
         conda_basedir="${HOME}/.local/share/miniconda3"
+    elif [ -d "${HOME}/miniconda3" ]; then
+        conda_basedir="${HOME}/miniconda3"
     else
-        echo "No conda installation dir found and none passed."
+        echo "No conda installation dir found and none passed." >&2
         return 1
     fi
     # initialize conda environment
@@ -86,12 +86,16 @@ ytdl-cast() {
 
 say() {
     # read aloud arguments
+    local in="$@"
+    [ -z "$in" ] && read -r in
     echo "${@}" | gtts-cli - | mpv - &> /dev/null
 }
 
 read-aloud() {
     # read aloud contents of file
-    cat "$1" | gtts-cli - | mpv - &> /dev/null
+    local in="$1"
+    [ -z "$in" ] && read -r in
+    cat "$in" | gtts-cli - | mpv - &> /dev/null
 }
 
 pip() {
@@ -100,7 +104,7 @@ pip() {
     local CURRENV=$(basename ${CONDA_PREFIX})
     local PIP="$(whence -p pip)"
     if [[ "$CURRENV" == "miniconda3" && "$VIRTUAL_ENV" == "" ]]; then
-        echo "Cowardly refusing to mess up base conda environment."
+        echo "Cowardly refusing to mess up base conda environment." >&2
     else
         $PIP "$@"
     fi
@@ -198,7 +202,7 @@ recursive-glacier-restore() {
 
 get-latest-github-release() {
     if [[ "$#" -eq 0 || "$#" -gt 2 ]]; then
-        echo "Usage: get-latest-github-release <user>/<repo> <artifact_regex>" && return 1
+        echo "Usage: get-latest-github-release <user>/<repo> <artifact_regex>" >&2 && return 1
     fi
     local repo="$1"
     local file_pat="${2:-''}"
@@ -403,13 +407,16 @@ term-replace() {
 send-tg-message() {
     # send a message to telegram
     if [ ! -v TG_CHAT_ID ]; then
-        echo "TG_CHAT_ID not set."
-        return 1
-    elif [ ! -v TG_BOT_TOKEN ]; then
-        echo "TG_BOT_TOKEN not set."
+        echo "TG_CHAT_ID not set." >&2
         return 1
     fi
-    curl -s -X POST https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage -d chat_id=${TG_CHAT_ID} -d text="$1" &> /dev/null
+    if [ ! -v TG_BOT_TOKEN ]; then
+        echo "TG_BOT_TOKEN not set." >&2
+        return 1
+    fi
+    local in="$1"
+    [ -z "$in" ] && read -r in
+    curl -s -X POST https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage -d chat_id=${TG_CHAT_ID} -d text="$in" &> /dev/null
 }
 
 ## Package management ##
