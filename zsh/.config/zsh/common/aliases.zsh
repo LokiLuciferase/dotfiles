@@ -22,7 +22,6 @@ alias dog='highlight -O ansi --force'
 alias goto='cd -P'
 alias tree="tree -I '.git'"
 alias ta="tree -I '.git' -a"
-alias dr="desktop-run"
 alias sshb="ssh -f -N"
 alias dps='docker ps'
 alias dls='docker image ls'
@@ -35,7 +34,7 @@ alias vd='vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
 alias zat='zathura'
 alias pcloud='env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud'
-alias gpt4='llm chat -m 4'
+alias gpt4='llm chat -m 4t'
 
 # more git aliases - some already defined by oh-my-zsh
 alias ga.='git add .'
