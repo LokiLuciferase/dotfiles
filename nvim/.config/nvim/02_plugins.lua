@@ -235,6 +235,10 @@ local plugin_spec = {
             "antoinemadec/FixCursorHold.nvim",
             "nvim-neotest/neotest-python"
         },
+        cond = function()
+            local osrelease = vim.loop.os_uname().release
+            return not (string.find(osrelease, "android") ~= nil)
+        end,
         init = function()
             require('neotest').setup({
                 adapters = {
