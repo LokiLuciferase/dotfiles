@@ -230,23 +230,16 @@ local plugin_spec = {
     },
     {
         "nvim-neotest/neotest",
+        lazy = true,
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "antoinemadec/FixCursorHold.nvim",
-            "nvim-neotest/neotest-python"
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-neotest/neotest-python", lazy = false }
         },
         cond = function()
             local osrelease = vim.loop.os_uname().release
             return not (string.find(osrelease, "android") ~= nil)
         end,
         init = function()
-            require('neotest').setup({
-                adapters = {
-                    require('neotest-python')({
-                        dap = { justMyCode = false },
-                    })
-                }
-            })
             vim.api.nvim_set_keymap("n", "<leader>nr", ":Neotest run<CR>", { noremap = true, desc = "Run tests" })
             vim.api.nvim_set_keymap("n", "<leader>ns", ":Neotest stop<CR>", { noremap = true, desc = "Stop tests" })
             vim.keymap.set("n", "<leader>nt",
@@ -257,6 +250,17 @@ local plugin_spec = {
                 { noremap = true, desc = "Toggle test summary" }
             )
         end,
+        config = function()
+            require('neotest').setup({
+                adapters = {
+                    require('neotest-python')({
+                        dap = { justMyCode = false },
+                    })
+                }
+            })
+        end,
+
+        cmd = { "Neotest", "NeotestSummary", "NeotestOutput" },
     },
     {
         -- Treesitter integration
@@ -279,7 +283,7 @@ local plugin_spec = {
     {
         -- Github Copilot integration
         "github/copilot.vim",
-        tag = "v1.10.3",  -- TODO: revisit later or not, v1.11.* slows down entry
+        tag = "v1.10.3", -- TODO: revisit later or not, v1.11.* slows down entry
         lazy = false,
         cond = function() return vim.fn.executable("node") == 1 end,
         init = function()
@@ -296,7 +300,7 @@ local plugin_spec = {
         "neoclide/coc.nvim",
         lazy = false,
         dependencies = {
-            { "honza/vim-snippets", lazy = false }
+            "honza/vim-snippets"
         },
         cond = function() return vim.fn.executable("node") == 1 end,
         init = function()
