@@ -182,7 +182,7 @@ local plugin_spec = {
             vim.g.vimtex_quickfix_mode = 2
             vim.g.vimtex_quickfix_autoclose_after_keystrokes = true
             vim.g.vimtex_quickfix_open_on_warning = 0
-            vim.g.vimtex_compiler_latexmk = { build_dir = "build" }
+            vim.g.vimtex_compiler_latexmk = { build_dir = "build", out_dir = "build" }
         end,
         ft = { "tex" },
     },
