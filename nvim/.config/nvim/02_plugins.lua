@@ -14,6 +14,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 local mopts = { noremap = true }
+local is_large_file = function()
+    return vim.fn.getfsize(vim.fn.expand("%")) > 512 * 1024
+end
 
 -- define plugin spec
 local plugin_spec = {
@@ -237,7 +240,7 @@ local plugin_spec = {
         },
         cond = function()
             local osrelease = vim.loop.os_uname().release
-            return not (string.find(osrelease, "android") ~= nil)
+            return not (string.find(osrelease, "android") ~= nil) and not is_large_file()
         end,
         init = function()
             vim.api.nvim_set_keymap("n", "<leader>nr", ":Neotest run<CR>", { noremap = true, desc = "Run tests" })
@@ -266,6 +269,7 @@ local plugin_spec = {
         -- Treesitter integration
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
+        cond = function() return not is_large_file() end,
         init = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = {
@@ -285,7 +289,7 @@ local plugin_spec = {
         "github/copilot.vim",
         tag = "v1.10.3", -- TODO: revisit later or not, v1.11.* slows down entry
         lazy = false,
-        cond = function() return vim.fn.executable("node") == 1 end,
+        cond = function() return vim.fn.executable("node") == 1 and not is_large_file() end,
         init = function()
             local opts = { silent = true, script = true, expr = true, noremap = true }
             for i = 9, 11 do
@@ -302,7 +306,7 @@ local plugin_spec = {
         dependencies = {
             "honza/vim-snippets"
         },
-        cond = function() return vim.fn.executable("node") == 1 end,
+        cond = function() return vim.fn.executable("node") == 1 and not is_large_file() end,
         init = function()
             vim.opt.updatetime = 100
             vim.opt.statusline:prepend("%{coc#status()}%{get(b:,'coc_current_function','')}")
