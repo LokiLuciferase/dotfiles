@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 import sys
+from collections import Counter
 from random import randint
 from typing import List, Tuple, Optional
+
+MAX_RESULTS_LEN = 10
 
 
 def parse_die_string(s: str) -> List[Tuple[Optional[int], int]]:
@@ -43,7 +46,14 @@ def main():
             results.append(d)
         else:
             results.extend(roll_die(n, d))
-    print(sum(results), results)
+
+    s = sum(results)
+    if len(results) > MAX_RESULTS_LEN:
+        ctr = Counter(results)
+        results = [f'{v}x{k}' for k, v in sorted(ctr.items(), key=lambda x: x[0])]
+        results = '[' + ', '.join(results) + ']'
+
+    print(f'{s} {results}')
 
 
 if __name__ == '__main__':
