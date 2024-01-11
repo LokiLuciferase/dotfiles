@@ -1,6 +1,7 @@
 {
     "bashIde.backgroundAnalysisMaxFiles": 10,
     "coc.preferences.enableLinkedEditing": false,
+    "coc.preferences.maxFileSize": "1MB",
     "semanticTokens.enable": true,
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": ["-S", "-l 100"],
