@@ -8,7 +8,7 @@ check-deps() {
     fi
 }
 
-get_arch() {
+get-arch() {
     local arch
     arch=$(uname -m)
     case ${arch} in
@@ -24,7 +24,7 @@ get-url() {
     local fpat
     local fname
     os='linux'
-    arch=$(get_arch)
+    arch=$(get-arch)
     fpat="go.*.${os}-${arch}.tar.gz"
     fname=$(curl https://go.dev/dl/?mode=json | grep -o "$fpat" | head -n 1 | tr -d '\r\n' )
     echo "https://golang.org/dl/${fname}"
