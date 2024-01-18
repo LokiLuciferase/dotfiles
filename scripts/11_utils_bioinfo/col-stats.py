@@ -47,6 +47,7 @@ class ColStats:
             default=None,
             help='Input file - if not provided, stdin is used',
         )
+        parser.add_argument('-p', '--pretty', action='store_true', help='Pretty-print output')
         parser.add_argument(
             '-f',
             '--field',
@@ -54,7 +55,6 @@ class ColStats:
             help='Comma-separated list or ranges of fields to summarize (1-indexed), (e.g. 1-3,5,7-10), or "all"',
         )
         parser.add_argument('-d', '--delimiter', default='\t', help='Input delimiter to use')
-        parser.add_argument('--pretty', action='store_true', help='Pretty-print output')
         parser.add_argument(
             '-s',
             '--skip',
