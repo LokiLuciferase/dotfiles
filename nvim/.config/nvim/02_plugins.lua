@@ -232,6 +232,19 @@ local plugin_spec = {
         cmd = { "UndotreeToggle" },
     },
     {
+        "Eandrju/cellular-automaton.nvim",
+        lazy = true,
+        init = function()
+            vim.api.nvim_set_keymap("n", "<leader>xcr", ":CellularAutomaton make_it_rain<CR>",
+                { noremap = true, desc = "Make it rain" })
+            vim.api.nvim_set_keymap("n", "<leader>xcg", ":CellularAutomaton game_of_life<CR>",
+                { noremap = true, desc = "Game of life" })
+            vim.api.nvim_set_keymap("n", "<leader>xcs", ":CellularAutomaton scramble<CR>",
+                { noremap = true, desc = "Scramble" })
+        end,
+        cmd = { "CellularAutomaton" },
+    },
+    {
         "nvim-neotest/neotest",
         lazy = true,
         dependencies = {
@@ -437,7 +450,10 @@ local plugin_spec = {
                         n = "which_key_ignore",
                         N = "which_key_ignore"
                     },
-                    x = { name = "+misc" },
+                    x = {
+                        name = "+misc",
+                        c = "+CellularAutomaton"
+                    },
                     y = "which_key_ignore",
                     ["1"] = "which_key_ignore",
                     ["2"] = "which_key_ignore",
