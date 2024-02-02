@@ -329,6 +329,12 @@ select-i3-layout() {
     elif [ "$GEOM" = "3840 2160" ]; then
         ALIGN=horz
         RESOL=4K
+    elif [ "$GEOM" = "2560 1600" ]; then
+        ALIGN=horz
+        RESOL=QHD
+    elif [ "$GEOM" = "1600 2560" ]; then
+        ALIGN=vert
+        RESOL=QHD
     else
         ALIGN=unknown
         RESOL=unknown

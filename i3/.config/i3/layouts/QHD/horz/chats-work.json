@@ -1,0 +1,118 @@
+// vim:ts=4:sw=4:et
+{
+    // splitv split container with 2 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "marks": [],
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 2125,
+               "width": 762,
+               "x": 2307,
+               "y": 28
+            },
+            "marks": [],
+            "name": "google-chat",
+            "percent": 0.5,
+            "swallows": [
+               {
+               // "class": "^Chromium\\-browser$",
+               // "instance": "^crx_mdpkiolbdkhdjpekfbkbmhigcaggjagi$",
+               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
+               "title": "^Google\\ Chat\\ \\-\\ Chat$"
+               // "window_role": "^pop\\-up$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 2125,
+               "width": 950,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "thunderbird",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^thunderbird$"
+               // "instance": "^Mail$",
+               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
+               // "title": "^Inbox\\ \\-\\ llf\\@aitiologic\\.com\\ \\-\\ Mozilla\\ Thunderbird$",
+               // "window_role": "^3pane$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+
+{
+    // splitv split container with 2 children
+    "border": "normal",
+    "floating": "auto_off",
+    "layout": "splitv",
+    "marks": [],
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "pixel",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 2125,
+               "width": 1910,
+               "x": 1923,
+               "y": 28
+            },
+            "marks": [],
+            "name": "spotify",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^Spotify$"
+               // "instance": "^spotify$",
+               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
+               // "title": "^Spotify\\ Premium$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 2125,
+               "width": 1274,
+               "x": 1283,
+               "y": 28
+            },
+            "marks": [],
+            "name": "telegram",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^TelegramDesktop$"
+               // "instance": "^telegram\\-desktop$",
+               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
+               // "title": "^Telegram\\ \\(10\\)$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
