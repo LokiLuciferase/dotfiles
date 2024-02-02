@@ -13,7 +13,7 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
-local mopts = { noremap = true }
+local mopts = { noremap = true, silent = true }
 local is_large_file = function()
     return vim.fn.getfsize(vim.fn.expand("%")) > 512 * 1024
 end

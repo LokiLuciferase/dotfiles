@@ -34,6 +34,7 @@ set whichwrap+=<,>  " allow these characters to move to next line of first/last 
 set autochdir  " cwd to the location of the currently edited file
 
 set showmatch  " show matching brackets
+set cursorline  " highlight current line
 set matchtime=2  " Tenths of a second to show the matching paren, when 'showmatch' is set.
 
 set ignorecase  " Ignore capitalization during search
@@ -179,6 +180,7 @@ function SetProseOptions()
     setlocal linebreak  " break lines at word boundaries
     setlocal showbreak=  " do not show linebreaks
     setlocal spellcapcheck=none  " do not check for capitalization - fixes species names
+    setlocal nocursorline
     setlocal diffopt+=iwhite,iblank,followwrap
     nnoremap j gj
     nnoremap k gk
