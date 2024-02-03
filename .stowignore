@@ -3,7 +3,6 @@ datafiles/.git
 datafiles/.gitignore
 scripts/
 termux/
-libinput-gestures/
 xresources/.Xresources.local
 
 # directory paths which, if requested to be present at the target location of a stow operation, are to be created (i.e., they should not be part of the symlink)
