@@ -14,7 +14,7 @@
 
     // Selected Theme
     // Application-level visual styling theme
-    "theme": "Material Darker",
+    "theme": "JupyterLab Night",
 
     // Scrollbar Theming
     // Enable/disable styling of the application scrollbars

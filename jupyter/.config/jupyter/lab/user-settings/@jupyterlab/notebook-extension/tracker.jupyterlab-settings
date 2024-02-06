@@ -5,7 +5,7 @@
     // **************************************
 
     // Code Cell Configuration
-    // The configuration for all code cells.
+    // The configuration for all code cells; it will override the CodeMirror default configuration.
     "codeCellConfig": {
         "lineWrap": "on"
     },

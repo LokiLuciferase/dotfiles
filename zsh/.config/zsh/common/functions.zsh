@@ -363,6 +363,11 @@ disable-screen-timeout() {
     xset s noblank
 }
 
+galias() {
+    # grep git aliases
+        alias | grep "='git" | grep -F "$*"
+}
+
 ## Tmux automation ##
 _tmux_ctx() {
     # run tmux command either in new session if not running
