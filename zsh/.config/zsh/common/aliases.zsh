@@ -38,6 +38,7 @@ alias gpt4='llm chat -m 4t'
 
 # more git aliases - some already defined by oh-my-zsh
 alias ga.='git add .'
+alias gca='git commit --amend'
 alias gpl='git pull'
 alias glo='git lola'
 alias gdh='git diff HEAD~1'
