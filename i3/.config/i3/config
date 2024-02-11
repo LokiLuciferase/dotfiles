@@ -47,7 +47,6 @@ exec --no-startup-id "numlockx"
 exec --no-startup-id "env RUST_LOG=off workstyle"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-swap-focus"
 exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
-exec --no-startup-id "/usr/local/bin/export_bat_stat.sh"
 exec --no-startup-id "/usr/lib/nvidia-prime-applet/nvidia-prime"
 exec --no-startup-id "syncthing"
 exec --no-startup-id "sleep 7 && keepassxc"  # apply some sleep here to give syncthing a chance to start
