@@ -59,6 +59,13 @@ desktop	pavucontrol	pavucontrol	pavucontrol	pavucontrol
 desktop	lxappearance	lxappearance	lxappearance				
 desktop	zathura	zathura	zathura	zathura			
 desktop	xclip	xclip	xclip	xclip			
+desktop	sway	sway	sway	sway
+desktop	swaylock	swaylock	swaylock	swaylock
+dekstop	swayidle	swayidle	swayidle	swayidle
+desktop	wl-clipboard	wl-clipboard	wl-clipboard	wl-clipboard
+desktop	wtype	wtype	wtype	wtype
+desktop	grim	grim	grim	grim
+desktop	slurp	slurp	slurp	slurp
 desktop					rofimoji		
 desktop					autorandr		
 desktop					bumblebee-status		

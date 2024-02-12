@@ -107,8 +107,8 @@ bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
 bindsym $mod+Shift+b exec "firefox --private-window || brave-browser --incognito"
 
 # screenshot
-bindsym --release $mod+Print exec "FN=$(mktemp -u).png && scrot -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN"
-bindsym --release $mod+Shift+Print exec "FN=$(mktemp -u).png && scrot --freeze --select -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN"
+bindsym --release $mod+Print exec "FN=$(mktemp -u).png && grim $FN && wl-copy < $FN && rm -f $FN && notify-send 'Screenshot sent to clipboard.'"
+bindsym --release $mod+Shift+Print exec "FN=$(mktemp -u).png && slurp | grim -g - $FN && wl-copy < $FN && rm -f $FN && notify-send 'Screenshot sent to clipboard.'"
 
 # kill focused window
 bindsym $mod+Shift+q kill
