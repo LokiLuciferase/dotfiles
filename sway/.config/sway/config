@@ -43,6 +43,7 @@ exec --no-startup-id "swayidle -w timeout 300 'swaylock' timeout 360 'swaymsg "o
 # display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; swaybg -i $HOME/.local/share/backgrounds/default"
 exec --no-startup-id "picom --daemon"
+exec --no-startup-id "dunst"
 exec --no-startup-id "redshift"
 
 # keyboard and mouse/touchpad setup
