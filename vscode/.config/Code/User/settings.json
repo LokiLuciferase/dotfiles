@@ -7,5 +7,6 @@
     "window.menuBarVisibility": "toggle",
     "telemetry.telemetryLevel": "off",
     "gitlens.telemetry.enabled": false,
-    "editor.cursorBlinking": "solid"
+    "editor.cursorBlinking": "solid",
+    "files.insertFinalNewline": true
 }
