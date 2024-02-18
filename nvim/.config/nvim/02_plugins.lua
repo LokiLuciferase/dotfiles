@@ -170,6 +170,9 @@ local plugin_spec = {
         lazy = true,
         init = function()
             vim.api.nvim_set_keymap("n", "<F3>", ":NvimTreeToggle<CR>", mopts)
+            vim.g.loaded_netrw = 1
+            vim.g.loaded_netrwPlugin = 1
+
         end,
         config = function()
             require("nvim-tree").setup()

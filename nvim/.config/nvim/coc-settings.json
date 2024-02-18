@@ -4,7 +4,7 @@
     "coc.preferences.maxFileSize": "1MB",
     "semanticTokens.enable": true,
     "python.formatting.provider": "black",
-    "python.formatting.blackArgs": ["-S", "-l 100"],
+    "python.formatting.blackArgs": ["-S", "-l 120"],
     "pyright.disableProgressNotifications": false,
     "pyright.inlayHints.variableTypes": false,
     "pyright.inlayHints.functionReturnTypes": true,

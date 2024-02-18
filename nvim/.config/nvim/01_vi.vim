@@ -214,7 +214,7 @@ endfunction
 autocmd FileType * nnoremap <F5> :call <SID>run_file_type(&ft)<CR>
 
 " enable colorcolumn for commonly used code files
-autocmd FileType python,nextflow,c,cpp,sh,rust,lua,perl,php,js,java,go,scala,sql,vim,julia set colorcolumn=100
+autocmd FileType python,nextflow,c,cpp,sh,rust,lua,perl,php,js,java,go,scala,sql,vim,julia set colorcolumn=120
 
 " add custom file headers for new files of a certain type
 function! s:add_buffer_head() abort
