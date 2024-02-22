@@ -1,23 +1,22 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
     {
-        "key": "f9",
-        "command": "-workbench.action.chat.nextCodeBlock",
-        "when": "hasChatProvider && inChat"
+        "key": "f11",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus"
+    },
+    {
+        "key": "f10",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus"
     },
     {
         "key": "f9",
-        "command": "-editor.debug.action.toggleBreakpoint",
-        "when": "debuggersAvailable && editorTextFocus"
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus"
     },
     {
-        "key": "f9",
-        "command": "github.copilot.acceptCursorPanelSolution",
-        "when": "github.copilot.activated && github.copilot.panelVisible"
-    },
-    {
-        "key": "ctrl+/",
-        "command": "-github.copilot.acceptCursorPanelSolution",
-        "when": "github.copilot.activated && github.copilot.panelVisible"
+        "key": "f3",
+        "command": "workbench.action.toggleSidebarVisibility"
     }
 ]

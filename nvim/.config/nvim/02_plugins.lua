@@ -97,6 +97,10 @@ local plugin_spec = {
         "tpope/vim-abolish",
     },
     {
+        -- easymotion
+        "easymotion/vim-easymotion",
+    },
+    {
         -- Git integration
         "tpope/vim-fugitive",
         lazy = true,
@@ -458,6 +462,7 @@ local plugin_spec = {
                         c = "+CellularAutomaton"
                     },
                     y = "which_key_ignore",
+                    ['<space>'] = 'which_key_ignore',
                     ["1"] = "which_key_ignore",
                     ["2"] = "which_key_ignore",
                     ["3"] = "which_key_ignore",
