@@ -1,41 +1,116 @@
 {
-    "editor.inlineSuggest.enabled": true,
-    "workbench.colorTheme": "One Dark Pro Darker",
-    "vim.vimrc.enable": true,
-    "workbench.startupEditor": "none",
-    "window.menuBarVisibility": "toggle",
-    "telemetry.telemetryLevel": "off",
-    "gitlens.telemetry.enabled": false,
-    "editor.cursorBlinking": "solid",
-    "files.insertFinalNewline": true,
-    "database-client.telemetry.usesOnlineServices": false,
-    "playwright.reuseBrowser": true,
-    "vim.smartRelativeLine": true,
-    "vim.vimrc.path": "$HOME/.config/nvim/01_vi.vim",
-    "vim.leader": "<space>",
-    "vim.easymotion": true,
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": ["<leader>", "l", "f"],
-            "commands": ["editor.action.formatDocument"]
-        },
-        {
-            "before": ["<leader>", "x", "d", "w"],
-            "commands": ["editor.action.trimTrailingWhitespace"]
-        },
-        {
-            "before": ["<leader>", "t", "t"],
-            "commands": ["workbench.action.terminal.toggleTerminal"]
-        },
-        {
-            "before": ["q"],
-            "commands": ["workbench.action.closeActiveEditor"]
-        }
-    ],
-    "eslint.format.enable": true,
     "[typescript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+    "database-client.telemetry.usesOnlineServices": false,
+    "editor.cursorBlinking": "solid",
+    "editor.inlineSuggest.enabled": true,
+    "eslint.format.enable": true,
+    "files.insertFinalNewline": true,
+    "gitlens.telemetry.enabled": false,
+    "playwright.reuseBrowser": true,
     "security.promptForLocalFileProtocolHandling": false,
-    "terminal.integrated.showExitAlert": false
+    "telemetry.telemetryLevel": "off",
+    "terminal.integrated.showExitAlert": false,
+    "vim.easymotion": true,
+    "vim.highlightedyank.color": "rgba(250, 240, 170, 0.3)",
+    "vim.highlightedyank.duration": 100,
+    "vim.highlightedyank.enable": true,
+    "vim.leader": "<space>",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "l",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "x",
+                "d",
+                "w"
+            ],
+            "commands": [
+                "editor.action.trimTrailingWhitespace"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "t",
+                "t"
+            ],
+            "commands": [
+                "workbench.action.terminal.toggleTerminal"
+            ]
+        },
+        {
+            "before": [
+                "q"
+            ],
+            "commands": [
+                "workbench.action.closeActiveEditor"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "commands": [
+                "editor.action.showHover"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l",
+                "r"
+            ],
+            "commands": [
+                "editor.action.rename"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l",
+                "s",
+                "o"
+            ],
+            "commands": [
+                "outline.toggleVisibility"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l",
+                "n"
+            ],
+            "commands": [
+                "editor.action.marker.nextInFiles"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "l",
+                "p"
+            ],
+            "commands": [
+                "editor.action.marker.prevInFiles"
+            ]
+        }
+    ],
+    "vim.smartRelativeLine": true,
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "$HOME/.config/nvim/01_vi.vim",
+    "window.menuBarVisibility": "toggle",
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.startupEditor": "none"
 }
