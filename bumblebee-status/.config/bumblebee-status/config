@@ -1,5 +1,5 @@
 [core]
-modules = title,playerctl,cpu,memory,disk:root,redshift,brightness_autohide,battery_autohide,pasink,datetime,dunst
+modules = title,playerctl,cpu,memory,disk:root,gammastep_or_redshift,brightness_autohide,battery_autohide,pasink,datetime,dunst
 autohide = cpu,memory,disk
 theme = monsterkai
 
@@ -34,3 +34,7 @@ playerctl.format = {{artist}} - {{title}}
 playerctl.layout = playerctl.song
 playerctl.args = -p mpv,spotify,Spot
 playerctl.hide = true
+
+gammastep_or_redshift.lat = 48.2
+gammastep_or_redshift.lon = 16.4
+gammastep_or_redshift.location = manual

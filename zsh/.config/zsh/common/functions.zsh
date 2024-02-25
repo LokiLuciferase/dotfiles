@@ -437,6 +437,20 @@ _apt_upgrade_all() {
         && sudo apt autoremove --yes
 }
 
+_pacman_upgrade_all() {
+    sudo pacman -Syu --noconfirm
+}
+
+_package_manager_upgrade_all() {
+    if which apt &> /dev/null; then
+        _apt_upgrade_all
+    elif which pacman &> /dev/null; then
+        _pacman_upgrade_all
+    else
+        return 1
+    fi
+}
+
 _flatpak_upgrade_all_if_exist() {
     which flatpak &> /dev/null || return 0
     flatpak update -y

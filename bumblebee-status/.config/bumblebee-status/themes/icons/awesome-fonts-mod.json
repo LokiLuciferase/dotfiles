@@ -205,6 +205,11 @@
     "night": { "prefix": "" },
     "transition": { "prefix": "" }
   },
+  "gammastep_or_redshift": {
+    "day": { "prefix": "" },
+    "night": { "prefix": "" },
+    "transition": { "prefix": "" }
+  },
   "docker_ps": {
     "prefix": ""
   },

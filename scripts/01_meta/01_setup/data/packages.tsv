@@ -34,7 +34,8 @@ various					visidata
 various					openpyxl		
 various					black		
 desktop	lightdm	lightdm	lightdm	lightdm			
-desktop	slick-greeter	slick-greeter	lightdm-slick-greeter	slick-greeter			
+desktop			sddm				
+desktop	slick-greeter	slick-greeter		slick-greeter			
 desktop	timeshift	timeshift	timeshift				
 desktop	mpv	mpv	mpv	mpv			
 desktop	redshift	redshift	redshift	redshift			

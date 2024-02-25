@@ -1,4 +1,5 @@
 [Context]
+sockets=fallback-x11
 filesystems=home
 
 [Environment]
