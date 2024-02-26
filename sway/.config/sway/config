@@ -13,10 +13,14 @@ set $mod Mod4
 
 # i3-gaps
 gaps inner 7
+default_border none
 
 # swayfx
 corner_radius 10
-default_border none
+blur enable
+blur_radius 1
+blur_passes 3
+shadows enable
 
 for_window [class=".*"] border pixel 0
 
@@ -42,7 +46,6 @@ exec --no-startup-id "swayidle -w timeout 300 'swaylock' timeout 360 'swaymsg "o
 
 # display setup
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; swaybg -i $HOME/.local/share/backgrounds/default"
-exec --no-startup-id "picom --daemon"
 exec --no-startup-id "dunst"
 exec --no-startup-id "gammastep -l 48.2:16.4"
 
