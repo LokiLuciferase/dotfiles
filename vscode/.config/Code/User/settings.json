@@ -1,6 +1,6 @@
 {
     "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "database-client.telemetry.usesOnlineServices": false,
     "editor.cursorBlinking": "solid",
@@ -17,7 +17,29 @@
     "vim.highlightedyank.duration": 100,
     "vim.highlightedyank.enable": true,
     "vim.leader": "<space>",
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "l"
+            ],
+            "commands": [
+                "editor.action.commentLine"
+            ]
+        }
+    ],
     "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "f",
+                "f"
+            ],
+            "commands": [
+                "workbench.action.findInFiles"
+            ]
+        },
         {
             "before": [
                 "<leader>",
@@ -47,6 +69,26 @@
             ],
             "commands": [
                 "workbench.action.terminal.toggleTerminal"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "n",
+                "c"
+            ],
+            "commands": [
+                "testing.runAtCursor"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "n",
+                "r"
+            ],
+            "commands": [
+                "testing.refreshTests"
             ]
         },
         {
@@ -105,6 +147,16 @@
             "commands": [
                 "editor.action.marker.prevInFiles"
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "l"
+            ],
+            "commands": [
+                "editor.action.commentLine"
+            ]
         }
     ],
     "vim.smartRelativeLine": true,
@@ -112,5 +164,10 @@
     "vim.vimrc.path": "$HOME/.config/nvim/01_vi.vim",
     "window.menuBarVisibility": "toggle",
     "workbench.colorTheme": "One Dark Pro Darker",
-    "workbench.startupEditor": "none"
+    "workbench.startupEditor": "none",
+    "explorer.confirmDelete": false,
+    "playwright.env": {
+        "NUXT_ALLOW_UNAUTH": "true"
+    },
+    "playwright.showTrace": false
 }
