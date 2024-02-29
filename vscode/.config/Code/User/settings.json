@@ -169,5 +169,12 @@
     "playwright.env": {
         "NUXT_ALLOW_UNAUTH": "true"
     },
-    "playwright.showTrace": false
+    "playwright.showTrace": false,
+    "black-formatter.args": [
+        "-S",
+        "-l 120"
+    ],
+    "editor.rulers": [
+        120
+    ]
 }
