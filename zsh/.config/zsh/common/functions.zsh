@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+nvm-init() {
+    # initialize nvm
+    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+}
 
 conda-init() {
     # locate conda installation
@@ -117,7 +122,7 @@ ps-nxf() {
 
 bgrun() {
     # run application without blocking CLI
-    nohup "$@" &> /dev/null &
+    nohup ${SHELL:-zsh} -c "$@" &> /dev/null &
     disown
 }
 
@@ -213,6 +218,35 @@ get-latest-github-release() {
     done
 }
 
+aws-assume-role() {
+    # assume role and set environment variables
+    if [ -z "$1" ]; then
+        echo "Usage: aws-assume-role <role-arn>" >&2
+        return 1
+    fi
+    local output
+    output=$(aws sts assume-role --role-arn $1 --role-session-name assuming-direct-control || return 1)
+    if [ $? -ne 0 ]; then
+        echo "Assuming role failed." >&2
+        return 1
+    fi
+    export AWS_ACCESS_KEY_ID=$(echo "$output" | jq -r .Credentials.AccessKeyId)
+    export AWS_SECRET_ACCESS_KEY=$(echo "$output" | jq -r .Credentials.SecretAccessKey)
+    export AWS_SESSION_TOKEN=$(echo "$output" | jq -r .Credentials.SessionToken)
+    export PREV_AWS_PROFILE=${AWS_PROFILE}
+    unset AWS_PROFILE || true
+    echo "Assumed role $1 and unset AWS_PROFILE (was ${PREV_AWS_PROFILE})."
+}
+
+aws-unassume-role() {
+    # unset assumed role environment variables
+    unset AWS_ACCESS_KEY_ID
+    unset AWS_SECRET_ACCESS_KEY
+    unset AWS_SESSION_TOKEN
+    export AWS_PROFILE=${PREV_AWS_PROFILE}
+    echo "Unset assumed role and restored AWS_PROFILE to ${AWS_PROFILE}."
+}
+
 cecho(){
     # print the given string in the given color to the given destination
     # cecho [echo flags] <color> <message>
@@ -304,10 +338,10 @@ apply-i3-layout() {
     # apply i3 layout and start all to-be-slurped tools (identified by name)
     LAYOUT="$1"
     WORKSPACE="${2:-1}"
-    NAMES=($(grep -o '"name": .*' $LAYOUT | cut -f2 -d' ' | sed -e 's/"\(.*\)",/\1/g' | sed 's/\\//g' | tr '\n' ' '))
-    i3-msg "workspace $WORKSPACE; append_layout $LAYOUT"
-    for name in ${NAMES[@]}; do
-        echo -n "Executing $name: "
+    IFS=$'\n' NAMES=($(grep -o '"name": .*' $LAYOUT | cut -f2- -d' ' | sed -e 's/"\(.*\)",/\1/g' | sed 's/\\//g'))
+    i3-msg "workspace number $WORKSPACE; append_layout $LAYOUT"
+    for name in $NAMES; do
+        echo -n "Executing '$name': "
         bgrun $name
     done
 }
