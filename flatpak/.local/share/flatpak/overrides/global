@@ -1,2 +1,5 @@
 [Context]
-filesystems=xdg-config/fontconfig:ro;~/.icons:ro
+filesystems=~/.icons:ro;xdg-data/icons:ro;xdg-config/fontconfig:ro
+
+[Environment]
+XCURSOR_PATH=~/.icons
