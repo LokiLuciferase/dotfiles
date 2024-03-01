@@ -70,9 +70,14 @@ def get_redshift_value(module):
                 widget.set("state", "night")
             else:
                 widget.set("state", "transition")
-                match = re.search(r"(\d+)\.\d+% ([a-z]+)", line)
+                match = re.search(r"(\d+)\.\d+% ([a-z]+)", line)  # redshift
+                if match is not None:
+                    perc, state = match.groups()
+                else:
+                    match = re.search(r"([a-z]+): (\d+)\.\d+%", line)  # gammastep
+                    state, perc = match.groups()
                 widget.set(
-                    "transition", "({}% {})".format(match.group(1), match.group(2))
+                    "transition", "({}% {})".format(perc, state)
                 )
     core.event.trigger("update", [widget.module.id], redraw_only=True)
 
