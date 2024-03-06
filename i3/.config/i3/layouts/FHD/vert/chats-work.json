@@ -63,14 +63,11 @@
                             "marks": [
                                "sl"
                             ],
-                            "name": "slack",
+                            "name": "google-chat",
                             "percent": 0.5,
                             "swallows": [
                                {
-                               // "class": "^Slack$",
-                                  "instance": "^slack$"
-                               // "title": "^Slack\\ \\|\\ Peter\\ \\|\\ Ares\\ Genetics$",
-                               // "window_role": "^browser\\-window$"
+                                  "title": "^Google\\ Chat\\ \\-\\ Chat$"
                                }
                             ],
                             "type": "con"

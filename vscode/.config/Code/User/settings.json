@@ -164,6 +164,9 @@
     "vim.vimrc.path": "$HOME/.config/nvim/01_vi.vim",
     "window.menuBarVisibility": "toggle",
     "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.colorCustomizations": {
+        "editorStickyScroll.background": "#31353d"
+    },
     "workbench.startupEditor": "none",
     "explorer.confirmDelete": false,
     "playwright.env": {
