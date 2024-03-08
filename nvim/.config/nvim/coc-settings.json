@@ -1,5 +1,4 @@
 {
-    "bashIde.backgroundAnalysisMaxFiles": 10,
     "coc.preferences.enableLinkedEditing": false,
     "coc.preferences.maxFileSize": "1MB",
     "semanticTokens.enable": true,

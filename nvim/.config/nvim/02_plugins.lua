@@ -349,7 +349,6 @@ local plugin_spec = {
                     'coc-json',
                     'coc-yaml',
                     'coc-pairs',
-                    'coc-sh',
                     'coc-pyright',
                     'coc-clangd',
                     'coc-lua',
