@@ -559,6 +559,7 @@ update-git-repo() {
         color=Y
     fi
     cecho $color "On branch $branch."
+    git diff --quiet HEAD || cecho R "Repo is dirty."
 }
 
 update-git-repos() {
