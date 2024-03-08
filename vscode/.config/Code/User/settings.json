@@ -1,14 +1,30 @@
 {
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff"
+    },
     "[typescript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
+    "black-formatter.args": [
+        "-S",
+        "-l 120"
+    ],
     "database-client.telemetry.usesOnlineServices": false,
     "editor.cursorBlinking": "solid",
+    "editor.formatOnSave": true,
     "editor.inlineSuggest.enabled": true,
+    "editor.rulers": [
+        120
+    ],
     "eslint.format.enable": true,
+    "explorer.confirmDelete": false,
     "files.insertFinalNewline": true,
     "gitlens.telemetry.enabled": false,
+    "playwright.env": {
+        "NUXT_ALLOW_UNAUTH": "true"
+    },
     "playwright.reuseBrowser": true,
+    "playwright.showTrace": false,
     "security.promptForLocalFileProtocolHandling": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.showExitAlert": false,
@@ -17,19 +33,88 @@
     "vim.highlightedyank.duration": 100,
     "vim.highlightedyank.enable": true,
     "vim.leader": "<space>",
-    "vim.visualModeKeyBindingsNonRecursive": [
+    "vim.normalModeKeyBindingsNonRecursive": [
         {
             "before": [
                 "<leader>",
-                "c",
-                "l"
+                "1"
             ],
             "commands": [
-                "editor.action.commentLine"
+                "workbench.action.openEditorAtIndex1"
             ]
-        }
-    ],
-    "vim.normalModeKeyBindingsNonRecursive": [
+        },
+        {
+            "before": [
+                "<leader>",
+                "2"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex2"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "3"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex3"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "4"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex4"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "5"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex5"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "6"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex6"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "7"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex7"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "8"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex8"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "9"
+            ],
+            "commands": [
+                "workbench.action.openEditorAtIndex9"
+            ]
+        },
         {
             "before": [
                 "<leader>",
@@ -160,24 +245,25 @@
         }
     ],
     "vim.smartRelativeLine": true,
+    "vim.useSystemClipboard": true,
     "vim.vimrc.enable": true,
     "vim.vimrc.path": "$HOME/.config/nvim/01_vi.vim",
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "l"
+            ],
+            "commands": [
+                "editor.action.commentLine"
+            ]
+        }
+    ],
     "window.menuBarVisibility": "toggle",
-    "workbench.colorTheme": "One Dark Pro Darker",
     "workbench.colorCustomizations": {
         "editorStickyScroll.background": "#31353d"
     },
-    "workbench.startupEditor": "none",
-    "explorer.confirmDelete": false,
-    "playwright.env": {
-        "NUXT_ALLOW_UNAUTH": "true"
-    },
-    "playwright.showTrace": false,
-    "black-formatter.args": [
-        "-S",
-        "-l 120"
-    ],
-    "editor.rulers": [
-        120
-    ]
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.startupEditor": "none"
 }
