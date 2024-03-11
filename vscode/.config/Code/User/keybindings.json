@@ -22,21 +22,16 @@
     {
         "key": "j",
         "command": "list.focusDown",
-        "when": "listFocus"
+        "when": "listFocus && !inputFocus"
     },
     {
         "key": "k",
         "command": "list.focusUp",
-        "when": "listFocus"
+        "when": "listFocus && !inputFocus"
     },
     {
         "key": "enter",
         "command": "list.select",
-        "when": "explorerViewletVisible && filesExplorerFocus"
-    },
-    {
-        "key": "o",
-        "command": "list.toggleExpand",
-        "when": "listFocus"
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
     }
-]
+    ]
