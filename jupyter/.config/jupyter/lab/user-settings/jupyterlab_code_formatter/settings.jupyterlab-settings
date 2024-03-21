@@ -2,8 +2,7 @@
     "preferences": {
         "default_formatter": {
             "python": [
-                "ruff",
-                "ruff_format",
+                "black",
                 "isort"
             ],
             "R": "formatR",
@@ -12,8 +11,8 @@
         }
     },
     "black": {
-        "line_length": 88,
-        "string_normalization": true
+        "line_length": 120,
+        "string_normalization": false
     },
     "yapf": {
         "style_config": "google"
@@ -32,7 +31,7 @@
         "wrap": true,
         "width_cutoff": 150
     },
-    "formatOnSave": true,
+    "formatOnSave": false,
     "cacheFormatters": false,
     "astyle": {
         "args": []
