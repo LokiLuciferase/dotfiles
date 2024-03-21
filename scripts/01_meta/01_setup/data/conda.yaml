@@ -3,7 +3,6 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - autopep8
   - beautifulsoup4
   - boto3
   - click
@@ -18,6 +17,7 @@ dependencies:
   - jupyterlab
   - jupyterlab_code_formatter
   - jupyterlab_execute_time
+  - jupyterlab_night
   - jupyterlab-git
   - lxml
   - make
@@ -36,6 +36,7 @@ dependencies:
   - pytest-pudb
   - pytest-profiling
   - requests
+  - ruff
   - scipy
   - seaborn
   - sphinx
@@ -44,5 +45,3 @@ dependencies:
   - tqdm
   - typeguard
   - vulture
-  - pip:
-    - jupyterlab_materialdarker
