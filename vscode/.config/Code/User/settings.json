@@ -3,12 +3,11 @@
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
-    "black-formatter.args": [
-        "-S",
-        "-l 120"
-    ],
+    "[vue]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
     "database-client.telemetry.usesOnlineServices": false,
     "editor.cursorBlinking": "solid",
     "editor.formatOnSave": true,
@@ -20,11 +19,11 @@
     "explorer.confirmDelete": false,
     "files.insertFinalNewline": true,
     "gitlens.telemetry.enabled": false,
-    "playwright.env": {
-        "NUXT_ALLOW_UNAUTH": "true"
-    },
+    "jupyter.askForKernelRestart": false,
+    "notebook.formatOnSave.enabled": true,
     "playwright.reuseBrowser": true,
     "playwright.showTrace": false,
+    "search.useGlobalIgnoreFiles": true,
     "security.promptForLocalFileProtocolHandling": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.showExitAlert": false,
@@ -265,5 +264,6 @@
         "editorStickyScroll.background": "#31353d"
     },
     "workbench.colorTheme": "One Dark Pro Darker",
-    "workbench.startupEditor": "none"
+    "workbench.startupEditor": "none",
+    "workbench.tree.indent": 32
 }
