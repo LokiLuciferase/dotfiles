@@ -24,7 +24,7 @@ set_from_resource $term_font_size terminal.font.size 12
 
 # user specific startup applications
 # local startup applications
-exec "$HOME/.config/i3/scripts/local/i3-startup-pre || true"
+exec --no-startup-id "$HOME/.config/i3/scripts/local/i3-startup-pre || true"
 
 # connectivity
 exec --no-startup-id "nm-applet"
@@ -56,7 +56,7 @@ exec --no-startup-id "alacritty --title 'Scratchpad' -o window.opacity=1 -o font
 exec --no-startup-id "dex $HOME/.config/autostart/*"
 
 # local startup applications
-exec "$HOME/.config/i3/scripts/local/i3-startup-post || true"
+exec --no-startup-id "$HOME/.config/i3/scripts/local/i3-startup-post || true"
 
 bindsym $mod+Tab exec pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
 bindsym Control+Mod1+l exec --no-startup-id "light-locker-command --lock || cinnamon-screensaver-command --lock || i3lock -i ~/.local/share/backgrounds/default"
