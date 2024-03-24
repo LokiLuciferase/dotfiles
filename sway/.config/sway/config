@@ -59,7 +59,7 @@ exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/lib/nvidia-prime-applet/nvidia-prime"
 exec --no-startup-id "syncthing"
 exec --no-startup-id "$HOME/.local/bin/keepassxc"
-exec --no-startup-id "alacritty --title Scratchpad -o window.opacity=1 -o font.size=$term_font_size -e $HOME/.config/i3/scripts/i3-scratchpad-tmux"
+exec --no-startup-id "foot --title Scratchpad -o config.alpha=1 -e $HOME/.config/i3/scripts/i3-scratchpad-tmux"
 exec --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
 
 # starting any .desktop files in $HOME/.config/autostart
@@ -104,7 +104,7 @@ for_window [instance="cheese"] floating enable
 for_window [class="firefox"] floating disable
 
 # start a terminal
-bindsym $mod+Return exec "alacritty -o font.size=$term_font_size"
+bindsym $mod+Return exec "foot"
 
 # start browser
 bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
