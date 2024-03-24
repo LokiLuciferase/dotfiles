@@ -502,6 +502,7 @@ _pdot() {
 
 _pshell() {
     # pull newest changes to shell
+    set +o monitor
     pushd "${ZSH}/custom" || return 0
     for plugin in plugins/*/ themes/*/; do
         if [ -d "$plugin/.git" ]; then
@@ -509,6 +510,7 @@ _pshell() {
         fi
     done
     wait
+    set -o monitor
     popd
 }
 
@@ -534,11 +536,20 @@ _backup_shell_hist(){
 
 pall() {
     # pull all changes of git-dependent software, and apply dotfile migrations
-    _pdot
-    _pshell
-    _pnvimupdates
+    echo -n "Pulling dotfile changes..."
+    _pdot &> /dev/null
+    cecho G "done."
+    echo -n "Pulling shell changes..."
+    _pshell &> /dev/null
+    cecho G "done."
+    echo -n "Pulling neovim updates..."
+    _pnvimupdates &> /dev/null
+    cecho G "done."
+    echo -n "Backing up shell history..."
+    _backup_shell_hist &> /dev/null
+    cecho G "done."
+    echo -n "Running any pending dotfile migrations..."
     _migrate-dotfiles
-    _backup_shell_hist
 }
 
 update-git-repo() {
