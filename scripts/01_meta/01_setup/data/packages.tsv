@@ -30,9 +30,6 @@ various	tldr	tldr	tldr		tldr
 various					bpytop		
 various					yt-dlp		
 various					asciinema		
-various					visidata		
-various					openpyxl		
-various					black		
 desktop	lightdm	lightdm	lightdm	lightdm			
 desktop			sddm				
 desktop	slick-greeter	slick-greeter		slick-greeter			
@@ -66,8 +63,10 @@ desktop	swaylock	swaylock	swaylock	swaylock
 dekstop	swayidle	swayidle	swayidle	swayidle
 desktop	wl-clipboard	wl-clipboard	wl-clipboard	wl-clipboard
 desktop	wtype	wtype	wtype	wtype
+desktop	foot	foot	foot	foot
 desktop	grim	grim	grim	grim
 desktop	slurp	slurp	slurp	slurp
+desktop	sddm	sddm	sddm	sddm
 desktop	gammastep	gammastep	gammastep	gammastep
 desktop			blueman	blueman
 desktop			xdg-desktop-portal-gtk
