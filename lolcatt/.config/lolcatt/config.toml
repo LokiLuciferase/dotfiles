@@ -1,4 +1,4 @@
 [options]
 fancy_icons = true  # Whether to use fancy icons - requires a font with support for them
-youtube_cookies_file = "~/.config/lolcatt/cookies.txt"  # Path to a cookies.txt file for YouTube
+#youtube_cookies_file = "~/.config/lolcatt/cookies.txt"  # Path to a cookies.txt file for YouTube
 youtube_mark_watched = true
