@@ -562,14 +562,26 @@ update-git-repo() {
         && git submodule update --recursive \
         && git sweep \
         || return
-    local branch=$(git branch --show-current)
-    local color
+    local branch
+    local exists_remote
+    local branch_color
+    local exists_remote_color
+    branch=$(git branch --show-current)
+    exists_remote=$(git branch --list --remote origin/${branch} | wc -l)
     if [[ "$branch" == "master" ]] || [[ "$branch" == "main" ]]; then
-        color=G
+        branch_color=G
     else
-        color=Y
+        branch_color=Y
     fi
-    cecho $color "On branch $branch."
+    if [[ "$exists_remote" -gt 0 ]]; then
+        exists_remote_color=G
+        exists_remote_str="exists"
+    else
+        exists_remote_color=R
+        exists_remote_str="does not exist"
+    fi
+    cecho $branch_color "On branch $branch."
+    cecho $exists_remote_color "Branch $exists_remote_str on remote."
     git diff --quiet HEAD || cecho R "Repo is dirty."
 }
 
