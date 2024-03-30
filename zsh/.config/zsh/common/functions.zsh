@@ -581,7 +581,7 @@ update-git-repo() {
         exists_remote_str="does not exist"
     fi
     cecho $branch_color "On branch $branch."
-    cecho $exists_remote_color "Branch $exists_remote_str on remote."
+    [[ "$branch" =~ "master|main" ]] || cecho $exists_remote_color "Branch $exists_remote_str on remote."
     git diff --quiet HEAD || cecho R "Repo is dirty."
 }
 
