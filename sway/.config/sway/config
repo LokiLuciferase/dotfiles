@@ -59,7 +59,7 @@ exec --no-startup-id "$HOME/.config/i3/scripts/i3-warn-low-batt"
 exec --no-startup-id "/usr/lib/nvidia-prime-applet/nvidia-prime"
 exec --no-startup-id "syncthing"
 exec --no-startup-id "$HOME/.local/bin/keepassxc"
-exec --no-startup-id "foot --title Scratchpad -o config.alpha=1 -e $HOME/.config/i3/scripts/i3-scratchpad-tmux"
+exec --no-startup-id "foot --title Scratchpad -o colors.alpha=1 -e $HOME/.config/i3/scripts/i3-scratchpad-tmux"
 exec --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK"
 
 # starting any .desktop files in $HOME/.config/autostart
