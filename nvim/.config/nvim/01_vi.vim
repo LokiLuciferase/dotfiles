@@ -122,6 +122,9 @@ noremap <leader>sp [s
 noremap <leader>sa zg
 noremap <leader>sua zug
 
+" Some concessions to bad habits from using vscode...
+nnoremap <C-S> :w<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Statusline
