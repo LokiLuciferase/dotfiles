@@ -557,8 +557,8 @@ update-git-repo() {
         echo "Not a git repo."
         return
     fi
-    git fetch --all \
-        && git pull \
+    git fetch --all | grep -v "Fetching origin" || true \
+        && git pull || true \
         && git submodule update --recursive \
         && git sweep \
         || return
@@ -566,22 +566,22 @@ update-git-repo() {
     local exists_remote
     local branch_color
     local exists_remote_color
+    local untracked_files
     branch=$(git branch --show-current)
     exists_remote=$(git branch --list --remote origin/${branch} | wc -l)
+    untracked_files=$(git status --porcelain | wc -l)
     if [[ "$branch" == "master" ]] || [[ "$branch" == "main" ]]; then
         branch_color=G
     else
         branch_color=Y
     fi
-    if [[ "$exists_remote" -gt 0 ]]; then
-        exists_remote_color=G
-        exists_remote_str="exists"
-    else
-        exists_remote_color=R
-        exists_remote_str="does not exist"
+    if [[ "$exists_remote" -eq 0 ]]; then
+        [[ "$branch" =~ "master|main" ]] || cecho Y "Branch does not exist on remote."
     fi
     cecho $branch_color "On branch $branch."
-    [[ "$branch" =~ "master|main" ]] || cecho $exists_remote_color "Branch $exists_remote_str on remote."
+    if [[ "$untracked_files" -gt 0 ]]; then
+        cecho Y "Untracked files present."
+    fi
     git diff --quiet HEAD || cecho R "Repo is dirty."
 }
 

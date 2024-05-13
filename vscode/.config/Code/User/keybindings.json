@@ -33,5 +33,10 @@
         "key": "enter",
         "command": "list.select",
         "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "f5",
+        "command": "jupyter.runallcells",
+        "when": "editorTextFocus && !findInputFocus && !notebookEditorFocused"
     }
-    ]
+]

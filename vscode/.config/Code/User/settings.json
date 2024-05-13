@@ -1,4 +1,11 @@
 {
+    "[latex]": {
+        "editor.rulers": [
+            120
+        ],
+        "editor.wordWrap": "on",
+        "editor.wordWrapColumn": 120
+    },
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff"
     },
@@ -8,6 +15,9 @@
     "[vue]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+    "coverage-gutters.coverageFileNames": [
+        ".coverage"
+    ],
     "database-client.telemetry.usesOnlineServices": false,
     "editor.cursorBlinking": "solid",
     "editor.formatOnSave": true,
@@ -18,8 +28,37 @@
     "eslint.format.enable": true,
     "explorer.confirmDelete": false,
     "files.insertFinalNewline": true,
+    "githubPullRequests.pullBranch": "never",
     "gitlens.telemetry.enabled": false,
+    "hediet.vscode-drawio.resizeImages": null,
+    "hediet.vscode-drawio.theme": "atlas",
     "jupyter.askForKernelRestart": false,
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build/index",
+    "latex-workshop.latex.recipe.default": "tectonic",
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "tectonic",
+            "tools": [
+                "tectonic"
+            ]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "args": [
+                "-X",
+                "build",
+                "--keep-intermediates",
+                "--keep-logs"
+            ],
+            "command": "tectonic",
+            "env": {},
+            "name": "tectonic"
+        }
+    ],
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex.formatter.columnLimit": 120,
     "notebook.formatOnSave.enabled": true,
     "playwright.reuseBrowser": true,
     "playwright.showTrace": false,
@@ -241,6 +280,24 @@
             "commands": [
                 "editor.action.commentLine"
             ]
+        },
+        {
+            "after": [
+                "g",
+                "j"
+            ],
+            "before": [
+                "j"
+            ]
+        },
+        {
+            "after": [
+                "g",
+                "k"
+            ],
+            "before": [
+                "k"
+            ]
         }
     ],
     "vim.smartRelativeLine": true,
@@ -265,5 +322,6 @@
     },
     "workbench.colorTheme": "One Dark Pro Darker",
     "workbench.startupEditor": "none",
-    "workbench.tree.indent": 32
+    "workbench.tree.indent": 32,
+    "latex-workshop.view.outline.sync.viewer": true
 }
