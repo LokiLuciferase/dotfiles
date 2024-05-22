@@ -17,6 +17,7 @@ default_border none
 
 # swayfx
 corner_radius 10
+default_dim_inactive 0.07
 #blur enable
 #blur_radius 1
 #blur_passes 3
