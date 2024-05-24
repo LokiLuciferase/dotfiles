@@ -1,9 +1,29 @@
 #!/usr/bin/env zsh
 
 nvm-init() {
-    # initialize nvm
-    export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    # locate nvm
+    local nvm_basedir
+    if [ -n "$1" ]; then
+        nvm_basedir="$1"
+    elif [ -d "${HOME}/.local/share/nvm" ]; then
+        nvm_basedir="${HOME}/.local/share/nvm"
+    elif [ -d "${XDG_CONFIG_HOME}/nvm" ]; then
+        nvm_basedir="${XDG_CONFIG_HOME}/nvm"
+    else
+        echo "No nvm installation dir found and none passed." >&2
+        return 1
+    fi
+
+    # remove aliases
+    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx' )
+    for lazy_nvm_alias in $lazy_nvm_cmds; do
+        unalias $lazy_nvm_alias &> /dev/null || true
+    done
+
+    # init nvm
+    # export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    . "${nvm_basedir}/nvm.sh"
+    nvm use default
 }
 
 conda-init() {
@@ -20,11 +40,12 @@ conda-init() {
         return 1
     fi
     # initialize conda environment
-    unalias conda &> /dev/null || true
-    unalias mamba &> /dev/null || true
-    unalias ipython &> /dev/null || true
-    unalias pip &> /dev/null || true
-    unalias pip3 &> /dev/null || true
+    local lazy_conda_cmds=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
+    for lazy_conda_alias in $lazy_conda_cmds; do
+        unalias $lazy_conda_alias &> /dev/null || true
+    done
+
+    # init conda
     __conda_setup="$("${conda_basedir}/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
@@ -41,6 +62,14 @@ conda-lazy-init() {
     local lazy_conda_cmds=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
     for lazy_conda_alias in $lazy_conda_cmds; do
         alias $lazy_conda_alias="conda-init && \\$lazy_conda_alias"
+    done
+}
+
+nvm-lazy-init() {
+    # lazy init nvm only when relevant commands are called
+    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx' )
+    for lazy_nvm_alias in $lazy_nvm_cmds; do
+        alias $lazy_nvm_alias="nvm-init && \\$lazy_nvm_alias"
     done
 }
 
