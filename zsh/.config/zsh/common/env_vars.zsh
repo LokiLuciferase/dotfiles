@@ -11,7 +11,7 @@ SCRIPTPATHS=''
 for d in ~/.dotfiles/scripts/*; do
     SCRIPTPATHS+=$d:
 done
-export PATH=$HOME/.local/bin:$SCRIPTPATHS:$PATH
+export PATH=$HOME/.local/bin:$SCRIPTPATHS$PATH
 
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME=$HOME/.config
