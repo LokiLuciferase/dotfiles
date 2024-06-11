@@ -176,11 +176,6 @@ ff(){
     [ ! -z "$found" ] && print -z "\"$found\""
 }
 
-lo(){
-    # libreoffice detached
-    bgrun libreoffice "$@"
-}
-
 icat() {
     # print image(s) to terminal
     # requires: img2sixel and sixel-enabled terminal
