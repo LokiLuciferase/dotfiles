@@ -35,7 +35,7 @@ include ~/.config/sway/local.config
 
 # user specific startup applications
 # local startup applications
-exec "$HOME/.config/i3/scripts/local/i3-startup-pre || true"
+exec --no-startup-id "$HOME/.config/i3/scripts/local/i3-startup-pre || true"
 
 # connectivity
 exec --no-startup-id "nm-applet"
@@ -49,9 +49,6 @@ exec --no-startup-id "swayidle -w timeout 300 'swaylock' timeout 360 'swaymsg "o
 exec --no-startup-id "$HOME/.config/arandr/default.sh ; swaybg -i $HOME/.local/share/backgrounds/default"
 exec --no-startup-id "dunst"
 exec --no-startup-id "gammastep -l 48.2:16.4"
-
-# keyboard and mouse/touchpad setup
-exec --no-startup-id "numlockx"
 
 # starting misc applications
 exec --no-startup-id "env RUST_LOG=off workstyle"
@@ -67,7 +64,7 @@ exec --no-startup-id "dbus-update-activation-environment --systemd DISPLAY WAYLA
 exec --no-startup-id "dex $HOME/.config/autostart/*"
 
 # local startup applications
-exec "$HOME/.config/i3/scripts/local/i3-startup-post || true"
+exec --no-startup-id "$HOME/.config/i3/scripts/local/i3-startup-post || true"
 
 bindsym $mod+Tab exec pkill -USR1 -F "${XDG_RUNTIME_DIR}/swap_focus.pid"
 bindsym Control+Mod1+l exec --no-startup-id "swaylock"
@@ -105,7 +102,7 @@ for_window [instance="cheese"] floating enable
 for_window [class="firefox"] floating disable
 
 # start a terminal
-bindsym $mod+Return exec "foot"
+bindsym $mod+Return exec "foot || alacritty -o font.size=$term_font_size || xterm"
 
 # start browser
 bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
@@ -346,6 +343,7 @@ input * {
 input type:keyboard {
     xkb_layout us,at
     xkb_variant basic,nodeadkeys
+    xkb_numlock enabled
     xkb_options grp:alt_space_toggle,caps:escape,eurosign:e,lv3:ralt_switch,altwin:menu_win
 }
 # other colors
