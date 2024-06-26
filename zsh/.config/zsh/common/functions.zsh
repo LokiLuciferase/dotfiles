@@ -15,7 +15,7 @@ nvm-init() {
     fi
 
     # remove aliases
-    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx' )
+    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx','cdk' )
     for lazy_nvm_alias in $lazy_nvm_cmds; do
         unalias $lazy_nvm_alias &> /dev/null || true
     done
@@ -67,7 +67,7 @@ conda-lazy-init() {
 
 nvm-lazy-init() {
     # lazy init nvm only when relevant commands are called
-    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx' )
+    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx', 'cdk' )
     for lazy_nvm_alias in $lazy_nvm_cmds; do
         alias $lazy_nvm_alias="nvm-init && \\$lazy_nvm_alias"
     done
@@ -176,6 +176,30 @@ ff(){
     [ ! -z "$found" ] && print -z "\"$found\""
 }
 
+rrgr() {
+    # recursive ripgrep search and replace, interactively
+    # usage: rrgr <search> <replace>
+    local search="$1"
+    local replace="$2"
+    local matching_files=$(rg --files-with-matches "$search")
+    [ -z "$matching_files" ] && echo "No files found matching '$search'." && return
+    local maxlen=$(echo "$matching_files" | wc -L)
+    local boundary=$(printf "%${maxlen}s" | tr ' ' '#')
+    echo "Found $(echo "$matching_files" | wc -l) files matching '$search':"
+    echo "$boundary"
+    echo "$matching_files"
+    echo "$boundary"
+    echo -n "Proceed with replacing '$search' with '$replace' in all files? [y/N] "
+    read -k 1 proceed
+    [ "$proceed" != "y" ] && return
+    echo ""
+    while read -r file; do
+        cmd="sed -i 's/$search/$replace/g' '$file'"
+        echo $cmd
+        eval $cmd
+    done <<< "$matching_files"
+}
+
 icat() {
     # print image(s) to terminal
     # requires: img2sixel and sixel-enabled terminal
@@ -200,6 +224,17 @@ icat() {
 ssha() {
     # attach to unnamed, unattached tmux session or create new
     ssh "$1" -t '~/.dotfiles/scripts/10_utils/tmux-attach-or-create.sh'
+}
+
+today() {
+    # print today's date in the given format
+    local format="${1:-%Y%m%d}"
+    date +$format
+}
+
+now() {
+    # print current datetime
+    date --rfc-3339=seconds
 }
 
 docker-run-tool() {

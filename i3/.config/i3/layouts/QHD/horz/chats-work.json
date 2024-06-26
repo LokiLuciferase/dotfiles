@@ -47,7 +47,7 @@
             "percent": 0.5,
             "swallows": [
                {
-               "class": "^thunderbird$"
+               "class": "^thunderbird.*$"
                // "instance": "^Mail$",
                // "machine": "^lueftinger\\-laptop\\-aitiologic$",
                // "title": "^Inbox\\ \\-\\ llf\\@aitiologic\\.com\\ \\-\\ Mozilla\\ Thunderbird$",
