@@ -1,4 +1,4 @@
-import = ["/home/atav1st/.config/alacritty/colors/monokai.toml"]
+import = ["~/.config/alacritty/colors/monokai.toml"]
 
 [colors]
 draw_bold_text_with_bright_colors = true
