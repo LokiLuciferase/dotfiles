@@ -178,23 +178,25 @@ ff(){
 
 rrgr() {
     # recursive ripgrep search and replace, interactively
-    # usage: rrgr <search> <replace>
+    # usage: rrgr <search> <replace> <sep>
     local search="$1"
     local replace="$2"
+    local sep=${3:-/}
     local matching_files=$(rg --files-with-matches "$search")
     [ -z "$matching_files" ] && echo "No files found matching '$search'." && return
     local maxlen=$(echo "$matching_files" | wc -L)
     local boundary=$(printf "%${maxlen}s" | tr ' ' '#')
+    local sed_cmd="sed -i 's${sep}${search}${sep}${replace}${sep}g'"
     echo "Found $(echo "$matching_files" | wc -l) files matching '$search':"
     echo "$boundary"
     echo "$matching_files"
     echo "$boundary"
-    echo -n "Proceed with replacing '$search' with '$replace' in all files? [y/N] "
+    echo -n "Proceed with replacing '$search' with '$replace' in all files (${sed_cmd})? [y/N] "
     read -k 1 proceed
     [ "$proceed" != "y" ] && return
     echo ""
     while read -r file; do
-        cmd="sed -i 's/$search/$replace/g' '$file'"
+        cmd="${sed_cmd} '$file'"
         echo $cmd
         eval $cmd
     done <<< "$matching_files"
