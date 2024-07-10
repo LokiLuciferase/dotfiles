@@ -351,5 +351,12 @@
     },
     "workbench.startupEditor": "none",
     "workbench.tree.indent": 32,
-    "explorer.confirmDragAndDrop": false
+    "explorer.confirmDragAndDrop": false,
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false,
+        "ipynb": "false"
+    }
 }
