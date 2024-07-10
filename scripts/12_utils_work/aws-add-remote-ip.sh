@@ -3,8 +3,8 @@ set -euo pipefail
 
 ############### Global Variables ##########
 INGRESS_PORT=22
-ACCOUNT_NAME=rnd
-AWSCLI_PROFILE=${AWSCLI_PROFILE:-rnd}
+ACCOUNT_NAME=sandbox
+AWSCLI_PROFILE=${AWSCLI_PROFILE:-sandbox}
 SECURITY_GROUP_ID="$1"
 PUBLIC_IP="${2:-$(curl ifconfig.me)}"
 ###########################################
