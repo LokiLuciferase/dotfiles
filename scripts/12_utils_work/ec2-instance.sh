@@ -2,8 +2,8 @@
 set -euo pipefail
 
 SCRIPT_PATH="`dirname \"$0\"`"
-AWSCLI_PROFILE=rnd
-INSTANCE_NAME=llf-sandbox-v2
+AWSCLI_PROFILE=sandbox
+INSTANCE_NAME=sandbox
 
 
 ensure_tools_present() {
@@ -42,7 +42,7 @@ do_toggle() {
     INSTANCE_TYPE="${RESULT[1]}"
     IP_ADDR="${RESULT[2]}"
     INSTANCE_STATUS="${RESULT[4]}"
-    DESC_STR="${1} (${INSTANCE_ID}) as ${INSTANCE_TYPE} in account rnd"
+    DESC_STR="${1} (${INSTANCE_ID}) as ${INSTANCE_TYPE} in account '${AWSCLI_PROFILE}'"
     YN_REMINDER="(y/N)"
 
     if [[ "${INSTANCE_STATUS}" = 'stopped' ]]; then
@@ -75,7 +75,7 @@ do_switch_instance_type() {
     INSTANCE_TYPE="${RESULT[1]}"
     IP_ADDR="${RESULT[2]}"
     INSTANCE_STATUS="${RESULT[4]}"
-    DESC_STR="${1} (${INSTANCE_ID}) as ${INSTANCE_TYPE} in account rnd"
+    DESC_STR="${1} (${INSTANCE_ID}) as ${INSTANCE_TYPE} in account '${AWSCLI_PROFILE}'"
     YN_REMINDER="(y/N)"
 
     if [[ "${INSTANCE_STATUS}" = 'stopped' ]]; then
