@@ -53,6 +53,10 @@ local plugin_spec = {
         ft = { "nextflow" },
     },
     {
+        -- replace with register
+        "vim-scripts/ReplaceWithRegister",
+    },
+    {
         -- Indent guides
         "lukas-reineke/indent-blankline.nvim",
         version = "2.x"
@@ -176,7 +180,6 @@ local plugin_spec = {
             vim.api.nvim_set_keymap("n", "<F3>", ":NvimTreeToggle<CR>", mopts)
             vim.g.loaded_netrw = 1
             vim.g.loaded_netrwPlugin = 1
-
         end,
         config = function()
             require("nvim-tree").setup()
