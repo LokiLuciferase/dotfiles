@@ -62,5 +62,11 @@ if [[ -f "${SHELL_DOT_DIR}/common/dircolors" ]]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 
-# - exclude directories from completion
+# exclude some directories from completion
 zstyle ':completion:*' ignored-patterns '.dotnet'
+
+# always exit interactive shell with success
+exitzero() {
+  exit 0
+}
+add-zsh-hook zshexit exitzero

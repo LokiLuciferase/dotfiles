@@ -74,7 +74,24 @@ nvm-lazy-init() {
 }
 
 ## misc convenience functions ##
+require-command() {
+    # check for required commands
+    local commands
+    local any_missing=false
+    commands=( "$@" )
+    for command in "${commands[@]}"; do
+        if ! command -v $command &> /dev/null; then
+            echo "Required command '$command' not found." >&2
+            any_missing=true
+        fi
+    done
+    if $any_missing; then
+        return 1
+    fi
+}
+
 ytdl-mp3() {
+    require-command yt-dlp || return 1
     yt-dlp "$1" \
         -x \
         --audio-format mp3 \
@@ -90,6 +107,7 @@ ytdl-mp3() {
 }
 
 ytdl-vid() {
+    require-command yt-dlp || return 1
     yt-dlp \
         --continue \
         --ignore-errors \
@@ -110,16 +128,19 @@ ytdl-vid() {
 }
 
 ytdl-stream() {
+    require-command yt-dlp mpv || return 1
     yt-dlp -f b -o - "$1" | mpv -
 }
 
 ytdl-cast() {
     # Cast the downloaded video to chromecast
+    require-command lolcatt yt-dlp || return 1
     lolcatt "$1"
 }
 
 say() {
     # read aloud arguments
+    require-command gtts-cli mpv || return 1
     local in="$@"
     [ -z "$in" ] && read -r in
     echo "${@}" | gtts-cli - | mpv - &> /dev/null
@@ -127,6 +148,7 @@ say() {
 
 read-aloud() {
     # read aloud contents of file
+    require-command gtts-cli mpv || return 1
     local in="$1"
     [ -z "$in" ] && read -r in
     cat "$in" | gtts-cli - | mpv - &> /dev/null
@@ -172,6 +194,7 @@ sleeptimer() {
 
 ff(){
     # fuzzy find files and emit selection to command line
+    require-command fzf || return 1
     local found=$(fzf $@)
     [ ! -z "$found" ] && print -z "\"$found\""
 }
@@ -204,7 +227,7 @@ rrgr() {
 
 icat() {
     # print image(s) to terminal
-    # requires: img2sixel and sixel-enabled terminal
+    require-command img2sixel identify || return 1
     local default_term_dims=(600 400)
     for img in "$@"; do
         local term_dims=( $(xwininfo -id $WINDOWID 2> /dev/null | grep "Width\|Height" | grep -v xwininfo | tr -s '\n' ' ' | cut -f3,5 -d' ') )
@@ -254,6 +277,7 @@ docker-run-interactive() {
 }
 
 recursive-glacier-restore() {
+    require-command aws || return 1
     if [ $1 =~ s3://.* ]; then
         local arr=($(python3 -c "print('$1'.split('/')[2], '$1'.split('/', 3)[-1])"))
         local bucket=${arr[1]}
@@ -267,6 +291,7 @@ recursive-glacier-restore() {
 }
 
 get-latest-github-release() {
+    require-command jq curl || return 1
     if [[ "$#" -eq 0 || "$#" -gt 2 ]]; then
         echo "Usage: get-latest-github-release <user>/<repo> <artifact_regex>" >&2 && return 1
     fi
@@ -281,6 +306,7 @@ get-latest-github-release() {
 
 aws-assume-role() {
     # assume role and set environment variables
+    require-command jq aws || return 1
     if [ -z "$1" ]; then
         echo "Usage: aws-assume-role <role-arn>" >&2
         return 1
@@ -327,6 +353,7 @@ cecho(){
 
 nagme() {
     # nag me to do something
+    require-command notify-send || return 1
     local message="$1"
     local interval="${2:-5m}"
     local urgency="${3:-critical}"
@@ -341,6 +368,7 @@ nagme() {
 
 git-nvimdiff() {
     # git diff using neovim diffview
+    require-command nvim || return 1
     nvimdiff -c "DiffviewOpen ${1:-}"
 }
 
@@ -382,6 +410,7 @@ for-each-dir-in() {
 
 rsync2() {
     ## make rsync respect .rsyncignore
+    require-command rsync || return 1
     RSYNC="$(whence -p rsync)"
     IGNORE_FILES=( ${HOME}/.rsyncignore ./.rsyncignore )
     EXCLUDE_FROM=""
@@ -397,6 +426,7 @@ rsync2() {
 ## i3 session management
 apply-i3-layout() {
     # apply i3 layout and start all to-be-slurped tools (identified by name)
+    require-command i3-msg || return 1
     LAYOUT="$1"
     WORKSPACE="${2:-1}"
     IFS=$'\n' NAMES=($(grep -o '"name": .*' $LAYOUT | cut -f2- -d' ' | sed -e 's/"\(.*\)",/\1/g' | sed 's/\\//g'))
@@ -408,6 +438,7 @@ apply-i3-layout() {
 }
 
 select-i3-layout() {
+    require-command i3-msg xrandr || return 1
     LAYOUT_NAME="$1"
     WORKSPACE="$2"
     OUTPUT=$(i3-msg -t get_workspaces | jq -r ".[] | select(.num=="$WORKSPACE") | .output")
@@ -447,12 +478,14 @@ select-i3-layout() {
 
 scrotsel(){
     # scrot select from tmp file
+    require-command scrot xclip || return 1
     FN=$(mktemp -u).png
     scrot --select -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN
 }
 
 disable-screen-timeout() {
     # disable screen timeout
+    require-command xset || return 1
     xset s off
     xset -dpms
     xset s noblank
@@ -467,6 +500,7 @@ galias() {
 _tmux_ctx() {
     # run tmux command either in new session if not running
     # or in existing one.
+    require-command tmux || return 1
     [[ "$3" != "" ]] && SESSNAME="$3" || SESSNAME="$2"
     if [[ -n "$TMUX" ]]; then
         PREF=""
@@ -501,17 +535,9 @@ vhexsplit() {
     _tmux_ctx "split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
 }
 
-term-replace() {
-    # replace current terminal with given one. Per default,
-    # replace with a terminal window with full transparency.
-    local alacritty_flags="${1:-window.opacity=0.0}"
-    local command_to_call="${2:-zsh}"
-    local cmd="bgrun alacritty -o ${alacritty_flags} -e ${command_to_call}"
-    eval "$cmd" && exit
-}
-
 send-tg-message() {
     # send a message to telegram
+    require-command curl || return 1
     if [ ! -v TG_CHAT_ID ]; then
         echo "TG_CHAT_ID not set." >&2
         return 1
@@ -527,12 +553,14 @@ send-tg-message() {
 
 ## Package management ##
 _apt_upgrade_all() {
+    require-command apt || return 1
     sudo apt update \
         && sudo apt upgrade --yes \
         && sudo apt autoremove --yes
 }
 
 _pacman_upgrade_all() {
+    require-command pacman || return 1
     sudo pacman -Syu --noconfirm
 }
 
@@ -547,6 +575,7 @@ _package_manager_upgrade_all() {
 }
 
 _flatpak_upgrade_all_if_exist() {
+    require-command flatpak || return 1
     which flatpak &> /dev/null || return 0
     flatpak update -y
     flatpak remove --unused --delete-data -y
@@ -555,6 +584,7 @@ _flatpak_upgrade_all_if_exist() {
 ## Git automation ##
 _pdot() {
     # pull newest changes to dotfiles
+    require-command git || return 1
     pushd ${HOME}/.dotfiles || return 0
     git pull
     git submodule update --depth=1
@@ -563,6 +593,7 @@ _pdot() {
 
 _pshell() {
     # pull newest changes to shell
+    require-command git || return 1
     set +o monitor
     pushd "${ZSH}/custom" || return 0
     for plugin in plugins/*/ themes/*/; do
@@ -577,6 +608,7 @@ _pshell() {
 
 _pnvimupdates() {
     # pull updates for neovim
+    require-command nvim || return 1
     nvim --headless -c 'call RunUpdates() | quitall' || return 0
 }
 
@@ -614,6 +646,8 @@ pall() {
 }
 
 update-git-repo() {
+    # update a git repo, including submodules, remove fully merged branches, and check for untracked files
+    require-command git || return 1
     if [[ ! -d .git ]]; then
         echo "Not a git repo."
         return
