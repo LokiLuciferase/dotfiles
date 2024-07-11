@@ -28,8 +28,16 @@
     ],
     "eslint.format.enable": true,
     "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
     "files.insertFinalNewline": true,
     "github.copilot.editor.enableAutoCompletions": true,
+    "github.copilot.enable": {
+        "*": true,
+        "ipynb": "false",
+        "markdown": false,
+        "plaintext": false,
+        "scminput": false
+    },
     "githubPullRequests.pullBranch": "never",
     "gitlens.telemetry.enabled": false,
     "hediet.vscode-drawio.resizeImages": null,
@@ -325,6 +333,7 @@
             ]
         }
     ],
+    "vim.replaceWithRegister": true,
     "vim.smartRelativeLine": true,
     "vim.useSystemClipboard": true,
     "vim.vimrc.enable": true,
@@ -350,13 +359,5 @@
         "*.svg": "default"
     },
     "workbench.startupEditor": "none",
-    "workbench.tree.indent": 32,
-    "explorer.confirmDragAndDrop": false,
-    "github.copilot.enable": {
-        "*": true,
-        "plaintext": false,
-        "markdown": false,
-        "scminput": false,
-        "ipynb": "false"
-    }
+    "workbench.tree.indent": 32
 }
