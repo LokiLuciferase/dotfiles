@@ -97,7 +97,7 @@ main() {
     maybe_aws_sso_login
     if [[ "$#" -eq 0 ]]; then
         echo "Usage: $0 <instance-name> [action]"
-        echo "Actions: toggle, switch-instance-type"
+        echo "Actions: toggle, switch"
         exit 1
     fi
     if [[ "${1}" = 'toggle' ]]; then
