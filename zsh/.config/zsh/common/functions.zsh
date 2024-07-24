@@ -67,7 +67,7 @@ conda-lazy-init() {
 
 nvm-lazy-init() {
     # lazy init nvm only when relevant commands are called
-    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx', 'cdk' )
+    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx' 'cdk' )
     for lazy_nvm_alias in $lazy_nvm_cmds; do
         alias $lazy_nvm_alias="nvm-init && \\$lazy_nvm_alias"
     done
