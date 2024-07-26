@@ -298,7 +298,7 @@ local plugin_spec = {
                 ensure_installed = {
                     "c", "cpp", "rust", "go",
                     "javascript", "python", "bash",
-                    "latex", "toml", "json", "yaml", "sql",
+                    "toml", "json", "yaml", "sql",
                     "dockerfile",
                     "lua", "vim"
                 },
@@ -420,6 +420,7 @@ local plugin_spec = {
     },
     {
         "folke/which-key.nvim",
+        version = "2.x",
         event = "VeryLazy",
         init = function()
             vim.o.timeout = true
