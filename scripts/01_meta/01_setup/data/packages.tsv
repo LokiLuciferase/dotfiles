@@ -66,8 +66,9 @@ desktop	wtype	wtype	wtype	wtype
 desktop	foot	foot	foot	foot
 desktop	grim	grim	grim	grim
 desktop	slurp	slurp	slurp	slurp
-desktop	sddm	sddm	sddm	sddm
+desktop		sddm	sddm	sddm
 desktop	gammastep	gammastep	gammastep	gammastep
+desktop	syncthing	syncthing	syncthing	syncthing
 desktop			blueman	blueman
 desktop			xdg-desktop-portal-gtk
 desktop			xorg-wayland

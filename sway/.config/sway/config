@@ -37,10 +37,6 @@ include ~/.config/sway/local.config
 # local startup applications
 exec --no-startup-id "$HOME/.config/i3/scripts/local/i3-startup-pre || true"
 
-# connectivity
-exec --no-startup-id "nm-applet"
-exec --no-startup-id "blueman-applet"
-
 # screen locking
 exec --no-startup-id "xss-lock --transfer-sleep-lock -- $HOME/.config/i3/scripts/i3-lock-screen"
 exec --no-startup-id "swayidle -w timeout 300 'swaylock' timeout 360 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep 'swaylock'
