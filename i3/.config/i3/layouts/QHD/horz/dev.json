@@ -5,20 +5,16 @@
     "floating": "auto_off",
     "geometry": {
        "height": 2125,
-       "width": 1910,
+       "width": 3826,
        "x": 7,
        "y": 28
     },
-    "marks": ["vs"],
+    "marks": [],
     "name": "code",
     "percent": 0.5,
     "swallows": [
        {
        "class": "^Code$"
-       // "instance": "^code$",
-       // "machine": "^lueftinger\\-laptop\\-aitiologic$",
-       // "title": "^aitios_api_stack\\.py\\ \\-\\ Code\\ \\-\\ Visual\\ Studio\\ Code$",
-       // "window_role": "^browser\\-window$"
        }
     ],
     "type": "con"
@@ -29,7 +25,7 @@
     "border": "normal",
     "floating": "auto_off",
     "layout": "splitv",
-    "marks": ["ff"],
+    "marks": [],
     "percent": 0.5,
     "type": "con",
     "nodes": [
@@ -38,21 +34,17 @@
             "current_border_width": 0,
             "floating": "auto_off",
             "geometry": {
-               "height": 1060,
-               "width": 3826,
+               "height": 1059,
+               "width": 1910,
                "x": 0,
                "y": 0
             },
             "marks": [],
             "name": "firefox https://github.com/orgs/aitiologic/projects/5",
-            "percent": 0.7,
+            "percent": 0.5,
             "swallows": [
                {
                "class": "^firefox$"
-               // "instance": "^Navigator$",
-               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
-               // "title": "^Mozilla\\ Firefox$",
-               // "window_role": "^browser$"
                }
             ],
             "type": "con"
@@ -67,18 +59,16 @@
                "x": 0,
                "y": 0
             },
-            "marks": ["al"],
+            "marks": [],
             "name": "alacritty -e tmux",
-            "percent": 0.3,
+            "percent": 0.5,
             "swallows": [
                {
-                  "class": "^Alacritty$"
-               // "instance": "^Alacritty$",
-               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
-               // "title": "^lueftinger\\@lueftinger\\-laptop\\-aitiologic\\:\\~$"
+               "class": "^Alacritty$"
                }
             ],
             "type": "con"
         }
     ]
 }
+
