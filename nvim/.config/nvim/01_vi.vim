@@ -142,7 +142,7 @@ set statusline+=\ %p%%
 function SLColor()
     if tabpagewinnr(tabpagenr(), '$') > 1 && winheight('$') != &lines - 2
         exec 'hi StatusLine' .
-            \' ctermfg=' . synIDattr(synIDtrans(hlID('Title')), 'fg', 'cterm') .
+            \' ctermfg=white' .
             \' guifg=' . synIDattr(synIDtrans(hlID('Title')), 'fg', 'gui')
     else
         hi! link StatusLine Title

@@ -36,6 +36,7 @@ alias zat='zathura'
 alias pcloud='env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud'
 alias gpt4='llm chat -m 4t'
 alias lo='libreoffice '
+alias refeh='feh --bg-fill --no-fehbg ~/.local/share/backgrounds/default'
 
 # more git aliases - some already defined by oh-my-zsh
 alias ga.='git add .'

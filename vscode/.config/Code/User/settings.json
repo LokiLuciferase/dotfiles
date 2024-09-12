@@ -1,5 +1,10 @@
 {
-
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     "[latex]": {
         "editor.rulers": [
             120
@@ -21,6 +26,7 @@
     ],
     "database-client.telemetry.usesOnlineServices": false,
     "diffEditor.experimental.showMoves": true,
+    "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.cursorBlinking": "solid",
     "editor.formatOnSave": true,
     "editor.inlineSuggest.enabled": true,
@@ -80,6 +86,7 @@
     "security.promptForLocalFileProtocolHandling": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.showExitAlert": false,
+    "typescript.preferGoToSourceDefinition": true,
     "vim.easymotion": true,
     "vim.highlightedyank.color": "rgba(250, 240, 170, 0.3)",
     "vim.highlightedyank.duration": 100,
@@ -360,6 +367,5 @@
         "*.svg": "default"
     },
     "workbench.startupEditor": "none",
-    "workbench.tree.indent": 32,
-    "typescript.preferGoToSourceDefinition": true
+    "workbench.tree.indent": 32
 }
