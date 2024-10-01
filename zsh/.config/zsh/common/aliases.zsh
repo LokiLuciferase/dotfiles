@@ -47,6 +47,7 @@ alias gdh='git diff HEAD~1'
 alias gbb='git bisect bad'
 alias gbg='git bisect good'
 alias gsp='git stash pop'
+alias gfop='git fetch origin $(git rev-parse --abbrev-ref HEAD):$(git rev-parse --abbrev-ref HEAD)'
 
 [[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias ed="echo 'fuck off'"

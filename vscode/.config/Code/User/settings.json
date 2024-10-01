@@ -367,5 +367,6 @@
         "*.svg": "default"
     },
     "workbench.startupEditor": "none",
-    "workbench.tree.indent": 32
+    "workbench.tree.indent": 32,
+    "aws.telemetry": false
 }

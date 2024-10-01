@@ -22,7 +22,6 @@ various	ripgrep	ripgrep	ripgrep	ripgrep
 various	fzf	fzf	fzf	fzf			
 various	tmux	tmux	tmux	tmux			
 various	highlight	highlight	highlight	highlight			
-various	ffmpeg	ffmpeg	ffmpeg	ffmpeg			
 various	sshfs	sshfs	sshfs	sshfs			
 various	python3-pip	python3-pip	python-pip	py3-pip			
 various	ncdu	ncdu	ncdu	ncdu			
@@ -30,6 +29,7 @@ various	tldr	tldr	tldr		tldr
 various					bpytop		
 various					yt-dlp		
 various					asciinema		
+desktop	ffmpeg	ffmpeg	ffmpeg	ffmpeg			
 desktop	lightdm	lightdm	lightdm	lightdm			
 desktop			sddm				
 desktop	slick-greeter	slick-greeter		slick-greeter			
