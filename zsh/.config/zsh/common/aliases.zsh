@@ -30,11 +30,10 @@ alias pls='podman image ls'
 alias shfmt='shfmt -i 4 -sr -w -l'
 alias assume='source assume'
 alias watch='watch '
-alias vd='vd --config ~/.config/visidata/config.py'
+alias vd='uvx vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
 alias zat='zathura'
 alias pcloud='env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud'
-alias gpt4='llm chat -m 4t'
 alias lo='libreoffice '
 alias refeh='feh --bg-fill --no-fehbg ~/.local/share/backgrounds/default'
 
@@ -58,6 +57,7 @@ alias nvim="${VIM_BIN} -p"
 alias nvimdiff='\nvim -d'
 alias gvd="git-nvimdiff"
 alias suvi=sudoedit
+alias http="uvx --from httpie http"
 
 [[ "$(which ssha 2> /dev/null)" != '' ]] && compdef _ssh ssha=ssh
 
