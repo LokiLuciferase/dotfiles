@@ -49,6 +49,13 @@ alias gbg='git bisect good'
 alias gsp='git stash pop'
 alias gfop='git fetch origin $(git rev-parse --abbrev-ref HEAD):$(git rev-parse --abbrev-ref HEAD)'
 
+# docker compose
+alias dcd='docker compose down'
+alias dcu='docker compose up'
+alias dcud='docker compose up -d'
+alias dcr='docker compose restart'
+alias dcl='docker compose logs --follow'
+
 [[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias ed="echo 'fuck off'"
 alias nano="${VIM_BIN}"
