@@ -38,6 +38,7 @@ get_instance_info() {
 
 do_toggle() {
     RESULT=($(get_instance_info $1 $AWSCLI_PROFILE))
+    [[ "${#RESULT[@]}" -eq 0 ]] && echo "Instance ${1} not found." && exit 1
     INSTANCE_ID="${RESULT[0]}"
     INSTANCE_TYPE="${RESULT[1]}"
     IP_ADDR="${RESULT[2]}"
