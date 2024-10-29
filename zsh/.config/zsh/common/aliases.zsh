@@ -33,7 +33,6 @@ alias watch='watch '
 alias vd='uvx vd --config ~/.config/visidata/config.py'
 alias chs='term-replace font.size=20 chs'
 alias zat='zathura'
-alias pcloud='env HOME=$HOME/.local/share/pcloud/pcloud_home $HOME/.local/bin/pcloud'
 alias lo='libreoffice '
 alias refeh='feh --bg-fill --no-fehbg ~/.local/share/backgrounds/default'
 
@@ -52,8 +51,10 @@ alias gfop='git fetch origin $(git rev-parse --abbrev-ref HEAD):$(git rev-parse 
 alias dcd='docker compose down'
 alias dcu='docker compose up'
 alias dcud='docker compose up -d'
+alias dcudr='docker compose up -d --force-recreate'
 alias dcr='docker compose restart'
 alias dcl='docker compose logs --follow'
+alias dcp='docker compose pull'
 
 [[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
 alias ed="echo 'fuck off'"
