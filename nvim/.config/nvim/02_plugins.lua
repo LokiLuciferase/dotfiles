@@ -21,24 +21,17 @@ end
 -- define plugin spec
 local plugin_spec = {
     {
-        -- Onedark color scheme
-        "navarasu/onedark.nvim",
+        'sainnhe/sonokai',
         lazy = false,
+        priority = 1000,
         config = function()
-            require("onedark").setup({
-                colors = {
-                    bg0 = "#232323"
-                },
-                highlights = {
-                    Title = { fg = "$green" },
-                    TabLine = { fg = "$grey" },
-                    TabLineSel = { bg = "$bg3", fg = "$fg" },
-                    CocInlayHint = { fg = "#56b6c2" }
-                }
-            })
-            vim.cmd("colorscheme onedark")
-        end,
-        priority = 1000
+            -- Optionally configure and load the colorscheme
+            -- directly inside the plugin declaration.
+            vim.g.sonokai_enable_italic = true
+            vim.g.sonokai_style = 'maia'
+            vim.g.sonokai_better_performance = true
+            vim.cmd.colorscheme('sonokai')
+        end
     },
     {
         -- Syntax highlighting for NF
