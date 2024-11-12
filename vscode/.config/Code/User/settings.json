@@ -22,7 +22,7 @@
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "coverage-gutters.coverageFileNames": [
-        ".coverage"
+        "coverage.xml"
     ],
     "database-client.telemetry.usesOnlineServices": false,
     "diffEditor.experimental.showMoves": true,
@@ -368,5 +368,6 @@
     },
     "workbench.startupEditor": "none",
     "workbench.tree.indent": 32,
-    "aws.telemetry": false
+    "aws.telemetry": false,
+    "coverage-gutters.coverageReportFileName": "**/htmlcov/index.html"
 }

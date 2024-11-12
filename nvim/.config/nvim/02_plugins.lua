@@ -282,6 +282,16 @@ local plugin_spec = {
         cmd = { "Neotest", "NeotestSummary", "NeotestOutput" },
     },
     {
+        "andythigpen/nvim-coverage",
+        requires = { "nvim-lua/plenary.nvim" },
+        init = function()
+            require("coverage").setup({
+                commands = true,
+                summary = 80.0
+            })
+        end,
+    },
+    {
         -- Treesitter integration
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
