@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+## these commands cause the loading of NVM or conda on-demand
+export __DOTFILES_LAZY_NVM_CMDS=( 'nvm' 'node' 'yarn' 'npm' 'npx' 'cdk' 'vercel' )
+export __DOTFILES_LAZY_CONDA_CMDS=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
+
 nvm-init() {
     # locate nvm
     local nvm_basedir
@@ -7,21 +11,20 @@ nvm-init() {
         nvm_basedir="$1"
     elif [ -d "${HOME}/.local/share/nvm" ]; then
         nvm_basedir="${HOME}/.local/share/nvm"
-    elif [ -d "${XDG_CONFIG_HOME}/nvm" ]; then
-        nvm_basedir="${XDG_CONFIG_HOME}/nvm"
+    elif [ -d "${XDG_DATA_HOME}/nvm" ]; then
+        nvm_basedir="${XDG_DATA_HOME}/nvm"
     else
         echo "No nvm installation dir found and none passed." >&2
         return 1
     fi
 
     # remove aliases
-    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx','cdk' )
-    for lazy_nvm_alias in $lazy_nvm_cmds; do
+    for lazy_nvm_alias in $__DOTFILES_LAZY_NVM_CMDS; do
         unalias $lazy_nvm_alias &> /dev/null || true
     done
+    unset __DOTFILES_LAZY_NVM_CMDS
 
     # init nvm
-    # export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
     . "${nvm_basedir}/nvm.sh"
     nvm use default
 }
@@ -33,6 +36,8 @@ conda-init() {
         conda_basedir="$1"
     elif [ -d "${HOME}/.local/share/miniconda3" ]; then
         conda_basedir="${HOME}/.local/share/miniconda3"
+    elif [ -d "${XDG_DATA_HOME}/miniconda3" ]; then
+        conda_basedir="${XDG_DATA_HOME}/miniconda3"
     elif [ -d "${HOME}/miniconda3" ]; then
         conda_basedir="${HOME}/miniconda3"
     else
@@ -40,8 +45,7 @@ conda-init() {
         return 1
     fi
     # initialize conda environment
-    local lazy_conda_cmds=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
-    for lazy_conda_alias in $lazy_conda_cmds; do
+    for lazy_conda_alias in $__DOTFILES_LAZY_CONDA_CMDS; do
         unalias $lazy_conda_alias &> /dev/null || true
     done
 
@@ -54,22 +58,22 @@ conda-init() {
             . "${conda_basedir}/etc/profile.d/conda.sh"
         fi
     fi
+    echo "Now using conda @ ${CONDA_PREFIX} ($(python --version))"
     unset __conda_setup
-}
-
-conda-lazy-init() {
-    # lazy init conda only when relevant commands are called
-    local lazy_conda_cmds=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
-    for lazy_conda_alias in $lazy_conda_cmds; do
-        alias $lazy_conda_alias="conda-init && \\$lazy_conda_alias"
-    done
+    unset __DOTFILES_LAZY_CONDA_CMDS
 }
 
 nvm-lazy-init() {
     # lazy init nvm only when relevant commands are called
-    local lazy_nvm_cmds=( 'nvm' 'node' 'yarn' 'npm' 'npx' 'cdk' )
-    for lazy_nvm_alias in $lazy_nvm_cmds; do
+    for lazy_nvm_alias in $__DOTFILES_LAZY_NVM_CMDS; do
         alias $lazy_nvm_alias="nvm-init && \\$lazy_nvm_alias"
+    done
+}
+
+conda-lazy-init() {
+    # lazy init conda only when relevant commands are called
+    for lazy_conda_alias in $__DOTFILES_LAZY_CONDA_CMDS; do
+        alias $lazy_conda_alias="conda-init && \\$lazy_conda_alias"
     done
 }
 
