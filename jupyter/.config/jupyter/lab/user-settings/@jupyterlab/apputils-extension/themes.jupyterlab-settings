@@ -1,6 +1,11 @@
 {
-    "theme": "JupyterLab Night",
-    "theme-scrollbars": true,
+    // Theme
+    // @jupyterlab/apputils-extension:themes
+    // Theme manager settings.
+    // *************************************
+
+    // Theme CSS Overrides
+    // Override theme CSS variables by setting key-value pairs here
     "overrides": {
         "code-font-family": null,
         "code-font-size": "13px",
@@ -8,5 +13,13 @@
         "content-font-size1": "15px",
         "ui-font-family": null,
         "ui-font-size1": "14px"
-    }
+    },
+
+    // Selected Theme
+    // Application-level visual styling theme. Ignored when Adaptive Theme is enabled.
+    "theme": "JupyterLab Night",
+
+    // Scrollbar Theming
+    // Enable/disable styling of the application scrollbars
+    "theme-scrollbars": true
 }
