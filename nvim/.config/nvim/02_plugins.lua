@@ -301,7 +301,7 @@ local plugin_spec = {
                 ensure_installed = {
                     "c", "cpp", "rust", "go",
                     "javascript", "python", "bash",
-                    "toml", "json", "yaml", "sql",
+                    "toml", "json", "sql",
                     "dockerfile",
                     "lua", "vim"
                 },
