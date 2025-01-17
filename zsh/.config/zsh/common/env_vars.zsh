@@ -40,6 +40,7 @@ export HISTFILESIZE=1000000
 export _Z_DATA="${XDG_DATA_HOME}/zsh/zshz"
 export GNUPGHOME="${XDG_DATA_HOME}/gnupg"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export RUFF_CACHE_DIR="${XDG_CACHE_HOME}/ruff"
 export TERMINFO="${XDG_DATA_HOME}/terminfo"
 export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
