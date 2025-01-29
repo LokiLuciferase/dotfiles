@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WANTED_MAJOR_VERSION=18
+WANTED_MAJOR_VERSION=22
 
 check-deps() {
     if ! command -v curl &>/dev/null; then

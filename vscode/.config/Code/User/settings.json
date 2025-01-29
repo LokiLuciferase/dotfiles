@@ -40,7 +40,7 @@
     "github.copilot.editor.enableAutoCompletions": true,
     "github.copilot.enable": {
         "*": true,
-        "ipynb": "false",
+        "ipynb": false,
         "markdown": false,
         "plaintext": false,
         "scminput": false
@@ -369,5 +369,9 @@
     "workbench.startupEditor": "none",
     "workbench.tree.indent": 32,
     "aws.telemetry": false,
-    "coverage-gutters.coverageReportFileName": "**/htmlcov/index.html"
+    "coverage-gutters.coverageReportFileName": "**/htmlcov/index.html",
+    "git.openRepositoryInParentFolders": "never",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
