@@ -664,7 +664,6 @@ update-git-repo() {
     fi
     git fetch --all | grep -v "Fetching origin" || true \
         && git pull || true \
-        && git submodule update --recursive \
         && git sweep \
         || return
     local branch
@@ -674,7 +673,7 @@ update-git-repo() {
     local untracked_files
     branch=$(git branch --show-current)
     exists_remote=$(git branch --list --remote origin/${branch} | wc -l)
-    untracked_files=$(git status --porcelain | wc -l)
+    untracked_files=$(git status --ignore-submodules --porcelain | wc -l)
     if [[ "$branch" == "master" ]] || [[ "$branch" == "main" ]]; then
         branch_color=G
     else
@@ -687,7 +686,11 @@ update-git-repo() {
     if [[ "$untracked_files" -gt 0 ]]; then
         cecho Y "Untracked files present."
     fi
-    git diff --quiet HEAD || cecho R "Repo is dirty."
+    if ! git diff --ignore-submodules --quiet HEAD; then
+        cecho R "Repo is dirty."
+    elif ! git diff --quiet HEAD; then
+        cecho Y "Repo has submodules with changes."
+    fi
 }
 
 update-git-repos() {

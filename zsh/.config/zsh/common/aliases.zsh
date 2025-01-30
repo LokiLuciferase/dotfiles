@@ -26,6 +26,7 @@ alias watch='watch '
 alias zat='zathura'
 alias lo='libreoffice '
 alias refeh='feh --bg-fill --no-fehbg ~/.local/share/backgrounds/default'
+alias upd='update-git-repos'
 
 # more git aliases - some others already defined by oh-my-zsh
 alias ga.='git add .'
@@ -50,7 +51,7 @@ alias dcud='docker compose up -d'
 alias dcudr='docker compose up -d --force-recreate'
 alias dcr='docker compose restart'
 alias dcl='docker compose logs --follow'
-alias dcp='docker compose pull'
+alias dcp='docker compose pull --no-parallel'
 
 # UVX replacements for python CLI tools
 alias vd='uvx vd --config ~/.config/visidata/config.py'
