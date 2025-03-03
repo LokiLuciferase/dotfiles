@@ -52,7 +52,7 @@ alias dcud='docker compose up -d'
 alias dcudr='docker compose up -d --force-recreate'
 alias dcr='docker compose restart'
 alias dcl='docker compose logs --follow'
-alias dcp='docker compose pull --no-parallel'
+alias dcp='docker compose pull'
 
 # UVX replacements for python CLI tools
 alias vd='uvx vd --config ~/.config/visidata/config.py'
