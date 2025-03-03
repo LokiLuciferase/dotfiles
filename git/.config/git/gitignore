@@ -2,8 +2,11 @@ __pycache__/
 .ipynb_checkpoints/
 node_modules/
 build/
+dist/
 env/
 venv/
 .idea/
+.env.*
+.env
 .DS_store
 Thumbs.db

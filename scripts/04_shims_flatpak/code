@@ -1,2 +1,2 @@
 unset NODE_OPTIONS
-flatpak run com.visualstudio.code "$@" || /usr/bin/code "$@"
+/usr/bin/code "$@" || flatpak run com.visualstudio.code "$@"

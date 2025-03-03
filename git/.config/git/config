@@ -33,3 +33,9 @@
     lineNumber = true
 [include]
     path = ~/.config/git/config.local
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
