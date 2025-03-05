@@ -486,6 +486,21 @@ select-i3-layout() {
     fi
 }
 
+select-i3-layouts(){
+    # run multiple sets of layouts
+    for lo_scr in $@; do
+        local layout
+        local screen
+        layout=$(echo $lo_scr | cut -f1 -d':')
+        screen=$(echo $lo_scr | cut -f2 -d':')
+        i3-msg "workspace number $screen" &> /dev/null
+        if [ -n "$layout" ]; then
+            select-i3-layout $layout $screen
+        fi
+        sleep 1
+    done
+}
+
 scrotsel(){
     # scrot select from tmp file
     require-command scrot xclip || return 1
