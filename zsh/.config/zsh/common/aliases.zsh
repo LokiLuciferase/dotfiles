@@ -27,6 +27,7 @@ alias zat='zathura'
 alias lo='libreoffice '
 alias refeh='feh --bg-fill --no-fehbg ~/.local/share/backgrounds/default'
 alias upd='update-git-repos'
+alias alu='apt list --upgradable'
 
 # more git aliases - some others already defined by oh-my-zsh
 alias ga.='git add .'
