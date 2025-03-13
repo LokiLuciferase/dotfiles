@@ -1,377 +1,216 @@
 {
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[latex]": {
-        "editor.rulers": [
-            120
-        ],
-        "editor.wordWrap": "on",
-        "editor.wordWrapColumn": 120
-    },
-    "[python]": {
-        "editor.defaultFormatter": "charliermarsh.ruff"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-    "[vue]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-    },
-    "coverage-gutters.coverageFileNames": [
-        "coverage.xml"
-    ],
-    "database-client.telemetry.usesOnlineServices": false,
-    "diffEditor.experimental.showMoves": true,
-    "editor.acceptSuggestionOnCommitCharacter": false,
-    "editor.cursorBlinking": "solid",
-    "editor.formatOnSave": true,
-    "editor.inlineSuggest.enabled": true,
-    "editor.rulers": [
-        120
-    ],
-    "eslint.format.enable": true,
-    "explorer.confirmDelete": false,
-    "explorer.confirmDragAndDrop": false,
-    "files.insertFinalNewline": true,
-    "github.copilot.editor.enableAutoCompletions": true,
-    "github.copilot.enable": {
-        "*": true,
-        "ipynb": false,
-        "markdown": false,
-        "plaintext": false,
-        "scminput": false
-    },
-    "githubPullRequests.pullBranch": "never",
-    "gitlens.telemetry.enabled": false,
-    "hediet.vscode-drawio.resizeImages": null,
-    "hediet.vscode-drawio.theme": "atlas",
-    "interactiveWindow.executeWithShiftEnter": true,
-    "jupyter.askForKernelRestart": false,
-    "latex-workshop.latex.autoBuild.run": "onSave",
-    "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build/index",
-    "latex-workshop.latex.recipe.default": "tectonic",
-    "latex-workshop.latex.recipes": [
-        {
-            "name": "tectonic",
-            "tools": [
-                "tectonic"
-            ]
-        }
-    ],
-    "latex-workshop.latex.tools": [
-        {
-            "args": [
-                "-X",
-                "build",
-                "--keep-intermediates",
-                "--keep-logs"
-            ],
-            "command": "tectonic",
-            "env": {},
-            "name": "tectonic"
-        }
-    ],
-    "latex-workshop.view.outline.sync.viewer": true,
-    "latex-workshop.view.pdf.viewer": "tab",
-    "latex.formatter.columnLimit": 120,
-    "notebook.formatOnSave.enabled": true,
-    "playwright.reuseBrowser": true,
-    "playwright.showTrace": false,
-    "remoteHub.commitDirectlyWarning": "off",
-    "search.useGlobalIgnoreFiles": true,
-    "security.promptForLocalFileProtocolHandling": false,
-    "telemetry.telemetryLevel": "off",
-    "terminal.integrated.showExitAlert": false,
-    "typescript.preferGoToSourceDefinition": true,
-    "vim.easymotion": true,
-    "vim.highlightedyank.color": "rgba(250, 240, 170, 0.3)",
-    "vim.highlightedyank.duration": 100,
-    "vim.highlightedyank.enable": true,
-    "vim.leader": "<space>",
-    "vim.normalModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "<leader>",
-                "1"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex1"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "2"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex2"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "3"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex3"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "4"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex4"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "5"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex5"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "6"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex6"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "7"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex7"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "8"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex8"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "9"
-            ],
-            "commands": [
-                "workbench.action.openEditorAtIndex9"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "f",
-                "f"
-            ],
-            "commands": [
-                "workbench.action.findInFiles"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "l",
-                "f"
-            ],
-            "commands": [
-                "editor.action.formatDocument"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "x",
-                "d",
-                "w"
-            ],
-            "commands": [
-                "editor.action.trimTrailingWhitespace"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "d"
-            ],
-            "commands": [
-                "gitlens.diffWithPrevious"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "b"
-            ],
-            "commands": [
-                "gitlens.toggleFileBlame"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "t",
-                "t"
-            ],
-            "commands": [
-                "workbench.action.terminal.toggleTerminal"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "n",
-                "c"
-            ],
-            "commands": [
-                "testing.runAtCursor"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "n",
-                "r"
-            ],
-            "commands": [
-                "testing.refreshTests"
-            ]
-        },
-        {
-            "before": [
-                "q"
-            ],
-            "commands": [
-                "workbench.action.closeActiveEditor"
-            ]
-        },
-        {
-            "before": [
-                "K"
-            ],
-            "commands": [
-                "editor.action.showHover"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "l",
-                "r"
-            ],
-            "commands": [
-                "editor.action.rename"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "l",
-                "s",
-                "o"
-            ],
-            "commands": [
-                "outline.toggleVisibility"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "l",
-                "n"
-            ],
-            "commands": [
-                "editor.action.marker.nextInFiles"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "l",
-                "p"
-            ],
-            "commands": [
-                "editor.action.marker.prevInFiles"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "c",
-                "l"
-            ],
-            "commands": [
-                "editor.action.commentLine"
-            ]
-        },
-        {
-            "after": [
-                "g",
-                "j"
-            ],
-            "before": [
-                "j"
-            ]
-        },
-        {
-            "after": [
-                "g",
-                "k"
-            ],
-            "before": [
-                "k"
-            ]
-        }
-    ],
-    "vim.replaceWithRegister": true,
-    "vim.smartRelativeLine": true,
-    "vim.useSystemClipboard": true,
-    "vim.vimrc.enable": true,
-    "vim.vimrc.path": "$HOME/.config/nvim/01_vi.vim",
-    "vim.visualModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "<leader>",
-                "c",
-                "l"
-            ],
-            "commands": [
-                "editor.action.commentLine"
-            ]
-        }
-    ],
-    "window.menuBarVisibility": "toggle",
-    "workbench.colorCustomizations": {
-        "editorStickyScroll.background": "#31353d"
-    },
-    "workbench.colorTheme": "One Dark Pro Darker",
-    "workbench.editorAssociations": {
-        "*.svg": "default"
-    },
-    "workbench.startupEditor": "none",
-    "workbench.tree.indent": 32,
-    "aws.telemetry": false,
-    "coverage-gutters.coverageReportFileName": "**/htmlcov/index.html",
-    "git.openRepositoryInParentFolders": "never",
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[latex]": {
+    "editor.rulers": [120],
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 120
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "coverage-gutters.coverageFileNames": ["coverage.xml"],
+  "database-client.telemetry.usesOnlineServices": false,
+  "diffEditor.experimental.showMoves": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.cursorBlinking": "solid",
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.rulers": [120],
+  "eslint.format.enable": true,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.insertFinalNewline": true,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enable": {
+    "*": true,
+    "ipynb": false,
+    "markdown": false,
+    "plaintext": false,
+    "scminput": false
+  },
+  "githubPullRequests.pullBranch": "never",
+  "gitlens.telemetry.enabled": false,
+  "hediet.vscode-drawio.resizeImages": null,
+  "hediet.vscode-drawio.theme": "atlas",
+  "interactiveWindow.executeWithShiftEnter": true,
+  "jupyter.askForKernelRestart": false,
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build/index",
+  "latex-workshop.latex.recipe.default": "tectonic",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "tectonic",
+      "tools": ["tectonic"]
     }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "args": ["-X", "build", "--keep-intermediates", "--keep-logs"],
+      "command": "tectonic",
+      "env": {},
+      "name": "tectonic"
+    }
+  ],
+  "latex-workshop.view.outline.sync.viewer": true,
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex.formatter.columnLimit": 120,
+  "notebook.formatOnSave.enabled": true,
+  "playwright.reuseBrowser": true,
+  "playwright.showTrace": false,
+  "remoteHub.commitDirectlyWarning": "off",
+  "search.useGlobalIgnoreFiles": true,
+  "security.promptForLocalFileProtocolHandling": false,
+  "telemetry.telemetryLevel": "off",
+  "terminal.integrated.showExitAlert": false,
+  "typescript.preferGoToSourceDefinition": true,
+  "vim.easymotion": true,
+  "vim.highlightedyank.color": "rgba(250, 240, 170, 0.3)",
+  "vim.highlightedyank.duration": 100,
+  "vim.highlightedyank.enable": true,
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "1"],
+      "commands": ["workbench.action.openEditorAtIndex1"]
+    },
+    {
+      "before": ["<leader>", "2"],
+      "commands": ["workbench.action.openEditorAtIndex2"]
+    },
+    {
+      "before": ["<leader>", "3"],
+      "commands": ["workbench.action.openEditorAtIndex3"]
+    },
+    {
+      "before": ["<leader>", "4"],
+      "commands": ["workbench.action.openEditorAtIndex4"]
+    },
+    {
+      "before": ["<leader>", "5"],
+      "commands": ["workbench.action.openEditorAtIndex5"]
+    },
+    {
+      "before": ["<leader>", "6"],
+      "commands": ["workbench.action.openEditorAtIndex6"]
+    },
+    {
+      "before": ["<leader>", "7"],
+      "commands": ["workbench.action.openEditorAtIndex7"]
+    },
+    {
+      "before": ["<leader>", "8"],
+      "commands": ["workbench.action.openEditorAtIndex8"]
+    },
+    {
+      "before": ["<leader>", "9"],
+      "commands": ["workbench.action.openEditorAtIndex9"]
+    },
+    {
+      "before": ["<leader>", "f", "f"],
+      "commands": ["workbench.action.findInFiles"]
+    },
+    {
+      "before": ["<leader>", "l", "f"],
+      "commands": ["editor.action.formatDocument"]
+    },
+    {
+      "before": ["<leader>", "x", "d", "w"],
+      "commands": ["editor.action.trimTrailingWhitespace"]
+    },
+    {
+      "before": ["<leader>", "g", "d"],
+      "commands": ["gitlens.diffWithPrevious"]
+    },
+    {
+      "before": ["<leader>", "g", "b"],
+      "commands": ["gitlens.toggleFileBlame"]
+    },
+    {
+      "before": ["<leader>", "t", "t"],
+      "commands": ["workbench.action.terminal.toggleTerminal"]
+    },
+    {
+      "before": ["<leader>", "n", "c"],
+      "commands": ["testing.runAtCursor"]
+    },
+    {
+      "before": ["<leader>", "n", "r"],
+      "commands": ["testing.refreshTests"]
+    },
+    {
+      "before": ["q"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["editor.action.showHover"]
+    },
+    {
+      "before": ["<leader>", "l", "r"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["<leader>", "l", "s", "o"],
+      "commands": ["outline.toggleVisibility"]
+    },
+    {
+      "before": ["<leader>", "l", "n"],
+      "commands": ["editor.action.marker.nextInFiles"]
+    },
+    {
+      "before": ["<leader>", "l", "p"],
+      "commands": ["editor.action.marker.prevInFiles"]
+    },
+    {
+      "before": ["<leader>", "c", "l"],
+      "commands": ["editor.action.commentLine"]
+    },
+    {
+      "after": ["g", "j"],
+      "before": ["j"]
+    },
+    {
+      "after": ["g", "k"],
+      "before": ["k"]
+    }
+  ],
+  "vim.replaceWithRegister": true,
+  "vim.smartRelativeLine": true,
+  "vim.useSystemClipboard": true,
+  "vim.vimrc.enable": true,
+  "vim.vimrc.path": "$HOME/.config/nvim/01_vi.vim",
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "c", "l"],
+      "commands": ["editor.action.commentLine"]
+    }
+  ],
+  "window.menuBarVisibility": "toggle",
+  "workbench.colorCustomizations": {
+    "editorStickyScroll.background": "#31353d"
+  },
+  "workbench.colorTheme": "One Dark Pro Darker",
+  "workbench.editorAssociations": {
+    "*.svg": "default"
+  },
+  "workbench.startupEditor": "none",
+  "workbench.tree.indent": 32,
+  "aws.telemetry": false,
+  "coverage-gutters.coverageReportFileName": "**/htmlcov/index.html",
+  "git.openRepositoryInParentFolders": "never",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.titleBarStyle": "native"
 }

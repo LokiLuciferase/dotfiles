@@ -1,0 +1,41 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 0,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1565,
+       "width": 1386,
+       "x": 0,
+       "y": 0
+    },
+    "marks": [],
+    "name": "zotero",
+    "percent": 0.5,
+    "swallows": [
+       {
+       "class": "^Zotero$"
+       }
+    ],
+    "type": "con"
+}
+{
+    "border": "pixel",
+    "current_border_width": 0,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1565,
+       "width": 634,
+       "x": 1283,
+       "y": 2188
+    },
+    "marks": [],
+    "name": "firefox",
+    "percent": 0.5,
+    "swallows": [
+       {
+       "class": "^firefox$"
+       }
+    ],
+    "type": "con"
+}

@@ -23,7 +23,31 @@
             "percent": 0.5,
             "swallows": [
                {
-               "title": "^Gmail.*$"
+               "title": "^aitiologic Mail.*$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "pixel",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "geometry": {
+               "height": 2125,
+               "width": 950,
+               "x": 0,
+               "y": 0
+            },
+            "marks": [],
+            "name": "thunderbird",
+            "percent": 0.5,
+            "swallows": [
+               {
+               "class": "^thunderbird.*$"
+               // "instance": "^Mail$",
+               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
+               // "title": "^Inbox\\ \\-\\ llf\\@aitiologic\\.com\\ \\-\\ Mozilla\\ Thunderbird$",
+               // "window_role": "^3pane$"
                }
             ],
             "type": "con"
