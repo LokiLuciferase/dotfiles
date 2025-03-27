@@ -154,12 +154,6 @@ autocmd VimEnter,WinEnter,WinLeave,WinClosed,InsertEnter * call SLColor()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax on  " Turn syntax highlighting on
-try
-    colorscheme delek_mod  " select color scheme
-catch
-    colorscheme delek
-endtry
 set background=dark  " assume dark background
 
 
