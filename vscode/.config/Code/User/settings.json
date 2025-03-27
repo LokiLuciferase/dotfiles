@@ -34,10 +34,10 @@
   "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.enable": {
     "*": true,
-    "ipynb": false,
-    "markdown": false,
     "plaintext": false,
-    "scminput": false
+    "markdown": false,
+    "scminput": false,
+    "ipynb": false
   },
   "githubPullRequests.pullBranch": "never",
   "gitlens.telemetry.enabled": false,

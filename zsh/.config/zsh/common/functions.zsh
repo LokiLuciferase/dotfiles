@@ -1,8 +1,25 @@
 #!/usr/bin/env zsh
 
-## these commands cause the loading of NVM or conda on-demand
+## these commands cause the loading of nvm or conda on-demand
 export __DOTFILES_LAZY_NVM_CMDS=( 'nvm' 'node' 'yarn' 'npm' 'npx' 'cdk' 'vercel' )
 export __DOTFILES_LAZY_CONDA_CMDS=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
+
+
+nvm-unalias() {
+    # remove nvm aliases
+    for lazy_nvm_alias in $__DOTFILES_LAZY_NVM_CMDS; do
+        unalias $lazy_nvm_alias &> /dev/null || true
+    done
+    unset __DOTFILES_LAZY_NVM_CMDS
+}
+
+conda-unalias() {
+    # remove conda aliases
+    for lazy_conda_alias in $__DOTFILES_LAZY_CONDA_CMDS; do
+        unalias $lazy_conda_alias &> /dev/null || true
+    done
+    unset __DOTFILES_LAZY_CONDA_CMDS
+}
 
 nvm-init() {
     # locate nvm
@@ -18,11 +35,7 @@ nvm-init() {
         return 1
     fi
 
-    # remove aliases
-    for lazy_nvm_alias in $__DOTFILES_LAZY_NVM_CMDS; do
-        unalias $lazy_nvm_alias &> /dev/null || true
-    done
-    unset __DOTFILES_LAZY_NVM_CMDS
+    nvm-unalias
 
     # init nvm
     . "${nvm_basedir}/nvm.sh"
@@ -44,23 +57,12 @@ conda-init() {
         echo "No conda installation dir found and none passed." >&2
         return 1
     fi
-    # initialize conda environment
-    for lazy_conda_alias in $__DOTFILES_LAZY_CONDA_CMDS; do
-        unalias $lazy_conda_alias &> /dev/null || true
-    done
+
+    conda-unalias
 
     # init conda
-    __conda_setup="$("${conda_basedir}/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
-    else
-        if [ -f "${conda_basedir}/etc/profile.d/conda.sh" ]; then
-            . "${conda_basedir}/etc/profile.d/conda.sh"
-        fi
-    fi
+    source "${conda_basedir}/bin/activate"
     echo "Now using conda @ ${CONDA_PREFIX} ($(python --version))"
-    unset __conda_setup
-    unset __DOTFILES_LAZY_CONDA_CMDS
 }
 
 nvm-lazy-init() {

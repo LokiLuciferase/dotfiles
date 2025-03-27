@@ -12,12 +12,12 @@ STAMP_VERSION=1.0.0
 
 stamp(){
     mkdir -p ${DATA_SHADOW_DIR}/${PROJECT_DIR}/{01_env,02_data/{01_raw,02_processed,03_outputs}}
-    mkdir -p ${DIR}/${PROJECT_DIR}/{03_scripts/archive,00_meta}
+    mkdir -p ${DIR}/${PROJECT_DIR}/{03_code/{scripts,pipelines,notebooks,archive},00_meta}
     pushd ${DIR}/${PROJECT_DIR}
     ln -s ${DATA_SHADOW_DIR}/${PROJECT_DIR}/{01_env,02_data} . || true
     popd
-    touch ${DIR}/${PROJECT_DIR}/03_scripts/run.sh
-    chmod +x ${DIR}/${PROJECT_DIR}/03_scripts/run.sh
+    touch ${DIR}/${PROJECT_DIR}/03_code/run.sh
+    chmod +x ${DIR}/${PROJECT_DIR}/03_code/run.sh
 
 }
 
