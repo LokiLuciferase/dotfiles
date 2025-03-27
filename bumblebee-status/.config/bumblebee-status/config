@@ -9,7 +9,7 @@ cpu.theme.minwidth = 3
 memory.format = {percent:.00f}%
 disk.format = {percent:.00f}%
 brightness_autohide.format = {:.00f}%
-datetime.format = %H:%M
+datetime.format = %a %Y-%m-%d %H:%M
 
 brightness_autohide.left-click = brightnessctl set "$(zenity --title 'Set Brightness' --entry --text 'Brightness:')%"
 datetime.left-click = notify-send --urgency low Datetime "$(LC_ALL=C date '+%a %F %T')"
