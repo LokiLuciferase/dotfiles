@@ -28,7 +28,7 @@ local plugin_spec = {
             -- Optionally configure and load the colorscheme
             -- directly inside the plugin declaration.
             vim.g.sonokai_enable_italic = true
-            vim.g.sonokai_style = 'maia'
+            vim.g.sonokai_style = 'atlantis'
             vim.g.sonokai_better_performance = true
             vim.cmd.colorscheme('sonokai')
         end
