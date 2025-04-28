@@ -19,6 +19,7 @@ alias mkdir='mkdir -pv'
 alias tmux="tmux -f ${HOME}/.config/tmux/tmux.conf"
 alias tree="tree -I '.git'"
 alias ta="tree -I '.git' -a"
+alias tp="trash-put"
 
 alias shfmt='shfmt -i 4 -sr -w -l'
 alias assume='source assume'
