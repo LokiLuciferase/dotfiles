@@ -149,7 +149,7 @@ say() {
     require-command gtts-cli mpv || return 1
     local in="$@"
     [ -z "$in" ] && read -r in
-    echo "${@}" | gtts-cli - | mpv - &> /dev/null
+    echo "$in" | gtts-cli - | mpv - &> /dev/null
 }
 
 read-aloud() {
