@@ -202,7 +202,9 @@
   },
   "workbench.colorTheme": "One Dark Pro Darker",
   "workbench.editorAssociations": {
-    "*.svg": "default"
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.svg": "default",
+    "*.ipynb": "jupyter-notebook"
   },
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 32,
@@ -212,5 +214,7 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "window.titleBarStyle": "native"
+  "window.titleBarStyle": "native",
+  "python.analysis.typeCheckingMode": "basic",
+  "makefile.configureOnOpen": false
 }
