@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">3.8"
+# dependencies = [
+#   "numpy",
+#   "pillow",
+#   "tqdm",
+#   "numba"
+# ]
+# ///
+
 from typing import Optional, Union, Tuple, List
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from pathlib import Path

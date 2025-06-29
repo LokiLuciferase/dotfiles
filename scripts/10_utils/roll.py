@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">3.8"
+# ///
+
 import sys
 from collections import Counter
 from random import randint

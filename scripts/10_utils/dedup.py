@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">3.10"
+# ///
+
 import os
 import logging
 import hashlib
