@@ -13,6 +13,9 @@ for d in ~/.dotfiles/scripts/*; do
 done
 export PATH=$HOME/.local/bin:$SCRIPTPATHS$PATH
 
+# don't fail uvx if offline
+export UVX_OFFLINE=1
+
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_DATA_HOME=$HOME/.local/share
