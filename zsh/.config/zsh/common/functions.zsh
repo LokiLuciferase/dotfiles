@@ -254,7 +254,7 @@ icat() {
 
 ssha() {
     # attach to unnamed, unattached tmux session or create new
-    ssh "$1" -t '~/.dotfiles/scripts/10_utils/tmux-attach-or-create.sh'
+    ssh "$@" -t '~/.dotfiles/scripts/10_utils/tmux-attach-or-create.sh'
 }
 
 today() {
