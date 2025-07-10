@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:latest
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
@@ -12,10 +12,14 @@ ARG DOTFILES_TESTING=true
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN --mount=type=cache,target=/var/cache/apt \
     apt-get update --fix-missing \
-    && apt-get install --yes curl sudo \
+    && apt-get install --yes curl sudo adduser \
     && apt-get clean
-RUN useradd -m testuser -s /bin/bash \
-    && adduser testuser sudo \
+RUN usermod -l testuser ubuntu
+RUN groupmod -n testuser ubuntu
+RUN usermod -d /home/testuser -m testuser
+RUN usermod -c "test user" testuser
+
+RUN adduser testuser sudo \
     && echo "testuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER testuser

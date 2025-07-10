@@ -24,9 +24,9 @@ ensure_nvm_present(){
 install() {
     export NVM_DIR="${HOME}/.local/share/nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-    nvm install 18
-    nvm alias default 18
-    nvm use 18
+    nvm install $WANTED_MAJOR_VERSION
+    nvm alias default $WANTED_MAJOR_VERSION
+    nvm use $WANTED_MAJOR_VERSION
 }
 
 main() {
