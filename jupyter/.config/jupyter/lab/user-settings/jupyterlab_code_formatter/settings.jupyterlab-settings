@@ -2,8 +2,7 @@
     "preferences": {
         "default_formatter": {
             "python": [
-                "black",
-                "isort"
+                "ruff"
             ],
             "R": "formatR",
             "rust": "rustfmt",
@@ -43,5 +42,9 @@
     },
     "suppressFormatterErrors": false,
     "autopep8": {},
-    "styler": {}
+    "styler": {},
+    "ruffformat": {
+        "args": []
+    },
+    "suppressFormatterErrorsIFFAutoFormatOnSave": false
 }
