@@ -20,6 +20,8 @@ def parse_die_string(s: str) -> List[Tuple[Optional[int], int]]:
         term = term.strip()
         if 'd' in term:
             n, d = term.split('d')
+            if n == '':
+                n = 1
             parsed.append((int(n), int(d)))
         else:
             parsed.append((None, int(term)))
