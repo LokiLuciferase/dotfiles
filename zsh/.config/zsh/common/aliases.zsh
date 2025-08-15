@@ -63,6 +63,7 @@ alias http="uvx --from httpie http"
 alias https="uvx --from httpie https"
 alias ips='uvx ipython'
 alias autorandr='uvx autorandr'
+alias cookiecutter='uvx cookiecutter'
 alias asciinema='uvx asciinema'
 alias bpytop='uvx bpytop'
 alias yt-dlp='uvx yt-dlp'
