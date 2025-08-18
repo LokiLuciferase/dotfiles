@@ -14,8 +14,8 @@ dependencies:
   - ipython
   - ipywidgets
   - isort
+  - jupyter-ruff
   - jupyterlab
-  - jupyterlab_code_formatter
   - jupyterlab_execute_time
   - jupyterlab-git
   - lxml
