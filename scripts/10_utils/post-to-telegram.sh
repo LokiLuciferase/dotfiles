@@ -14,7 +14,7 @@ ensure_tools_present() {
 }
 
 post_to_tg() {
-    local msg="$1"
+    local msg="$@"
     local tg_bot_token="${TG_BOT_TOKEN}"
     local tg_chat_id="${TG_CHAT_ID}"
     local tg_api_url="https://api.telegram.org/bot$tg_bot_token/sendMessage"
@@ -41,7 +41,7 @@ post_to_tg() {
 
 __MAIN__() {
     ensure_tools_present
-    post_to_tg "$1"
+    post_to_tg "$@"
     return 0
 }
 
