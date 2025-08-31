@@ -554,12 +554,12 @@ qsplit() {
 
 hexsplit() {
     # start six-way split tmux session
-    _tmux_ctx "split-window -h -p 66 \; split-window -h -p 50 \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1" hexsplit $1
+    _tmux_ctx "split-window -h -l 66% \; split-window -h -l 50% \; select-pane -t 1 \; split-window -v \; select-pane -t 3 \; split-window -v \; select-pane -t 5 \; split-window -v \; select-pane -t 1" hexsplit $1
 }
 
 vhexsplit() {
     # start vertical six-way split tmux session
-    _tmux_ctx "split-window -v -p 66 \; split-window -v -p 50 \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
+    _tmux_ctx "split-window -v -l 66% \; split-window -v -l 50% \; select-pane -t 1 \; split-window -h \; select-pane -t 3 \; split-window -h \; select-pane -t 5 \; split-window -h \; select-pane -t 1" vhexsplit $1
 }
 
 send-tg-message() {
