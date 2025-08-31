@@ -5,6 +5,7 @@ channels:
 dependencies:
   - beautifulsoup4
   - boto3
+  - catppuccin-jupyterlab
   - click
   - cookiecutter
   - docformatter
@@ -23,6 +24,7 @@ dependencies:
   - mamba
   - matplotlib
   - memory_profiler
+  - neovim
   - notebook
   - numpy
   - openpyxl
