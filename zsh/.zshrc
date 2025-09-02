@@ -1,3 +1,14 @@
+# check if tmux is available and whether it should be used as shell early
+# if so, start right away to avoid unnecessary loading of zsh plugins etc
+if [[ -f "$HOME/.local/state/tmux/use_as_shell" ]] \
+    && command -v tmux &> /dev/null \
+    && [[ -n "$PS1" ]] \
+    && [[ ! "$TERM" =~ screen ]] \
+    && [[ ! "$TERM" =~ tmux ]] \
+    && [[ -z "$TMUX" ]]; then
+    exec tmux -f $HOME/.config/tmux/tmux.conf
+fi
+
 # general omz setup
 unsetopt NOMATCH
 setopt HIST_IGNORE_SPACE
@@ -47,6 +58,7 @@ if [[ -d "$SHELL_DOT_DIR/local/" ]] && [[ $(ls "${SHELL_DOT_DIR}/local") != '' ]
 fi
 
 # run tmux if requested, if exists and if not inside yet
+# using (deprecated) legacy mechanism to not break existing setups
 if [[ "$USE_TMUX_AS_SHELL" = true ]] \
     && command -v tmux &> /dev/null \
     && [[ -n "$PS1" ]] \
