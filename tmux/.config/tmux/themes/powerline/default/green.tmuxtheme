@@ -9,7 +9,7 @@
 #
 
 # Themepack format options
-set -goq @themepack-status-left-area-left-format "#S"
+set -goq @themepack-status-left-area-left-format "#{?client_prefix,PREFIX,#S}"
 set -goq @themepack-status-left-area-middle-format "#(whoami)"
 set -goq @themepack-status-left-area-right-format "#I:#P"
 set -goq @themepack-status-right-area-left-format "#(~/.config/tmux/scripts/tmux-mem-stats)G"
@@ -117,7 +117,6 @@ set -goqF @theme-window-status-current-format "#[fg=#{@theme-status-bg},bg=#{@th
 # Customizable prefixes and suffixes for @theme-* format options
 set -goq @prefix_highlight_fg "#{@powerline-color-black-1}"
 set -goq @prefix_highlight_bg "#{@powerline-color-main-1}"
-set -goq @theme-status-left-prefix ""
 set -goq @theme-status-left-suffix "#{prefix_highlight}"
 set -goq @theme-status-right-prefix ""
 set -goq @theme-status-right-suffix ""

@@ -9,7 +9,7 @@
 #
 
 # Themepack format options
-set -goq @themepack-status-left-area-left-format "#S"
+set -goq @themepack-status-left-area-left-format "#{?client_prefix,PREFIX,#S}"
 set -goq @themepack-status-left-area-middle-format "#(whoami)"
 set -goq @themepack-status-left-area-right-format "#I:#P"
 set -goq @themepack-status-right-area-left-format "#(~/.config/tmux/scripts/tmux-mem-stats)G"
