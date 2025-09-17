@@ -20,24 +20,16 @@ end
 
 -- define plugin spec
 local plugin_spec = {
-    -- {
-    --     'sainnhe/sonokai',
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         -- Optionally configure and load the colorscheme
-    --         -- directly inside the plugin declaration.
-    --         vim.g.sonokai_enable_italic = true
-    --         vim.g.sonokai_style = 'atlantis'
-    --         vim.g.sonokai_better_performance = true
-    --         vim.cmd.colorscheme('sonokai')
-    --     end
-    -- },
     {
-        "catppuccin/nvim",
+        'sainnhe/sonokai',
+        lazy = false,
+        priority = 1000,
         config = function()
-            vim.cmd.colorscheme("catppuccin-macchiato")
-        end,
+            vim.g.sonokai_enable_italic = 1
+            vim.g.sonokai_style = 'atlantis'
+            vim.g.sonokai_better_performance = 1
+            vim.cmd.colorscheme('sonokai')
+        end
     },
     {
         -- Syntax highlighting for NF
@@ -324,7 +316,7 @@ local plugin_spec = {
                     "dockerfile",
                     "lua", "vim"
                 },
-                highlight = { enable = true },
+                highlight = { enable = true, additional_vim_regex_highlighting = false },
                 indent = { enable = true },
             })
         end
