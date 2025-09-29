@@ -3,7 +3,7 @@
 get-mem-stats(){
     local mem_avail mem_avail_fmt
     mem_avail=$(free -m | awk '/Mem:/ {print $7}')
-    mem_avail_fmt=$(awk -v num="$mem_avail" 'BEGIN {printf "%.1f", num / 1024}')
+    mem_avail_fmt=$(awk -v num="$mem_avail" 'BEGIN {printf "%.1f", num / 1024}' | tr ',' '.')
     echo "${mem_avail_fmt}"
 }
 
