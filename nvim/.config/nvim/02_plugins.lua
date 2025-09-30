@@ -173,6 +173,7 @@ local plugin_spec = {
             vim.api.nvim_set_keymap("n", "<leader>gl", ":Commits!<CR>", { noremap = true, desc = "Git log" })
             vim.api.nvim_set_keymap("n", "<leader>rg", ":Rg!<CR>", { noremap = true, desc = "Ripgrep" })
             vim.cmd("let g:fzf_colors ={'hl+': ['fg', 'Statement'], 'hl': ['fg', 'Statement']}")
+            vim.cmd("let g:fzf_action = { 'enter': 'tab split' }")
         end,
         cmd = { "Files", "Buffers", "History", "BLines", "Rg", "Lines", "BCommits", "Commits", "Tags" },
     },

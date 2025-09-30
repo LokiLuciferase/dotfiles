@@ -31,7 +31,7 @@ set shortmess=atoI  " disable splash screen, don't prompt on save and overwrite 
 set mouse=a  " enable mouse in all modes
 set clipboard=unnamedplus  " sync unnamed register with system clipboard
 set whichwrap+=<,>  " allow these characters to move to next line of first/last char in line reached"
-set autochdir  " cwd to the location of the currently edited file
+set noautochdir  " do not cwd to the location of the currently edited file - breaks fzf etc.
 
 set showmatch  " show matching brackets
 set cursorline  " highlight current line
@@ -332,10 +332,6 @@ autocmd BufEnter,InsertLeave * :syntax sync fromstart
 
 " If we entered in diff mode, exit all buffers with q
 autocmd BufEnter * if &diff | nnoremap <silent> q :qa<CR> | endif
-
-" Fix autochdir when opening a directory
-let g:netrw_keepdir = 0
-autocmd BufEnter * if isdirectory(expand("%")) | set noautochdir | else | set autochdir | endif
 
 " resize splits if window got resized
 autocmd VimResized * tabdo wincmd =
