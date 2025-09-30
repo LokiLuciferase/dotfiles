@@ -1,6 +1,7 @@
 # check if tmux is available and whether it should be used as shell early
 # if so, start right away to avoid unnecessary loading of zsh plugins etc
 if [[ -f "$HOME/.local/state/tmux/use_as_shell" ]] \
+    && [[ ! "$USE_TMUX_AS_SHELL" = false ]] \
     && command -v tmux &> /dev/null \
     && [[ -n "$PS1" ]] \
     && [[ ! "$TERM" =~ screen ]] \
