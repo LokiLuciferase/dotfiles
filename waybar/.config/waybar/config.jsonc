@@ -127,8 +127,7 @@
     "hyprland/window": {
         "max-length": 64,
         "rewrite": {
-            "(.*) — Mozilla Firefox": "󰈹 $1",
-            "(.*) - zsh": "> [$1]"
+            "(.*) — Mozilla Firefox": "󰈹 $1"
         }
     },
     "tray": {
