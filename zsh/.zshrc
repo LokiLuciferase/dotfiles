@@ -58,17 +58,6 @@ if [[ -d "$SHELL_DOT_DIR/local/" ]] && [[ $(ls "${SHELL_DOT_DIR}/local") != '' ]
     done
 fi
 
-# run tmux if requested, if exists and if not inside yet
-# using (deprecated) legacy mechanism to not break existing setups
-if [[ "$USE_TMUX_AS_SHELL" = true ]] \
-    && command -v tmux &> /dev/null \
-    && [[ -n "$PS1" ]] \
-    && [[ ! "$TERM" =~ screen ]] \
-    && [[ ! "$TERM" =~ tmux ]] \
-    && [[ -z "$TMUX" ]]; then
-    exec tmux -f $HOME/.config/tmux/tmux.conf
-fi
-
 # make color of other-writable directories less offensive
 if [[ -f "${SHELL_DOT_DIR}/common/dircolors" ]]; then
     eval "$(dircolors -b "${SHELL_DOT_DIR}/common/dircolors" )"

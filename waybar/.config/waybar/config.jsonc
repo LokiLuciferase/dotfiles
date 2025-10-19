@@ -92,9 +92,11 @@
         "reverse-scrolling": true
     },
     "battery": {
+        "full-at": 97,
         "interval": 20,
         "states": {
-            "good": 90,
+            "good": 100,
+            "default": 90,
             "warning": 30,
             "critical": 15
         },
@@ -145,7 +147,8 @@
             "default": ["", "", ""]
         },
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "pavucontrol",
+        "reverse-scrolling": true
     },
     "custom/dunst": {
         "interval": 120,
