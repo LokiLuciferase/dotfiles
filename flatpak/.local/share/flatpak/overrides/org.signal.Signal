@@ -1,6 +1,5 @@
 [Context]
-sockets=fallback-x11
-filesystems=home
+filesystems=xdg-download
 
 [Environment]
 SIGNAL_USE_TRAY_ICON=1
