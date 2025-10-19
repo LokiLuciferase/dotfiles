@@ -1,0 +1,162 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "height": 40,
+    "spacing": 2,
+    "exclusive": true,
+    "gtk-layer-shell": true,
+    "passthrough": false,
+    "fixed-center": true,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "cpu",
+        "memory",
+        "disk",
+        "temperature",
+        "mpris",
+        "backlight",
+        "battery",
+        "network",
+        "pulseaudio",
+        "custom/dunst",
+        "clock",
+        "tray"
+    ],
+    "cpu": {
+        "states": {
+            "default": 0,
+            "warning": 80,
+            "critical": 95
+        },
+        "format-default": "",
+        "format-warning": "󰊚 {usage}%",
+        "format-critical": "󰊚 {usage}%"
+    },
+    "memory": {
+        "states": {
+            "default":0,
+            "warning": 80,
+            "critical":95
+        },
+        "format-default": "",
+        "format-warning": " {percentage}%",
+        "format-critical": " {percentage}%"
+
+    },
+    "disk": {
+        "states": {
+            "critical": 5,
+            "warning": 10,
+            "default": 11
+        },
+        "format-default": "",
+        "format-warning": " {percentage_free}%",
+        "format-critical": " {percentage_free}%"
+    },
+    "temperature": {
+        "thermal-zone": 2,
+        "critical-temperature": 80,
+        "format": "",
+        "format-critical": " {temperatureC}°C"
+    },
+    "mpris": {
+        "dynamic-order": [
+            "artist",
+            "title"
+        ],
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "player-icons": {
+            "default": "▶"
+        },
+        "ignored-players": ["firefox"],
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "smooth-scrolling-threshold": 1,
+        "reverse-scrolling": true,
+        "on-click-right": "hyprctl dispatch focuswindow class:'feishin|spotify|mpv'"
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰹐", "󱩎","󱩏","󱩐","󱩑","󱩒","󱩓","󱩔","󱩕","󱩖","󰛨"
+        ],
+        "reverse-scrolling": true
+    },
+    "battery": {
+        "interval": 20,
+        "states": {
+            "good": 90,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["", "", "", "", "", "", "", "","", ""],
+        "on-click": "gnome-power-statistics"
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-icons": ["󰤟", "󰤢", "󰤥", "󰖩"],
+        "format-wifi": "{icon} {signalStrength}%",
+        "format-ethernet": "󰈀 {ipaddr}/{cidr}",
+        "tooltip-format": "{ifname} via '{essid}'@{gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "󰌙 Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click-right": ""
+    },
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "format": "{id}",
+        "all-outputs": true,
+        "disable-scroll": false,
+        "active-only": false
+    },
+    "hyprland/window": {
+        "max-length": 64,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "󰈹 $1",
+            "(.*) - zsh": "> [$1]"
+        }
+    },
+    "tray": {
+        "show-passive-items": true,
+        "spacing": 10
+    },
+    "clock": {
+        "tooltip": false,
+        "format": " {:L%a %Y-%m-%d %H:%M}"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " mute",
+        "format-icons": {
+            "headphone": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol"
+    },
+    "custom/dunst": {
+        "interval": 120,
+        "return-type": "json",
+        "format-icons": {
+            "paused": "󱙎",
+            "active": "󰍥"
+        },
+        "exec": "~/.config/waybar/scripts/dunst-toggle.sh query",
+        "format": "{icon}",
+        "tooltip-format": "Notifications {text}",
+        "on-click": "~/.config/waybar/scripts/dunst-toggle.sh toggle"
+    }
+}
