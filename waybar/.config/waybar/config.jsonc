@@ -1,7 +1,6 @@
 {
-    "layer": "bottom",
+    "layer": "top",
     "position": "top",
-    "height": 40,
     "spacing": 2,
     "exclusive": true,
     "gtk-layer-shell": true,
@@ -30,7 +29,7 @@
     "cpu": {
         "states": {
             "default": 0,
-            "warning": 80,
+            "warning": 50,
             "critical": 95
         },
         "format-default": "",
@@ -119,7 +118,7 @@
     },
     "hyprland/workspaces": {
         "on-click": "activate",
-        "format": "{id}",
+        "format": "{name}",
         "all-outputs": true,
         "disable-scroll": false,
         "active-only": false

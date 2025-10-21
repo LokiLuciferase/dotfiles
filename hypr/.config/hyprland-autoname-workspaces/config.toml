@@ -1,0 +1,96 @@
+version = "1.1.16"
+
+[class]
+"[Aa]lacritty|foot|shell" = ""
+"[Ff]irefox" = "󰈹"
+"chrome|brave" = ""
+"thunderbird|mail" = ""
+"telegram" = ""
+"discord" = "ﭮ"
+"zoom" = ""
+"microsoft teams" = ""
+"whatsapp" = ""
+
+"nemo" = ""
+"file manager" = ""
+"disk usage" = ""
+"menu" = ""
+"calculator" = ""
+"keepassxc" = ""
+"bluetooth" = ""
+
+"libreoffice calc" = ""
+"libreoffice writer" = ""
+"libreoffice" = ""
+
+"transmission" = ""
+"deluge" = ""
+"torrent" = ""
+
+"mpv" = ""
+"spotify" = ""
+"spot" = ""
+"feishin|music" = ""
+"jellyfin media player" = ""
+
+"zathura" = ""
+"xournal" = ""
+"pycharm" = ""
+"python" = ""
+"rust" = ""
+DEFAULT = ""
+
+[class_active]
+
+[initial_class]
+
+[initial_class_active]
+
+[workspaces_name]
+6 = "six"
+0 = "zero"
+3 = "three"
+2 = "two"
+7 = "seven"
+8 = "eight"
+10 = "ten"
+9 = "nine"
+1 = "one"
+4 = "four"
+5 = "five"
+
+[title_in_class."(?i)kitty"]
+"(?i)neomutt" = "neomutt"
+
+[title_in_class_active."(?i)firefox"]
+"(?i)twitch" = "<span color='purple'>{icon}</span>"
+
+[title_in_initial_class]
+
+[title_in_initial_class_active]
+
+[initial_title_in_class]
+
+[initial_title_in_class_active]
+
+[initial_title_in_initial_class]
+
+[initial_title_in_initial_class_active]
+
+[exclude]
+"" = "^$"
+aProgram = "^$"
+"[Ss]team" = "^(Friends List.*)?$"
+
+[format]
+dedup = true
+dedup_inactive_fullscreen = true
+delim = " "
+workspace = "{id}:{delim}{clients}"
+workspace_empty = "{id}"
+client = "{icon}"
+client_fullscreen = "[{icon}]"
+client_active = "{icon}"
+client_dup = "{icon}{counter_sup}"
+client_dup_active = "[{icon}]{delim}{icon}{counter_unfocused_sup}"
+client_dup_fullscreen = "[{icon}]{delim}{icon}{counter_unfocused_sup}"
