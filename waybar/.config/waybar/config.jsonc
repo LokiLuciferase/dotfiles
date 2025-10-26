@@ -92,7 +92,7 @@
     },
     "battery": {
         "full-at": 97,
-        "interval": 20,
+        "interval": 3,
         "states": {
             "good": 100,
             "default": 90,
