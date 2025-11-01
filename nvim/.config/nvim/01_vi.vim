@@ -155,6 +155,7 @@ autocmd VimEnter,WinEnter,WinLeave,WinClosed,InsertEnter * call SLColor()
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set background=dark  " assume dark background
+colorscheme habamax
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
