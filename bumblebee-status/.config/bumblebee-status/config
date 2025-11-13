@@ -19,7 +19,7 @@ cpu.right-click = alacritty -e btop
 memory.left-click = alacritty -e htop
 memory.right-click = alacritty -e btop
 playerctl.left-click = playerctl play-pause
-playerctl.right-click = i3-msg '[class="Spotify|feishin|mpv"] focus'
+playerctl.right-click = i3-msg '[class="feishin|Spotify|mpv"] focus'
 playerctl.wheel-up = playerctl previous
 playerctl.wheel-down = playerctl next
 
@@ -32,7 +32,7 @@ title.max = 64
 
 playerctl.format = {{artist}} - {{title}}
 playerctl.layout = playerctl.song
-playerctl.args = -p mpv,spotify,Spot,Feishin
+playerctl.args = -p mpv,feishin,spotify
 playerctl.hide = true
 
 gammastep_or_redshift.lat = 48.2

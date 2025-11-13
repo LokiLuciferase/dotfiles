@@ -69,6 +69,7 @@ alias bpytop='uvx bpytop'
 alias yt-dlp='uvx yt-dlp'
 alias tldr='uvx tldr'
 alias vja='uvx vja'
+alias dvc='uvx --with=dvc-s3 dvc'
 
 # nvim stuff
 [[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
