@@ -11,8 +11,8 @@ from pathlib import Path
 from urllib import request
 
 
-HA_URL_NAME = 'HA_NOTIFY_WEBHOOK_URL'
-HA_URL = os.environ.get(HA_URL_NAME, None)
+HA_NOTIFY_WEBHOOK_URL = 'HA_NOTIFY_WEBHOOK_URL'
+HA_URL = os.environ.get(HA_NOTIFY_WEBHOOK_URL, None)
 
 
 def get_args():
@@ -53,9 +53,10 @@ def do_post(
     if isinstance(msg, list):
         msg = ' '.join(msg)
     if HA_URL is None:
-        raise RuntimeError(f'Missing environment variable "{HA_URL_NAME}"')
+        raise RuntimeError(f'Missing environment variable "{HA_NOTIFY_WEBHOOK_URL}"')
     params = {'message': msg, 'service': service if service is not None else Path(__file__).name}
     if url is not None:
+        params['message'] += f"\ntap: {url}"
         params['data'] = {}  # type: ignore
         params['data']['clickAction'] = url
     if person is not None:
