@@ -18,13 +18,14 @@
         "disk",
         "temperature",
         "mpris",
-        "backlight",
         "battery",
         "network",
+        "backlight",
         "pulseaudio",
+        "bluetooth",
         "custom/dunst",
-        "clock",
-        "tray"
+        "tray",
+        "clock"
     ],
     "cpu": {
         "states": {
@@ -88,7 +89,8 @@
         "format-icons": [
             "󰹐", "󱩎","󱩏","󱩐","󱩑","󱩒","󱩓","󱩔","󱩕","󱩖","󰛨"
         ],
-        "reverse-scrolling": true
+        "reverse-scrolling": true,
+        "on-click": "brightnessctl set \"$(zenity --title 'Set Brightness' --entry --text 'Brightness:')%\""
     },
     "battery": {
         "full-at": 97,
@@ -116,6 +118,22 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click-right": ""
     },
+    "bluetooth": {
+        "interval": 2,
+        "format": " {status}",
+        "format-on": "",
+        "format-disabled": "󰂲",
+        "format-no-controller": "",
+        "format-off": "󰂲",
+        "format-connected": "󰂱",
+        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "[ \"$(bluetoothctl show | grep Powered | sed 's/.*: //')\" = no ] && bluetoothctl power on || bluetoothctl power off",
+        "on-click-right": "blueman-manager"
+    },
     "hyprland/workspaces": {
         "on-click": "activate",
         "format": "{name}",
@@ -140,13 +158,14 @@
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-muted": " mute",
+        "format-muted": "",
         "format-icons": {
             "headphone": "",
-            "default": ["", "", ""]
+            "default": ["", "", "", "", ""]
         },
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
+        "max-volume": 150,
         "reverse-scrolling": true
     },
     "custom/dunst": {

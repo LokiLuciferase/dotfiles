@@ -56,7 +56,7 @@
     // Defines the maximum number of output cells to be rendered in the output area for cells with many outputs. The output area will have a head and the remaining outputs will be trimmed and not displayed unless the user clicks on the information message. Set to 0 to have the complete display.
     "maxNumberOutputs": 50,
 
-    // Number of cells to render outside de the viewport
+    // Number of cells to render outside the viewport
     // In 'full' windowing mode, this is the number of cells above and below the viewport.
     "overscanCount": 1,
 
