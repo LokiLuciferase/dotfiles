@@ -66,10 +66,12 @@ alias autorandr='uvx autorandr'
 alias cookiecutter='uvx cookiecutter'
 alias asciinema='uvx asciinema'
 alias bpytop='uvx bpytop'
-alias yt-dlp='uvx yt-dlp'
+alias yt-dlp='uvx --from=yt-dlp[default] yt-dlp'
 alias tldr='uvx tldr'
 alias vja='uvx vja'
 alias dvc='uvx --with=dvc-s3 dvc'
+alias eyeD3='uvx --from=eyeD3[art-plugin] eyeD3'
+alias album-fixup="eyeD3 --plugin fixup --file-rename-pattern '\$track:num. \$title'"
 
 # nvim stuff
 [[ "$(which nvim 2> /dev/null)" != "" ]] && VIM_BIN='nvim' || VIM_BIN='vim'
