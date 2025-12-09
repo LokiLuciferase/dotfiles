@@ -32,7 +32,7 @@ title.max = 64
 
 playerctl.format = {{artist}} - {{title}}
 playerctl.layout = playerctl.song
-playerctl.args = -p mpv,feishin,spotify
+playerctl.args = -p mpv,Feishin,spotify
 playerctl.hide = true
 
 gammastep_or_redshift.lat = 48.2

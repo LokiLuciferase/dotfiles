@@ -216,5 +216,6 @@
   },
   "window.titleBarStyle": "native",
   "python.analysis.typeCheckingMode": "basic",
-  "makefile.configureOnOpen": false
+  "makefile.configureOnOpen": false,
+  "nextflow.languageVersion": "25.04"
 }
