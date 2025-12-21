@@ -25,10 +25,8 @@ various	highlight	highlight	highlight	highlight
 various	sshfs	sshfs	sshfs	sshfs			
 various	python3-pip	python3-pip	python-pip	py3-pip			
 various	ncdu	ncdu	ncdu	ncdu			
-various					uv
 desktop	ffmpeg	ffmpeg	ffmpeg	ffmpeg			
 desktop	lightdm	lightdm	lightdm	lightdm			
-desktop			sddm				
 desktop	slick-greeter	slick-greeter		slick-greeter			
 desktop	timeshift	timeshift	timeshift				
 desktop	mpv	mpv	mpv	mpv			
@@ -54,23 +52,18 @@ desktop	pavucontrol	pavucontrol	pavucontrol	pavucontrol
 desktop	lxappearance	lxappearance	lxappearance				
 desktop	zathura	zathura	zathura	zathura			
 desktop	xclip	xclip	xclip	xclip			
-desktop	sway	sway	sway	sway
-desktop	swaybg	swaybg	swaybg	swaybg
-desktop	swaylock	swaylock	swaylock	swaylock
-dekstop	swayidle	swayidle	swayidle	swayidle
-desktop	wl-clipboard	wl-clipboard	wl-clipboard	wl-clipboard
-desktop	wtype	wtype	wtype	wtype
-desktop	foot	foot	foot	foot
-desktop	grim	grim	grim	grim
-desktop	slurp	slurp	slurp	slurp
-desktop		sddm	sddm	sddm
-desktop	gammastep	gammastep	gammastep	gammastep
 desktop	syncthing	syncthing	syncthing	syncthing
 desktop			blueman	blueman
-desktop			xdg-desktop-portal-gtk
-desktop			xorg-wayland
-desktop			polkit
-desktop			seatd
+wayland	wl-clipboard	wl-clipboard	wl-clipboard	wl-clipboard
+wayland	wtype	wtype	wtype	wtype
+wayland	grim	grim	grim	grim
+wayland	slurp	slurp	slurp	slurp
+wayland	gammastep	gammastep	gammastep	gammastep
+wayland			sddm				
+wayland			xorg-wayland
+wayland			xdg-desktop-portal-gtk
+wayland			polkit
+wayland			seatd
 desktop					rofimoji		
 desktop					autorandr		
 desktop					bumblebee-status		
