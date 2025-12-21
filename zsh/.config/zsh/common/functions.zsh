@@ -138,6 +138,11 @@ ytdl-stream() {
     yt-dlp -f b -o - "$1" | mpv -
 }
 
+ys() {
+    require-command yt-dlp mpv || return 1
+    yt-dlp -S vcodec:h264 -f 'best[height<=720]' -o - "$1" | mpv --profile=fast -
+}
+
 ytdl-cast() {
     # Cast the downloaded video to chromecast
     require-command lolcatt yt-dlp || return 1
