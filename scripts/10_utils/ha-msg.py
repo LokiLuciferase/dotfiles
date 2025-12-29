@@ -34,6 +34,9 @@ def get_args():
         '-p', '--person', type=str, default=None, help='The name of the homeassistant user to send the notification to.'
     )
     parser.add_argument(
+        '-t', '--type', type=str, choices=['info', 'success', 'warning', 'failure'], default='info', help='The type of notification.'
+    )
+    parser.add_argument(
         '-u',
         '--url',
         type=str,
@@ -48,6 +51,7 @@ def do_post(
     msg: str | typing.List[str],
     service: typing.Union[str, None],
     person: typing.Union[str, None],
+    type_: typing.Union[str, None],
     url: typing.Union[str, None],
 ):
     if isinstance(msg, list):
@@ -61,6 +65,8 @@ def do_post(
         params['data']['clickAction'] = url
     if person is not None:
         params['person'] = person  # type: ignore
+    if type_ is not None:
+        params['type'] = type_
     params = json.dumps(params).encode()
     req = request.Request(HA_URL, data=params, method='POST')
     req.add_header('Content-Type', 'application/json')
@@ -71,7 +77,7 @@ def do_post(
 
 def main():
     args = get_args()
-    do_post(args.msg, service=args.service, person=args.person, url=args.url)
+    do_post(args.msg, service=args.service, person=args.person, type_=args.type, url=args.url)
 
 
 if __name__ == '__main__':
