@@ -310,6 +310,7 @@ local plugin_spec = {
         -- Treesitter integration
         "nvim-treesitter/nvim-treesitter",
         lazy = false,
+        branch = 'master',
         cond = function() return not is_large_file() end,
         init = function()
             require("nvim-treesitter.configs").setup({
