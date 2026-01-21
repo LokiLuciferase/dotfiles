@@ -65,15 +65,33 @@ conda-init() {
     echo "Now using conda @ ${CONDA_PREFIX} ($(python --version))"
 }
 
+nvm-prime-init() {
+    # prime nvm init until reboot
+    touch /var/run/user/$(id -u)/nvm-init-primed
+}
+
+conda-prime-init() {
+    # prime conda init until reboot
+    touch /var/run/user/$(id -u)/conda-init-primed
+}
+
 nvm-lazy-init() {
-    # lazy init nvm only when relevant commands are called
+    # lazy init nvm only when relevant commands are called or if primed
+    if [ -f "/var/run/user/$(id -u)/nvm-init-primed" ]; then
+        nvm-init
+        return 0
+    fi
     for lazy_nvm_alias in $__DOTFILES_LAZY_NVM_CMDS; do
         alias $lazy_nvm_alias="nvm-init && \\$lazy_nvm_alias"
     done
 }
 
 conda-lazy-init() {
-    # lazy init conda only when relevant commands are called
+    # lazy init conda only when relevant commands are called or if primed
+    if [ -f "/var/run/user/$(id -u)/conda-init-primed" ]; then
+        conda-init
+        return 0
+    fi
     for lazy_conda_alias in $__DOTFILES_LAZY_CONDA_CMDS; do
         alias $lazy_conda_alias="conda-init && \\$lazy_conda_alias"
     done

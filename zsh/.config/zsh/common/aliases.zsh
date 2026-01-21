@@ -30,6 +30,8 @@ alias lo='libreoffice '
 alias refeh='feh --bg-fill --no-fehbg ~/.local/share/backgrounds/default'
 alias upd='update-git-repos'
 alias alu='apt list --upgradable'
+alias devcup='devcontainer up --workspace-folder . && devcontainer exec --workspace-folder . zsh'
+alias devcdown='devcontainer exec --workspace-folder . hostname | xargs -r docker rm -f'
 
 # more git aliases - some others already defined by oh-my-zsh
 alias ga.='git add .'
