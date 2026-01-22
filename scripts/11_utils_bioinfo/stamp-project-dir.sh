@@ -11,8 +11,9 @@ STAMP_VERSION=1.0.0
 
 
 stamp(){
-    mkdir -p ${DATA_SHADOW_DIR}/${PROJECT_DIR}/{01_env,02_data/{01_raw,02_processed,03_outputs}}
-    mkdir -p ${DIR}/${PROJECT_DIR}/{03_code/{scripts,pipelines,notebooks,archive},00_meta}
+    mkdir -p ${DATA_SHADOW_DIR}/${PROJECT_DIR}/{01_env,02_data/{01_raw,02_processed,03_outputs,04_pipeline_runs}}
+    mkdir -p ${DIR}/${PROJECT_DIR}/{03_code/{scripts,pipelines,notebooks,archive,external},00_meta}
+    touch ${DIR}/${PROJECT_DIR}/03_code/external/.gitignore
     pushd ${DIR}/${PROJECT_DIR}
     ln -s ${DATA_SHADOW_DIR}/${PROJECT_DIR}/{01_env,02_data} . || true
     popd

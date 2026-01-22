@@ -217,5 +217,6 @@
   "window.titleBarStyle": "native",
   "python.analysis.typeCheckingMode": "basic",
   "makefile.configureOnOpen": false,
-  "nextflow.languageVersion": "25.04"
+  "nextflow.languageVersion": "25.04",
+  "github.copilot.nextEditSuggestions.enabled": true
 }

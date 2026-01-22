@@ -16,7 +16,7 @@ def get_args():
         description='Copy HTML report from remote server.', formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument('remote_basedir', type=str, help='Remote base directory containing the HTML report')
-    parser.add_argument('--host', type=str, default='p2i', help='SSH host to connect to')
+    parser.add_argument('--host', type=str, default='p24', help='SSH host to connect to')
     return parser.parse_args()
 
 

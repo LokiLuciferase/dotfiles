@@ -37,6 +37,7 @@ alias gca='git commit --amend'
 alias gpl='git pull'
 alias glo='git lola'
 alias gdh='git diff HEAD~1'
+alias gdsh='git stash show -p'
 alias gbb='git bisect bad'
 alias gbg='git bisect good'
 alias gsp='git stash pop'
@@ -58,7 +59,7 @@ alias dcl='docker compose logs --follow'
 alias dcp='docker compose pull'
 
 # UVX replacements for python CLI tools
-alias vd='uvx vd --config ~/.config/visidata/config.py'
+alias vd='uvx visidata --config ~/.config/visidata/config.py'
 alias http="uvx --from httpie http"
 alias https="uvx --from httpie https"
 alias ips='uvx ipython'

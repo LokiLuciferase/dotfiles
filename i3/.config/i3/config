@@ -73,7 +73,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5% && $refresh
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%- && $refresh_i3status
 
 # Enable further key bindings.
-bindsym XF86HomePage exec --no-startup-id "firefox || brave-browser || sensible-browser"
+bindsym XF86HomePage exec --no-startup-id "firefox || brave-browser --profile-directory=Default || sensible-browser"
 bindsym XF86Mail exec --no-startup-id "thunderbird"
 bindsym XF86Calculator exec --no-startup-id "gnome-calculator"
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -98,8 +98,8 @@ for_window [class="firefox"] floating disable
 bindsym $mod+Return exec "alacritty -o font.size=$term_font_size"
 
 # start browser
-bindsym $mod+b exec "firefox || brave-browser || sensible-browser"
-bindsym $mod+Shift+b exec "firefox --private-window || brave-browser --incognito"
+bindsym $mod+b exec "firefox || brave-browser --profile-directory=Default || sensible-browser"
+bindsym $mod+Shift+b exec "firefox --private-window || brave-browser --profile-directory=Default --incognito"
 
 # screenshot
 bindsym --release $mod+Print exec "FN=$(mktemp -u).png && scrot -oe 'xclip -selection clipboard -t image/png -i $f' $FN && rm -f $FN"

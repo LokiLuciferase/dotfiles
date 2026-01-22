@@ -39,3 +39,9 @@
     sort = version:refname
 [credential]
     helper = cache
+[lfs]
+	concurrenttransfers = 3
+[lfs "customtransfer.xet"]
+	path = git-xet
+	args = transfer
+	concurrent = true

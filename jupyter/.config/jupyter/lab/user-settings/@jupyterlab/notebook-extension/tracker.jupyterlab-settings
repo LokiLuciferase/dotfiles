@@ -8,6 +8,10 @@
     // Enable kernel history access from notebook cells. Enabling this allows you to scroll through kernel history from a given notebook cell.
     "accessKernelHistory": false,
 
+    // Automatically render markdown when cursor leaves markdown cells
+    // Whether to render markdown cells when the cursor moves out of them.
+    "autoRenderMarkdownCells": false,
+
     // Automatically Start Preferred Kernel
     // Whether to automatically start the preferred kernel.
     "autoStartDefaultKernel": false,
@@ -91,6 +95,10 @@
     // If set to true, a button is shown below collapsed headings, indicating how many cells are hidden beneath the collapsed heading.
     "showHiddenCellsButton": true,
 
+    // Show input placeholder
+    // Show placeholder text for standard input fields (requires reload)
+    "showInputPlaceholder": true,
+
     // Side-by-side left margin override
     // Side-by-side left margin override.
     "sideBySideLeftMarginOverride": "10px",
@@ -105,5 +113,5 @@
 
     // Windowing mode
     // 'defer': Improve loading time - Wait for idle CPU cycles to attach out of viewport cells - 'full': Best performance with side effects - Attach to the DOM only cells in viewport - 'none': Worst performance without side effects - Attach all cells to the viewport
-    "windowingMode": "full"
+    "windowingMode": "defer"
 }
