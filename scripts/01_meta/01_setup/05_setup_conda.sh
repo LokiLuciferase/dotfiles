@@ -24,11 +24,12 @@ ensure_not_done() {
 }
 
 install_conda() {
-    # install miniconda3 or miniforge3
+    # install miniforge3
+    local repo_path="https://github.com/conda-forge/miniforge/releases/latest/download"
     if [[ "$(uname -m)" = "x86_64" ]]; then
-        local dlpath="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+        local dlpath="${repo_path}/Miniforge3-Linux-x86_64.sh"
     elif [[ "$(uname -m)" = "arm64" ]] || [[ "$(uname -m)" = 'aarch64' ]]; then
-        local dlpath="https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh"
+        local dlpath="${repo_path}/Miniforge3-Linux-aarch64.sh"
     else
         echo "Unknown architecture: $(uname -m)"
         exit 1
