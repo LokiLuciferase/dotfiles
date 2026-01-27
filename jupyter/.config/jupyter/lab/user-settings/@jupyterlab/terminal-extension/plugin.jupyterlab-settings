@@ -6,5 +6,7 @@
 
     // Theme
     // The theme for the terminal.
-    "theme": "dark"
+    "theme": "dark",
+    "cursorBlink": false,
+    "shutdownOnClose": true
 }
