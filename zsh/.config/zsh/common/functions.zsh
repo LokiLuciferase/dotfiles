@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 ## these commands cause the loading of nvm or conda on-demand
-export __DOTFILES_LAZY_NVM_CMDS=( 'nvm' 'node' 'yarn' 'npm' 'npx' 'cdk' 'vercel' )
+export __DOTFILES_LAZY_NVM_CMDS=( 'nvm' 'node' 'yarn' 'npm' 'npx' 'cdk' 'vercel' 'codex' )
 export __DOTFILES_LAZY_CONDA_CMDS=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
 
 
