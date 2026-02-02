@@ -61,6 +61,7 @@ alias dcl='docker compose logs --follow'
 alias dcp='docker compose pull'
 
 # UVX replacements for python CLI tools
+alias tensorboard='uvx tensorboard'
 alias vd='uvx visidata --config ~/.config/visidata/config.py'
 alias http="uvx --from httpie http"
 alias https="uvx --from httpie https"
