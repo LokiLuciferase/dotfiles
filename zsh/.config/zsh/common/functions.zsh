@@ -202,8 +202,7 @@ ps-nxf() {
 
 bgrun() {
     # run application without blocking CLI
-    nohup ${SHELL:-zsh} -c "$@" &> /dev/null &
-    disown
+    (nohup ${SHELL:-zsh} -c "$@" &> /dev/null &)
 }
 
 google() {
@@ -459,9 +458,8 @@ apply-i3-layout() {
     LAYOUT="$1"
     WORKSPACE="${2:-1}"
     IFS=$'\n' NAMES=($(grep -o '"name": .*' $LAYOUT | cut -f2- -d' ' | sed -e 's/"\(.*\)",/\1/g' | sed 's/\\//g'))
-    i3-msg "workspace number $WORKSPACE; append_layout $LAYOUT"
+    i3-msg "workspace number $WORKSPACE; append_layout $LAYOUT" &> /dev/null
     for name in $NAMES; do
-        echo -n "Executing '$name': "
         bgrun $name
     done
 }
