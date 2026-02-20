@@ -48,9 +48,9 @@ def copy_html_report(ssh_hostname: str, remote_basedir: str, localpath: str):
 
 if __name__ == '__main__':
     args = get_args()
-    remote_path = args.remote_basedir
+    remote_path = args.remote_basedir.removesuffix('/')
     remote_path_parts = remote_path.split('/')
     assert remote_path_parts[0] == ''
     assert remote_path_parts[1] == 'data'
-    local_path = f'./{remote_path_parts[2]}_{remote_path_parts[3]}_report_{remote_path_parts[4]}.html'
+    local_path = f'./{remote_path_parts[-3]}_{remote_path_parts[-2]}_report_{remote_path_parts[-1]}.html'
     copy_html_report(args.host, remote_path, local_path)
