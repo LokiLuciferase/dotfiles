@@ -34,3 +34,4 @@ vscode/.config/Code/User/sync/
 httpie/.config/httpie/version_info.json
 dvc/.config/dvc/user_id
 ruff/.config/ruff/ruff-receipt.json
+uv/.config/uv/uv-receipt.json
