@@ -675,6 +675,15 @@ _backup_shell_hist(){
     done
 }
 
+list-compose-image-hashes(){
+    for s in $(docker compose config --services); do
+      cid=$(docker compose ps -q "$s" 2>/dev/null)
+      if [ -n "$cid" ]; then
+        docker inspect --format '{{.Config.Image}}={{.Image}}' "$cid"
+      fi
+    done
+}
+
 pall() {
     # pull all changes of git-dependent software, and apply dotfile migrations
     echo -n "Pulling dotfile changes..."
