@@ -623,7 +623,6 @@ _package_manager_upgrade_all() {
 }
 
 _flatpak_upgrade_all_if_exist() {
-    require-command flatpak || return 1
     which flatpak &> /dev/null || return 0
     flatpak update -y
     flatpak remove --unused --delete-data -y
