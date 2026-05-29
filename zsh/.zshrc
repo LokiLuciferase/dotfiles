@@ -65,7 +65,7 @@ if [[ -f "${SHELL_DOT_DIR}/common/dircolors" ]]; then
 fi
 
 # exclude some directories from completion
-zstyle ':completion:*' ignored-patterns '.dotnet'
+zstyle ':completion:*' ignored-patterns '.dotnet' '__pycache__' 'node_modules'
 
 # always exit interactive shell with success
 exitzero() {

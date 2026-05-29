@@ -55,3 +55,5 @@ export PYTHONBREAKPOINT="pudb.set_trace"
 export TEXMFHOME="${XDG_DATA_HOME}/texmf"
 export LESSHISTFILE="${XDG_DATA_HOME}/lesshst"
 export VJA_CONFIGDIR="${XDG_CONFIG_HOME}/vja"
+
+export PIP_UPLOADED_PRIOR_TO="P7D"  # only consider packages uploaded not in the last 7 days as candidates for update, to guard against supply chain attacks

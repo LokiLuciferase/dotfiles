@@ -37,6 +37,7 @@ alias devcdown='devcontainer exec --workspace-folder . hostname | xargs -r docke
 alias ga.='git add .'
 alias gca='git commit --amend'
 alias gpl='git pull'
+alias gps='git push'
 alias glo='git lola'
 alias gdh='git diff HEAD~1'
 alias gdsh='git stash show -p'
