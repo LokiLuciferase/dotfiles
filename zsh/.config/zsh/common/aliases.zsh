@@ -75,6 +75,7 @@ alias yt-dlp='uvx --from=yt-dlp[default] yt-dlp'
 alias tldr='uvx tldr'
 alias vja='uvx vja'
 alias dvc='uvx --with=dvc-s3 dvc'
+alias epy='uvx --from=epy-reader epy'
 alias eyeD3='uvx --from=eyeD3[art-plugin] eyeD3'
 alias album-fixup="eyeD3 --plugin fixup --file-rename-pattern '\$track:num. \$title'"
 
