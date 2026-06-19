@@ -1,0 +1,4 @@
+---
+- name: Enable GUI package groups
+  ansible.builtin.set_fact:
+    dotfiles_package_groups_enabled: "{{ (dotfiles_package_groups_enabled + ['various', 'desktop'] + (['wayland'] if (dotfiles_install_wayland | bool) else [])) | unique | list }}"

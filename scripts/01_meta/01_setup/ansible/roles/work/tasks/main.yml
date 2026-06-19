@@ -1,0 +1,4 @@
+---
+- name: Enable work package group
+  ansible.builtin.set_fact:
+    dotfiles_package_groups_enabled: "{{ (dotfiles_package_groups_enabled + ['work']) | unique | list }}"

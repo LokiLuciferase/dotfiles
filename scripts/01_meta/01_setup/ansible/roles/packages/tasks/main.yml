@@ -1,0 +1,110 @@
+---
+- name: Update apt package cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: "{{ dotfiles_should_become }}"
+  when:
+    - dotfiles_can_install_system_packages | bool
+    - dotfiles_effective_package_manager == "apt"
+
+- name: Install selected system package groups
+  ansible.builtin.include_tasks: install_system_group.yml
+  loop: "{{ dotfiles_package_groups_enabled }}"
+  loop_control:
+    loop_var: dotfiles_package_group
+
+- name: Install heavy-dev system packages
+  ansible.builtin.include_tasks: install_system_package.yml
+  loop: "{{ dotfiles_heavy_dev_system_packages[dotfiles_effective_package_manager] | default([]) }}"
+  loop_control:
+    loop_var: dotfiles_package_name
+  vars:
+    dotfiles_package_group: heavy_dev
+  when: dotfiles_install_heavy_dev | bool
+
+- name: Initialize user package lists
+  ansible.builtin.set_fact:
+    dotfiles_pip_packages: []
+    dotfiles_flatpak_packages: []
+    dotfiles_cargo_packages: []
+
+- name: Collect pip packages
+  ansible.builtin.set_fact:
+    dotfiles_pip_packages: "{{ dotfiles_pip_packages + (dotfiles_package_groups[item].pip | default([])) }}"
+  loop: "{{ dotfiles_package_groups_enabled }}"
+
+- name: Collect flatpak packages
+  ansible.builtin.set_fact:
+    dotfiles_flatpak_packages: "{{ dotfiles_flatpak_packages + (dotfiles_package_groups[item].flatpak | default([])) }}"
+  loop: "{{ dotfiles_package_groups_enabled }}"
+
+- name: Collect cargo packages
+  ansible.builtin.set_fact:
+    dotfiles_cargo_packages: "{{ dotfiles_cargo_packages + (dotfiles_package_groups[item].cargo | default([])) }}"
+  loop: "{{ dotfiles_package_groups_enabled }}"
+
+- name: Normalize user package lists
+  ansible.builtin.set_fact:
+    dotfiles_pip_packages: "{{ dotfiles_pip_packages | reject('equalto', '') | unique | list }}"
+    dotfiles_flatpak_packages: "{{ dotfiles_flatpak_packages | reject('equalto', '') | unique | list }}"
+    dotfiles_cargo_packages: "{{ dotfiles_cargo_packages | reject('equalto', '') | unique | list }}"
+
+- name: Warn about ignored Flatpak applications on headless machines
+  ansible.builtin.debug:
+    msg: "WARNING: ignoring Flatpak applications on headless machine: {{ dotfiles_flatpak_packages | join(', ') }}"
+  when:
+    - dotfiles_machine_type != "gui"
+    - dotfiles_flatpak_packages | length > 0
+
+- name: Install selected pip packages
+  ansible.builtin.command:
+    cmd: "python3 -m pip install --user {{ item }}"
+  environment:
+    PIP_BREAK_SYSTEM_PACKAGES: "1"
+  register: dotfiles_pip_install
+  changed_when: "'Requirement already satisfied' not in dotfiles_pip_install.stdout"
+  failed_when: false
+  loop: "{{ dotfiles_pip_packages }}"
+  when: dotfiles_pip_packages | length > 0
+
+- name: Check whether flatpak is available
+  ansible.builtin.shell: command -v flatpak
+  register: dotfiles_flatpak_available
+  changed_when: false
+  failed_when: false
+  when:
+    - dotfiles_machine_type == "gui"
+    - dotfiles_flatpak_packages | length > 0
+
+- name: Add flatpak remotes for this user
+  ansible.builtin.command:
+    cmd: "flatpak remote-add --if-not-exists --user {{ item.name }} {{ item.url }}"
+  changed_when: false
+  loop: "{{ dotfiles_flatpak_remotes }}"
+  when:
+    - dotfiles_machine_type == "gui"
+    - dotfiles_flatpak_packages | length > 0
+    - dotfiles_flatpak_available.rc | default(1) == 0
+
+- name: Check selected flatpak applications
+  ansible.builtin.command:
+    cmd: "flatpak info --user {{ item.split('@')[1] }}"
+  register: dotfiles_flatpak_info
+  changed_when: false
+  failed_when: false
+  loop: "{{ dotfiles_flatpak_packages }}"
+  when:
+    - dotfiles_machine_type == "gui"
+    - dotfiles_flatpak_packages | length > 0
+    - dotfiles_flatpak_available.rc | default(1) == 0
+
+- name: Install selected flatpak applications
+  ansible.builtin.command:
+    cmd: "flatpak install --user --assumeyes {{ item.item.split('@')[0] }} {{ item.item.split('@')[1] }}"
+  loop: "{{ dotfiles_flatpak_info.results | default([]) }}"
+  when:
+    - dotfiles_machine_type == "gui"
+    - dotfiles_flatpak_packages | length > 0
+    - dotfiles_flatpak_available.rc | default(1) == 0
+    - item.rc != 0
