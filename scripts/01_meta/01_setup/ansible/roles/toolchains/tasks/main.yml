@@ -1,0 +1,148 @@
+---
+- name: Ensure toolchain directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ dotfiles_home }}/.local/bin"
+    - "{{ dotfiles_home }}/.local/share"
+    - "{{ dotfiles_home }}/.local/share/nvm"
+
+- name: Install or update nvm
+  ansible.builtin.git:
+    repo: https://github.com/nvm-sh/nvm.git
+    dest: "{{ dotfiles_home }}/.local/share/nvm"
+    depth: 1
+    version: master
+
+- name: Check selected Node major
+  ansible.builtin.shell: |
+    set -euo pipefail
+    export NVM_DIR="{{ dotfiles_home }}/.local/share/nvm"
+    . "$NVM_DIR/nvm.sh"
+    nvm version {{ dotfiles_node_lts_major }}
+  args:
+    executable: /bin/bash
+  register: dotfiles_node_version
+  changed_when: false
+  failed_when: false
+
+- name: Install Node {{ dotfiles_node_lts_major }} with nvm
+  ansible.builtin.shell: |
+    set -euo pipefail
+    export NVM_DIR="{{ dotfiles_home }}/.local/share/nvm"
+    . "$NVM_DIR/nvm.sh"
+    nvm install {{ dotfiles_node_lts_major }}
+    nvm alias default {{ dotfiles_node_lts_major }}
+  args:
+    executable: /bin/bash
+  when: dotfiles_node_version.stdout == "N/A"
+
+- name: Ensure nvm default alias points to Node {{ dotfiles_node_lts_major }}
+  ansible.builtin.shell: |
+    set -euo pipefail
+    export NVM_DIR="{{ dotfiles_home }}/.local/share/nvm"
+    . "$NVM_DIR/nvm.sh"
+    nvm alias default {{ dotfiles_node_lts_major }}
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Check whether uv is installed
+  ansible.builtin.stat:
+    path: "{{ dotfiles_home }}/.local/bin/uv"
+  register: dotfiles_uv_bin
+  when: dotfiles_install_uv | bool
+
+- name: Install uv
+  ansible.builtin.shell: |
+    set -euo pipefail
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+  args:
+    executable: /bin/bash
+  environment:
+    UV_NO_MODIFY_PATH: "1"
+  when:
+    - dotfiles_install_uv | bool
+    - not dotfiles_uv_bin.stat.exists
+
+- name: Check whether rustup is installed
+  ansible.builtin.stat:
+    path: "{{ dotfiles_home }}/.local/share/cargo/bin/rustup"
+  register: dotfiles_rustup_bin
+  when: dotfiles_install_heavy_dev | bool
+
+- name: Install Rust stable toolchain
+  ansible.builtin.shell: |
+    set -euo pipefail
+    export CARGO_HOME="{{ dotfiles_home }}/.local/share/cargo"
+    export RUSTUP_HOME="{{ dotfiles_home }}/.local/share/rustup"
+    curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
+  args:
+    executable: /bin/bash
+  when:
+    - dotfiles_install_heavy_dev | bool
+    - not dotfiles_rustup_bin.stat.exists
+
+- name: Ensure Rust stable toolchain is current
+  ansible.builtin.command:
+    cmd: "{{ dotfiles_home }}/.local/share/cargo/bin/rustup toolchain install stable"
+  environment:
+    CARGO_HOME: "{{ dotfiles_home }}/.local/share/cargo"
+    RUSTUP_HOME: "{{ dotfiles_home }}/.local/share/rustup"
+  changed_when: false
+  when: dotfiles_install_heavy_dev | bool
+
+- name: Check whether Go is installed
+  ansible.builtin.stat:
+    path: "{{ dotfiles_home }}/.local/share/go/bin/go"
+  register: dotfiles_go_bin
+  when: dotfiles_install_heavy_dev | bool
+
+- name: Install latest Go release
+  ansible.builtin.shell: |
+    set -euo pipefail
+    arch="$(uname -m)"
+    case "${arch}" in
+      x86_64) go_arch="amd64" ;;
+      aarch64|arm64) go_arch="arm64" ;;
+      *) echo "unsupported architecture: ${arch}" >&2; exit 1 ;;
+    esac
+    fname="$(curl -fsSL 'https://go.dev/dl/?mode=json' | grep -o "go[0-9.]*.linux-${go_arch}.tar.gz" | head -n 1)"
+    rm -rf "{{ dotfiles_home }}/.local/share/go"
+    curl -fsSL "https://go.dev/dl/${fname}" | tar -C "{{ dotfiles_home }}/.local/share" -xzf -
+  args:
+    executable: /bin/bash
+  when:
+    - dotfiles_install_heavy_dev | bool
+    - not dotfiles_go_bin.stat.exists
+
+- name: Write Go shell environment helper
+  ansible.builtin.copy:
+    dest: "{{ dotfiles_home }}/.local/share/go/env"
+    mode: "0644"
+    content: |
+      #!/bin/sh
+      case ":${PATH}:" in
+          *:"$HOME/.local/share/go/bin":*)
+              ;;
+          *)
+              export PATH="$HOME/.local/share/go/bin:$PATH"
+              ;;
+      esac
+  when: dotfiles_install_heavy_dev | bool
+
+- name: Install selected cargo applications
+  ansible.builtin.shell: |
+    set -euo pipefail
+    export CARGO_HOME="{{ dotfiles_home }}/.local/share/cargo"
+    export RUSTUP_HOME="{{ dotfiles_home }}/.local/share/rustup"
+    "{{ dotfiles_home }}/.local/share/cargo/bin/cargo" +stable install --git "{{ item }}" --root "{{ dotfiles_home }}/.local"
+  args:
+    executable: /bin/bash
+    creates: "{{ dotfiles_cargo_creates[item] }}"
+  loop: "{{ dotfiles_cargo_packages | default([]) }}"
+  when:
+    - dotfiles_install_heavy_dev | bool
+    - item in dotfiles_cargo_creates

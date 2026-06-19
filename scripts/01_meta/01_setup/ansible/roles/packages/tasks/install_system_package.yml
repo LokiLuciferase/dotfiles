@@ -1,0 +1,13 @@
+---
+- name: Install {{ dotfiles_package_name }} with {{ dotfiles_effective_package_manager }}
+  ansible.builtin.package:
+    name: "{{ dotfiles_package_name }}"
+    state: present
+  become: "{{ dotfiles_should_become }}"
+  register: dotfiles_package_install
+  failed_when:
+    - dotfiles_package_install is failed
+    - dotfiles_package_group in dotfiles_required_package_groups
+  when:
+    - dotfiles_can_install_system_packages | bool
+    - dotfiles_package_name | length > 0

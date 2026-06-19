@@ -1,0 +1,12 @@
+---
+dotfiles_machine_type: headless
+dotfiles_install_work: false
+dotfiles_install_wayland: false
+dotfiles_install_heavy_dev: true
+dotfiles_install_various: false
+dotfiles_allow_sudo: true
+dotfiles_testing: false
+
+dotfiles_node_lts_major: 24
+dotfiles_install_uv: true
+conda_path: "{{ dotfiles_home }}/.local/share/miniconda3"

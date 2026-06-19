@@ -1,0 +1,33 @@
+---
+- name: Set up the dotfiles environment
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  vars_files:
+    - vars/packages.yml
+  roles:
+    - role: base
+      tags: always
+    - role: gui
+      when: dotfiles_machine_type == "gui"
+      tags:
+        - gui
+        - packages
+    - role: work
+      when: dotfiles_install_work | bool
+      tags:
+        - work
+        - packages
+    - role: packages
+      tags: packages
+    - role: toolchains
+      tags: toolchains
+    - role: miniforge
+      when: dotfiles_install_heavy_dev | bool
+      tags: miniforge
+    - role: shell
+      tags: shell
+    - role: dotfiles
+      tags: dotfiles

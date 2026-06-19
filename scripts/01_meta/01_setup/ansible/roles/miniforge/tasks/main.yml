@@ -1,0 +1,59 @@
+---
+- name: Define Miniforge architecture
+  ansible.builtin.set_fact:
+    dotfiles_miniforge_arch: >-
+      {{ 'x86_64' if ansible_facts.architecture == 'x86_64' else
+         'aarch64' if ansible_facts.architecture in ['aarch64', 'arm64'] else
+         'unsupported' }}
+
+- name: Validate Miniforge architecture
+  ansible.builtin.assert:
+    that:
+      - dotfiles_miniforge_arch != "unsupported"
+    fail_msg: "Unsupported Miniforge architecture: {{ ansible_facts.architecture }}"
+
+- name: Check whether Miniforge is installed
+  ansible.builtin.stat:
+    path: "{{ conda_path }}/bin/conda"
+  register: dotfiles_conda_bin
+
+- name: Download Miniforge installer
+  ansible.builtin.get_url:
+    url: "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-{{ dotfiles_miniforge_arch }}.sh"
+    dest: "/tmp/miniforge3-{{ dotfiles_miniforge_arch }}.sh"
+    mode: "0755"
+  when: not dotfiles_conda_bin.stat.exists
+
+- name: Install Miniforge
+  ansible.builtin.command:
+    cmd: "bash /tmp/miniforge3-{{ dotfiles_miniforge_arch }}.sh -b -p {{ conda_path }}"
+    creates: "{{ conda_path }}/bin/conda"
+  when: not dotfiles_conda_bin.stat.exists
+
+- name: Install mamba in base environment
+  ansible.builtin.command:
+    cmd: "{{ conda_path }}/bin/conda install -n base -c conda-forge mamba --yes"
+  register: dotfiles_mamba_install
+  changed_when: "'All requested packages already installed' not in dotfiles_mamba_install.stdout"
+
+- name: Ensure dev conda environment exists
+  ansible.builtin.command:
+    cmd: "{{ conda_path }}/bin/conda create -n dev --yes"
+    creates: "{{ conda_path }}/envs/dev"
+
+- name: Update dev conda environment
+  ansible.builtin.command:
+    cmd: "{{ conda_path }}/bin/mamba env update -n dev -f {{ dotfiles_setup_dir }}/data/conda.yaml"
+  register: dotfiles_conda_env_update
+  changed_when: "'All requested packages already installed' not in dotfiles_conda_env_update.stdout"
+
+- name: Apply pyOpenSSL conda workaround
+  ansible.builtin.command:
+    cmd: "{{ conda_path }}/bin/pip install pyOpenSSL --upgrade"
+  changed_when: false
+
+- name: Clean conda package caches
+  ansible.builtin.command:
+    cmd: "{{ conda_path }}/bin/mamba clean -a --yes"
+  changed_when: false
+  when: not dotfiles_testing | bool

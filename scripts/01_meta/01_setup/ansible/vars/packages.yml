@@ -1,0 +1,324 @@
+---
+dotfiles_required_package_groups:
+  - minimal
+  - env
+  - heavy_dev
+
+dotfiles_flatpak_remotes:
+  - name: flathub
+    url: https://flathub.org/repo/flathub.flatpakrepo
+
+dotfiles_heavy_dev_system_packages:
+  apt:
+    - build-essential
+    - cmake
+    - python3-pip
+  dnf:
+    - "@development-tools"
+    - cmake
+    - python3-pip
+  pacman:
+    - base-devel
+    - cmake
+    - python-pip
+  apk:
+    - alpine-sdk
+    - cmake
+    - py3-pip
+
+dotfiles_cargo_creates:
+  https://github.com/LokiLuciferase/workstyle.git: "{{ dotfiles_home }}/.local/bin/workstyle"
+  https://github.com/ayosec/alacritty.git: "{{ dotfiles_home }}/.local/bin/alacritty"
+
+dotfiles_package_groups:
+  minimal:
+    apt:
+      - git
+      - curl
+      - make
+    dnf:
+      - git
+      - curl
+      - make
+    pacman:
+      - git
+      - curl
+      - make
+    apk:
+      - git
+      - curl
+      - make
+
+  env:
+    apt:
+      - zsh
+      - tmux
+      - git
+    dnf:
+      - zsh
+      - tmux
+      - git
+    pacman:
+      - zsh
+      - tmux
+      - git
+    apk:
+      - zsh
+      - tmux
+      - git
+
+  vim:
+    apt:
+      - neovim
+    dnf:
+      - neovim
+    pacman:
+      - neovim
+    apk:
+      - neovim
+
+  various:
+    apt:
+      - build-essential
+      - xsel
+      - cmake
+      - tree
+      - htop
+      - rename
+      - pigz
+      - progress
+      - colordiff
+      - jq
+      - tmux
+      - parallel
+      - ripgrep
+      - fzf
+      - highlight
+      - sshfs
+      - python3-pip
+      - ncdu
+    dnf:
+      - "@development-tools"
+      - xsel
+      - cmake
+      - tree
+      - htop
+      - rename
+      - pigz
+      - progress
+      - colordiff
+      - jq
+      - tmux
+      - parallel
+      - ripgrep
+      - fzf
+      - highlight
+      - sshfs
+      - python3-pip
+      - ncdu
+    pacman:
+      - base-devel
+      - xsel
+      - cmake
+      - tree
+      - htop
+      - rename
+      - pigz
+      - progress
+      - colordiff
+      - jq
+      - tmux
+      - parallel
+      - ripgrep
+      - fzf
+      - highlight
+      - sshfs
+      - python-pip
+      - ncdu
+    apk:
+      - alpine-sdk
+      - xsel
+      - cmake
+      - tree
+      - htop
+      - pigz
+      - progress
+      - colordiff
+      - jq
+      - tmux
+      - parallel
+      - ripgrep
+      - fzf
+      - highlight
+      - sshfs
+      - py3-pip
+      - ncdu
+
+  desktop:
+    apt:
+      - ffmpeg
+      - lightdm
+      - slick-greeter
+      - timeshift
+      - mpv
+      - redshift
+      - light-locker
+      - xdotool
+      - alacritty
+      - flatpak
+      - picom
+      - i3
+      - i3-gaps
+      - dex
+      - rofi
+      - feh
+      - dunst
+      - arandr
+      - fonts-powerline
+      - scrot
+      - imagemagick
+      - brightnessctl
+      - playerctl
+      - pavucontrol
+      - lxappearance
+      - zathura
+      - xclip
+      - syncthing
+    dnf:
+      - ffmpeg
+      - lightdm
+      - slick-greeter
+      - timeshift
+      - mpv
+      - redshift
+      - light-locker
+      - xdotool
+      - alacritty
+      - flatpak
+      - picom
+      - i3
+      - i3-gaps
+      - dex
+      - rofi
+      - feh
+      - dunst
+      - arandr
+      - powerline-fonts
+      - scrot
+      - imagemagick
+      - brightnessctl
+      - playerctl
+      - pavucontrol
+      - lxappearance
+      - zathura
+      - xclip
+      - syncthing
+    pacman:
+      - ffmpeg
+      - lightdm
+      - timeshift
+      - mpv
+      - redshift
+      - light-locker
+      - xdotool
+      - alacritty
+      - flatpak
+      - picom
+      - i3
+      - i3-gaps
+      - dex
+      - rofi
+      - feh
+      - dunst
+      - arandr
+      - powerline-fonts-git
+      - scrot
+      - ImageMagick
+      - brightnessctl
+      - playerctl
+      - pavucontrol
+      - lxappearance
+      - zathura
+      - xclip
+      - syncthing
+      - blueman
+    apk:
+      - ffmpeg
+      - lightdm
+      - slick-greeter
+      - mpv
+      - redshift
+      - xdotool
+      - alacritty
+      - flatpak
+      - picom
+      - i3wm
+      - i3wm-gaps
+      - rofi
+      - feh
+      - dunst
+      - arandr
+      - font-dejavu-sans-mono-nerd
+      - scrot
+      - imagemagick
+      - brightnessctl
+      - playerctl
+      - pavucontrol
+      - zathura
+      - xclip
+      - syncthing
+      - blueman
+    pip:
+      - rofimoji
+      - autorandr
+      - bumblebee-status
+      - i3ipc
+    flatpak:
+      - flathub@com.github.tchx84.Flatseal
+      - flathub@org.keepassxc.KeePassXC
+      - flathub@org.signal.Signal
+      - flathub@org.telegram.desktop
+      - flathub@com.spotify.Client
+      - flathub@org.jeffvli.feishin
+      - flathub@org.jellyfin.JellyfinDesktop
+      - flathub@org.mozilla.Thunderbird
+    cargo:
+      - https://github.com/LokiLuciferase/workstyle.git
+      - https://github.com/ayosec/alacritty.git
+
+  wayland:
+    apt:
+      - wl-clipboard
+      - wtype
+      - grim
+      - slurp
+      - gammastep
+    dnf:
+      - wl-clipboard
+      - wtype
+      - grim
+      - slurp
+      - gammastep
+    pacman:
+      - wl-clipboard
+      - wtype
+      - grim
+      - slurp
+      - gammastep
+      - sddm
+      - xorg-wayland
+      - xdg-desktop-portal-gtk
+      - polkit
+      - seatd
+    apk:
+      - wl-clipboard
+      - wtype
+      - grim
+      - slurp
+      - gammastep
+
+  work:
+    flatpak:
+      - flathub@org.mozilla.Thunderbird
+      - flathub@com.github.xournalpp.xournalpp
+      - flathub@org.libreoffice.LibreOffice

@@ -1,0 +1,6 @@
+---
+- name: Install system packages for {{ dotfiles_package_group }}
+  ansible.builtin.include_tasks: install_system_package.yml
+  loop: "{{ dotfiles_package_groups[dotfiles_package_group][dotfiles_effective_package_manager] | default([]) }}"
+  loop_control:
+    loop_var: dotfiles_package_name
