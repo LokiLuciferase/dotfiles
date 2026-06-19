@@ -1,0 +1,46 @@
+---
+- name: Validate requested machine type
+  ansible.builtin.assert:
+    that:
+      - dotfiles_machine_type in ["headless", "gui"]
+    fail_msg: "dotfiles_machine_type must be either 'headless' or 'gui'."
+
+- name: Define dotfiles paths and privilege facts
+  ansible.builtin.set_fact:
+    dotfiles_home: "{{ ansible_facts.env.HOME }}"
+    dotfiles_setup_dir: "{{ playbook_dir | dirname }}"
+    dotfiles_repo_dir: "{{ playbook_dir | dirname | dirname | dirname | dirname }}"
+    dotfiles_should_become: "{{ (dotfiles_allow_sudo | bool) and (ansible_facts.user_uid | int != 0) }}"
+    dotfiles_can_install_system_packages: "{{ (dotfiles_allow_sudo | bool) or (ansible_facts.user_uid | int == 0) }}"
+
+- name: Define effective package manager
+  ansible.builtin.set_fact:
+    dotfiles_effective_package_manager: "{{ dotfiles_system_package_manager | default(_dotfiles_pkg_mgr_map.get(ansible_facts.pkg_mgr, ansible_facts.pkg_mgr), true) }}"
+  vars:
+    _dotfiles_pkg_mgr_map:
+      apt: apt
+      apt-get: apt
+      dnf: dnf
+      pacman: pacman
+      apk: apk
+
+- name: Initialize enabled package groups
+  ansible.builtin.set_fact:
+    dotfiles_package_groups_enabled: "{{ ['minimal', 'env', 'vim'] + (['various'] if (dotfiles_install_various | bool) else []) }}"
+
+- name: Ensure baseline user directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ dotfiles_home }}/.cache"
+    - "{{ dotfiles_home }}/.local"
+    - "{{ dotfiles_home }}/.local/bin"
+    - "{{ dotfiles_home }}/.local/share"
+    - "{{ dotfiles_home }}/.config"
+
+- name: Report skipped system package management
+  ansible.builtin.debug:
+    msg: "System package installation is disabled because dotfiles_allow_sudo=false and the playbook is not running as root."
+  when: not dotfiles_can_install_system_packages | bool

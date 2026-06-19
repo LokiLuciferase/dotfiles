@@ -1,0 +1,29 @@
+---
+- name: Ensure dotfile state directories exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - "{{ dotfiles_home }}/.cache/zsh"
+    - "{{ dotfiles_home }}/.cache/bash"
+    - "{{ dotfiles_home }}/.local/share/dotfiles/done_migrations"
+
+- name: Seed already-present migrations as done
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ dotfiles_home }}/.local/share/dotfiles/done_migrations/{{ item | basename }}"
+    mode: preserve
+  loop: "{{ query('fileglob', dotfiles_repo_dir + '/scripts/01_meta/02_migrations/migrations/*.sh') }}"
+
+- name: Introduce dotfiles with custom stow.py
+  ansible.builtin.command:
+    cmd: "uv run {{ dotfiles_repo_dir }}/scripts/10_utils/stow.py install all -v -s --dotfiles_dir {{ dotfiles_repo_dir }}"
+  register: dotfiles_stow
+  changed_when: >-
+    ('ln -s' in dotfiles_stow.stdout) or
+    ('ln -s' in dotfiles_stow.stderr) or
+    ('mv ' in dotfiles_stow.stdout) or
+    ('mv ' in dotfiles_stow.stderr) or
+    ('mkdir ' in dotfiles_stow.stdout) or
+    ('mkdir ' in dotfiles_stow.stderr)

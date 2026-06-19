@@ -1,51 +1,50 @@
-FROM ubuntu:latest
+FROM ubuntu:24.04
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=Etc/UTC
 
-ARG INSTALL_VARIOUS=true
-ARG INSTALL_DESKTOP=false
-ARG INSTALL_WORK=false
+ARG DOTFILES_MACHINE_TYPE=headless
+ARG DOTFILES_INSTALL_WORK=false
+ARG DOTFILES_INSTALL_WAYLAND=false
+ARG DOTFILES_INSTALL_HEAVY_DEV=false
 ARG DOTFILES_TESTING=true
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 RUN --mount=type=cache,target=/var/cache/apt \
     apt-get update --fix-missing \
-    && apt-get install --yes curl sudo adduser \
+    && apt-get install --yes ca-certificates curl git sudo adduser \
     && apt-get clean
-RUN usermod -l testuser ubuntu
-RUN groupmod -n testuser ubuntu
-RUN usermod -d /home/testuser -m testuser
-RUN usermod -c "test user" testuser
 
-RUN adduser testuser sudo \
+RUN useradd -m testuser -s /bin/bash \
+    && adduser testuser sudo \
     && echo "testuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+COPY --chown=testuser:testuser . /home/testuser/.dotfiles
+RUN chmod +x /home/testuser/.dotfiles/scripts/01_meta/01_setup/tests/start-vnc.sh \
+    && if [ "${DOTFILES_MACHINE_TYPE}" = "gui" ]; then \
+        apt-get update --fix-missing \
+        && apt-get install --yes \
+            dbus-x11 \
+            tigervnc-common \
+            tigervnc-standalone-server \
+            x11-xserver-utils \
+            xterm \
+        && apt-get clean; \
+    fi
+
 USER testuser
-RUN whoami
-RUN sudo whoami
 WORKDIR /home/testuser
-ENV PATH=/home/testuser/.local/share/miniconda3/bin:$PATH
-
-COPY ../../../../ /opt/dotfiles
-
-RUN cp -r /opt/dotfiles ~/.dotfiles || true; \
-    rm ~/.dotfiles/scripts/01_meta/01_setup/.*_done \
-    && cp ~/.dotfiles/scripts/01_meta/01_setup/tests/condarc /home/testuser/.condarc \
-    && mkdir -p /home/testuser/.cache/conda
+ENV PATH=/home/testuser/.local/bin:$PATH
 
 RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
-    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
-   ~/.dotfiles/scripts/01_meta/01_setup/05_setup_conda.sh
+    DOTFILES_MACHINE_TYPE=${DOTFILES_MACHINE_TYPE} \
+    DOTFILES_INSTALL_WORK=${DOTFILES_INSTALL_WORK} \
+    DOTFILES_INSTALL_WAYLAND=${DOTFILES_INSTALL_WAYLAND} \
+    DOTFILES_INSTALL_HEAVY_DEV=${DOTFILES_INSTALL_HEAVY_DEV} \
+    DOTFILES_TESTING=${DOTFILES_TESTING} \
+    /home/testuser/.dotfiles/scripts/01_meta/01_setup/bootstrap.sh
 
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
-    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
-   ~/.dotfiles/scripts/01_meta/01_setup/07_install_packages.sh
+RUN bash -lc 'source ~/.local/share/nvm/nvm.sh && node --version && npm --version && ~/.local/bin/uv --version'
 
-RUN --mount=type=cache,target=/var/cache/apt \
-    --mount=type=cache,target=/home/testuser/.cache/pip,uid=1000,gid=1000 \
-    --mount=type=cache,target=/home/testuser/.cache/conda,uid=1000,gid=1000 \
-   ~/.dotfiles/scripts/01_meta/01_setup/10_setup_env.sh
+EXPOSE 5901
