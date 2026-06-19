@@ -343,6 +343,16 @@ local plugin_spec = {
                 vim.api.nvim_set_keymap("i", "<C-F" .. i .. ">", "copilot#Next('')", opts)
             end
             vim.g.copilot_no_tab_map = 1
+            vim.g.copilot_filetypes = {
+                ["*"] = true,
+                ["markdown"] = false,
+                ["text"] = false,
+                ["gitcommit"] = false,
+                ["gitrebase"] = false,
+                ["hgcommit"] = false,
+                ["svn"] = false,
+                ["cvs"] = false,
+            }
         end
     },
     {
