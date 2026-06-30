@@ -290,6 +290,19 @@ now() {
     date --rfc-3339=seconds
 }
 
+redent(){
+    # change indentation of a file from orig_indent to new_indent
+    require-command unexpand expand sponge || return 1
+    local file="$1"
+    local orig_indent="$2"
+    local new_indent="$3"
+    [ -z "$file" ] && echo "Usage: redent <file> <orig_indent> <new_indent>" >&2 && return 1
+    [ ! -f "$file" ] && echo "File not found: $file" >&2 && return 1
+    [ -z "$orig_indent" ] && echo "Original indent not specified." >&2 && return 1
+    [ -z "$new_indent" ] && echo "New indent not specified." >&2 && return 1
+    unexpand --first-only -t "$orig_indent" "$file" | expand -i -t "$new_indent" | sponge "$file"
+}
+
 docker-run-tool() {
     # run a tool inside a docker container, mounting the current directory and setting UID/GID
     local container="${1:-}"
