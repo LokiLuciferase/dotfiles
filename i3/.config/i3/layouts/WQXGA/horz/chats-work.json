@@ -75,14 +75,11 @@
                "y": 28
             },
             "marks": [],
-            "name": "spotify",
+            "name": "flatpak run org.jeffvli.feishin",
             "percent": 0.5,
             "swallows": [
                {
-               "class": "^Spotify$"
-               // "instance": "^spotify$",
-               // "machine": "^lueftinger\\-laptop\\-aitiologic$",
-               // "title": "^Spotify\\ Premium$"
+               "class": "^feishin$"
                }
             ],
             "type": "con"
