@@ -452,6 +452,11 @@ local plugin_spec = {
         branch = "release",
     },
     {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },            -- if you use the mini.nvim suite
+        opts = {},
+    },
+    {
         "folke/which-key.nvim",
         version = "2.x",
         event = "VeryLazy",
