@@ -49,6 +49,7 @@ alias gfop='git fetch origin $(git rev-parse --abbrev-ref HEAD):$(git rev-parse 
 # docker (compose)
 alias dps='docker ps'
 alias dls='docker image ls'
+alias dlsu='docker image ls | grep -v " U "'
 alias dsp='docker system prune'
 alias pps='podman ps'
 alias pls='podman image ls'
