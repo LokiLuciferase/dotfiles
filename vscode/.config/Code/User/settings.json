@@ -1,23 +1,23 @@
 {
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "vscode.json-language-features",
   },
   "[latex]": {
     "editor.rulers": [120],
     "editor.wordWrap": "on",
-    "editor.wordWrapColumn": 120
+    "editor.wordWrapColumn": 120,
   },
   "[python]": {
-    "editor.defaultFormatter": "charliermarsh.ruff"
+    "editor.defaultFormatter": "charliermarsh.ruff",
   },
   "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   },
   "[vue]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   },
   "coverage-gutters.coverageFileNames": ["coverage.xml"],
   "database-client.telemetry.usesOnlineServices": false,
@@ -37,7 +37,7 @@
     "plaintext": false,
     "markdown": false,
     "scminput": false,
-    "ipynb": false
+    "ipynb": false,
   },
   "githubPullRequests.pullBranch": "never",
   "gitlens.telemetry.enabled": false,
@@ -51,16 +51,16 @@
   "latex-workshop.latex.recipes": [
     {
       "name": "tectonic",
-      "tools": ["tectonic"]
-    }
+      "tools": ["tectonic"],
+    },
   ],
   "latex-workshop.latex.tools": [
     {
       "args": ["-X", "build", "--keep-intermediates", "--keep-logs"],
       "command": "tectonic",
       "env": {},
-      "name": "tectonic"
-    }
+      "name": "tectonic",
+    },
   ],
   "latex-workshop.view.outline.sync.viewer": true,
   "latex-workshop.view.pdf.viewer": "tab",
@@ -82,108 +82,108 @@
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["<leader>", "1"],
-      "commands": ["workbench.action.openEditorAtIndex1"]
+      "commands": ["workbench.action.openEditorAtIndex1"],
     },
     {
       "before": ["<leader>", "2"],
-      "commands": ["workbench.action.openEditorAtIndex2"]
+      "commands": ["workbench.action.openEditorAtIndex2"],
     },
     {
       "before": ["<leader>", "3"],
-      "commands": ["workbench.action.openEditorAtIndex3"]
+      "commands": ["workbench.action.openEditorAtIndex3"],
     },
     {
       "before": ["<leader>", "4"],
-      "commands": ["workbench.action.openEditorAtIndex4"]
+      "commands": ["workbench.action.openEditorAtIndex4"],
     },
     {
       "before": ["<leader>", "5"],
-      "commands": ["workbench.action.openEditorAtIndex5"]
+      "commands": ["workbench.action.openEditorAtIndex5"],
     },
     {
       "before": ["<leader>", "6"],
-      "commands": ["workbench.action.openEditorAtIndex6"]
+      "commands": ["workbench.action.openEditorAtIndex6"],
     },
     {
       "before": ["<leader>", "7"],
-      "commands": ["workbench.action.openEditorAtIndex7"]
+      "commands": ["workbench.action.openEditorAtIndex7"],
     },
     {
       "before": ["<leader>", "8"],
-      "commands": ["workbench.action.openEditorAtIndex8"]
+      "commands": ["workbench.action.openEditorAtIndex8"],
     },
     {
       "before": ["<leader>", "9"],
-      "commands": ["workbench.action.openEditorAtIndex9"]
+      "commands": ["workbench.action.openEditorAtIndex9"],
     },
     {
       "before": ["<leader>", "f", "f"],
-      "commands": ["workbench.action.findInFiles"]
+      "commands": ["workbench.action.findInFiles"],
     },
     {
       "before": ["<leader>", "l", "f"],
-      "commands": ["editor.action.formatDocument"]
+      "commands": ["editor.action.formatDocument"],
     },
     {
       "before": ["<leader>", "x", "d", "w"],
-      "commands": ["editor.action.trimTrailingWhitespace"]
+      "commands": ["editor.action.trimTrailingWhitespace"],
     },
     {
       "before": ["<leader>", "g", "d"],
-      "commands": ["gitlens.diffWithPrevious"]
+      "commands": ["gitlens.diffWithPrevious"],
     },
     {
       "before": ["<leader>", "g", "b"],
-      "commands": ["gitlens.toggleFileBlame"]
+      "commands": ["gitlens.toggleFileBlame"],
     },
     {
       "before": ["<leader>", "t", "t"],
-      "commands": ["workbench.action.terminal.toggleTerminal"]
+      "commands": ["workbench.action.terminal.toggleTerminal"],
     },
     {
       "before": ["<leader>", "n", "c"],
-      "commands": ["testing.runAtCursor"]
+      "commands": ["testing.runAtCursor"],
     },
     {
       "before": ["<leader>", "n", "r"],
-      "commands": ["testing.refreshTests"]
+      "commands": ["testing.refreshTests"],
     },
     {
       "before": ["q"],
-      "commands": ["workbench.action.closeActiveEditor"]
+      "commands": ["workbench.action.closeActiveEditor"],
     },
     {
       "before": ["K"],
-      "commands": ["editor.action.showHover"]
+      "commands": ["editor.action.showHover"],
     },
     {
       "before": ["<leader>", "l", "r"],
-      "commands": ["editor.action.rename"]
+      "commands": ["editor.action.rename"],
     },
     {
       "before": ["<leader>", "l", "s", "o"],
-      "commands": ["outline.toggleVisibility"]
+      "commands": ["outline.toggleVisibility"],
     },
     {
       "before": ["<leader>", "l", "n"],
-      "commands": ["editor.action.marker.nextInFiles"]
+      "commands": ["editor.action.marker.nextInFiles"],
     },
     {
       "before": ["<leader>", "l", "p"],
-      "commands": ["editor.action.marker.prevInFiles"]
+      "commands": ["editor.action.marker.prevInFiles"],
     },
     {
       "before": ["<leader>", "c", "l"],
-      "commands": ["editor.action.commentLine"]
+      "commands": ["editor.action.commentLine"],
     },
     {
       "after": ["g", "j"],
-      "before": ["j"]
+      "before": ["j"],
     },
     {
       "after": ["g", "k"],
-      "before": ["k"]
-    }
+      "before": ["k"],
+    },
   ],
   "vim.replaceWithRegister": true,
   "vim.smartRelativeLine": true,
@@ -193,18 +193,18 @@
   "vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": ["<leader>", "c", "l"],
-      "commands": ["editor.action.commentLine"]
-    }
+      "commands": ["editor.action.commentLine"],
+    },
   ],
   "window.menuBarVisibility": "toggle",
   "workbench.colorCustomizations": {
-    "editorStickyScroll.background": "#31353d"
+    "editorStickyScroll.background": "#31353d",
   },
   "workbench.colorTheme": "One Dark Pro Darker",
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
     "*.svg": "default",
-    "*.ipynb": "jupyter-notebook"
+    "*.ipynb": "jupyter-notebook",
   },
   "workbench.startupEditor": "none",
   "workbench.tree.indent": 32,
@@ -212,11 +212,21 @@
   "coverage-gutters.coverageReportFileName": "**/htmlcov/index.html",
   "git.openRepositoryInParentFolders": "never",
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "window.titleBarStyle": "native",
   "python.analysis.typeCheckingMode": "basic",
   "makefile.configureOnOpen": false,
-  "nextflow.languageVersion": "25.04",
-  "github.copilot.nextEditSuggestions.enabled": true
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "nextflow.completion.extended": true,
+  "nextflow.formatting.sortDeclarations": true,
+  "nextflow.formatting.harshilAlignment": true,
+  "yaml.disableSchemaDetection": [
+    "**/.github/workflows/*.yml",
+    "**/.github/workflows/*.yaml",
+    "**/.gitea/workflows/*.yml",
+    "**/.gitea/workflows/*.yaml",
+    "**/.forgejo/workflows/*.yml",
+    "**/.forgejo/workflows/*.yaml",
+  ],
 }
