@@ -1,17 +1,8 @@
 #!/usr/bin/env zsh
 
-## these commands cause the loading of nvm or conda on-demand
-export __DOTFILES_LAZY_NVM_CMDS=( 'nvm' 'node' 'yarn' 'npm' 'npx' 'cdk' 'vercel' 'codex' )
+## these commands cause the loading of conda on-demand
 export __DOTFILES_LAZY_CONDA_CMDS=( 'conda' 'mamba' 'ipython' 'pip' 'pip3' )
 
-
-nvm-unalias() {
-    # remove nvm aliases
-    for lazy_nvm_alias in $__DOTFILES_LAZY_NVM_CMDS; do
-        unalias $lazy_nvm_alias &> /dev/null || true
-    done
-    unset __DOTFILES_LAZY_NVM_CMDS
-}
 
 conda-unalias() {
     # remove conda aliases
@@ -19,27 +10,6 @@ conda-unalias() {
         unalias $lazy_conda_alias &> /dev/null || true
     done
     unset __DOTFILES_LAZY_CONDA_CMDS
-}
-
-nvm-init() {
-    # locate nvm
-    local nvm_basedir
-    if [ -n "$1" ]; then
-        nvm_basedir="$1"
-    elif [ -d "${HOME}/.local/share/nvm" ]; then
-        nvm_basedir="${HOME}/.local/share/nvm"
-    elif [ -d "${XDG_DATA_HOME}/nvm" ]; then
-        nvm_basedir="${XDG_DATA_HOME}/nvm"
-    else
-        echo "No nvm installation dir found and none passed." >&2
-        return 1
-    fi
-
-    nvm-unalias
-
-    # init nvm
-    . "${nvm_basedir}/nvm.sh"
-    nvm use default
 }
 
 conda-init() {
@@ -65,25 +35,9 @@ conda-init() {
     echo "Now using conda @ ${CONDA_PREFIX} ($(python --version))"
 }
 
-nvm-prime-init() {
-    # prime nvm init until reboot
-    touch /var/run/user/$(id -u)/nvm-init-primed
-}
-
 conda-prime-init() {
     # prime conda init until reboot
     touch /var/run/user/$(id -u)/conda-init-primed
-}
-
-nvm-lazy-init() {
-    # lazy init nvm only when relevant commands are called or if primed
-    if [ -f "/var/run/user/$(id -u)/nvm-init-primed" ]; then
-        nvm-init
-        return 0
-    fi
-    for lazy_nvm_alias in $__DOTFILES_LAZY_NVM_CMDS; do
-        alias $lazy_nvm_alias="nvm-init && \\$lazy_nvm_alias"
-    done
 }
 
 conda-lazy-init() {

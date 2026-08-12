@@ -13,6 +13,11 @@ for d in ~/.dotfiles/scripts/*; do
 done
 export PATH=$HOME/.local/bin:$SCRIPTPATHS$PATH
 
+# if fnm alias exists, put default node version on path
+if [ -d "${HOME}/.local/share/fnm/aliases/default" ]; then
+    export PATH="$HOME/.local/share/fnm/aliases/default/bin:${PATH}"
+fi
+
 # don't fail uvx if offline
 export UVX_OFFLINE=1
 
