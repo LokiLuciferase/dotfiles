@@ -93,6 +93,9 @@ alias suvi=sudoedit
 
 [[ "$(which ssha 2> /dev/null)" != '' ]] && compdef _ssh ssha=ssh
 
+# misc
+alias nflint='nextflow lint -format -spaces 2 -sort-declarations -harshil-alignment .'
+
 ##silly
 alias :q='exit'
 alias :wq='echo "beep boop...saved" && sleep 1 && exit'
