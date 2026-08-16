@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_config xmlns="http://openbox.org/3.4/rc">
+  <desktops number="10">
+    <popupTime>500</popupTime>
+  </desktops>
+  <theme>
+    <name>PiXtrix</name>
+    <cornerRadius>0</cornerRadius>
+    <keepBorder>yes</keepBorder>
+    <font place="ActiveWindow">
+      <name>Nunito Sans</name>
+      <size>12</size>
+      <weight>Light</weight>
+      <slant>Normal</slant>
+    </font>
+    <font place="InactiveWindow">
+      <name>Nunito Sans</name>
+      <size>12</size>
+      <weight>Light</weight>
+      <slant>Normal</slant>
+    </font>
+    <font place="OnScreenDisplay">
+      <name>Nunito Sans</name>
+      <size>12</size>
+      <weight>Light</weight>
+      <slant>Normal</slant>
+    </font>
+    <dropShadows>yes</dropShadows>
+    <titlebar>
+      <layout>:iconify,max,close</layout>
+    </titlebar>
+  </theme>
+  <keyboard>
+    <numlock>off</numlock>
+    <default/>
+    <keybind key="A-Left"/>
+    <keybind key="A-Right"/>
+    <keybind key="A-Up"/>
+    <keybind key="A-Down"/>
+    <keybind key="C-A-Left">
+      <action name="SnapToEdge" direction="left"/>
+    </keybind>
+    <keybind key="C-A-Right">
+      <action name="SnapToEdge" direction="right"/>
+    </keybind>
+    <keybind key="C-A-Up">
+      <action name="Maximize"/>
+    </keybind>
+    <keybind key="C-A-Down">
+      <action name="UnMaximize"/>
+    </keybind>
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute">
+        <command>wfpanelctl volumepulse volu</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute">
+        <command>wfpanelctl volumepulse vold</command>
+      </action>
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute">
+        <command>wfpanelctl volumepulse mute</command>
+      </action>
+    </keybind>
+    <keybind key="Super_L" onRelease="yes">
+      <action name="Execute">
+        <command>wfpanelctl smenu menu</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-w">
+      <action name="Execute">
+        <command>wfpanelctl netman menu</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-b">
+      <action name="Execute">
+        <command>wfpanelctl bluetooth menu</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-t">
+      <action name="Execute">
+        <command>lxterminal</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-space">
+      <action name="Execute">
+        <command>gui-pkinst orca reboot</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-Delete">
+      <action name="Execute">
+        <command>pishutdown</command>
+      </action>
+    </keybind>
+    <keybind key="XF86PowerOff" onRelease="yes">
+      <action name="Execute">
+        <command>pwrkey</command>
+      </action>
+    </keybind>
+    <keybind key="Print">
+      <action name="Execute">
+        <command>grim</command>
+      </action>
+    </keybind>
+    <keybind key="C-A-m">
+      <action name="ToggleMagnify"/>
+    </keybind>
+    <keybind key="C-A-l">
+      <action name="Execute">
+        <command>swaylock -p</command>
+      </action>
+    </keybind>
+    <keybind key="A-F2">
+      <action name="Execute">
+        <command>gui-runcmd</command>
+      </action>
+    </keybind>
+    <!-- ============================================================
+     Sway-ish personal keybindings
+     W = Super, A = Alt, C = Ctrl, S = Shift
+     ============================================================ -->
+    <!-- Terminal -->
+    <keybind key="W-Return">
+      <action name="Execute">
+        <command>sh -lc 'foot || alacritty -o font.size=12 || xterm'</command>
+      </action>
+    </keybind>
+    <!-- Browser -->
+    <keybind key="W-b">
+      <action name="Execute">
+        <command>sh -lc 'firefox || brave-browser || sensible-browser'</command>
+      </action>
+    </keybind>
+    <keybind key="W-S-b">
+      <action name="Execute">
+        <command>sh -lc 'firefox --private-window || brave-browser --incognito'</command>
+      </action>
+    </keybind>
+    <!-- Launchers -->
+    <keybind key="W-d">
+      <action name="Execute">
+        <command>~/.config/rofi/dmenu-launcher.sh drun</command>
+      </action>
+    </keybind>
+    <keybind key="W-S-d">
+      <action name="Execute">
+        <command>rofimoji --action copy --selector-args="-theme ~/.config/rofi/config.rasi"</command>
+      </action>
+    </keybind>
+    <keybind key="W-F1">
+      <action name="Execute">
+        <command>~/.config/rofi/dmenu-launcher.sh window</command>
+      </action>
+    </keybind>
+    <keybind key="W-S-s">
+      <action name="Execute">
+        <command>~/.config/rofi/dmenu-launcher.sh ssh</command>
+      </action>
+    </keybind>
+    <!-- Lock -->
+    <keybind key="C-A-l">
+      <action name="Execute">
+        <command>swaylock -f</command>
+      </action>
+    </keybind>
+    <!-- Close window: closest equivalent of sway 'kill' -->
+    <keybind key="W-S-q">
+      <action name="Close"/>
+    </keybind>
+    <!-- Fullscreen -->
+    <keybind key="W-f">
+      <action name="ToggleFullscreen"/>
+    </keybind>
+    <!-- Reload -->
+    <keybind key="W-S-c">
+      <action name="Reconfigure"/>
+    </keybind>
+    <!-- There is no useful Sway-style "restart in place" distinction here.
+     Keep the muscle memory and reconfigure instead. -->
+    <keybind key="W-S-r">
+      <action name="Reconfigure"/>
+    </keybind>
+    <keybind key="W-1">
+      <action name="GoToDesktop" to="1"/>
+    </keybind>
+    <keybind key="W-2">
+      <action name="GoToDesktop" to="2"/>
+    </keybind>
+    <keybind key="W-3">
+      <action name="GoToDesktop" to="3"/>
+    </keybind>
+    <keybind key="W-4">
+      <action name="GoToDesktop" to="4"/>
+    </keybind>
+    <keybind key="W-5">
+      <action name="GoToDesktop" to="5"/>
+    </keybind>
+    <keybind key="W-6">
+      <action name="GoToDesktop" to="6"/>
+    </keybind>
+    <keybind key="W-7">
+      <action name="GoToDesktop" to="7"/>
+    </keybind>
+    <keybind key="W-8">
+      <action name="GoToDesktop" to="8"/>
+    </keybind>
+    <keybind key="W-9">
+      <action name="GoToDesktop" to="9"/>
+    </keybind>
+    <keybind key="W-0">
+      <action name="GoToDesktop" to="10"/>
+    </keybind>
+    <keybind key="W-S-1">
+      <action name="SendToDesktop" to="1" follow="no"/>
+    </keybind>
+    <keybind key="W-S-2">
+      <action name="SendToDesktop" to="2" follow="no"/>
+    </keybind>
+    <keybind key="W-S-3">
+      <action name="SendToDesktop" to="3" follow="no"/>
+    </keybind>
+    <keybind key="W-S-4">
+      <action name="SendToDesktop" to="4" follow="no"/>
+    </keybind>
+    <keybind key="W-S-5">
+      <action name="SendToDesktop" to="5" follow="no"/>
+    </keybind>
+    <keybind key="W-S-6">
+      <action name="SendToDesktop" to="6" follow="no"/>
+    </keybind>
+    <keybind key="W-S-7">
+      <action name="SendToDesktop" to="7" follow="no"/>
+    </keybind>
+    <keybind key="W-S-8">
+      <action name="SendToDesktop" to="8" follow="no"/>
+    </keybind>
+    <keybind key="W-S-9">
+      <action name="SendToDesktop" to="9" follow="no"/>
+    </keybind>
+    <keybind key="W-S-0">
+      <action name="SendToDesktop" to="10" follow="no"/>
+    </keybind>
+    <!-- "split horizontal" -> put current window on left half -->
+    <keybind key="W-h">
+      <action name="ToggleSnapToEdge" direction="left"/>
+    </keybind>
+    <!-- "split vertical" -> put current window on right half -->
+    <keybind key="W-v">
+      <action name="ToggleSnapToEdge" direction="right"/>
+    </keybind>
+    <!-- Return snapped/maximized window to its old floating geometry -->
+    <keybind key="W-BackSpace">
+      <action name="UnSnap"/>
+    </keybind>
+    <!-- Your old floating toggles become "make this window floating" -->
+    <keybind key="W-S-space">
+      <action name="UnSnap"/>
+    </keybind>
+    <keybind key="W-S-F">
+      <action name="UnSnap"/>
+    </keybind>
+  </keyboard>
+  <mouse>
+    <default/>
+    <context name="Title">
+      <mousebind button="Right" action="Click">
+      </mousebind>
+    </context>
+    <context name="WindowMenu">
+      <mousebind button="Left" action="Click">
+      </mousebind>
+      <mousebind button="Right" action="Click">
+      </mousebind>
+    </context>
+    <context name="All">
+      <mousebind direction="W-Up" action="Scroll">
+        <action name="ZoomIn"/>
+      </mousebind>
+      <mousebind direction="W-Down" action="Scroll">
+        <action name="ZoomOut"/>
+      </mousebind>
+    </context>
+  </mouse>
+  <windowRules>
+    <windowRule identifier="Kodi" serverDecoration="yes"/>
+  </windowRules>
+  <snapping>
+    <range>0</range>
+    <topMaximize>no</topMaximize>
+  </snapping>
+  <magnifier>
+    <width>-1</width>
+    <height>-1</height>
+    <initScale>2.0</initScale>
+    <increment>0.2</increment>
+    <useFilter>false</useFilter>
+  </magnifier>
+  <windowSwitcher show="yes" preview="yes" outlines="yes" allWorkspaces="no">
+    <fields>
+      <field content="icon" width="5%"/>
+      <field content="title" width="95%"/>
+    </fields>
+  </windowSwitcher>
+  <touch deviceName="10-0038 generic ft5x06 (79)" mapToOutput="DSI-1" mouseEmulation="yes"/>
+  <touch deviceName="11-0038 generic ft5x06 (79)" mapToOutput="DSI-2" mouseEmulation="yes"/>
+  <touch deviceName="6-0038 generic ft5x06 (79)" mapToOutput="DSI-1" mouseEmulation="yes"/>
+  <touch deviceName="4-0038 generic ft5x06 (79)" mapToOutput="DSI-2" mouseEmulation="yes"/>
+  <touch deviceName="10-0038 generic ft5x06 (00)" mapToOutput="DSI-1" mouseEmulation="yes"/>
+  <touch deviceName="11-0038 generic ft5x06 (00)" mapToOutput="DSI-2" mouseEmulation="yes"/>
+  <touch deviceName="6-0038 generic ft5x06 (00)" mapToOutput="DSI-1" mouseEmulation="yes"/>
+  <touch deviceName="4-0038 generic ft5x06 (00)" mapToOutput="DSI-2" mouseEmulation="yes"/>
+  <touch deviceName="10-005d Goodix Capacitive TouchScreen" mapToOutput="DSI-1" mouseEmulation="yes"/>
+  <touch deviceName="11-005d Goodix Capacitive TouchScreen" mapToOutput="DSI-2" mouseEmulation="yes"/>
+  <touch deviceName="6-005d Goodix Capacitive TouchScreen" mapToOutput="DSI-1" mouseEmulation="yes"/>
+  <touch deviceName="4-005d Goodix Capacitive TouchScreen" mapToOutput="DSI-2" mouseEmulation="yes"/>
+  <touch deviceName="10-0041 ili_v3" mapToOutput="DSI-1" mouseEmulation="yes"/>
+  <touch deviceName="11-0041 ili_v3" mapToOutput="DSI-2" mouseEmulation="yes"/>
+</openbox_config>
