@@ -229,4 +229,6 @@
     "**/.forgejo/workflows/*.yml",
     "**/.forgejo/workflows/*.yaml",
   ],
+  "files.eol": "\n",
+  "python.languageServer": "Default",
 }
