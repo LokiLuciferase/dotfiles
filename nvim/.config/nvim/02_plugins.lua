@@ -234,11 +234,27 @@ local plugin_spec = {
                 { noremap = true, desc = "Open repo diff" })
             vim.api.nvim_set_keymap("n", "<leader>dc", ":DiffviewClose<CR>",
                 { noremap = true, desc = "Close repo diff" })
+            vim.keymap.set("n", "<leader>dh", "<Cmd>DiffviewFileHistory<CR>",
+                { desc = "Diff commit history" })
+            vim.keymap.set("n", "<leader>dr", ":DiffviewFileHistory --reverse --range=",
+                { desc = "Diff commit range (oldest first)" })
         end,
         config = function()
-            require("diffview").setup({ enhanced_diff_hl = true, use_icons = false })
+            local actions = require("diffview.actions")
+            local commit_keys = {
+                { "n", "]r", actions.select_next_commit, { desc = "Next commit" } },
+                { "n", "[r", actions.select_prev_commit, { desc = "Previous commit" } },
+            }
+            require("diffview").setup({
+                enhanced_diff_hl = true,
+                use_icons = false,
+                keymaps = {
+                    view = commit_keys,
+                    file_history_panel = commit_keys,
+                },
+            })
         end,
-        cmd = { "DiffviewOpen", "DiffviewClose" },
+        cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
     },
     {
         -- Undotree visualizer

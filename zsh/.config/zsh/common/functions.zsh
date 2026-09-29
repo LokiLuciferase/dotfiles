@@ -367,6 +367,19 @@ git-nvimdiff() {
     nvimdiff -c "DiffviewOpen ${1:-}"
 }
 
+git-nvimdiff-history() {
+    # git commit history using neovim diffview, optionally limited to a revision range
+    require-command nvim || return 1
+    local history_command="DiffviewFileHistory"
+    local revision_range="${1:-}"
+    if [[ -n "$revision_range" ]]; then
+        # Like gvd, a single revision is the base; explicit ranges pass through.
+        [[ "$revision_range" == *..* ]] || revision_range+="..HEAD"
+        history_command+=" --range=$revision_range"
+    fi
+    nvimdiff -c "$history_command"
+}
+
 get-newest() {
     # gets the newest directory entry by modification time
     DIR="${1:-.}"
