@@ -18,6 +18,9 @@ for_window [class=".*"] border pixel 0
 # manage scratchpad: start terminal
 for_window [title="Scratchpad"] move scratchpad
 
+# popups
+popup_during_fullscreen all
+
 # import environment variables - which default tools to use
 font pango:Monospace,DejaVuSansMNerdFont 10
 set_from_resource $term_font_size terminal.font.size 12
