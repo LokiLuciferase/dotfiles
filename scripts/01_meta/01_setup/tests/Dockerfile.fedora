@@ -1,7 +1,6 @@
 FROM fedora:latest
 
 ARG DOTFILES_MACHINE_TYPE=headless
-ARG DOTFILES_INSTALL_HEAVY_DEV=false
 ARG DOTFILES_TESTING=true
 
 RUN dnf install -y ca-certificates curl git sudo which \
@@ -17,7 +16,5 @@ WORKDIR /home/testuser
 ENV PATH=/home/testuser/.local/bin:$PATH
 
 RUN DOTFILES_MACHINE_TYPE=${DOTFILES_MACHINE_TYPE} \
-    DOTFILES_INSTALL_HEAVY_DEV=${DOTFILES_INSTALL_HEAVY_DEV} \
     DOTFILES_TESTING=${DOTFILES_TESTING} \
-    DOTFILES_SYSTEM_PACKAGE_MANAGER=dnf \
     /home/testuser/.dotfiles/scripts/01_meta/01_setup/bootstrap.sh

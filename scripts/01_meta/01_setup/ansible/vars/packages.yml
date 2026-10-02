@@ -1,85 +1,28 @@
 ---
 dotfiles_required_package_groups:
   - minimal
-  - env
   - heavy_dev
-
-dotfiles_flatpak_remotes:
-  - name: flathub
-    url: https://flathub.org/repo/flathub.flatpakrepo
-
-dotfiles_heavy_dev_system_packages:
-  apt:
-    - build-essential
-    - cmake
-    - python3-pip
-  dnf:
-    - "@development-tools"
-    - cmake
-    - python3-pip
-  pacman:
-    - base-devel
-    - cmake
-    - python-pip
-  apk:
-    - alpine-sdk
-    - cmake
-    - py3-pip
-
-dotfiles_cargo_creates:
-  https://github.com/LokiLuciferase/workstyle.git: "{{ dotfiles_home }}/.local/bin/workstyle"
-  https://github.com/ayosec/alacritty.git: "{{ dotfiles_home }}/.local/bin/alacritty"
 
 dotfiles_package_groups:
   minimal:
-    apt:
+    system:
       - git
       - curl
       - make
-    dnf:
-      - git
-      - curl
-      - make
-    pacman:
-      - git
-      - curl
-      - make
-    apk:
-      - git
-      - curl
-      - make
+      - unzip
+      - neovim
+      - zsh
+      - tmux
 
-  env:
-    apt:
-      - zsh
-      - tmux
-      - git
-    dnf:
-      - zsh
-      - tmux
-      - git
-    pacman:
-      - zsh
-      - tmux
-      - git
-    apk:
-      - zsh
-      - tmux
-      - git
-
-  vim:
-    apt:
-      - neovim
-    dnf:
-      - neovim
-    pacman:
-      - neovim
-    apk:
-      - neovim
+  heavy_dev:
+    system:
+      - compiler_toolchain
+      - cmake
+      - python_pip
 
   various:
-    apt:
-      - build-essential
+    system:
+      - compiler_toolchain
       - xsel
       - cmake
       - tree
@@ -95,145 +38,31 @@ dotfiles_package_groups:
       - fzf
       - highlight
       - sshfs
-      - python3-pip
-      - ncdu
-    dnf:
-      - "@development-tools"
-      - xsel
-      - cmake
-      - tree
-      - htop
-      - rename
-      - pigz
-      - progress
-      - colordiff
-      - jq
-      - tmux
-      - parallel
-      - ripgrep
-      - fzf
-      - highlight
-      - sshfs
-      - python3-pip
-      - ncdu
-    pacman:
-      - base-devel
-      - xsel
-      - cmake
-      - tree
-      - htop
-      - rename
-      - pigz
-      - progress
-      - colordiff
-      - jq
-      - tmux
-      - parallel
-      - ripgrep
-      - fzf
-      - highlight
-      - sshfs
-      - python-pip
-      - ncdu
-    apk:
-      - alpine-sdk
-      - xsel
-      - cmake
-      - tree
-      - htop
-      - pigz
-      - progress
-      - colordiff
-      - jq
-      - tmux
-      - parallel
-      - ripgrep
-      - fzf
-      - highlight
-      - sshfs
-      - py3-pip
+      - python_pip
       - ncdu
 
   desktop:
-    apt:
+    system:
       - ffmpeg
       - lightdm
-      - slick-greeter
+      - slick_greeter
       - timeshift
       - mpv
       - redshift
-      - light-locker
+      - light_locker
       - xdotool
       - alacritty
       - flatpak
       - picom
       - i3
-      - i3-gaps
       - dex
       - rofi
       - feh
       - dunst
       - arandr
-      - fonts-powerline
+      - powerline_fonts
       - scrot
       - imagemagick
-      - brightnessctl
-      - playerctl
-      - pavucontrol
-      - lxappearance
-      - zathura
-      - xclip
-      - syncthing
-    dnf:
-      - ffmpeg
-      - lightdm
-      - slick-greeter
-      - timeshift
-      - mpv
-      - redshift
-      - light-locker
-      - xdotool
-      - alacritty
-      - flatpak
-      - picom
-      - i3
-      - i3-gaps
-      - dex
-      - rofi
-      - feh
-      - dunst
-      - arandr
-      - powerline-fonts
-      - scrot
-      - imagemagick
-      - brightnessctl
-      - playerctl
-      - pavucontrol
-      - lxappearance
-      - zathura
-      - xclip
-      - syncthing
-    pacman:
-      - ffmpeg
-      - lightdm
-      - timeshift
-      - mpv
-      - redshift
-      - light-locker
-      - xdotool
-      - alacritty
-      - flatpak
-      - picom
-      - i3
-      - i3-gaps
-      - dex
-      - rofi
-      - feh
-      - dunst
-      - arandr
-      - powerline-fonts-git
-      - scrot
-      - ImageMagick
       - brightnessctl
       - playerctl
       - pavucontrol
@@ -242,83 +71,502 @@ dotfiles_package_groups:
       - xclip
       - syncthing
       - blueman
-    apk:
-      - ffmpeg
-      - lightdm
-      - slick-greeter
-      - mpv
-      - redshift
-      - xdotool
-      - alacritty
-      - flatpak
-      - picom
-      - i3wm
-      - i3wm-gaps
-      - rofi
-      - feh
-      - dunst
-      - arandr
-      - font-dejavu-sans-mono-nerd
-      - scrot
-      - imagemagick
-      - brightnessctl
-      - playerctl
-      - pavucontrol
-      - zathura
-      - xclip
-      - syncthing
-      - blueman
+
     pip:
       - rofimoji
       - autorandr
-      - bumblebee-status
+      - bumblebee_status
       - i3ipc
+
     flatpak:
-      - flathub@com.github.tchx84.Flatseal
-      - flathub@org.keepassxc.KeePassXC
-      - flathub@org.signal.Signal
-      - flathub@org.telegram.desktop
-      - flathub@com.spotify.Client
-      - flathub@org.jeffvli.feishin
-      - flathub@org.jellyfin.JellyfinDesktop
-      - flathub@org.mozilla.Thunderbird
+      - flatseal
+      - keepassxc
+      - signal
+      - telegram
+      - spotify
+      - feishin
+      - jellyfin_desktop
+      - thunderbird
+
     cargo:
-      - https://github.com/LokiLuciferase/workstyle.git
-      - https://github.com/ayosec/alacritty.git
+      - workstyle
+      - alacritty_git
 
   wayland:
-    apt:
-      - wl-clipboard
-      - wtype
-      - grim
-      - slurp
-      - gammastep
-    dnf:
-      - wl-clipboard
-      - wtype
-      - grim
-      - slurp
-      - gammastep
-    pacman:
-      - wl-clipboard
+    system:
+      - wl_clipboard
       - wtype
       - grim
       - slurp
       - gammastep
       - sddm
-      - xorg-wayland
-      - xdg-desktop-portal-gtk
+      - xorg_wayland
+      - xdg_desktop_portal_gtk
       - polkit
       - seatd
-    apk:
-      - wl-clipboard
-      - wtype
-      - grim
-      - slurp
-      - gammastep
 
   work:
     flatpak:
-      - flathub@org.mozilla.Thunderbird
-      - flathub@com.github.xournalpp.xournalpp
-      - flathub@org.libreoffice.LibreOffice
+      - thunderbird
+      - xournalpp
+      - libreoffice
+
+
+# Logical system package ID -> native package-manager name.
+#
+# `null` means that this repository currently has no provider for that
+# package on that package manager.
+#
+# Values may be either scalars:
+#
+#   git:
+#     apt: git
+#
+# or lists:
+#
+#   some_package:
+#     apt:
+#       - foo
+#       - foo-common
+#
+dotfiles_system_package_catalog:
+  git:
+    apt: git
+    dnf: git
+    pacman: git
+    apk: git
+
+  curl:
+    apt: curl
+    dnf: curl
+    pacman: curl
+    apk: curl
+
+  make:
+    apt: make
+    dnf: make
+    pacman: make
+    apk: make
+
+  unzip:
+    apt: unzip
+    dnf: unzip
+    pacman: unzip
+    apk: unzip
+
+  zsh:
+    apt: zsh
+    dnf: zsh
+    pacman: zsh
+    apk: zsh
+
+  tmux:
+    apt: tmux
+    dnf: tmux
+    pacman: tmux
+    apk: tmux
+
+  neovim:
+    apt: neovim
+    dnf: neovim
+    pacman: neovim
+    apk: neovim
+
+  compiler_toolchain:
+    apt: build-essential
+    dnf: "@development-tools"
+    pacman: base-devel
+    apk: alpine-sdk
+
+  cmake:
+    apt: cmake
+    dnf: cmake
+    pacman: cmake
+    apk: cmake
+
+  python_pip:
+    apt: python3-pip
+    dnf: python3-pip
+    pacman: python-pip
+    apk: py3-pip
+
+  xsel:
+    apt: xsel
+    dnf: xsel
+    pacman: xsel
+    apk: xsel
+
+  tree:
+    apt: tree
+    dnf: tree
+    pacman: tree
+    apk: tree
+
+  htop:
+    apt: htop
+    dnf: htop
+    pacman: htop
+    apk: htop
+
+  rename:
+    apt: rename
+    dnf: rename
+    pacman: rename
+    apk: null
+
+  pigz:
+    apt: pigz
+    dnf: pigz
+    pacman: pigz
+    apk: pigz
+
+  progress:
+    apt: progress
+    dnf: progress
+    pacman: progress
+    apk: progress
+
+  colordiff:
+    apt: colordiff
+    dnf: colordiff
+    pacman: colordiff
+    apk: colordiff
+
+  jq:
+    apt: jq
+    dnf: jq
+    pacman: jq
+    apk: jq
+
+  parallel:
+    apt: parallel
+    dnf: parallel
+    pacman: parallel
+    apk: parallel
+
+  ripgrep:
+    apt: ripgrep
+    dnf: ripgrep
+    pacman: ripgrep
+    apk: ripgrep
+
+  fzf:
+    apt: fzf
+    dnf: fzf
+    pacman: fzf
+    apk: fzf
+
+  highlight:
+    apt: highlight
+    dnf: highlight
+    pacman: highlight
+    apk: highlight
+
+  sshfs:
+    apt: sshfs
+    dnf: sshfs
+    pacman: sshfs
+    apk: sshfs
+
+  ncdu:
+    apt: ncdu
+    dnf: ncdu
+    pacman: ncdu
+    apk: ncdu
+
+  ffmpeg:
+    apt: ffmpeg
+    dnf: ffmpeg
+    pacman: ffmpeg
+    apk: ffmpeg
+
+  lightdm:
+    apt: lightdm
+    dnf: lightdm
+    pacman: lightdm
+    apk: lightdm
+
+  slick_greeter:
+    apt: slick-greeter
+    dnf: slick-greeter
+    pacman: null
+    apk: slick-greeter
+
+  timeshift:
+    apt: timeshift
+    dnf: timeshift
+    pacman: timeshift
+    apk: null
+
+  mpv:
+    apt: mpv
+    dnf: mpv
+    pacman: mpv
+    apk: mpv
+
+  redshift:
+    apt: redshift
+    dnf: redshift
+    pacman: redshift
+    apk: redshift
+
+  light_locker:
+    apt: light-locker
+    dnf: light-locker
+    pacman: light-locker
+    apk: null
+
+  xdotool:
+    apt: xdotool
+    dnf: xdotool
+    pacman: xdotool
+    apk: xdotool
+
+  alacritty:
+    apt: alacritty
+    dnf: alacritty
+    pacman: alacritty
+    apk: alacritty
+
+  flatpak:
+    apt: flatpak
+    dnf: flatpak
+    pacman: flatpak
+    apk: flatpak
+
+  picom:
+    apt: picom
+    dnf: picom
+    pacman: picom
+    apk: picom
+
+  i3:
+    apt: i3
+    dnf: i3
+    pacman: i3
+    apk: i3wm
+
+  i3_gaps:
+    apt: i3-gaps
+    dnf: i3-gaps
+    pacman: i3-gaps
+    apk: i3wm-gaps
+
+  dex:
+    apt: dex
+    dnf: dex
+    pacman: dex
+    apk: null
+
+  rofi:
+    apt: rofi
+    dnf: rofi
+    pacman: rofi
+    apk: rofi
+
+  feh:
+    apt: feh
+    dnf: feh
+    pacman: feh
+    apk: feh
+
+  dunst:
+    apt: dunst
+    dnf: dunst
+    pacman: dunst
+    apk: dunst
+
+  arandr:
+    apt: arandr
+    dnf: arandr
+    pacman: arandr
+    apk: arandr
+
+  powerline_fonts:
+    apt: fonts-powerline
+    dnf: powerline-fonts
+    pacman: powerline-fonts-git
+    apk: font-dejavu-sans-mono-nerd
+
+  scrot:
+    apt: scrot
+    dnf: scrot
+    pacman: scrot
+    apk: scrot
+
+  imagemagick:
+    apt: imagemagick
+    dnf: imagemagick
+    pacman: ImageMagick
+    apk: imagemagick
+
+  brightnessctl:
+    apt: brightnessctl
+    dnf: brightnessctl
+    pacman: brightnessctl
+    apk: brightnessctl
+
+  playerctl:
+    apt: playerctl
+    dnf: playerctl
+    pacman: playerctl
+    apk: playerctl
+
+  pavucontrol:
+    apt: pavucontrol
+    dnf: pavucontrol
+    pacman: pavucontrol
+    apk: pavucontrol
+
+  lxappearance:
+    apt: lxappearance
+    dnf: lxappearance
+    pacman: lxappearance
+    apk: null
+
+  zathura:
+    apt: zathura
+    dnf: zathura
+    pacman: zathura
+    apk: zathura
+
+  xclip:
+    apt: xclip
+    dnf: xclip
+    pacman: xclip
+    apk: xclip
+
+  syncthing:
+    apt: syncthing
+    dnf: syncthing
+    pacman: syncthing
+    apk: syncthing
+
+  blueman:
+    apt: null
+    dnf: null
+    pacman: blueman
+    apk: blueman
+
+  wl_clipboard:
+    apt: wl-clipboard
+    dnf: wl-clipboard
+    pacman: wl-clipboard
+    apk: wl-clipboard
+
+  wtype:
+    apt: wtype
+    dnf: wtype
+    pacman: wtype
+    apk: wtype
+
+  grim:
+    apt: grim
+    dnf: grim
+    pacman: grim
+    apk: grim
+
+  slurp:
+    apt: slurp
+    dnf: slurp
+    pacman: slurp
+    apk: slurp
+
+  gammastep:
+    apt: gammastep
+    dnf: gammastep
+    pacman: gammastep
+    apk: gammastep
+
+  sddm:
+    apt: null
+    dnf: null
+    pacman: sddm
+    apk: null
+
+  xorg_wayland:
+    apt: null
+    dnf: null
+    pacman: xorg-wayland
+    apk: null
+
+  xdg_desktop_portal_gtk:
+    apt: null
+    dnf: null
+    pacman: xdg-desktop-portal-gtk
+    apk: null
+
+  polkit:
+    apt: null
+    dnf: null
+    pacman: polkit
+    apk: null
+
+  seatd:
+    apt: null
+    dnf: null
+    pacman: seatd
+    apk: null
+
+
+dotfiles_pip_package_catalog:
+  rofimoji: rofimoji
+  autorandr: autorandr
+  bumblebee_status: bumblebee-status
+  i3ipc: i3ipc
+
+
+dotfiles_flatpak_remotes:
+  - name: flathub
+    url: https://flathub.org/repo/flathub.flatpakrepo
+
+dotfiles_flatpak_package_catalog:
+  flatseal:
+    remote: flathub
+    ref: com.github.tchx84.Flatseal
+
+  keepassxc:
+    remote: flathub
+    ref: org.keepassxc.KeePassXC
+
+  signal:
+    remote: flathub
+    ref: org.signal.Signal
+
+  telegram:
+    remote: flathub
+    ref: org.telegram.desktop
+
+  spotify:
+    remote: flathub
+    ref: com.spotify.Client
+
+  feishin:
+    remote: flathub
+    ref: org.jeffvli.feishin
+
+  jellyfin_desktop:
+    remote: flathub
+    ref: org.jellyfin.JellyfinDesktop
+
+  thunderbird:
+    remote: flathub
+    ref: org.mozilla.Thunderbird
+
+  xournalpp:
+    remote: flathub
+    ref: com.github.xournalpp.xournalpp
+
+  libreoffice:
+    remote: flathub
+    ref: org.libreoffice.LibreOffice
+
+
+dotfiles_cargo_package_catalog:
+  workstyle:
+    git: https://github.com/LokiLuciferase/workstyle.git
+    creates: "{{ dotfiles_home }}/.local/bin/workstyle"
+
+  alacritty_git:
+    git: https://github.com/ayosec/alacritty.git
+    creates: "{{ dotfiles_home }}/.local/bin/alacritty"

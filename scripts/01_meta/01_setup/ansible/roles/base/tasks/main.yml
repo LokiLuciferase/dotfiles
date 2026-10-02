@@ -26,7 +26,12 @@
 
 - name: Initialize enabled package groups
   ansible.builtin.set_fact:
-    dotfiles_package_groups_enabled: "{{ ['minimal', 'env', 'vim'] + (['various'] if (dotfiles_install_various | bool) else []) }}"
+    dotfiles_package_groups_enabled: >-
+      {{
+        ['minimal']
+        + (['various'] if (dotfiles_install_various | bool) else [])
+        + (['heavy_dev'] if (dotfiles_install_heavy_dev | bool) else [])
+      }}
 
 - name: Ensure baseline user directories exist
   ansible.builtin.file:

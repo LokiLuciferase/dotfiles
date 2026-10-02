@@ -1,13 +1,59 @@
 ---
-- name: Install {{ dotfiles_package_name }} with {{ dotfiles_effective_package_manager }}
-  ansible.builtin.package:
-    name: "{{ dotfiles_package_name }}"
-    state: present
-  become: "{{ dotfiles_should_become }}"
-  register: dotfiles_package_install
-  failed_when:
-    - dotfiles_package_install is failed
-    - dotfiles_package_group in dotfiles_required_package_groups
+- name: Resolve and install {{ dotfiles_package_id }}
+  vars:
+    _dotfiles_package_provider: >-
+      {{
+        dotfiles_system_package_catalog[dotfiles_package_id]
+        .get(dotfiles_effective_package_manager)
+      }}
+
+    _dotfiles_package_names: >-
+      {{
+        [(_dotfiles_package_provider | default([], true))]
+        | flatten
+        | reject('equalto', none)
+        | list
+      }}
+
   when:
     - dotfiles_can_install_system_packages | bool
-    - dotfiles_package_name | length > 0
+
+  block:
+    - name: Validate logical package ID {{ dotfiles_package_id }}
+      ansible.builtin.assert:
+        that:
+          - dotfiles_package_id in dotfiles_system_package_catalog
+        fail_msg: >-
+          Unknown logical system package ID:
+          {{ dotfiles_package_id }}
+
+    - name: Validate required package provider for {{ dotfiles_package_id }}
+      ansible.builtin.assert:
+        that:
+          - _dotfiles_package_names | length > 0
+        fail_msg: >-
+          Required package {{ dotfiles_package_id }} has no
+          {{ dotfiles_effective_package_manager }} provider.
+      when:
+        - dotfiles_package_group in dotfiles_required_package_groups
+
+    - name: Report unavailable optional package {{ dotfiles_package_id }}
+      ansible.builtin.debug:
+        msg: >-
+          Skipping {{ dotfiles_package_id }}: no
+          {{ dotfiles_effective_package_manager }} provider is configured.
+      when:
+        - _dotfiles_package_names | length == 0
+        - dotfiles_package_group not in dotfiles_required_package_groups
+
+    - name: Install {{ dotfiles_package_id }} as {{ _dotfiles_package_names | join(', ') }}
+      ansible.builtin.package:
+        name: "{{ _dotfiles_package_names }}"
+        state: present
+      become: "{{ dotfiles_should_become }}"
+      register: dotfiles_package_install
+      failed_when:
+        - dotfiles_package_install is failed
+        - dotfiles_package_group in dotfiles_required_package_groups
+      when:
+        - _dotfiles_package_names | length > 0

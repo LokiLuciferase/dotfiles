@@ -2,7 +2,7 @@
 dotfiles_machine_type: headless
 dotfiles_install_work: false
 dotfiles_install_wayland: false
-dotfiles_install_heavy_dev: true
+dotfiles_install_heavy_dev: false
 dotfiles_install_various: false
 dotfiles_allow_sudo: true
 dotfiles_testing: false

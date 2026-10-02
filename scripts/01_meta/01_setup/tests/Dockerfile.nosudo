@@ -5,7 +5,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG TZ=Etc/UTC
 
 ARG DOTFILES_MACHINE_TYPE=headless
-ARG DOTFILES_INSTALL_HEAVY_DEV=false
 ARG DOTFILES_ALLOW_SUDO=false
 ARG DOTFILES_TESTING=true
 
@@ -24,9 +23,8 @@ WORKDIR /home/testuser
 ENV PATH=/home/testuser/.local/bin:$PATH
 
 RUN DOTFILES_MACHINE_TYPE=${DOTFILES_MACHINE_TYPE} \
-    DOTFILES_INSTALL_HEAVY_DEV=${DOTFILES_INSTALL_HEAVY_DEV} \
     DOTFILES_ALLOW_SUDO=${DOTFILES_ALLOW_SUDO} \
     DOTFILES_TESTING=${DOTFILES_TESTING} \
     /home/testuser/.dotfiles/scripts/01_meta/01_setup/bootstrap.sh
 
-RUN bash -lc 'source ~/.local/share/nvm/nvm.sh && node --version && npm --version && ~/.local/bin/uv --version'
+RUN zsh -ic 'node --version && npm --version && ~/.local/bin/uv --version'

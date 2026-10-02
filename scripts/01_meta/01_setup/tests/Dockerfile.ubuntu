@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:latest
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
@@ -45,6 +45,6 @@ RUN --mount=type=cache,target=/var/cache/apt \
     DOTFILES_TESTING=${DOTFILES_TESTING} \
     /home/testuser/.dotfiles/scripts/01_meta/01_setup/bootstrap.sh
 
-RUN bash -lc 'source ~/.local/share/nvm/nvm.sh && node --version && npm --version && ~/.local/bin/uv --version'
+RUN /usr/bin/zsh -ic 'node --version && npm --version && ~/.local/bin/uv --version'
 
 EXPOSE 5901

@@ -44,7 +44,6 @@ Environment overrides:
   DOTFILES_INSTALL_VARIOUS=true|false
   DOTFILES_ALLOW_SUDO=true|false
   DOTFILES_NODE_LTS_MAJOR=24
-  DOTFILES_SYSTEM_PACKAGE_MANAGER=apt|dnf|pacman|apk
 
 Examples:
   bootstrap.sh --headless --no-heavy-dev
@@ -168,10 +167,6 @@ EXTRA_VARS=(
     -e "dotfiles_testing=${DOTFILES_TESTING}"
     -e "dotfiles_node_lts_major=${DOTFILES_NODE_LTS_MAJOR}"
 )
-
-if [[ -n "${DOTFILES_SYSTEM_PACKAGE_MANAGER:-}" ]]; then
-    EXTRA_VARS+=( -e "dotfiles_system_package_manager=${DOTFILES_SYSTEM_PACKAGE_MANAGER}" )
-fi
 
 uvx --from ansible-core ansible-playbook \
     -i localhost, \

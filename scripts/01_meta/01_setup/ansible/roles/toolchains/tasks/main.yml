@@ -7,47 +7,80 @@
   loop:
     - "{{ dotfiles_home }}/.local/bin"
     - "{{ dotfiles_home }}/.local/share"
-    - "{{ dotfiles_home }}/.local/share/nvm"
 
-- name: Install or update nvm
-  ansible.builtin.git:
-    repo: https://github.com/nvm-sh/nvm.git
-    dest: "{{ dotfiles_home }}/.local/share/nvm"
-    depth: 1
-    version: master
+- name: Get latest fnm release
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/Schniz/fnm/releases/latest
+    return_content: true
+    headers:
+      Accept: application/vnd.github+json
+  register: fnm_release
+  changed_when: false
 
-- name: Check selected Node major
-  ansible.builtin.shell: |
-    set -euo pipefail
-    export NVM_DIR="{{ dotfiles_home }}/.local/share/nvm"
-    . "$NVM_DIR/nvm.sh"
-    nvm version {{ dotfiles_node_lts_major }}
-  args:
-    executable: /bin/bash
-  register: dotfiles_node_version
+- name: Determine fnm architecture
+  ansible.builtin.set_fact:
+    fnm_asset: >-
+      {{
+        'fnm-linux.zip'
+        if ansible_facts.architecture == 'x86_64'
+        else 'fnm-arm64.zip'
+        if ansible_facts.architecture in ['aarch64', 'arm64']
+        else 'unsupported'
+      }}
+
+- name: Validate fnm architecture
+  ansible.builtin.assert:
+    that:
+      - fnm_asset != "unsupported"
+    fail_msg: "Unsupported fnm architecture: {{ ansible_facts.architecture }}"
+
+- name: Check installed fnm version
+  ansible.builtin.command:
+    cmd: "{{ dotfiles_home }}/.local/share/fnm/fnm --version"
+  register: fnm_installed
   changed_when: false
   failed_when: false
 
-- name: Install Node {{ dotfiles_node_lts_major }} with nvm
-  ansible.builtin.shell: |
-    set -euo pipefail
-    export NVM_DIR="{{ dotfiles_home }}/.local/share/nvm"
-    . "$NVM_DIR/nvm.sh"
-    nvm install {{ dotfiles_node_lts_major }}
-    nvm alias default {{ dotfiles_node_lts_major }}
-  args:
-    executable: /bin/bash
-  when: dotfiles_node_version.stdout == "N/A"
+- name: Install latest fnm
+  when: >-
+    fnm_installed.rc != 0
+    or fnm_release.json.tag_name
+       not in fnm_installed.stdout
+  block:
+    - name: Download fnm {{ fnm_release.json.tag_name }}
+      ansible.builtin.get_url:
+        url: >-
+          https://github.com/Schniz/fnm/releases/download/{{
+            fnm_release.json.tag_name
+          }}/{{ fnm_asset }}
+        dest: /tmp/fnm.zip
+        mode: "0644"
 
-- name: Ensure nvm default alias points to Node {{ dotfiles_node_lts_major }}
-  ansible.builtin.shell: |
-    set -euo pipefail
-    export NVM_DIR="{{ dotfiles_home }}/.local/share/nvm"
-    . "$NVM_DIR/nvm.sh"
-    nvm alias default {{ dotfiles_node_lts_major }}
-  args:
-    executable: /bin/bash
-  changed_when: false
+    - name: Ensure fnm directory exists
+      ansible.builtin.file:
+        path: "{{ dotfiles_home }}/.local/share/fnm"
+        state: directory
+        mode: "0755"
+
+    - name: Extract fnm
+      ansible.builtin.unarchive:
+        src: /tmp/fnm.zip
+        dest: "{{ dotfiles_home }}/.local/share/fnm"
+        remote_src: true
+
+    - name: Install default node version
+      ansible.builtin.command:
+        cmd: "{{ dotfiles_home }}/.local/share/fnm/fnm install {{ dotfiles_node_lts_major }}"
+      environment:
+        FNM_DIR: "{{ dotfiles_home }}/.local/share/fnm"
+      changed_when: false
+
+    - name: Set default node version
+      ansible.builtin.command:
+        cmd: "{{ dotfiles_home }}/.local/share/fnm/fnm default {{ dotfiles_node_lts_major }}"
+      environment:
+        FNM_DIR: "{{ dotfiles_home }}/.local/share/fnm"
+      changed_when: false
 
 - name: Check whether uv is installed
   ansible.builtin.stat:
@@ -138,11 +171,14 @@
     set -euo pipefail
     export CARGO_HOME="{{ dotfiles_home }}/.local/share/cargo"
     export RUSTUP_HOME="{{ dotfiles_home }}/.local/share/rustup"
-    "{{ dotfiles_home }}/.local/share/cargo/bin/cargo" +stable install --git "{{ item }}" --root "{{ dotfiles_home }}/.local"
+
+    "{{ dotfiles_home }}/.local/share/cargo/bin/cargo" \
+      +stable install \
+      --git "{{ dotfiles_cargo_package_catalog[item].git }}" \
+      --root "{{ dotfiles_home }}/.local"
   args:
     executable: /bin/bash
-    creates: "{{ dotfiles_cargo_creates[item] }}"
-  loop: "{{ dotfiles_cargo_packages | default([]) }}"
+    creates: "{{ dotfiles_cargo_package_catalog[item].creates }}"
+  loop: "{{ dotfiles_cargo_package_ids | default([]) }}"
   when:
     - dotfiles_install_heavy_dev | bool
-    - item in dotfiles_cargo_creates
