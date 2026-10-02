@@ -90,11 +90,14 @@ alias nvim="${VIM_BIN} -p"
 alias nvimdiff='\nvim -d'
 alias gvd="git-nvimdiff"
 alias gvdh="git-nvimdiff-history"
-compdef _git gvd=git-diff git-nvimdiff=git-diff
-compdef _git gvdh=git-log git-nvimdiff-history=git-log
 alias suvi=sudoedit
 
-[[ "$(which ssha 2> /dev/null)" != '' ]] && compdef _ssh ssha=ssh
+# completion
+if [[ "$(which compdef 2> /dev/null)" != "" ]]; then
+    compdef _git gvd=git-diff git-nvimdiff=git-diff
+    compdef _git gvdh=git-log git-nvimdiff-history=git-log
+    [[ "$(which ssha 2> /dev/null)" != '' ]] && compdef _ssh ssha=ssh
+fi
 
 # misc
 alias nflint='nextflow lint -format -spaces 2 -sort-declarations -harshil-alignment .'
